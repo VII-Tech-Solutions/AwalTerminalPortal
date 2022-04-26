@@ -47,4 +47,14 @@ class Attributes extends CustomEnum
     const URL = "url";
     const PROJECTS = "projects";
     const EMAIL_VERIFIED_AT = "email_verified_at";
+    const DESCRIPTION = "description";
+    const FIRST_NAME = "first_name";
+    const LAST_NAME = "last_name";
+    const MESSAGE = "message";
+    const SERVICE_TYPE = "service_type";
+    const PRICE = "price";
+    const LTR = "ltr";
+    const ATTRIBUTES = "attributes";
+    const ALLOWS_NULL = "allows_null";
+
 }

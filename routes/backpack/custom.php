@@ -18,4 +18,8 @@ Route::group([
 ], function () { // custom admin routes
     Route::get('register', function () {
         return redirect('/404');});
+    Route::crud('service', 'ServiceCrudController');
+    Route::crud('about-us', 'AboutUsCrudController');
+    Route::crud('contact-us', 'ContactUsCrudController');
+    Route::crud('user', 'UserCrudController');
 }); // this should be the absolute last line of this file

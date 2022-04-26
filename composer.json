@@ -11,9 +11,12 @@
         "php": "^7.2.5|^8.0",
         "backpack/crud": "4.1.*",
         "bensampo/laravel-enum": "^1.38",
+        "dingo/api": "^3.0.0",
+        "doctrine/dbal": "^2.6",
         "fideloper/proxy": "^4.4",
         "laravel/framework": "^6.20.26",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "viitech/laravel-dev-helpers": "master"
     },
     "require-dev": {
         "backpack/generators": "^3.1",
