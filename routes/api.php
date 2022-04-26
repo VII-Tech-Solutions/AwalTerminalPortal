@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,22 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/*******************************
+ * API
+ *******************************/
+/** @var Router $api */
+
+use App\API\Controllers\ContactUsController;
+use Dingo\Api\Routing\Router;
+
+$api = app('Dingo\Api\Routing\Router');
+$api->version('v1', function ($api) {
+    $api->get('/', function () {
+        return ['status' => true];
+    });
+    $api->group(['namespace' => 'App\API\Controllers'], function () use ($api) {
+//    $api->get('/contact-us/all','ContactUsController@all');
+//    $api->get('/contact-us/{id}','ContactUsController@getOne');
+    $api->post('/contact-us/add','ContactUsController@add');
+    });
 });

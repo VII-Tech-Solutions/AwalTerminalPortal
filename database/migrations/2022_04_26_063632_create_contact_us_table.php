@@ -19,7 +19,7 @@ class CreateContactUsTable extends Migration
             $table->string(Attributes::FIRST_NAME)->nullable();
             $table->string(Attributes::LAST_NAME)->nullable();
             $table->string(Attributes::EMAIL)->nullable();
-            $table->string(Attributes::MESSAGE)->nullable();
+            $table->longText(Attributes::MESSAGE)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -38,4 +38,5 @@ class CustomController extends BaseController
         $this->page = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::PAGE, 1, CastingTypes::INTEGER);
         $this->last_update = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::LAST_UPDATE, null, CastingTypes::STRING);
     }
+
 }

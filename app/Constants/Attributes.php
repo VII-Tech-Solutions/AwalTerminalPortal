@@ -56,5 +56,10 @@ class Attributes extends CustomEnum
     const LTR = "ltr";
     const ATTRIBUTES = "attributes";
     const ALLOWS_NULL = "allows_null";
+    const LIMIT = "limit";
+    const PAGE = "page";
+    const LAST_UPDATE = "last_update";
+    const CONTACT_US = "contact_us";
+    const CREATED_AT = "created_at";
 
 }

@@ -36,6 +36,7 @@ class CustomModel extends Model
 
 //    const TRANSFORMER_NAME = IDTransformer::class;
 
+    const TRANSFORMER_NAME = "transformer_name";
     protected $primaryKey = Attributes::ID;
 
     /**
