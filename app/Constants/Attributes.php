@@ -61,5 +61,24 @@ class Attributes extends CustomEnum
     const LAST_UPDATE = "last_update";
     const CONTACT_US = "contact_us";
     const CREATED_AT = "created_at";
+    const IMAGE = 'image';
+    const FLIGHT_TYPE = "flight_type";
+    const DATE = "date";
+    const TIME = "time";
+    const FLIGHT_NUMBER = "flight_number";
+    const NUMBER_OF_ADULTS = "number_of_adults";
+    const NUMBER_OF_CHILDREN = "number_of_children";
+    const NUMBER_OF_INFANTS = "number_of_infants";
+    const PASSENGER_TITLE = "passenger_title";
+    const PASSENGER_FIRST_NAME = "passenger_first_name";
+    const PASSENGER_LAST_NAME = "passenger_last_name";
+    const DOB = "dob";
+    const NATIONALITY = "nationality";
+    const COUNTRY_ID = "country_id";
+    const COUNTRY = "country";
+    const FLIGHT_CLASS = "flight_class";
+    const PASSENGER = "passenger";
+    const FLIGHT_TYPE_NAME = "flight_type_name";
+    const PASSENGERS = "passengers";
 
 }

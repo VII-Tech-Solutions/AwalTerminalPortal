@@ -6,6 +6,8 @@ use App\constants\AdTypes;
 use App\constants\Attributes;
 use App\constants\ContributeStatus;
 use App\constants\FieldTypes;
+use App\Constants\FlightClasses;
+use App\Constants\PassengerTitles;
 use App\constants\Status;
 use App\constants\TagCategory;
 use App\constants\TicketType;
@@ -93,6 +95,52 @@ class CustomCrudController extends CrudController
         ], $statuses, function ($value) use($column_name) {
             $this->crud->addClause('where', $column_name, $value);
         });
+    }
+
+    /**
+     *  Add Passenger Repeatable Field
+     */
+    public function addPassengerRepeatable()
+    {
+        CRUD::addField([   // repeatable
+            'name'  => Attributes::PASSENGER,
+            'label' => 'Passenger',
+            'type'  => 'repeatable',
+            'fields' => [
+                [
+                    Attributes::NAME => Attributes::PASSENGER_TITLE,
+                    Attributes::LABEL => 'Title',
+                    Attributes::TYPE => FieldTypes::SELECT2_FROM_ARRAY,
+                    Attributes::OPTIONS => PassengerTitles::all(),
+                ],
+                [
+                    Attributes::NAME => Attributes::PASSENGER_FIRST_NAME,
+                    Attributes::LABEL => 'First Name'
+                ],
+                [
+                    Attributes::NAME => Attributes::PASSENGER_LAST_NAME,
+                    Attributes::LABEL => 'Last Name'
+                ],
+                [
+                    Attributes::NAME => Attributes::DOB,
+                    Attributes::LABEL => 'Date of birth'
+                ],
+                [
+                    Attributes::NAME => Attributes::FLIGHT_CLASS,
+                    Attributes::LABEL => 'Class',
+                    Attributes::TYPE => FieldTypes::SELECT2_FROM_ARRAY,
+                    Attributes::OPTIONS => FlightClasses::all(),
+                ],
+                [
+                    Attributes::NAME => Attributes::COUNTRY,
+                    Attributes::LABEL => 'Nationality'
+                ]
+            ],
+
+            // optional
+            'new_item_label'  => 'Add Group', // customize the text of the button
+            'init_rows' => 1, // number of empty rows to be initialized, by default 1
+        ]);
     }
 
     function recordActivity($response,$userOriginal = null,$id = null,$model = null,$action= null)

@@ -20,6 +20,7 @@ class CreateServicesTable extends Migration
             $table->longText(Attributes::DESCRIPTION)->nullable();
             $table->string(Attributes::SERVICE_TYPE)->nullable();
             $table->double(Attributes::PRICE)->nullable();
+            $table->longText(Attributes::IMAGE)->nullable();
             $table->string(Attributes::STATUS)->nullable();
             $table->timestamps();
             $table->softDeletes();

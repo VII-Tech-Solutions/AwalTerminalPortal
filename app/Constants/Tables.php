@@ -21,6 +21,8 @@ class Tables extends CustomEnum
     const ROLE_HAS_PERMISSIONS = "role_has_permissions";
     const MODEL_HAS_ROLES = "model_has_roles";
     const BOOKMARKS = "bookmarks";
+    const AIRPORTS = "airports";
+    const COUNTRIES = "countries";
 
 
 }

@@ -26,6 +26,8 @@ $api->version('v1', function ($api) {
     });
     $api->group(['namespace' => 'App\API\Controllers'], function () use ($api) {
 //    $api->get('/contact-us/all','ContactUsController@all');
+    $api->get('/elite-service/all','EliteServiceController@all');
+    $api->post('/elite-service/add','EliteServiceController@add');
 //    $api->get('/contact-us/{id}','ContactUsController@getOne');
     $api->post('/contact-us/add','ContactUsController@add');
     });
