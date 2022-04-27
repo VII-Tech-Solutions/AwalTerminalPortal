@@ -6,6 +6,7 @@ use App\Mail\TestMail;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use VIITech\Helpers\GlobalHelpers;
 
 class SendEmailCommand extends Command
 {
@@ -19,8 +20,8 @@ class SendEmailCommand extends Command
         if(empty($email)){
             dd("Invalid Email");
         }
-        $this->sendMailable(new TestMail($email), $email);
-        $this->info("Email sent");
+        $result = $this->sendMailable(new TestMail($email), $email);
+        $this->info("Email sent: " . GlobalHelpers::readableBoolean($result));
     }
 
     /**
@@ -33,12 +34,14 @@ class SendEmailCommand extends Command
     {
         try {
             if (env("ENABLE_SENDING_EMAILS", true)) {
-                Mail::to($send_to_emails)->send($mailable);
-                return true;
+                return Mail::to($send_to_emails)->send($mailable);
             } else {
                 return false;
             }
         } catch (Exception $e) {
+            if(GlobalHelpers::isDevelopmentEnv()){
+                dd($e->getMessage());
+            }
             return false;
         }
     }
