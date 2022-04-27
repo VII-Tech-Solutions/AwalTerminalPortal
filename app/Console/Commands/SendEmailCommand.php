@@ -33,12 +33,12 @@ class SendEmailCommand extends Command
     {
         try {
             if (env("ENABLE_SENDING_EMAILS", true)) {
-                Mail::to($send_to_emails)->send($mailable);
-                return true;
+                return Mail::to($send_to_emails)->send($mailable);
             } else {
                 return false;
             }
         } catch (Exception $e) {
+            dd($e->getMessage());
             return false;
         }
     }
