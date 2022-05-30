@@ -7,4 +7,6 @@ composer install
 php artisan migrate
 npm install
 npm run dev
+php artisan backpack:install
+php artisan db:seed
 ```
