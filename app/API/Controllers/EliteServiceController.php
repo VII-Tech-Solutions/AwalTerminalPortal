@@ -67,14 +67,15 @@ class EliteServiceController extends CustomController
             Attributes::NUMBER_OF_INFANTS => $number_of_inftants,
             Attributes::PASSENGER => $json
         ]);
-        if($service){
-            return Helpers::returnResponse([
-                'Message' => 'Successful',
-                'Elite Services' => EliteServices::returnTransformedItems($service,EliteServiceTransformer::class)
+//        if($service){
+//            return Helpers::returnResponse([
+//                'Message' => 'Successful',
+//                'Elite Services' => EliteServices::returnTransformedItems($service,EliteServiceTransformer::class)
 
-            ]);
-        }
-        return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
+//            ]);
+//        }
+//        return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
+        return GlobalHelpers::formattedJSONResponse("Successful", null, null,  200);
 
     }
 }
