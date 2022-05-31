@@ -64,7 +64,7 @@ class GeneralAviationFormController extends CustomController
 
         foreach ($array as $key => $request) {
             if (is_null($request)) {
-                return GlobalHelpers::formattedJSONResponse("Attribute ".$key." is Missing", [], [], Response::HTTP_BAD_REQUEST);
+//                return GlobalHelpers::formattedJSONResponse("Attribute ".$key." is Missing", [], [], Response::HTTP_BAD_REQUEST);
             }
         }
 

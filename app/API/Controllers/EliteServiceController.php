@@ -47,26 +47,26 @@ class EliteServiceController extends CustomController
             'number of adults' => $number_of_adults, 'Passenger' => $passenger];
         foreach ($array as $key => $request) {
             if (is_null($request)) {
-                return GlobalHelpers::formattedJSONResponse("Attribute ".$key." is Missing", [], [], Response::HTTP_BAD_REQUEST);
+//                return GlobalHelpers::formattedJSONResponse("Attribute ".$key." is Missing", [], [], Response::HTTP_BAD_REQUEST);
             }
         }
         if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$date)) {
-            return GlobalHelpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
+//            return GlobalHelpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
         }
         if (!preg_match("/^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/",$time)) {
-            return GlobalHelpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
+//            return GlobalHelpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
         }
             $json = json_encode($passenger);
-        $service = EliteServices::createOrUpdate([
-            Attributes::FLIGHT_TYPE => $flight_type,
-            Attributes::DATE => $date,
-            Attributes::TIME => $time,
-            Attributes::FLIGHT_NUMBER => $flight_number,
-            Attributes::NUMBER_OF_ADULTS => $number_of_adults,
-            Attributes::NUMBER_OF_CHILDREN => $number_of_children,
-            Attributes::NUMBER_OF_INFANTS => $number_of_inftants,
-            Attributes::PASSENGER => $json
-        ]);
+//        $service = EliteServices::createOrUpdate([
+//            Attributes::FLIGHT_TYPE => $flight_type,
+//            Attributes::DATE => $date,
+//            Attributes::TIME => $time,
+//            Attributes::FLIGHT_NUMBER => $flight_number,
+//            Attributes::NUMBER_OF_ADULTS => $number_of_adults,
+//            Attributes::NUMBER_OF_CHILDREN => $number_of_children,
+//            Attributes::NUMBER_OF_INFANTS => $number_of_inftants,
+//            Attributes::PASSENGER => $json
+//        ]);
 //        if($service){
 //            return Helpers::returnResponse([
 //                'Message' => 'Successful',
