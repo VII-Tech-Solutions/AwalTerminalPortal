@@ -91,6 +91,20 @@ class CustomModel extends Model
         return fractal($items, new $class_name(), new CustomArraySerializer())->toArray();
     }
 
+    /**
+     * Return Transformed Array Items
+     * @param $items
+     * @param string|null $class_name
+     * @return array
+     */
+    static function returnTransformedArrayItems($items, $class_name = null): array
+    {
+        if(is_null($class_name)){
+            $class_name = static::TRANSFORMER_NAME;
+        }
+        return fractal($items, new $class_name(), new CustomArraySerializer());
+    }
+
 
     /**
      * Scope: Active
