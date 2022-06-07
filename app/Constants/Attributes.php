@@ -23,6 +23,7 @@ class Attributes extends CustomEnum
     const LOCATION = "location";
     const CLIENT = "client";
     const DEPARTMENT = "department";
+    const ELITE_SERVICES = "elite_services";
     const TYPE = "type";
     const OPTIONS = "options";
     const DEFAULT = "default";

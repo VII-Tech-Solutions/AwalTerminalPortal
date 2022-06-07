@@ -3,15 +3,14 @@
 namespace App\Constants;
 
 use App\Helpers;
-use BenSampo\Enum\Enum;
+use Exception;
 use ReflectionClass;
 use ReflectionClassConstant;
-use ReflectionException;
 
 class FlightType extends CustomEnum
 {
-    const Arrival = 0;
-    const Departure = 1;
+    const Arrival = 1;
+    const Departure = 2;
 
     /**
      * All

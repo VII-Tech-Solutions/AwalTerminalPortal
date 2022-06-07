@@ -2,28 +2,21 @@
 
 namespace App\API\Controllers;
 
-use App\API\Transformers\ContactUsTransformer;
 use App\API\Transformers\EliteServiceTransformer;
-use App\API\Transformers\PassengersTransformer;
 use App\Constants\Attributes;
 use App\Constants\FlightType;
-use App\Models\AboutUs;
 use App\Helpers;
-use App\Models\ContactUs;
 use App\Models\EliteServices;
 use App\Models\Passengers;
 use App\Models\Bookers;
-use DateTime;
 use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use PhpParser\JsonDecoder;
 use VIITech\Helpers\Constants\CastingTypes;
 use VIITech\Helpers\GlobalHelpers;
 
 /**
- * Class AboutUsController
+ * Class EliteServiceController
  * @package App\API\Controllers
  */
 class EliteServiceController extends CustomController
@@ -36,7 +29,7 @@ class EliteServiceController extends CustomController
     {
         $all = EliteServices::all();
         return Helpers::returnResponse([
-            'Elite Services' => EliteServices::returnTransformedItems($all,EliteServiceTransformer::class),
+            'Elite Services' => EliteServices::returnTransformedItems($all, EliteServiceTransformer::class),
         ]);
     }
 
@@ -63,64 +56,72 @@ class EliteServiceController extends CustomController
         $booker_lastname = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::LAST_NAME, null, CastingTypes::STRING);
         $booker_mobile_number = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::MOBILE_NUMBER, null, CastingTypes::STRING);
         $booker_comments = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::COMMENTS, null, CastingTypes::STRING);
-        $booker_array = ['First name' => $booker_firstname,'Last name' => $booker_lastname, 'Booker mobile number' => $booker_mobile_number
-        ];
-        $array = ['Flight Type' => $flight_type,'Date' => $date, 'Time' => $time,'Flight Number' => $flight_number,'number of infants' => $number_of_infants,'number of children' => $number_of_children,
-            'number of adults' => $number_of_adults, 'Passenger' => $passengers];
 
-        /*
-         * VALIDATE DATA
-         */
+        $booker_array = [
+            'First name' => $booker_firstname,
+            'Last name' => $booker_lastname,
+            'Booker mobile number' => $booker_mobile_number
+        ];
+
+        $array = [
+            'Flight Type' => $flight_type,
+            'Date' => $date,
+            'Time' => $time,
+            'Flight Number' => $flight_number,
+            'number of infants' => $number_of_infants,
+            'number of children' => $number_of_children,
+            'number of adults' => $number_of_adults,
+            'Passenger' => $passengers
+        ];
+
+        // validate data
 
         foreach ($array as $key => $request) {
             if (is_null($request)) {
-                return GlobalHelpers::formattedJSONResponse("Attribute ".$key." is Missing", [], [], Response::HTTP_BAD_REQUEST);
+                return GlobalHelpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
             }
         }
 
-        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$date)) {
+        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $date)) {
             return GlobalHelpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
         }
 
-        if (!preg_match("/^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/",$time)) {
+        if (!preg_match("/^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/", $time)) {
             return GlobalHelpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
         }
 
-        foreach ($passengers as $subkey=>$passenger){
-            $firstname = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FIRST_NAME, null, CastingTypes::STRING);
-            $lastname = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::LAST_NAME, null, CastingTypes::STRING);
+        foreach ($passengers as $subkey => $passenger) {
+            $first_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FIRST_NAME, null, CastingTypes::STRING);
+            $last_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::LAST_NAME, null, CastingTypes::STRING);
             $gender = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::GENDER, null, CastingTypes::INTEGER);
-            $birthdate = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BIRTH_DATE, null, CastingTypes::STRING);
+            $birth_date = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BIRTH_DATE, null, CastingTypes::STRING);
             $nationality_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NATIONALITY_ID, null, CastingTypes::STRING);
             $flight_class = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_CLASS, null, CastingTypes::STRING);
 
-            $passenger_array = ['First name' => $firstname,'Last name' => $lastname, 'Gender' => $gender,'Birth date' => $birthdate,'Nationality id' => $nationality_id,'Flight class' => $flight_class ];
+            $passenger_array = ['First name' => $first_name, 'Last name' => $last_name, 'Gender' => $gender, 'Birth date' => $birth_date, 'Nationality id' => $nationality_id, 'Flight class' => $flight_class];
 
-//            if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $birthdate)) {
-//                return GlobalHelpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
-//            }
-
+            // validate passenger array
             foreach ($passenger_array as $key => $subkey) {
                 if (is_null($passenger)) {
-                    break;
-                    return GlobalHelpers::formattedJSONResponse("Attribute ".$key." is Missing", [], [], Response::HTTP_BAD_REQUEST);
+                    return GlobalHelpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
                 }
             }
 
         }
 
-
-
+        // validate booker array
         foreach ($booker_array as $key => $subkey) {
             if (is_null($booker)) {
-                break;
-                return GlobalHelpers::formattedJSONResponse("Attribute ".$key." is Missing", [], [], Response::HTTP_BAD_REQUEST);
+                return GlobalHelpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
             }
         }
 
-        /*
-         * SAVE DATA
-         */
+        // validate flight type
+        if(empty(FlightType::getKey($flight_type))){
+            return GlobalHelpers::formattedJSONResponse("Invalid flight type", [], [], Response::HTTP_BAD_REQUEST);
+        }
+
+        // save data
 
         $service = EliteServices::createOrUpdate([
             Attributes::FLIGHT_TYPE => $flight_type,
@@ -132,28 +133,30 @@ class EliteServiceController extends CustomController
             Attributes::NUMBER_OF_INFANTS => $number_of_infants,
         ]);
 
-        $booker_info =  Bookers::createOrUpdate([
-            Attributes::FIRST_NAME=> $booker_firstname,
+        if(!is_a($service, EliteServices::class)){
+            return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
+        }
+
+        $booker_info = Bookers::createOrUpdate([
+            Attributes::FIRST_NAME => $booker_firstname,
             Attributes::LAST_NAME => $booker_lastname,
             Attributes::MOBILE_NUMBER => $booker_mobile_number,
             Attributes::COMMENTS => $booker_comments,
             Attributes::SERVICE_ID => $service->id
         ]);
 
-
-        foreach ($passengers  as $subkey=>$passenger){
-            $firstname = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FIRST_NAME, null, CastingTypes::STRING);
-            $lastname = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::LAST_NAME, null, CastingTypes::STRING);
+        foreach ($passengers as $subkey => $passenger) {
+            $first_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FIRST_NAME, null, CastingTypes::STRING);
+            $last_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::LAST_NAME, null, CastingTypes::STRING);
             $gender = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::GENDER, null, CastingTypes::INTEGER);
-            $birthdate = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BIRTH_DATE, null, CastingTypes::STRING);
+            $birth_date = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BIRTH_DATE, null, CastingTypes::STRING);
             $nationality_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NATIONALITY_ID, null, CastingTypes::STRING);
             $flight_class = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_CLASS, null, CastingTypes::STRING);
-
-            $passenger = Passengers::createOrUpdate([
-                Attributes::FIRST_NAME=> $firstname,
-                Attributes::LAST_NAME => $lastname,
+            Passengers::createOrUpdate([
+                Attributes::FIRST_NAME => $first_name,
+                Attributes::LAST_NAME => $last_name,
                 Attributes::GENDER => $gender,
-                Attributes::BIRTH_DATE => $birthdate,
+                Attributes::BIRTH_DATE => $birth_date,
                 Attributes::NATIONALITY_ID => $nationality_id,
                 Attributes::FLIGHT_CLASS => $flight_class,
                 Attributes::SERVICE_ID => $service->id
@@ -161,19 +164,14 @@ class EliteServiceController extends CustomController
 
         }
 
-        /*
-         * RETURN MESSAGE
-         */
-
-        if($service && $booker_info){
-            return Helpers::returnResponse([
-                'Message' => 'Successful',
-                'Elite Services' => EliteServices::returnTransformedItems($service,EliteServiceTransformer::class),
-                'passengers' => $passengers,
-                'booker' => $booker
-            ]);
+        // return response
+        if ($service && $booker_info) {
+            return GlobalHelpers::formattedJSONResponse("Submitted successfully", [
+                Attributes::ELITE_SERVICES => EliteServices::returnTransformedItems($service, EliteServiceTransformer::class),
+                Attributes::PASSENGERS => $passengers,
+                Attributes::BOOKER => $booker
+            ], null, Response::HTTP_OK);
         }
-
         return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
 
     }

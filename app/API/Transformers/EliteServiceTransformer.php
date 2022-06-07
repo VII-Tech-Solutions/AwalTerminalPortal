@@ -13,6 +13,7 @@ class EliteServiceTransformer extends CustomTransformer
     public $fields = [
         Attributes::ID,
         Attributes::FLIGHT_TYPE,
+        Attributes::FLIGHT_TYPE_NAME,
         Attributes::DATE,
         Attributes::TIME,
         Attributes::FLIGHT_NUMBER,
