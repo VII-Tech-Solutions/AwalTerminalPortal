@@ -15,7 +15,7 @@ use VIITech\Helpers\GlobalHelpers;
  * Class CustomController
  * @package App\API\Controllers
  *
- * @OA\Info(title="awalTerminal.com API", version="1.0")
+ * @OA\Info(title="AwalTerminal.com API", version="1.0")
  */
 class CustomController extends BaseController
 {

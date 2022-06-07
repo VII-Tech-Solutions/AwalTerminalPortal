@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
-use App\Constants\FieldTypes;
 use App\Constants\FlightType;
 use App\Constants\Tables;
 use App\Helpers;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use VIITech\Helpers\Constants\CastingTypes;
 
 /**
  * Elite Services

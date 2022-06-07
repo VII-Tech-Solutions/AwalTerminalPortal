@@ -18,6 +18,7 @@ class Attributes extends CustomEnum
     const AVATAR = "avatar";
     const PASSWORD = "password";
     const LABEL = "label";
+    const GENERAL_SERVICES = "general_services";
     const PRIORITY = "priority";
     const IP = "ip";
     const LOCATION = "location";

@@ -2,12 +2,12 @@
 
 namespace App\API\Controllers;
 
-use App\API\Transformers\EliteServiceTransformer;
 use App\API\Transformers\GeneralAviationTransformer;
 use App\Constants\Attributes;
 use App\Helpers;
 use App\Models\GeneralAviationServices;
 use Dingo\Api\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use VIITech\Helpers\Constants\CastingTypes;
 use VIITech\Helpers\GlobalHelpers;
@@ -16,28 +16,29 @@ use VIITech\Helpers\GlobalHelpers;
  * Class GeneralAviationFormController
  * @package App\API\Controllers
  */
-
 class GeneralAviationFormController extends CustomController
 {
 
-    public function all(Request $request)
+    /**
+     * List All
+     * @return JsonResponse
+     */
+    public function all()
     {
         $all = GeneralAviationServices::all();
         return Helpers::returnResponse([
-            'General Aviation' => GeneralAviationServices::returnTransformedItems($all,GeneralAviationTransformer::class),
+            Attributes::GENERAL_SERVICES => GeneralAviationServices::returnTransformedItems($all, GeneralAviationTransformer::class),
         ]);
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * Submit Form
+     * @return JsonResponse
      */
-    public function submitForm(Request $request)
+    public function submitForm()
     {
-        /*
-         * GET DATA
-         */
 
+        // validate data
         $aircraft_type = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::AIRCRAFT_TYPE, null, CastingTypes::INTEGER);
         $registration_number = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REGISTRATION_NUMBER, null, CastingTypes::INTEGER);
         $mtow = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::MTOW, null, CastingTypes::STRING);
@@ -73,45 +74,71 @@ class GeneralAviationFormController extends CustomController
         $transport_time = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::TRANSPORT_TIME, null, CastingTypes::STRING);
         $remarks = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REMARKS, null, CastingTypes::STRING);
 
-        /*
-         * VALIDATE DATA
-         */
+        // validate data
 
-        $array = ['Air Craft Type' => $aircraft_type,'Registration number' => $registration_number, 'MTOW' => $mtow,'Lead passenger name' => $lead_passenger_name,'Landing purpose' => $landing_purpose,'Arrival call sign' => $arrival_call_sign,
-            'Arriving from airport' => $arriving_from_airport, 'Estimated time of arrival' => $estimated_time_of_arrival, 'Arrival date' => $arrival_date, 'Arrival flight nature' => $arrival_flight_nature, 'Arrival passenger count' => $arrival_passenger_count,
-            'Departure call sign' => $departure_call_sign, 'Departure to airport' => $departure_to_airport, 'Estimated time of departure' => $estimated_time_of_departure, 'Departure date' => $departure_date, 'Departure flight nature' => $departure_flight_nature,
-            'Departure passenger count' => $departure_passenger_count, 'Operator full name' => $operator_full_name,'Operator country' => $operator_country, 'Operator tel number' => $operator_tel_number, 'Operator email' => $operator_email,'Operator address'=>$operator_address,
-            'Operator billing address'=>$operator_billing_address,'Is using agent' => $is_using_agent, 'Agent fullname' => $agent_fullname, 'Agent country' => $agent_country, 'Agent phone number' => $agent_phoneNumber, 'Agent email' => $agent_email, 'Agent address' => $agent_address,
-            'Agent address' => $agent_address, 'Agent billing address' => $agent_billing_address, 'Services' => $services, 'Transport hotel name' => $transport_hotel_name, 'Transport time' => $transport_time, 'Remarks' => $remarks ];
+        $array = [
+            'Air Craft Type' => $aircraft_type,
+            'Registration number' => $registration_number,
+            'MTOW' => $mtow,
+            'Lead passenger name' => $lead_passenger_name,
+            'Landing purpose' => $landing_purpose,
+            'Arrival call sign' => $arrival_call_sign,
+            'Arriving from airport' => $arriving_from_airport,
+            'Estimated time of arrival' => $estimated_time_of_arrival,
+            'Arrival date' => $arrival_date,
+            'Arrival flight nature' => $arrival_flight_nature,
+            'Arrival passenger count' => $arrival_passenger_count,
+            'Departure call sign' => $departure_call_sign,
+            'Departure to airport' => $departure_to_airport,
+            'Estimated time of departure' => $estimated_time_of_departure,
+            'Departure date' => $departure_date,
+            'Departure flight nature' => $departure_flight_nature,
+            'Departure passenger count' => $departure_passenger_count,
+            'Operator full name' => $operator_full_name,
+            'Operator country' => $operator_country,
+            'Operator tel number' => $operator_tel_number,
+            'Operator email' => $operator_email,
+            'Operator address' => $operator_address,
+            'Operator billing address' => $operator_billing_address,
+            'Is using agent' => $is_using_agent,
+            'Agent fullname' => $agent_fullname,
+            'Agent country' => $agent_country,
+            'Agent phone number' => $agent_phoneNumber,
+            'Agent email' => $agent_email,
+            'Agent address' => $agent_address,
+            'Agent billing address' => $agent_billing_address,
+            'Services' => $services,
+            'Transport hotel name' => $transport_hotel_name,
+            'Transport time' => $transport_time,
+            'Remarks' => $remarks
+        ];
 
 
         foreach ($array as $key => $request) {
             if (is_null($request)) {
-                return GlobalHelpers::formattedJSONResponse("Attribute ".$key." is Missing", [], [], Response::HTTP_BAD_REQUEST);
+                return GlobalHelpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
             }
         }
 
-        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$arrival_date)) {
+        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $arrival_date)) {
             return GlobalHelpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
         }
 
-        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$departure_date)) {
+        if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $departure_date)) {
             return GlobalHelpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
         }
 
-        if (!preg_match("/^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/",$estimated_time_of_arrival)) {
+        if (!preg_match("/^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/", $estimated_time_of_arrival)) {
             return GlobalHelpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
         }
 
-        if (!preg_match("/^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/",$estimated_time_of_departure)) {
+        if (!preg_match("/^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/", $estimated_time_of_departure)) {
             return GlobalHelpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
         }
 
-        /*
-         * SAVE DATA
-         */
+        // save data
 
-        $generalService = GeneralAviationServices::createOrUpdate([
+        $general_service = GeneralAviationServices::createOrUpdate([
             Attributes::AIRCRAFT_TYPE => $aircraft_type,
             Attributes::REGISTRATION_NUMBER => $registration_number,
             Attributes::MTOW => $mtow,
@@ -138,7 +165,7 @@ class GeneralAviationFormController extends CustomController
             Attributes::IS_USING_AGENT => $is_using_agent,
             Attributes::AGENT_FULLNAME => $agent_fullname,
             Attributes::AGENT_COUNTRY => $agent_country,
-            Attributes::AGENT_PHONENUMBER =>$agent_phoneNumber,
+            Attributes::AGENT_PHONENUMBER => $agent_phoneNumber,
             Attributes::AGENT_ADDRESS => $agent_address,
             Attributes::AGENT_BILLING_ADDRESS => $agent_billing_address,
             Attributes::TRANSPORT_HOTEL_NAME => $transport_hotel_name,
@@ -146,21 +173,22 @@ class GeneralAviationFormController extends CustomController
             Attributes::REMARKS => $remarks,
         ]);
 
-        /*
-         * RETURN MESSAGE
-         */
-
-        if($generalService){
-            // return success message
-            return GlobalHelpers::formattedJSONResponse("Successful", null, null,  200);
-        }else{
-            // return error response
-            return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
+        // return response
+        if ($general_service) {
+            return GlobalHelpers::formattedJSONResponse("Submitted successfully", [
+                Attributes::GENERAL_SERVICES => GeneralAviationServices::returnTransformedItems($general_service, GeneralAviationTransformer::class),
+            ], null, Response::HTTP_OK);
         }
+        return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * Upload Media
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function uploadMedia(Request $request)
     {
-        return GlobalHelpers::formattedJSONResponse("Successful", null, null,  200);
+        return GlobalHelpers::formattedJSONResponse("Successful", null, null, 200);
     }
 }

@@ -22,27 +22,25 @@ use VIITech\Helpers\GlobalHelpers;
 class EliteServiceController extends CustomController
 {
     /**
-     * @param Request $request
+     * List All
      * @return JsonResponse
      */
-    public function all(Request $request)
+    public function all()
     {
         $all = EliteServices::all();
         return Helpers::returnResponse([
-            'Elite Services' => EliteServices::returnTransformedItems($all, EliteServiceTransformer::class),
+            Attributes::ELITE_SERVICES => EliteServices::returnTransformedItems($all, EliteServiceTransformer::class),
         ]);
     }
 
     /**
-     * @param Request $request
+     * Submit Form
      * @return JsonResponse
      */
-    public function submitForm(Request $request)
+    public function submitForm()
     {
-        /*
-         * GET DATA
-         */
 
+        // get data
         $flight_type = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_TYPE, null, CastingTypes::INTEGER);
         $date = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::DATE, null, CastingTypes::STRING);
         $time = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::TIME, null, CastingTypes::STRING);
@@ -56,13 +54,11 @@ class EliteServiceController extends CustomController
         $booker_lastname = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::LAST_NAME, null, CastingTypes::STRING);
         $booker_mobile_number = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::MOBILE_NUMBER, null, CastingTypes::STRING);
         $booker_comments = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::COMMENTS, null, CastingTypes::STRING);
-
         $booker_array = [
             'First name' => $booker_firstname,
             'Last name' => $booker_lastname,
             'Booker mobile number' => $booker_mobile_number
         ];
-
         $array = [
             'Flight Type' => $flight_type,
             'Date' => $date,
@@ -75,7 +71,6 @@ class EliteServiceController extends CustomController
         ];
 
         // validate data
-
         foreach ($array as $key => $request) {
             if (is_null($request)) {
                 return GlobalHelpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
