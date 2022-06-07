@@ -13,7 +13,13 @@ use Illuminate\Http\Request;
 
 class MetadataController extends CustomController
 {
-    public function all(Request $request): JsonResponse
+
+    /**
+     * List All
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function all()
     {
         $countries = Country::all();
         $airports = Airport::all();

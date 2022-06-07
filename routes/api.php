@@ -30,7 +30,7 @@ $api->version('v1', function ($api) {
         $api->get('/metadata', 'MetadataController@all');
         $api->post('/elite-service', 'EliteServiceController@submitForm');
         $api->post('/general-aviation', 'GeneralAviationFormController@submitForm');
-        $api->post('/general-aviation/uploadMedia', 'GeneralAviationFormController@uploadMedia');
-        $api->post('/contact-us/add', 'ContactUsController@submitForm');
+        $api->post('/general-aviation/media', 'GeneralAviationFormController@uploadMedia');
+        $api->post('/contact-us/submitForm', 'ContactUsController@submitForm');
     });
 });
