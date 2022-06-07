@@ -9,16 +9,17 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.0",
-        "google/apiclient": "^2.7",
-        "nesbot/carbon": "^2.0",
         "backpack/crud": "4.1.*",
         "bensampo/laravel-enum": "^1.38",
         "doctrine/dbal": "^2.6",
         "fideloper/proxy": "^4.4",
+        "google/apiclient": "^2.7",
         "laravel/framework": "^6.20.26",
         "laravel/tinker": "^2.5",
+        "nesbot/carbon": "^2.0",
+        "sentry/sentry-laravel": "^2.3",
         "spatie/laravel-fractal": "^5.8",
-        "viitech/laravel-dev-helpers": "^0.1.16"
+        "viitech/laravel-dev-helpers": "^0.1.20"
     },
     "require-dev": {
         "backpack/generators": "^3.1",

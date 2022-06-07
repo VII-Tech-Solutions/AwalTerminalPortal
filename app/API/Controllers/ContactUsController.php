@@ -47,11 +47,11 @@ class ContactUsController extends CustomController
         $array = [$first_name, $last_name, $email, $message];
         foreach ($array as $request) {
             if (is_null($request)) {
-                return GlobalHelpers::formattedJSONResponse("Please Fill All Attributes", [], [], Response::HTTP_BAD_REQUEST);
+                return GlobalHelpers::formattedJSONResponse("Please fill all attributes", [], [], Response::HTTP_BAD_REQUEST);
             }
         }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return GlobalHelpers::formattedJSONResponse("Email Is not correct", [], [], Response::HTTP_BAD_REQUEST);
+            return GlobalHelpers::formattedJSONResponse("Email is not correct", [], [], Response::HTTP_BAD_REQUEST);
         }
 
         // save

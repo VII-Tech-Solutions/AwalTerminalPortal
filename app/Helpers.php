@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Sentry\State\Scope;
 use Throwable;
+use VIITech\Helpers\Constants\DebuggerLevels;
+use VIITech\Helpers\GlobalHelpers;
+use function Sentry\captureException;
+use function Sentry\configureScope;
 
 /**
  * Helpers
@@ -128,7 +133,7 @@ class Helpers
         }
         $level = DebuggerLevels::INFO;
         if (!is_null($exception) && is_a($exception, Throwable::class)) {
-            if (env(EnvVariables::SENTRY_ENABLED, false)) {
+            if (env("SENTRY_ENABLED", false)) {
                 $user_id = self::resolveUserID();
                 if(!is_null($user_id)){
                     configureScope(function (Scope $scope) use($user_id): void {
