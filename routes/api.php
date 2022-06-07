@@ -14,7 +14,6 @@
 /*******************************
  * API
  *******************************/
-
 /** @var Router $api */
 
 use App\API\Controllers\ContactUsController;
@@ -26,9 +25,12 @@ $api->version('v1', function ($api) {
         return ['status' => true];
     });
     $api->group(['namespace' => 'App\API\Controllers'], function () use ($api) {
-        $api->post('/elite-service', 'EliteServiceController@submitForm');
-        $api->post('/general-aviation', 'GeneralAviationFormController@submitForm');
-        $api->post('/general-aviation/uploadMedia', 'GeneralAviationFormController@uploadMedia');
-        $api->post('/contact-us', 'ContactUsController@submitForm');
+//    $api->get('/contact-us/all','ContactUsController@all');
+    $api->get('/elite-service/all','EliteServiceController@all');
+    $api->get('/metadata','MetadataController@all');
+    $api->post('/elite-service','EliteServiceController@submitForm');
+    $api->post('/general-aviation','GeneralAviationFormController@submitForm');
+    $api->post('/general-aviation/uploadMedia','GeneralAviationFormController@uploadMedia');
+    $api->post('/contact-us/add','ContactUsController@submitForm');
     });
 });

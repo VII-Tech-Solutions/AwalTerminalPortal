@@ -124,5 +124,7 @@ class Attributes extends CustomEnum
     const ORDER = "order";
     const COMMENTS = "comments";
     const MOBILE_NUMBER = "mobile_number";
-
+    const UPDATED_AT = "updated_at";
+    const COUNTRIES  = "countries";
+    const AIRPORTS = "airports";
 }
