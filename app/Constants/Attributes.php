@@ -14,6 +14,7 @@ class Attributes extends CustomEnum
     const TITLE = "title";
     const VALUE = "value";
     const NAME = 'name';
+    const FORM_ID = 'form_id';
     const DANGER = "danger";
     const AVATAR = "avatar";
     const PASSWORD = "password";
@@ -127,4 +128,6 @@ class Attributes extends CustomEnum
     const UPDATED_AT = "updated_at";
     const COUNTRIES  = "countries";
     const AIRPORTS = "airports";
+    const ATTACHMENTS = "attachments";
+    const PATH = "path";
 }

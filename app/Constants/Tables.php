@@ -11,4 +11,5 @@ class Tables extends CustomEnum
     const AIRPORTS = "airports";
     const COUNTRIES = "countries";
     const ELITE_SERVICES = "elite_services";
+    const ATTACHMENTS = "attachments";
 }

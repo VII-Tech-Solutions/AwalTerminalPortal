@@ -3,6 +3,8 @@
 namespace App\API\Transformers;
 
 use App\Constants\Attributes;
+use App\Constants\Values;
+use League\Fractal\Resource\Collection;
 
 class GeneralAviationTransformer extends CustomTransformer
 {
@@ -41,4 +43,17 @@ class GeneralAviationTransformer extends CustomTransformer
         Attributes::TRANSPORT_TIME,
         Attributes::REMARKS,
     ];
+
+    protected $defaultIncludes = [Attributes::ATTACHMENTS];
+
+    /**
+     * Include Attachments
+     * @param $item
+     * @return Collection
+     */
+    public function includeAttachments($item)
+    {
+        return $this->collection($item->attachments, new IDTransformer(), Values::NO_RESOURCE_KEY);
+    }
+
 }

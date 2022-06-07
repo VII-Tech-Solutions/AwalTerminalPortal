@@ -9,4 +9,5 @@ npm install
 npm run dev
 php artisan backpack:install
 php artisan db:seed
+php artisan storage:link
 ```

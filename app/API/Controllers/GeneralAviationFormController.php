@@ -2,15 +2,18 @@
 
 namespace App\API\Controllers;
 
+use App\API\Transformers\AttachmentTransformer;
 use App\API\Transformers\GeneralAviationTransformer;
 use App\Constants\Attributes;
 use App\Helpers;
+use App\Models\Attachment;
 use App\Models\GeneralAviationServices;
 use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use VIITech\Helpers\Constants\CastingTypes;
 use VIITech\Helpers\GlobalHelpers;
+use function Sodium\add;
 
 /**
  * Class GeneralAviationFormController
@@ -73,6 +76,7 @@ class GeneralAviationFormController extends CustomController
         $transport_hotel_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::TRANSPORT_HOTEL_NAME, null, CastingTypes::STRING);
         $transport_time = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::TRANSPORT_TIME, null, CastingTypes::STRING);
         $remarks = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REMARKS, null, CastingTypes::STRING);
+        $attachments = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ATTACHMENTS, [], CastingTypes::ARRAY);
 
         // validate data
 
@@ -175,8 +179,22 @@ class GeneralAviationFormController extends CustomController
 
         // return response
         if ($general_service) {
+
+            // Adding attachments to the form
+            if(!is_null($attachments)){
+                $attachments = Attachment::find($attachments);
+                foreach ($attachments as $attachment ){
+                    $attachment->form_id = $general_service->id;
+                    $attachment->save();
+                }
+            }
+
+            $attachments = $general_service->attachments()->get();
+
+            // return success response
             return GlobalHelpers::formattedJSONResponse("Submitted successfully", [
                 Attributes::GENERAL_SERVICES => GeneralAviationServices::returnTransformedItems($general_service, GeneralAviationTransformer::class),
+                Attributes::ATTACHMENTS => Attachment::returnTransformedItems($attachments, AttachmentTransformer::class),
             ], null, Response::HTTP_OK);
         }
         return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
@@ -189,6 +207,28 @@ class GeneralAviationFormController extends CustomController
      */
     public function uploadMedia(Request $request)
     {
-        return GlobalHelpers::formattedJSONResponse("Successful", null, null, 200);
+        $attachments = collect();
+
+        $files = $request->allFiles();
+        foreach ($files as $key => $file) {
+
+            /** @var \Illuminate\Http\UploadedFile  $file */
+            $upload_result = Helpers::storeFile(null, null, null, $file, true, false);
+
+            $attachment = Attachment::createOrUpdate([
+                Attributes::PATH => $upload_result,
+            ]);
+            if (is_a($attachment, Attachment::class)) {
+                $attachments->put($key, $attachment);
+            }
+        }
+
+        // return response
+
+        return GlobalHelpers::formattedJSONResponse("Attachments Uploaded successfully", [
+            Attributes::ATTACHMENTS => Attachment::returnTransformedItems($attachments, AttachmentTransformer::class),
+        ], null, Response::HTTP_OK);
+
+
     }
 }

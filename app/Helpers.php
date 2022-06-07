@@ -3,6 +3,8 @@
 namespace App;
 
 use App\constants\Attributes;
+use App\Constants\FileType;
+use App\Models\Attachment;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -15,10 +17,13 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use OpenApi\Annotations\MediaType;
 use Sentry\State\Scope;
 use Throwable;
 use VIITech\Helpers\Constants\DebuggerLevels;
 use VIITech\Helpers\GlobalHelpers;
+use Webpatser\Uuid\Uuid;
 use function Sentry\captureException;
 use function Sentry\configureScope;
 
@@ -255,7 +260,7 @@ class Helpers
         // if a base64 was sent, store it in the db
         if (Str::startsWith($image, 'data:image') || is_a($image, UploadedFile::class) || is_a($image, \Intervention\Image\Image::class)) {
 
-            $allowed_types = ["jpg", "jpeg", "png"];
+            $allowed_types = ["jpg", "jpeg", "png", "pdf"];
 
             $extension = 'jpg';
             if (is_a($image, UploadedFile::class)) {
@@ -297,16 +302,16 @@ class Helpers
             // is the public URL (everything that comes after the domain name)
             $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
 
-            /** @var Media $media */
+            /** @var Attachment $attachment */
             if ($add_to_media) {
-                $media = Media::findOrCreate($filename, MediaType::IMAGE, "$public_destination_path/$filename", $extension, $session_id);
+                $attachment = Attachment::findOrCreate($filename, 1, "$public_destination_path/$filename", $extension, $session_id);
             }
 
             if ($return_path) {
                 return "$public_destination_path/$filename";
             }
 
-            return $media;
+            return $attachment;
 
         }
 
@@ -314,7 +319,7 @@ class Helpers
             return $image;
         }
 
-        return Media::where(Attributes::URL, $image)->first();
+        return Attachment::where(Attributes::URL, $image)->first();
     }
 
     /**
@@ -383,6 +388,48 @@ class Helpers
         } catch (Exception $e) {
             GlobalHelpers::debugger($e, DebuggerLevels::ERROR);
         }
+    }
+
+    /**
+     * Store File
+     * @param $id
+     * @param $directory
+     * @param $file_name
+     * @param $output
+     * @param bool $overwrite
+     * @return string
+     */
+    static function storeFile($id, $directory, $filename, $output, $overwrite = false)
+    {
+        $disk_name = 'public';
+        $allowed_types = ["jpg", "jpeg", "png", "pdf"];
+
+        $extension = 'pdf';
+
+        if (!in_array($extension, $allowed_types)) {
+            return null;
+        }
+
+        if (is_null($filename)) {
+            $image_file_name = str_replace("-", "", Uuid::generate(1));
+            $filename = $image_file_name . ".$extension";
+        }else{
+            $filename = $filename . ".$extension";
+        }
+
+        $path = $directory . '/' . $filename;
+        $exists = Storage::disk($disk_name)->exists($path);
+
+        if ($overwrite || !$exists) {
+            $exists = Storage::disk($disk_name)->put(null, $output);
+        }
+
+        if ($exists) {
+            return $filename;
+        }
+        return null;
+
+
     }
 
 }

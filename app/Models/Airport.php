@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Constants\Attributes;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
 
 class Airport extends CustomModel
 {

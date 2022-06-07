@@ -8,6 +8,7 @@ use App\Constants\FlightType;
 use App\Helpers;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class GeneralAviationServices extends CustomModel
 {
@@ -76,6 +77,15 @@ class GeneralAviationServices extends CustomModel
     {
         return $this->belongsTo(Country::class,Attributes::NATIONALITY);
     }
+
+    /**
+     * Relationship: attachments
+     * @return HasMany
+     */
+    function attachments(){
+        return $this->hasMany(Attachment::class, Attributes::FORM_ID, Attributes::ID);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
