@@ -69,7 +69,7 @@ class CountrySeeder extends Seeder
 (52, 'Congo, Democratic Republic of the Congo'),
 (53, 'Cook Islands'),
 (54, 'Costa Rica'),
-(55, 'Cote D\'Ivoire'),
+(55, 'Cote D Ivoire'),
 (56, 'Croatia'),
 (57, 'Cuba'),
 (58, 'Curacao'),
@@ -132,12 +132,12 @@ class CountrySeeder extends Seeder
 (115, 'Kazakhstan'),
 (116, 'Kenya'),
 (117, 'Kiribati'),
-(118, 'Korea, Democratic People\'s Republic of'),
-(119, 'Korea, Republic of'),
+(118, 'Korea, Democratic Peoples Republic of'),
+(119, 'Korea Republic of'),
 (120, 'Kosovo'),
 (121, 'Kuwait'),
 (122, 'Kyrgyzstan'),
-(123, 'Lao People\'s Democratic Republic'),
+(123, 'Lao Peoples Democratic Republic'),
 (124, 'Latvia'),
 (125, 'Lebanon'),
 (126, 'Lesotho'),
@@ -266,7 +266,8 @@ class CountrySeeder extends Seeder
 (249, 'Western Sahara'),
 (250, 'Yemen'),
 (251, 'Zambia'),
-(252, 'Zimbabwe')");
+(252, 'Zimbabwe')"
+        );
 
     }
 }

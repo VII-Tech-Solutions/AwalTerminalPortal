@@ -18,7 +18,7 @@ class CreateAirportsTable extends Migration
         Schema::create(Tables::AIRPORTS, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string(Attributes::NAME)->nullable();
-            $table->string(Attributes::COUNTRY_ID)->nullable();
+            $table->integer(Attributes::COUNTRY_ID)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

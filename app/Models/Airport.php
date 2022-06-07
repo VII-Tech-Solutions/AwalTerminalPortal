@@ -6,7 +6,7 @@ use App\Constants\Attributes;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Airport extends Model
+class Airport extends CustomModel
 {
     use CrudTrait;
 
@@ -20,10 +20,10 @@ class Airport extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-//     protected $fillable = [
-//         Attributes::NAME,
-//         Attributes::COUNTRY_ID
-//     ];
+     protected $fillable = [
+         Attributes::NAME,
+         Attributes::COUNTRY_ID
+     ];
     // protected $hidden = [];
     // protected $dates = [];
 

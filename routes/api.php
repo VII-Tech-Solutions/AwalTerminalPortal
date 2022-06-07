@@ -27,6 +27,7 @@ $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\API\Controllers'], function () use ($api) {
 //    $api->get('/contact-us/all','ContactUsController@all');
     $api->get('/elite-service/all','EliteServiceController@all');
+    $api->get('/metadata','MetadataController@all');
     $api->post('/elite-service','EliteServiceController@submitForm');
     $api->post('/general-aviation','GeneralAviationFormController@submitForm');
     $api->post('/general-aviation/uploadMedia','GeneralAviationFormController@uploadMedia');
