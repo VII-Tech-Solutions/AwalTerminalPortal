@@ -31,6 +31,6 @@ $api->version('v1', function ($api) {
         $api->post('/elite-service', 'EliteServiceController@submitForm');
         $api->post('/general-aviation', 'GeneralAviationFormController@submitForm');
         $api->post('/general-aviation/media', 'GeneralAviationFormController@uploadMedia');
-        $api->post('/contact-us/submitForm', 'ContactUsController@submitForm');
+        $api->post('/contact-us', 'ContactUsController@submitForm');
     });
 });
