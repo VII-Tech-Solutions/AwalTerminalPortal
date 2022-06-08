@@ -293,20 +293,6 @@ class CustomCrudController extends CrudController
         ]);
     }
 
-
-    /**
-     * Add Category Name Column
-     * @param int $priority
-     */
-    function addPlacementNameColumn($priority = 1)
-    {
-        $this->crud->addColumn([
-            Attributes::NAME => Attributes::PLACEMENT_NAME,
-            Attributes::LABEL => "Placement Name",
-            Attributes::PRIORITY => $priority
-        ]);
-    }
-
     /**
      * Add Project Status Column
      * @param int $priority
@@ -358,31 +344,6 @@ class CustomCrudController extends CrudController
         ]);
     }
 
-    /**
-     * Add Favorites Count Column
-     * @param int $priority
-     */
-    function addFavoritesCountColumn($priority = 1)
-    {
-        $this->crud->addColumn([
-            Attributes::NAME => Attributes::FAVORITES_COUNT,
-            Attributes::LABEL => "Favorites Count",
-            Attributes::PRIORITY => $priority
-        ]);
-    }
-
-    /**
-     * Add Is Pre-defined Column
-     * @param int $priority
-     */
-    function addUserTripsCountColumn($priority = 1)
-    {
-        $this->crud->addColumn([
-            Attributes::NAME => Attributes::USER_TRIPS_COUNT,
-            Attributes::LABEL => "User Trips Count",
-            Attributes::PRIORITY => $priority
-        ]);
-    }
 
     /**
      * Add Login Provider Name Column
@@ -573,7 +534,7 @@ class CustomCrudController extends CrudController
      * @param int $priority
      * @param string $column_name
      */
-    function addIsFeaturedColumn($label = "Is Featured", $priority = 1, $column_name = Attributes::IS_FEATURED_LABEL)
+    function addIsFeaturedColumn($label = "Is Featured", $priority = 1, $column_name = Attributes::CATEGORY_NAME)
     {
         $this->crud->addColumn([
             Attributes::NAME => $column_name,
@@ -2138,20 +2099,6 @@ class CustomCrudController extends CrudController
         ]);
     }
 
-    /**
-     * Add Item Field
-     */
-    function addTripField()
-    {
-        CRUD::addField([
-            Attributes::LABEL => "Targeted Trip",
-            Attributes::TYPE => FieldTypes::SELECT2,
-            Attributes::NAME => Attributes::TRIP_ID, // the db column for the foreign key
-            Attributes::ENTITY => Attributes::TRIP, // the method that defines the relationship in your Model
-            Attributes::MODEL => Trip::class, // foreign key model
-            Attributes::ATTRIBUTE => Attributes::NAME, // foreign key attribute that is shown to user
-        ]);
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -2159,136 +2106,6 @@ class CustomCrudController extends CrudController
     |--------------------------------------------------------------------------
     */
 
-    /**
-     * Validate Address
-     * @param bool $validate_place_name
-     * @return bool|RedirectResponse
-     */
-    function validateAddress($validate_place_name = true)
-    {
-        $place_type = $this->crud->getRequest()->get(Attributes::PLACE_TYPE);
-
-        // Place record is selected
-        if ($place_type == 1) { // Place
-
-            $place_id = $this->crud->getRequest()->get(Attributes::PLACE_ID);
-
-            /** @var Place $place */
-            $place = Place::find($place_id);
-
-            if (GlobalHelpers::isValidObject($place)) {
-                $this->crud->getRequest()->request->add([
-                    Attributes::LATITUDE => $place->latitude,
-                    Attributes::LONGITUDE => $place->longitude,
-                    Attributes::GMAPS_LINK => null,
-                    Attributes::PLACE_NAME => $place->name,
-                    Attributes::LOCATION_ID => $place->location_id,
-                ]);
-            }else{
-                Alert::error("Please select a valid place")->flash();
-                return back()->withInput();
-            }
-
-            return true;
-
-        } else if ($place_type == 3) { // Google Maps Link
-
-            $google_maps_link = $this->crud->getRequest()->get(Attributes::GMAPS_LINK);
-            if(is_null($google_maps_link)){
-                Alert::error("Please enter a valid Google Maps link")->flash();
-                return back()->withInput();
-            }
-
-            // validate place name
-            if($validate_place_name){
-                $place_name = $this->crud->getRequest()->get(Attributes::PLACE_NAME);
-                if(is_null($place_name) || empty($place_name)){
-                    Alert::error("Please enter place name")->flash();
-                    return back()->withInput();
-                }
-            }
-
-            // extract latitude and longitude from Google Maps link
-            try {
-                $google_maps_link = urldecode($google_maps_link);
-
-                // longitude
-                $longitude = Helpers::getStringBetween($google_maps_link, "!4d", "?", true);
-                if(!$longitude){
-                    $longitude = Helpers::getStringBetween($google_maps_link, "!4d", "!", true);
-                }
-                if(!$longitude){
-                    $longitude = Helpers::getStringBetween($google_maps_link, "!4d", "!1", true);
-                }
-                if(!$longitude){
-                    $longitude = Helpers::getStringBetween($google_maps_link, "!4d", null, true);
-                }
-                if(!$longitude){
-                    $google_maps_link = str_replace("\"", "", $google_maps_link);
-                    $longitude = Helpers::getStringBetween($google_maps_link, "!4d", null, true);
-                }
-
-                // latitude
-                $latitude = Helpers::getStringBetween($google_maps_link, "!3d", "!4d", true);
-                if(!$latitude){
-                    $google_maps_link = str_replace("\"", "", $google_maps_link);
-                    $latitude = Helpers::getStringBetween($google_maps_link, "!3d", null, true);
-                }
-
-                // validate
-                $latitude = Helpers::validateCoordinates($latitude);
-                $longitude = Helpers::validateCoordinates($longitude);
-
-                if(is_null($longitude) || is_null($latitude)){
-                    Alert::error("Unable to parse the link. Please enter a valid Google Maps link")->flash();
-                    return back()->withInput();
-                }
-
-                $this->crud->getRequest()->request->add([
-                    Attributes::LATITUDE => $latitude,
-                    Attributes::LONGITUDE => $longitude,
-                    Attributes::PLACE_ID => null,
-                ]);
-            } catch (Exception $e) {
-                Alert::error("Unable to parse the link. Please enter a valid Google Maps link")->flash();
-                return back()->withInput();
-            }
-
-            return true;
-
-        } else if ($place_type == 2) { // Google Maps Location
-
-            $latitude = $this->crud->getRequest()->get(Attributes::ADDRESS_LATITUDE);
-            $longitude = $this->crud->getRequest()->get(Attributes::ADDRESS_LONGITUDE);
-            $place_name = $this->crud->getRequest()->get(Attributes::PLACE_NAME);
-
-            // validate latitude and longitude
-            if (is_null($latitude) || is_null($longitude) || empty($latitude) || empty($longitude) || $latitude == 0 || $longitude == 0) {
-                Alert::error("Please select a valid address on the map")->flash();
-                return back()->withInput();
-            }
-
-            // validate place name
-            if($validate_place_name){
-                if(is_null($place_name) || empty($place_name)){
-                    Alert::error("Please enter place name")->flash();
-                    return back()->withInput();
-                }
-            }
-
-            $this->crud->getRequest()->request->add([
-                Attributes::LATITUDE => $latitude,
-                Attributes::LONGITUDE => $longitude,
-                Attributes::GMAPS_LINK => null
-            ]);
-
-            return true;
-
-        }
-
-        Alert::error("Please choose a location option")->flash();
-        return back()->withInput();
-    }
 
     /*
      * Save Featured Image

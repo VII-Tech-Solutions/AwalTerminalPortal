@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\Attributes;
 use App\Traits\ModelTrait;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Auth\Authenticatable;
@@ -12,6 +13,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use VIITech\Helpers\Constants\CastingTypes;
 
 /**
  * Class User
@@ -20,17 +22,28 @@ use Illuminate\Notifications\Notifiable;
 class User extends CustomModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail, Notifiable, CrudTrait, ModelTrait;
-    public function setPasswordAttribute($value)
-    {
-        $this->setPassword($value);
-    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        Attributes::NAME,
+        Attributes::EMAIL,
+        Attributes::USER_TYPE,
+        Attributes::PASSWORD,
+        Attributes::STATUS,
+        Attributes::EMAIL_VERIFIED_AT,
+    ];
+
+    protected $casts = [
+        Attributes::NAME => CastingTypes::STRING,
+        Attributes::EMAIL => CastingTypes::STRING,
+        Attributes::USER_TYPE => CastingTypes::INTEGER,
+        Attributes::PASSWORD => CastingTypes::STRING,
+        Attributes::STATUS => CastingTypes::INTEGER,
+        Attributes::EMAIL_VERIFIED_AT => 'datetime',
     ];
 
     /**
@@ -42,13 +55,8 @@ class User extends CustomModel implements AuthenticatableContract, AuthorizableC
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
+    public function setPasswordAttribute($value)
+    {
+        $this->setPassword($value);
+    }
 }

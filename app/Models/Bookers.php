@@ -8,6 +8,7 @@ use App\Constants\FlightType;
 use App\Helpers;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Bookers extends CustomModel
 {
@@ -44,6 +45,8 @@ class Bookers extends CustomModel
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
+
 
     /*
     |--------------------------------------------------------------------------

@@ -72,7 +72,7 @@ class CustomModel extends Model
             }
             return null;
         } catch (Exception $e) {
-//            Helpers::captureException($e);
+            Helpers::captureException($e);
             return null;
         }
     }

@@ -25,7 +25,6 @@ class GeneralAviationServices extends CustomModel
     // public $timestamps = false;
     protected $guarded = ['id'];
     protected $fillable = [
-        Attributes::ID,
         Attributes::AIRCRAFT_TYPE,
         Attributes::REGISTRATION_NUMBER,
         Attributes::MTOW,
@@ -57,6 +56,7 @@ class GeneralAviationServices extends CustomModel
         Attributes::AGENT_BILLING_ADDRESS,
         Attributes::TRANSPORT_HOTEL_NAME,
         Attributes::TRANSPORT_TIME,
+        Attributes::STATUS,
         Attributes::REMARKS,
     ];
     // protected $hidden = [];
@@ -84,6 +84,26 @@ class GeneralAviationServices extends CustomModel
      */
     function attachments(){
         return $this->hasMany(Attachment::class, Attributes::FORM_ID, Attributes::ID);
+    }
+
+    public function arriving_from_airport()
+    {
+        return $this->belongsTo( Airport::class,Attributes::ID, Attributes::ARRIVING_FROM_AIRPORT);
+    }
+
+    public function departing_to_airport()
+    {
+        return $this->belongsTo(Airport::class,Attributes::ID, Attributes::ARRIVING_FROM_AIRPORT);
+    }
+
+    public function agent_country()
+    {
+        return $this->belongsTo(Country::class,Attributes::ID, Attributes::AGENT_COUNTRY);
+    }
+
+   public function operator_country()
+    {
+        return $this->belongsTo(Country::class,Attributes::ID, Attributes::OPERATOR_COUNTRY);
     }
 
     /*

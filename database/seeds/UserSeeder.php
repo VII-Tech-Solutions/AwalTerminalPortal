@@ -20,7 +20,10 @@ class UserSeeder extends Seeder
             Attributes::EMAIL => "webmaster@viitech.net",
             Attributes::PASSWORD => "123abC--",
             Attributes::STATUS => Status::ACTIVE,
-            Attributes::EMAIL_VERIFIED_AT => Carbon::now()
+            Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
+            Attributes::USER_TYPE=>\App\Constants\AdminUserType::SUPER_ADMIN
+        ],[
+            Attributes::EMAIL
         ]);
 
         User::createOrUpdate([
@@ -28,7 +31,10 @@ class UserSeeder extends Seeder
             Attributes::EMAIL => "mohd.turki@viitech.net",
             Attributes::PASSWORD => "123abC--",
             Attributes::STATUS => Status::ACTIVE,
-            Attributes::EMAIL_VERIFIED_AT => Carbon::now()
+            Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
+            Attributes::USER_TYPE=>\App\Constants\AdminUserType::GA
+        ],[
+            Attributes::EMAIL
         ]);
 
         User::createOrUpdate([
@@ -36,7 +42,10 @@ class UserSeeder extends Seeder
             Attributes::EMAIL => "hussain.sabba@viitech.net",
             Attributes::PASSWORD => "123abC--",
             Attributes::STATUS => Status::ACTIVE,
-            Attributes::EMAIL_VERIFIED_AT => Carbon::now()
+            Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
+            Attributes::USER_TYPE=>\App\Constants\AdminUserType::ELITE_ONLY
+        ],[
+            Attributes::EMAIL
         ]);
     }
 }

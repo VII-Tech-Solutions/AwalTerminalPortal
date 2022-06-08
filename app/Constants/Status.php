@@ -12,6 +12,7 @@ class Status extends CustomEnum
     const INACTIVE = 0;
     const ACTIVE = 1;
     const IN_PROGRESS = 2;
+    const PUBLISHED = 3;
 
     static function all()
     {

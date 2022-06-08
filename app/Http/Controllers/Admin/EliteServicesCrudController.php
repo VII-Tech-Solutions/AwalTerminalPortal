@@ -7,7 +7,9 @@ use App\Constants\FieldTypes;
 use App\Constants\FlightClasses;
 use App\Constants\FlightType;
 use App\Constants\PassengerTitles;
+use App\Http\Requests\AirportRequest;
 use App\Http\Requests\EliteServicesRequest;
+use App\Models\EliteServices;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Google\Service\Dfareporting\Flight;
@@ -40,10 +42,11 @@ class EliteServicesCrudController extends CustomCrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
+        CRUD::setValidation(EliteServicesRequest::class);
 //        CRUD::column('flight_types_name');
-        $this->addNameColumn('Flight Type',1,Attributes::FLIGHT_TYPE);
-        CRUD::column('date');
+        $this->addNameColumn('Booking ID',1,Attributes::ID);
+        $this->addNameColumn('Submission Date',1,Attributes::CREATED_AT);
+
         CRUD::column('time');
         CRUD::column('flight_number');
         CRUD::column('number_of_adults');

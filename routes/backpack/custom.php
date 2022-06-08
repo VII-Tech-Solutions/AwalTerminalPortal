@@ -18,7 +18,7 @@ Route::group([
 ], function () { // custom admin routes
     Route::get('register', function () {
         return redirect('/404');});
-    Route::crud('service', 'ServiceCrudController');
+    Route::crud('general-services', 'GeneralAviationCrudController');
     Route::crud('about-us', 'AboutUsCrudController');
     Route::crud('contact-us', 'ContactUsCrudController');
     Route::crud('user', 'UserCrudController');

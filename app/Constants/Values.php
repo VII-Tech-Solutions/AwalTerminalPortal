@@ -36,4 +36,6 @@ class Values extends CustomEnum
 
     // Activity Booking
     const LOCK_BOOKING = 15;
+
+    const CARBON_FORMAT_2 = "";
 }
