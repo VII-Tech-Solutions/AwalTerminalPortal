@@ -16,7 +16,13 @@ class Attributes extends CustomEnum
     const NAME = 'name';
     const FORM_ID = 'form_id';
     const DANGER = "danger";
+    const CONNECTION = "connection";
+    const QUEUE = "queue";
+    const TOKEN = "token";
+    const PAYLOAD = "payload";
     const AVATAR = "avatar";
+    const EXCEPTION = "exception";
+    const FAILED_AT = "failed_at";
     const PASSWORD = "password";
     const LABEL = "label";
     const GENERAL_SERVICES = "general_services";

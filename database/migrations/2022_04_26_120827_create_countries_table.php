@@ -15,12 +15,14 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create(Tables::COUNTRIES, function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string(Attributes::NAME)->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if(!Schema::hasTable(Tables::COUNTRIES)) {
+            Schema::create(Tables::COUNTRIES, function (Blueprint $table) {
+                $table->bigIncrements(Attributes::ID);
+                $table->string(Attributes::NAME)->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

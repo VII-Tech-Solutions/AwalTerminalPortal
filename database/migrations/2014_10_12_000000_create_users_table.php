@@ -1,6 +1,7 @@
 <?php
 
 use App\Constants\Attributes;
+use App\Constants\Tables;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,18 +15,20 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->integer(Attributes::STATUS)->nullable();
-            $table->integer(Attributes::USER_TYPE)->nullable();
-            $table->rememberToken();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if(!Schema::hasTable(Tables::USERS)){
+            Schema::create(Tables::USERS, function (Blueprint $table) {
+                $table->bigIncrements(Attributes::ID);
+                $table->string(Attributes::NAME);
+                $table->string(Attributes::EMAIL);
+                $table->timestamp(Attributes::EMAIL_VERIFIED_AT)->nullable();
+                $table->string(Attributes::PASSWORD);
+                $table->integer(Attributes::STATUS)->nullable();
+                $table->integer(Attributes::USER_TYPE)->nullable();
+                $table->rememberToken();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
@@ -35,6 +38,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists(Tables::USERS);
     }
 }

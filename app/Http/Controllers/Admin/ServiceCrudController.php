@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Constants\Attributes;
 use App\Constants\FieldTypes;
 use App\Http\Requests\ServiceRequest;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Models\Service;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class ServiceCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class ServiceCrudController extends CustomCrudController
 {
@@ -22,7 +23,7 @@ class ServiceCrudController extends CustomCrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Service::class);
+        CRUD::setModel(Service::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/service');
         CRUD::setEntityNameStrings('service', 'services');
     }
@@ -36,12 +37,6 @@ class ServiceCrudController extends CustomCrudController
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // columns
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
@@ -58,12 +53,6 @@ class ServiceCrudController extends CustomCrudController
         $this->addNameField(Attributes::SERVICE_TYPE,'Service Type');
         $this->addNumberField(Attributes::PRICE,'Price');
         $this->addStatusField();
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
     }
 
     /**

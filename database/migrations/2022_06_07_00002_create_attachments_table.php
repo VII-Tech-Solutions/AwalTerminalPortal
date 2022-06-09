@@ -15,14 +15,16 @@ class CreateAttachmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create(Tables::ATTACHMENTS, function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string(Attributes::PATH)->nullable();
-            $table->integer(Attributes::SERVICE_ID)->nullable();
-            $table->integer(Attributes::FORM_ID)->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if(!Schema::hasTable(Tables::ATTACHMENTS)){
+            Schema::create(Tables::ATTACHMENTS, function (Blueprint $table) {
+                $table->bigIncrements(Attributes::ID);
+                $table->string(Attributes::PATH)->nullable();
+                $table->integer(Attributes::SERVICE_ID)->nullable();
+                $table->integer(Attributes::FORM_ID)->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

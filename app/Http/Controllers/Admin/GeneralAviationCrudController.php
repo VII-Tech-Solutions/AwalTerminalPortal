@@ -43,12 +43,6 @@ class GeneralAviationCrudController extends CustomCrudController
         $this->addNameColumn('Arrival date',1,Attributes::ARRIVAL_DATE);
         $this->addNameColumn('Lead passenger name',1,Attributes::LEAD_PASSENGER_NAME);
         $this->addNameColumn('Remarks',1,Attributes::REMARKS);
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
@@ -94,12 +88,6 @@ class GeneralAviationCrudController extends CustomCrudController
         CRUD::field(Attributes::TRANSPORT_TIME);
         CRUD::field(Attributes::REMARKS);
         CRUD::field(Attributes::ATTACHMENTS);
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
     }
 
     /**

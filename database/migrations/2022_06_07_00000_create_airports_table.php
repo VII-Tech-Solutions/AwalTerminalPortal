@@ -15,13 +15,15 @@ class CreateAirportsTable extends Migration
      */
     public function up()
     {
-        Schema::create(Tables::AIRPORTS, function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string(Attributes::NAME)->nullable();
-            $table->integer(Attributes::COUNTRY_ID)->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if(!Schema::hasTable(Tables::AIRPORTS)) {
+            Schema::create(Tables::AIRPORTS, function (Blueprint $table) {
+                $table->bigIncrements(Attributes::ID);
+                $table->string(Attributes::NAME)->nullable();
+                $table->integer(Attributes::COUNTRY_ID)->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

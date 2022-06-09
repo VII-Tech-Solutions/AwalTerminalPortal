@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
-use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
+/**
+ * About Us
+ */
 class AboutUs extends CustomModel
 {
-    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
+    use CrudTrait;
 
     protected $fillable = [
         Attributes::TITLE,

@@ -3,19 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Constants\Attributes;
-use App\Helpers;
 use App\Http\Requests\AirportRequest;
 use App\Models\Airport;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use http\Env\Response;
-use Illuminate\Http\RedirectResponse;
 
 /**
  * Class AirportCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class AirportCrudController extends CustomCrudController
 {
@@ -27,9 +23,9 @@ class AirportCrudController extends CustomCrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Airport::class);
+        CRUD::setModel(Airport::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/airport');
-        CRUD::setEntityNameStrings('airport', 'airports');
+        CRUD::setEntityNameStrings('Airport', 'Airports');
     }
 
     /**
@@ -40,15 +36,15 @@ class AirportCrudController extends CustomCrudController
      */
     protected function setupListOperation()
     {
-        $this->addNameColumn('ID',1,Attributes::ID);
-        $this->addNameColumn('Name',1,Attributes::NAME);
-        $this->addNameColumn('Country',1,Attributes::COUNTRY_ID);
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
+        // Column: ID
+        $this->addNameColumn('ID',null,Attributes::ID);
+
+        // Column: Name
+        $this->addNameColumn('Name',null,Attributes::NAME);
+
+        // Column: Country
+        $this->addNameColumn('Country',null,Attributes::COUNTRY_ID);
     }
 
     /**
@@ -60,14 +56,12 @@ class AirportCrudController extends CustomCrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(AirportRequest::class);
-        $this->addNameField(Attributes::NAME,'Name');
-        CRUD::field(Attributes::COUNTRY);
 
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
+        // Field: Name
+        $this->addNameField(Attributes::NAME,'Name');
+
+        // Field: Country
+        CRUD::field(Attributes::COUNTRY);
     }
 
     /**

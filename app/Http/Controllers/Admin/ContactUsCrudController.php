@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Constants\Attributes;
-use App\Constants\FieldTypes;
 use App\Http\Requests\ContactUsRequest;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Models\ContactUs;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class ContactUsCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class ContactUsCrudController extends CustomCrudController
 {
@@ -23,9 +23,9 @@ class ContactUsCrudController extends CustomCrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\ContactUs::class);
+        CRUD::setModel(ContactUs::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/contact-us');
-        CRUD::setEntityNameStrings('contact us', 'contact us');
+        CRUD::setEntityNameStrings('Contact Us', 'Contact Us');
     }
 
     /**
@@ -55,17 +55,19 @@ class ContactUsCrudController extends CustomCrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ContactUsRequest::class);
+
+        // Field: First Name
         $this->addNameField(Attributes::FIRST_NAME,'First Name');
+
+        // Field: Last Name
         $this->addNameField(Attributes::LAST_NAME,'Last Name');
+
+        // Field: Email
         $this->addEmailField();
+
+        // Field: Message
         $this->addDescriptionField(Attributes::MESSAGE,'Message');
 
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
     }
 
     /**
@@ -78,6 +80,4 @@ class ContactUsCrudController extends CustomCrudController
     {
         $this->setupCreateOperation();
     }
-
-
 }

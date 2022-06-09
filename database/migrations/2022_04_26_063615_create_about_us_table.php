@@ -1,6 +1,7 @@
 <?php
 
 use App\Constants\Attributes;
+use App\Constants\Tables;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,13 +15,15 @@ class CreateAboutUsTable extends Migration
      */
     public function up()
     {
-        Schema::create('about_us', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string(Attributes::TITLE)->nullable();
-            $table->longText(Attributes::DESCRIPTION)->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if(!Schema::hasTable(Tables::ABOUT_US)){
+            Schema::create(Tables::ABOUT_US, function (Blueprint $table) {
+                $table->bigIncrements(Attributes::ID);
+                $table->string(Attributes::TITLE)->nullable();
+                $table->longText(Attributes::DESCRIPTION)->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
@@ -30,6 +33,6 @@ class CreateAboutUsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('about_us');
+        Schema::dropIfExists(Tables::ABOUT_US);
     }
 }

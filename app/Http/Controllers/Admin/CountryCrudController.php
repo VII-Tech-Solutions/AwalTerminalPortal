@@ -4,21 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use App\Constants\Attributes;
 use App\Http\Requests\CountryRequest;
+use App\Models\Country;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class CountryCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class CountryCrudController extends CustomCrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use ListOperation;
+    use CreateOperation;
+    use UpdateOperation;
+    use DeleteOperation;
+    use ShowOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -27,9 +34,9 @@ class CountryCrudController extends CustomCrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Country::class);
+        CRUD::setModel(Country::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/country');
-        CRUD::setEntityNameStrings('country', 'countries');
+        CRUD::setEntityNameStrings('Country', 'Countries');
     }
 
     /**
@@ -40,14 +47,13 @@ class CountryCrudController extends CustomCrudController
      */
     protected function setupListOperation()
     {
-        $this->addNameColumn('ID',1,Attributes::ID);
-        CRUD::column('name');
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
+        // Column: ID
+        $this->addNameColumn('ID',null,Attributes::ID);
+
+        // Column: Name
+        $this->addNameColumn('Name',null,Attributes::NAME);
+
     }
 
     /**

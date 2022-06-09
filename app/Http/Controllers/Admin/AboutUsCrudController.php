@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Constants\Attributes;
 use App\Constants\FieldTypes;
 use App\Http\Requests\AboutUsRequest;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Models\AboutUs;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class AboutUsCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class AboutUsCrudController extends CustomCrudController
 {
@@ -23,9 +24,9 @@ class AboutUsCrudController extends CustomCrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\AboutUs::class);
+        CRUD::setModel(AboutUs::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/about-us');
-        CRUD::setEntityNameStrings('about us', 'about us');
+        CRUD::setEntityNameStrings('About Us', 'About Us');
     }
 
     /**
@@ -55,14 +56,11 @@ class AboutUsCrudController extends CustomCrudController
     {
         CRUD::setValidation(AboutUsRequest::class);
 
+        // Field: Name
         $this->addNameField(Attributes::TITLE,'Title');
-        $this->addDescriptionField(Attributes::DESCRIPTION,'Description',null,FieldTypes::CKEDITOR);
 
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
+        // Field: Description
+        $this->addDescriptionField(Attributes::DESCRIPTION,'Description',null,FieldTypes::CKEDITOR);
     }
 
     /**

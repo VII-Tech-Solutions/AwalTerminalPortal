@@ -4,21 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Constants\Attributes;
 use App\Http\Requests\UserRequest;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Models\User;
+use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class UserCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class UserCrudController extends CustomCrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use ListOperation, CreateOperation, UpdateOperation, DeleteOperation, ShowOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -27,9 +29,9 @@ class UserCrudController extends CustomCrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\User::class);
+        CRUD::setModel(User::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/user');
-        CRUD::setEntityNameStrings('user', 'users');
+        CRUD::setEntityNameStrings('User', 'Users');
     }
 
     /**
@@ -44,12 +46,6 @@ class UserCrudController extends CustomCrudController
         CRUD::column('name');
         CRUD::column('email');
         CRUD::column('password');
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
@@ -65,12 +61,6 @@ class UserCrudController extends CustomCrudController
         CRUD::field('name');
         CRUD::field('email');
         CRUD::field('password');
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
     }
 
     /**
