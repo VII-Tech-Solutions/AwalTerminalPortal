@@ -2,13 +2,9 @@
 
 namespace App\API\Transformers;
 
-use App\Constants\Attributes;
 use App\Constants\Values;
-use App\Models\TripItem;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
-use VIITech\Helpers\GlobalHelpers;
 
 /**
  * Class CustomTransformer
@@ -120,10 +116,6 @@ class CustomTransformer extends TransformerAbstract
      */
     public function includeMedia($item)
     {
-        $media = $item->media->sortBy(Attributes::ORDER);
-        if (!GlobalHelpers::isValidVariable($media)) {
-            return $this->collection([], new MediaTransformer(), Values::NO_RESOURCE_KEY);
-        }
-        return $this->collection($media, new IDTransformer(), Values::NO_RESOURCE_KEY);
+        return $this->collection($item->media, new IDTransformer(), Values::NO_RESOURCE_KEY);
     }
 }

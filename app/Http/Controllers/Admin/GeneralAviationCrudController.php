@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Constants\Attributes;
 use App\Http\Requests\GeneralAviationRequest;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Models\GeneralAviationServices;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Google\Service\Dfareporting\Flight;
 
 /**
  * Class GeneralAviationCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class GeneralAviationCrudController extends CustomCrudController
 {
@@ -23,7 +23,7 @@ class GeneralAviationCrudController extends CustomCrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\GeneralAviationServices::class);
+        CRUD::setModel(GeneralAviationServices::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/general-services');
         CRUD::setEntityNameStrings('general-services', 'general services');
     }

@@ -5,7 +5,7 @@ namespace App\API\Transformers;
 use App\Constants\Attributes;
 
 /**
- * Class AboutUsTransformer
+ * Class EliteServiceTransformer
  * @package App\API\Transformers
  */
 class EliteServiceTransformer extends CustomTransformer

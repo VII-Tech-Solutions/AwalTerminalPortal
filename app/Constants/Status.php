@@ -29,13 +29,10 @@ class Status extends CustomEnum
             foreach ($public_constants as $public_constant) {
                 $result[ucfirst(strtolower(str_replace('_', ' ',$public_constant)))] = $this_class->getConstant($public_constant);
             }
-            $result = array_flip($result);
-            return $result;
-
+            return array_flip($result);
         } catch (ReflectionException $e) {
             return [];
         }
-
     }
 
 }

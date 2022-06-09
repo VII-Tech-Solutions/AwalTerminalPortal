@@ -66,13 +66,8 @@ class CountryCrudController extends CustomCrudController
     {
         CRUD::setValidation(CountryRequest::class);
 
+        // Field: Name
         CRUD::field('name');
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
     }
 
     /**

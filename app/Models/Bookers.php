@@ -3,27 +3,18 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
-use App\Constants\FieldTypes;
-use App\Constants\FlightType;
-use App\Helpers;
+use App\Constants\Tables;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Bookers
+ */
 class Bookers extends CustomModel
 {
     use CrudTrait;
 
-    /*
-    |--------------------------------------------------------------------------
-    | GLOBAL VARIABLES
-    |--------------------------------------------------------------------------
-    */
+    protected $table = Tables::BOOKERS;
 
-    protected $table = 'bookers';
-    // protected $primaryKey = 'id';
-    // public $timestamps = false;
-    protected $guarded = ['id'];
     protected $fillable = [
         Attributes::FIRST_NAME,
         Attributes::LAST_NAME,
@@ -31,38 +22,4 @@ class Bookers extends CustomModel
         Attributes::COMMENTS,
         Attributes::SERVICE_ID,
     ];
-    // protected $hidden = [];
-    // protected $dates = [];
-
-    /*
-    |--------------------------------------------------------------------------
-    | FUNCTIONS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONS
-    |--------------------------------------------------------------------------
-    */
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | SCOPES
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | ACCESSORS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | MUTATORS
-    |--------------------------------------------------------------------------
-    */
 }

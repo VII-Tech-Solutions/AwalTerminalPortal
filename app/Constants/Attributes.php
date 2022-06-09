@@ -25,6 +25,7 @@ class Attributes extends CustomEnum
     const FAILED_AT = "failed_at";
     const PASSWORD = "password";
     const LABEL = "label";
+    const REMEMBER_TOKEN = "remember_token";
     const GENERAL_SERVICES = "general_services";
     const PRIORITY = "priority";
     const IP = "ip";

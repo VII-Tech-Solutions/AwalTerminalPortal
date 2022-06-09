@@ -3,21 +3,19 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
-use App\Helpers;
+use App\Constants\Tables;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use http\Url;
 use Illuminate\Support\Str;
 
+/**
+ * Attachment
+ */
 class Attachment extends CustomModel
 {
     use CrudTrait;
-    /*
-    |--------------------------------------------------------------------------
-    | GLOBAL VARIABLES
-    |--------------------------------------------------------------------------
-    */
-    protected $table = 'attachments';
-    protected $guarded = ['id'];
+
+    protected $table = Tables::ATTACHMENTS;
+
     protected $fillable = [
         Attributes::NAME,
         Attributes::PATH,
@@ -25,7 +23,9 @@ class Attachment extends CustomModel
         Attributes::SERVICE_ID,
     ];
 
-    protected $appends = [ Attributes::URL ];
+    protected $appends = [
+        Attributes::URL
+    ];
 
     /**
      * Create or Update
@@ -55,6 +55,11 @@ class Attachment extends CustomModel
 
     }
 
+    /**
+     * Get Attribute: url
+     * @param $value
+     * @return string
+     */
     function getUrlAttribute($value)
     {
         return url($this->path);

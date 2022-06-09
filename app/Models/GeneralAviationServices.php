@@ -3,27 +3,22 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
-use App\Constants\FieldTypes;
 use App\Constants\FlightType;
+use App\Constants\Tables;
 use App\Helpers;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * General Aviation Services
+ */
 class GeneralAviationServices extends CustomModel
 {
     use CrudTrait;
 
-    /*
-    |--------------------------------------------------------------------------
-    | GLOBAL VARIABLES
-    |--------------------------------------------------------------------------
-    */
+    protected $table = Tables::GENERAL_SERVICES;
 
-    protected $table = 'general_services';
-    // protected $primaryKey = 'id';
-    // public $timestamps = false;
-    protected $guarded = ['id'];
     protected $fillable = [
         Attributes::AIRCRAFT_TYPE,
         Attributes::REGISTRATION_NUMBER,
@@ -59,20 +54,11 @@ class GeneralAviationServices extends CustomModel
         Attributes::STATUS,
         Attributes::REMARKS,
     ];
-    // protected $hidden = [];
-    // protected $dates = [];
 
-    /*
-    |--------------------------------------------------------------------------
-    | FUNCTIONS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONS
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Relationship: country
+     * @return BelongsTo
+     */
     public function country()
     {
         return $this->belongsTo(Country::class,Attributes::NATIONALITY);
@@ -86,44 +72,49 @@ class GeneralAviationServices extends CustomModel
         return $this->hasMany(Attachment::class, Attributes::FORM_ID, Attributes::ID);
     }
 
+    /**
+     * Relationship: arriving_from_airport
+     * @return BelongsTo
+     */
     public function arriving_from_airport()
     {
         return $this->belongsTo( Airport::class,Attributes::ID, Attributes::ARRIVING_FROM_AIRPORT);
     }
 
+    /**
+     * Relationship: departing_to_airport
+     * @return BelongsTo
+     */
     public function departing_to_airport()
     {
         return $this->belongsTo(Airport::class,Attributes::ID, Attributes::ARRIVING_FROM_AIRPORT);
     }
 
+    /**
+     * Relationship: agent_country
+     * @return BelongsTo
+     */
     public function agent_country()
     {
         return $this->belongsTo(Country::class,Attributes::ID, Attributes::AGENT_COUNTRY);
     }
 
+    /**
+     * Relationship: operator_country
+     * @return BelongsTo
+     */
    public function operator_country()
     {
         return $this->belongsTo(Country::class,Attributes::ID, Attributes::OPERATOR_COUNTRY);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | SCOPES
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | ACCESSORS
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Get Attribute: flight_type
+     * @param $value
+     * @return string
+     */
     function getFlightTypeAttribute($value)
     {
         return Helpers::readableText(FlightType::getKey((int)$value));
     }
-    /*
-    |--------------------------------------------------------------------------
-    | MUTATORS
-    |--------------------------------------------------------------------------
-    */
 }

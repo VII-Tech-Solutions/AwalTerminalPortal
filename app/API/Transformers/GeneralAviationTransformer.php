@@ -6,6 +6,10 @@ use App\Constants\Attributes;
 use App\Constants\Values;
 use League\Fractal\Resource\Collection;
 
+/**
+ * Class GeneralAviationTransformer
+ * @package App\API\Transformers
+ */
 class GeneralAviationTransformer extends CustomTransformer
 {
     public $fields = [
@@ -44,7 +48,9 @@ class GeneralAviationTransformer extends CustomTransformer
         Attributes::REMARKS,
     ];
 
-    protected $defaultIncludes = [Attributes::ATTACHMENTS];
+    protected $defaultIncludes = [
+        Attributes::ATTACHMENTS
+    ];
 
     /**
      * Include Attachments
@@ -55,5 +61,4 @@ class GeneralAviationTransformer extends CustomTransformer
     {
         return $this->collection($item->attachments, new IDTransformer(), Values::NO_RESOURCE_KEY);
     }
-
 }

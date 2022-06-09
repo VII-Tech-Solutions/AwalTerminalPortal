@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
 
 /**
  * Custom Model
@@ -34,9 +32,8 @@ class CustomModel extends Model
 {
     use SoftDeletes, CrudTrait;
 
-//    const TRANSFORMER_NAME = IDTransformer::class;
+    const TRANSFORMER_NAME = IDTransformer::class;
 
-    const TRANSFORMER_NAME = "transformer_name";
     protected $primaryKey = Attributes::ID;
 
     /**

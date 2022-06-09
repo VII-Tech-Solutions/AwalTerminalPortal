@@ -52,9 +52,15 @@ class User extends CustomModel implements AuthenticatableContract, AuthorizableC
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        Attributes::PASSWORD,
+        Attributes::REMEMBER_TOKEN,
     ];
 
+    /**
+     * Set Attribute: password
+     * @param $value
+     * @return void
+     */
     public function setPasswordAttribute($value)
     {
         $this->setPassword($value);

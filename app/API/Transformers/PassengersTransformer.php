@@ -4,6 +4,10 @@ namespace App\API\Transformers;
 
 use App\Constants\Attributes;
 
+/**
+ * Class PassengersTransformer
+ * @package App\API\Transformers
+ */
 class PassengersTransformer extends CustomTransformer
 {
     public $fields = [

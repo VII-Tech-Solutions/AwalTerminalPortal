@@ -11,18 +11,24 @@ use App\Models\Airport;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * Class MetadataController
+ * @package App\API\Controllers
+ */
 class MetadataController extends CustomController
 {
 
     /**
      * List All
-     * @param Request $request
      * @return JsonResponse
      */
     public function all()
     {
+
+        // get metadata
         $countries = Country::all();
         $airports = Airport::all();
+
         // return response
         return Helpers::returnResponse([
             Attributes::AIRPORTS => Airport::returnTransformedItems($airports, AirportTransformer::class),

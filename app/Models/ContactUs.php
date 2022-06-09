@@ -3,11 +3,17 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
-use Illuminate\Database\Eloquent\Model;
+use App\Constants\Tables;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
+/**
+ * Contact Us
+ */
 class ContactUs extends CustomModel
 {
-    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
+    use CrudTrait;
+
+    protected $table = Tables::CONTACT_US;
 
     protected $fillable = [
         Attributes::FIRST_NAME,

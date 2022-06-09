@@ -9,6 +9,5 @@ class AttachmentTransformer extends CustomTransformer
     public $fields = [
         Attributes::ID,
         Attributes::URL,
-
     ];
 }

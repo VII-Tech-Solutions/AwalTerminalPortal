@@ -3,59 +3,30 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
+use App\Constants\Tables;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Airport
+ */
 class Airport extends CustomModel
 {
     use CrudTrait;
 
-    /*
-    |--------------------------------------------------------------------------
-    | GLOBAL VARIABLES
-    |--------------------------------------------------------------------------
-    */
+    protected $table = Tables::AIRPORTS;
 
-    protected $table = 'airports';
-    // protected $primaryKey = 'id';
-    // public $timestamps = false;
-    protected $guarded = ['id'];
-     protected $fillable = [
-         Attributes::NAME,
-         Attributes::COUNTRY_ID
-     ];
-    // protected $hidden = [];
-    // protected $dates = [];
+    protected $fillable = [
+        Attributes::NAME,
+        Attributes::COUNTRY_ID
+    ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | FUNCTIONS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONS
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Relationship: country
+     * @return BelongsTo
+     */
     public function country()
     {
-        return $this->belongsTo(Country::class,Attributes::COUNTRY_ID);
+        return $this->belongsTo(Country::class, Attributes::COUNTRY_ID);
     }
-    /*
-    |--------------------------------------------------------------------------
-    | SCOPES
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | ACCESSORS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | MUTATORS
-    |--------------------------------------------------------------------------
-    */
 }

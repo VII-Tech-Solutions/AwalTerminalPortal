@@ -11,9 +11,9 @@ use App\Models\GeneralAviationServices;
 use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use VIITech\Helpers\Constants\CastingTypes;
 use VIITech\Helpers\GlobalHelpers;
-use function Sodium\add;
 
 /**
  * Class GeneralAviationFormController
@@ -212,7 +212,7 @@ class GeneralAviationFormController extends CustomController
         $files = $request->allFiles();
         foreach ($files as $key => $file) {
 
-            /** @var \Illuminate\Http\UploadedFile  $file */
+            /** @var UploadedFile  $file */
             $upload_result = Helpers::storeFile(null, null, null, $file, true, false);
 
             $attachment = Attachment::createOrUpdate([
