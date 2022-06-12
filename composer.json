@@ -21,7 +21,8 @@
         "sentry/sentry-laravel": "^2.3",
         "spatie/laravel-fractal": "^5.8",
         "viitech/laravel-dev-helpers": "^0.1.20",
-        "ext-http": "*"
+        "ext-http": "*",
+        "fruitcake/laravel-cors": "^v2.0.0"
     },
     "require-dev": {
         "backpack/generators": "^3.1",

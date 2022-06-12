@@ -45,7 +45,6 @@ class UserCrudController extends CustomCrudController
         $this->addNameColumn('ID',1,Attributes::ID);
         CRUD::column('name');
         CRUD::column('email');
-        CRUD::column('password');
     }
 
     /**
@@ -57,10 +56,9 @@ class UserCrudController extends CustomCrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(UserRequest::class);
-
         CRUD::field('name');
         CRUD::field('email');
-        CRUD::field('password');
+
     }
 
     /**

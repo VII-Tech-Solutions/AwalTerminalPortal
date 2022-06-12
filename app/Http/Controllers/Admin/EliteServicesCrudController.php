@@ -59,6 +59,8 @@ class EliteServicesCrudController extends CustomCrudController
 
         // Column: Number of Infants
         CRUD::column('number_of_infants');
+        CRUD::column('number_of_adults');
+
     }
 
     /**
