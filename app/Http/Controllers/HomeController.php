@@ -24,7 +24,7 @@ class HomeController extends Controller
      * @return RedirectResponse
      */
     function home(){
-        return redirect(backpack_url());
+        return redirect()->to("/");
     }
 
 }

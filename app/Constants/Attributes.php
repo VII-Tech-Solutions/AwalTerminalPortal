@@ -244,4 +244,19 @@ class Attributes extends CustomEnum
     const MEDIA_IDS = "media_ids";
     const STATUS_NAME = "status_name";
     const TYPE_ID = "type_id";
+    const _ID = "_id";
+    const TRUE = "true";
+    const FALSE = "false";
+    const SUCCESS = "success";
+    const ERROR = "error";
+    const CANCELLED = "cancelled";
+    const DELETED_AT = "deleted_at";
+    const TIMEZONE = "timezone";
+    const UUID = "uuid";
+    const GOOGLE_EVENTS = "google_events";
+    const DELETED_EVENTS = "deleted_events";
+    const GOOGLE_EVENT_ID = "google_event_id";
+    const CLIENT_ID = "client_id";
+    const VAT_PERCENTAGE = "vat_percentage";
+    const VAT_AMOUNT = "vat_amount";
 }

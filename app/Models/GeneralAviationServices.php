@@ -6,7 +6,6 @@ use App\Constants\Attributes;
 use App\Constants\FlightType;
 use App\Constants\Tables;
 use App\Helpers;
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -15,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class GeneralAviationServices extends CustomModel
 {
-    use CrudTrait;
 
     protected $table = Tables::GENERAL_SERVICES;
 

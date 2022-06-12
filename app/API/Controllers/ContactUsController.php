@@ -4,12 +4,13 @@ namespace App\API\Controllers;
 
 use App\API\Transformers\ContactUsTransformer;
 use App\Constants\Attributes;
+use App\Constants\CastingTypes;
+use App\GlobalHelpers;
 use App\Helpers;
 use App\Models\ContactUs;
-use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
-use VIITech\Helpers\Constants\CastingTypes;
-use VIITech\Helpers\GlobalHelpers;
+use Illuminate\Http\Response;
+
 
 /**
  * Class ContactUsController

@@ -1,6 +1,6 @@
 <?php
 
-use Backpack\CRUD\Tests\Config\Database\Seeds\UsersTableSeeder;
+//use Backpack\CRUD\Tests\Config\Database\Seeds\UsersTableSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,8 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserSeeder::class);
-        $this->call(CountrySeeder::class);
-        $this->call(AirportSeeder::class);
+//        $this->call(UserSeeder::class);
+//        $this->call(CountrySeeder::class);
+//        $this->call(AirportSeeder::class);
     }
 }

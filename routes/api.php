@@ -15,22 +15,14 @@
  * API
  *******************************/
 
-/** @var Router $api */
+use Illuminate\Support\Facades\Route;
 
-use App\API\Controllers\ContactUsController;
-use Dingo\Api\Routing\Router;
 
-$api = app('Dingo\Api\Routing\Router');
-$api->version('v1', function ($api) {
-    $api->get('/', function () {
-        return ['status' => true];
-    });
-    $api->group(['namespace' => 'App\API\Controllers'], function () use ($api) {
-        $api->get('/elite-service/all', 'EliteServiceController@all');
-        $api->get('/metadata', 'MetadataController@all');
-        $api->post('/elite-service', 'EliteServiceController@submitForm');
-        $api->post('/general-aviation', 'GeneralAviationFormController@submitForm');
-        $api->post('/general-aviation/media', 'GeneralAviationFormController@uploadMedia');
-        $api->post('/contact-us', 'ContactUsController@submitForm');
-    });
-});
+Route::post('/elite-service/all', 'App\API\Controllers\EliteServiceController@all');
+Route::get('/metadata', 'App\API\Controllers\MetadataController@all');
+Route::post('/elite-service', 'App\API\Controllers\EliteServiceController@submitForm');
+Route::post('/elite-service/all', 'App\API\Controllers\EliteServiceController@all');
+Route::post('/general-aviation', 'App\API\Controllers\GeneralAviationFormController@submitForm');
+Route::post('/general-aviation/media', 'App\API\Controllers\GeneralAviationFormController@uploadMedia');
+Route::post('/contact-us', 'App\API\Controllers\ContactUsController@submitForm');
+

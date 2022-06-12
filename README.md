@@ -7,7 +7,10 @@ composer install
 php artisan migrate
 npm install
 npm run dev
-php artisan backpack:install
-php artisan db:seed
+php artisan filament:upgrade
+#php artisan db:seed
 php artisan storage:link
 ```
+
+
+        "viitech/laravel-dev-helpers": "^0.1.20",

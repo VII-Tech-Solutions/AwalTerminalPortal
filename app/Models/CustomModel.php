@@ -7,7 +7,6 @@ use App\API\Transformers\IDTransformer;
 use App\constants\Attributes;
 use App\constants\Status;
 use App\Helpers;
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +29,7 @@ use Illuminate\Support\Str;
  */
 class CustomModel extends Model
 {
-    use SoftDeletes, CrudTrait;
+    use SoftDeletes;
 
     const TRANSFORMER_NAME = IDTransformer::class;
 

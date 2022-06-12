@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Constants\Attributes;
 use App\Constants\Tables;
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Support\Str;
 
 /**
@@ -12,7 +11,6 @@ use Illuminate\Support\Str;
  */
 class Attachment extends CustomModel
 {
-    use CrudTrait;
 
     protected $table = Tables::ATTACHMENTS;
 

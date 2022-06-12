@@ -2,67 +2,44 @@
 
 namespace App\Models;
 
-use App\Constants\Attributes;
-use App\Traits\ModelTrait;
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\MustVerifyEmail;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Foundation\Auth\Access\Authorizable;
+use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use VIITech\Helpers\Constants\CastingTypes;
+use Laravel\Sanctum\HasApiTokens;
 
-/**
- * Class User
- * @package App\Models
- */
-class User extends CustomModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
+class User extends Authenticatable implements FilamentUser
 {
-    use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail, Notifiable, CrudTrait, ModelTrait;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
-        Attributes::NAME,
-        Attributes::EMAIL,
-        Attributes::USER_TYPE,
-        Attributes::PASSWORD,
-        Attributes::STATUS,
-        Attributes::EMAIL_VERIFIED_AT,
-    ];
-
-    protected $casts = [
-        Attributes::NAME => CastingTypes::STRING,
-        Attributes::EMAIL => CastingTypes::STRING,
-        Attributes::USER_TYPE => CastingTypes::INTEGER,
-        Attributes::PASSWORD => CastingTypes::STRING,
-        Attributes::STATUS => CastingTypes::INTEGER,
-        Attributes::EMAIL_VERIFIED_AT => 'datetime',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
-        Attributes::PASSWORD,
-        Attributes::REMEMBER_TOKEN,
+        'password',
+        'remember_token',
     ];
 
     /**
-     * Set Attribute: password
-     * @param $value
-     * @return void
+     * @var array<string, string>
      */
-    public function setPasswordAttribute($value)
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function canAccessFilament(): bool
     {
-        $this->setPassword($value);
+        return true;
     }
 }

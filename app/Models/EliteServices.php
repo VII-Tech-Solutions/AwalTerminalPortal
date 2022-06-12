@@ -6,17 +6,17 @@ use App\Constants\Attributes;
 use App\Constants\FlightType;
 use App\Constants\Tables;
 use App\Helpers;
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 /**
  * Elite Services
  *
  * @property string flight_type
  */
-class EliteServices extends CustomModel
+class EliteServices extends Model
 {
-    use CrudTrait;
+    use HasFactory;
 
     protected $table = Tables::ELITE_SERVICES;
 
