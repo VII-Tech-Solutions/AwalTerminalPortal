@@ -1,5 +1,7 @@
 <?php
 
+use App\Constants\Attributes;
+use App\Constants\Tables;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +15,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::create(Tables::ELITE_SERVICES_FEATURES, function (Blueprint $table) {
+            $table->id();
+            $table->string(Attributes::FEATURE_DETAILS)->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        Schema::dropIfExists('elite_service_features');
     }
 };

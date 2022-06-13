@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37966cd4e71f7f1d934a9677bb2c801c",
+    "content-hash": "b8117c9c888ecf81c4b4dabae875919c",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -73,6 +73,64 @@
                 "source": "https://github.com/akaunting/laravel-money/tree/3.0.1"
             },
             "time": "2022-05-11T06:34:38+00:00"
+        },
+        {
+            "name": "andreiio/blade-remix-icon",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreiio/blade-remix-icon.git",
+                "reference": "b25796c992a7c9be674febceb3594d39fb6b9e96"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreiio/blade-remix-icon/zipball/b25796c992a7c9be674febceb3594d39fb6b9e96",
+                "reference": "b25796c992a7c9be674febceb3594d39fb6b9e96",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0|^7.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AndreiIonita\\BladeRemixIcon\\BladeRemixIconServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AndreiIonita\\BladeRemixIcon\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrei Ioniță",
+                    "homepage": "https://andrei.io"
+                }
+            ],
+            "description": "A package to easily make use of Remix Icon in your Laravel Blade views.",
+            "support": {
+                "issues": "https://github.com/andreiio/blade-remix-icon/issues",
+                "source": "https://github.com/andreiio/blade-remix-icon/tree/1.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/andreiio",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-01-20T12:54:02+00:00"
         },
         {
             "name": "api-ecosystem-for-laravel/dingo-api",
@@ -2324,16 +2382,16 @@
         },
         {
             "name": "filament/filament",
-            "version": "v2.12.29",
+            "version": "v2.12.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/admin.git",
-                "reference": "510094f0c90a3e8aafb40ccd62fc0068c36916c5"
+                "reference": "c20151f13d1a1649e6a497262b7130cea51267f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/admin/zipball/510094f0c90a3e8aafb40ccd62fc0068c36916c5",
-                "reference": "510094f0c90a3e8aafb40ccd62fc0068c36916c5",
+                "url": "https://api.github.com/repos/laravel-filament/admin/zipball/c20151f13d1a1649e6a497262b7130cea51267f1",
+                "reference": "c20151f13d1a1649e6a497262b7130cea51267f1",
                 "shasum": ""
             },
             "require": {
@@ -2381,20 +2439,20 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-06-12T13:04:17+00:00"
+            "time": "2022-06-13T14:47:09+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v2.12.29",
+            "version": "v2.12.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/forms.git",
-                "reference": "3f447447ad2db48cea844e99adfb6ac6c655a9b3"
+                "reference": "71bf7581fbe82f35ad1bf082bdcf794af8cafee6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-filament/forms/zipball/3f447447ad2db48cea844e99adfb6ac6c655a9b3",
-                "reference": "3f447447ad2db48cea844e99adfb6ac6c655a9b3",
+                "url": "https://api.github.com/repos/laravel-filament/forms/zipball/71bf7581fbe82f35ad1bf082bdcf794af8cafee6",
+                "reference": "71bf7581fbe82f35ad1bf082bdcf794af8cafee6",
                 "shasum": ""
             },
             "require": {
@@ -2438,11 +2496,11 @@
                 "issues": "https://github.com/laravel-filament/filament/issues",
                 "source": "https://github.com/laravel-filament/filament"
             },
-            "time": "2022-06-12T13:04:09+00:00"
+            "time": "2022-06-13T14:47:09+00:00"
         },
         {
             "name": "filament/spatie-laravel-media-library-plugin",
-            "version": "v2.12.29",
+            "version": "v2.12.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/spatie-laravel-media-library-plugin.git",
@@ -2479,7 +2537,7 @@
         },
         {
             "name": "filament/support",
-            "version": "v2.12.29",
+            "version": "v2.12.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/support.git",
@@ -2528,7 +2586,7 @@
         },
         {
             "name": "filament/tables",
-            "version": "v2.12.29",
+            "version": "v2.12.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-filament/tables.git",
@@ -4528,30 +4586,28 @@
         },
         {
             "name": "league/fractal",
-            "version": "0.20.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thephpleague/fractal.git",
-                "reference": "8b9d39b67624db9195c06f9c1ffd0355151eaf62"
+                "url": "https://github.com/annuh/fractal.git",
+                "reference": "9c9c493edcf0f5438555e5b515a790749a26c807"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/fractal/zipball/8b9d39b67624db9195c06f9c1ffd0355151eaf62",
-                "reference": "8b9d39b67624db9195c06f9c1ffd0355151eaf62",
+                "url": "https://api.github.com/repos/annuh/fractal/zipball/9c9c493edcf0f5438555e5b515a790749a26c807",
+                "reference": "9c9c493edcf0f5438555e5b515a790749a26c807",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.4"
+                "php": ">=5.4"
             },
             "require-dev": {
                 "doctrine/orm": "^2.5",
                 "illuminate/contracts": "~5.0",
-                "mockery/mockery": "^1.3",
+                "mockery/mockery": "~0.9",
                 "pagerfanta/pagerfanta": "~1.0.0",
-                "phpstan/phpstan": "^1.4",
-                "phpunit/phpunit": "^9.5",
-                "squizlabs/php_codesniffer": "~3.4",
-                "vimeo/psalm": "^4.22",
+                "phpunit/phpunit": "^4.8.35 || ^7.5",
+                "squizlabs/php_codesniffer": "~1.5|~2.0|~3.4",
                 "zendframework/zend-paginator": "~2.3"
             },
             "suggest": {
@@ -4559,6 +4615,7 @@
                 "pagerfanta/pagerfanta": "Pagerfanta Paginator",
                 "zendframework/zend-paginator": "Zend Framework Paginator"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -4570,7 +4627,22 @@
                     "League\\Fractal\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "League\\Fractal\\Test\\": "test"
+                }
+            },
+            "scripts": {
+                "check": [
+                    "vendor/bin/phpcs src/"
+                ],
+                "test": [
+                    "vendor/bin/phpunit --testdox --colors=always"
+                ],
+                "test:coverage": [
+                    "vendor/bin/phpunit --coverage-html build/coverage"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -4591,10 +4663,9 @@
                 "rest"
             ],
             "support": {
-                "issues": "https://github.com/thephpleague/fractal/issues",
-                "source": "https://github.com/thephpleague/fractal/tree/0.20.1"
+                "source": "https://github.com/annuh/fractal/tree/master"
             },
-            "time": "2022-04-11T12:47:17+00:00"
+            "time": "2020-09-25T16:41:34+00:00"
         },
         {
             "name": "league/glide",

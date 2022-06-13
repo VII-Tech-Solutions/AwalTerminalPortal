@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Constants\Attributes;
 use App\Constants\Status;
 use App\Models\User;
@@ -9,7 +11,7 @@ use Illuminate\Support\Carbon;
 class UserSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */
@@ -21,7 +23,7 @@ class UserSeeder extends Seeder
             Attributes::PASSWORD => "123abC--",
             Attributes::STATUS => Status::ACTIVE,
             Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
-            Attributes::USER_TYPE=>\App\Constants\AdminUserType::SUPER_ADMIN
+            Attributes::USER_TYPE=>\App\Constants\AdminUserType::SUPER_ADMIN,
         ],[
             Attributes::EMAIL
         ]);
@@ -32,7 +34,7 @@ class UserSeeder extends Seeder
             Attributes::PASSWORD => "123abC--",
             Attributes::STATUS => Status::ACTIVE,
             Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
-            Attributes::USER_TYPE=>\App\Constants\AdminUserType::GA
+            Attributes::USER_TYPE=>\App\Constants\AdminUserType::GA,
         ],[
             Attributes::EMAIL
         ]);
@@ -43,7 +45,7 @@ class UserSeeder extends Seeder
             Attributes::PASSWORD => "123abC--",
             Attributes::STATUS => Status::ACTIVE,
             Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
-            Attributes::USER_TYPE=>\App\Constants\AdminUserType::ELITE_ONLY
+            Attributes::USER_TYPE=>\App\Constants\AdminUserType::ELITE_ONLY,
         ],[
             Attributes::EMAIL
         ]);

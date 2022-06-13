@@ -21,4 +21,6 @@ class Tables extends CustomEnum
     const FAILED_JOBS = "failed_jobs";
     const PASSWORD_RESETS = "password_resets";
     const USERS = "users";
+    const ELITE_SERVICES_FEATURES = "elite_service_features";
+    const ELITE_SERVICES_TYPES = "elite_service_types";
 }

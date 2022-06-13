@@ -1,4 +1,4 @@
-<?php
+\<?php
 
 return [
 
@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'subtype' => env('API_SUBTYPE', 'b4bh_api'),
+    'subtype' => env('API_SUBTYPE', 'awal_api'),
 
     /*
     |--------------------------------------------------------------------------

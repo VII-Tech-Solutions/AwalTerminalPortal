@@ -135,7 +135,7 @@ class Attributes extends CustomEnum
     const MOBILE_NUMBER = "mobile_number";
     const UPDATED_AT = "updated_at";
     const MEDIA = "media";
-    const COUNTRIES  = "countries";
+    const COUNTRIES = "countries";
     const AIRPORTS = "airports";
     const ATTACHMENTS = "attachments";
     const PATH = "path";
@@ -250,13 +250,7 @@ class Attributes extends CustomEnum
     const SUCCESS = "success";
     const ERROR = "error";
     const CANCELLED = "cancelled";
-    const DELETED_AT = "deleted_at";
-    const TIMEZONE = "timezone";
     const UUID = "uuid";
-    const GOOGLE_EVENTS = "google_events";
-    const DELETED_EVENTS = "deleted_events";
-    const GOOGLE_EVENT_ID = "google_event_id";
-    const CLIENT_ID = "client_id";
-    const VAT_PERCENTAGE = "vat_percentage";
-    const VAT_AMOUNT = "vat_amount";
+    const PRICE_PER_ADULT = "price_per_adult";
+    const FEATURE_DETAILS = "feature_details";
 }

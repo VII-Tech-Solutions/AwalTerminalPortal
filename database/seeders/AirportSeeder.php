@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Constants\Tables;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -7,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class AirportSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */
