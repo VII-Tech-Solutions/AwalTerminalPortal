@@ -11,6 +11,3 @@ php artisan filament:upgrade
 #php artisan db:seed
 php artisan storage:link
 ```
-
-
-        "viitech/laravel-dev-helpers": "^0.1.20",
