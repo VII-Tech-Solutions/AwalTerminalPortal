@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3ed0a2a7d70533052b31c8aeb3d4383",
+    "content-hash": "95181552521c57032bf022942aee2f0e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -114,16 +114,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.224.4",
+            "version": "3.225.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "8c8a713b8c1e1a20f66a801f9d2cd7fd80d8d3f8"
+                "reference": "f846724ad842916061127d20da4fe4e129f7d4b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8c8a713b8c1e1a20f66a801f9d2cd7fd80d8d3f8",
-                "reference": "8c8a713b8c1e1a20f66a801f9d2cd7fd80d8d3f8",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f846724ad842916061127d20da4fe4e129f7d4b8",
+                "reference": "f846724ad842916061127d20da4fe4e129f7d4b8",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +131,7 @@
                 "ext-json": "*",
                 "ext-pcre": "*",
                 "ext-simplexml": "*",
-                "guzzlehttp/guzzle": "^5.3.3 || ^6.2.1 || ^7.0",
+                "guzzlehttp/guzzle": "^5.3.3 || ^6.5.6 || ^7.4.3",
                 "guzzlehttp/promises": "^1.4.0",
                 "guzzlehttp/psr7": "^1.7.0 || ^2.1.1",
                 "mtdowling/jmespath.php": "^2.6",
@@ -199,9 +199,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.224.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.225.2"
             },
-            "time": "2022-06-06T18:32:10+00:00"
+            "time": "2022-06-10T19:03:26+00:00"
         },
         {
             "name": "aws/aws-sdk-php-laravel",
@@ -1850,16 +1850,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.252.0",
+            "version": "v0.253.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "9941c959f6a1f781e49019b78f453d54554dff73"
+                "reference": "70c62b17f7821526cb52c6f125254dc51f256109"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/9941c959f6a1f781e49019b78f453d54554dff73",
-                "reference": "9941c959f6a1f781e49019b78f453d54554dff73",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/70c62b17f7821526cb52c6f125254dc51f256109",
+                "reference": "70c62b17f7821526cb52c6f125254dc51f256109",
                 "shasum": ""
             },
             "require": {
@@ -1888,9 +1888,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/google-api-php-client-services/issues",
-                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.252.0"
+                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.253.0"
             },
-            "time": "2022-06-06T01:20:11+00:00"
+            "time": "2022-06-13T01:06:12+00:00"
         },
         {
             "name": "google/auth",
@@ -1952,16 +1952,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.4.3",
+            "version": "7.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "74a8602c6faec9ef74b7a9391ac82c5e65b1cdab"
+                "reference": "e3ff079b22820c2029d4c2a87796b6a0b8716ad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/74a8602c6faec9ef74b7a9391ac82c5e65b1cdab",
-                "reference": "74a8602c6faec9ef74b7a9391ac82c5e65b1cdab",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/e3ff079b22820c2029d4c2a87796b6a0b8716ad8",
+                "reference": "e3ff079b22820c2029d4c2a87796b6a0b8716ad8",
                 "shasum": ""
             },
             "require": {
@@ -2056,7 +2056,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.4.3"
+                "source": "https://github.com/guzzle/guzzle/tree/7.4.4"
             },
             "funding": [
                 {
@@ -2072,7 +2072,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-25T13:24:33+00:00"
+            "time": "2022-06-09T21:39:15+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -2160,16 +2160,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.2.1",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "c94a94f120803a18554c1805ef2e539f8285f9a2"
+                "reference": "83260bb50b8fc753c72d14dc1621a2dac31877ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/c94a94f120803a18554c1805ef2e539f8285f9a2",
-                "reference": "c94a94f120803a18554c1805ef2e539f8285f9a2",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/83260bb50b8fc753c72d14dc1621a2dac31877ee",
+                "reference": "83260bb50b8fc753c72d14dc1621a2dac31877ee",
                 "shasum": ""
             },
             "require": {
@@ -2193,7 +2193,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -2255,7 +2255,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.2.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.3.0"
             },
             "funding": [
                 {
@@ -2271,7 +2271,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-20T21:55:58+00:00"
+            "time": "2022-06-09T08:26:02+00:00"
         },
         {
             "name": "hanneskod/classtools",
@@ -3574,16 +3574,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "2.6.0",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "247918972acd74356b0a91dfaa5adcaec069b6c0"
+                "reference": "5579edf28aee1190a798bfa5be8bc16c563bd524"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/247918972acd74356b0a91dfaa5adcaec069b6c0",
-                "reference": "247918972acd74356b0a91dfaa5adcaec069b6c0",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5579edf28aee1190a798bfa5be8bc16c563bd524",
+                "reference": "5579edf28aee1190a798bfa5be8bc16c563bd524",
                 "shasum": ""
             },
             "require": {
@@ -3662,7 +3662,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.6.0"
+                "source": "https://github.com/Seldaek/monolog/tree/2.7.0"
             },
             "funding": [
                 {
@@ -3674,7 +3674,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-10T09:36:00+00:00"
+            "time": "2022-06-09T08:59:12+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -5710,16 +5710,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.5.0",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "5b611e3f09035f5ad5edf494443e3236bd5ea482"
+                "reference": "6d1a6ee29c558be373bfe08d454a3c116c02dd0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/5b611e3f09035f5ad5edf494443e3236bd5ea482",
-                "reference": "5b611e3f09035f5ad5edf494443e3236bd5ea482",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/6d1a6ee29c558be373bfe08d454a3c116c02dd0d",
+                "reference": "6d1a6ee29c558be373bfe08d454a3c116c02dd0d",
                 "shasum": ""
             },
             "require": {
@@ -5748,7 +5748,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.19|3.4.*",
                 "http-interop/http-factory-guzzle": "^1.0",
-                "monolog/monolog": "^1.3|^2.0",
+                "monolog/monolog": "^1.6|^2.0|^3.0",
                 "nikic/php-parser": "^4.10.3",
                 "php-http/mock-client": "^1.3",
                 "phpbench/phpbench": "^1.0",
@@ -5765,7 +5765,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.5.x-dev"
+                    "dev-master": "3.6.x-dev"
                 }
             },
             "autoload": {
@@ -5799,7 +5799,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/3.5.0"
+                "source": "https://github.com/getsentry/sentry-php/tree/3.6.0"
             },
             "funding": [
                 {
@@ -5811,7 +5811,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-05-19T07:14:12+00:00"
+            "time": "2022-06-09T20:33:39+00:00"
         },
         {
             "name": "sentry/sentry-laravel",
@@ -6597,6 +6597,7 @@
                     "type": "tidelift"
                 }
             ],
+            "abandoned": "symfony/error-handler",
             "time": "2022-04-12T15:19:55+00:00"
         },
         {
@@ -9047,21 +9048,21 @@
         },
         {
             "name": "viitech/laravel-dev-helpers",
-            "version": "0.1.20",
+            "version": "0.1.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/viitech/laravel-dev-helpers.git",
-                "reference": "a8c538d9ff3124e356b8fd9c0ecb86b870a9fc48"
+                "reference": "e1909abaa854e0e416381ffdab63802ddb276abd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/viitech/laravel-dev-helpers/zipball/a8c538d9ff3124e356b8fd9c0ecb86b870a9fc48",
-                "reference": "a8c538d9ff3124e356b8fd9c0ecb86b870a9fc48",
+                "url": "https://api.github.com/repos/viitech/laravel-dev-helpers/zipball/e1909abaa854e0e416381ffdab63802ddb276abd",
+                "reference": "e1909abaa854e0e416381ffdab63802ddb276abd",
                 "shasum": ""
             },
             "require": {
                 "aws/aws-sdk-php-laravel": "3.*",
-                "bensampo/laravel-enum": "1.*|2.*|3.*",
+                "bensampo/laravel-enum": "1.*|2.*|3.*|4.*|5.*",
                 "darkaonline/l5-swagger": "5.*|6.*|7.*|8.*",
                 "dingo/api": "0.*|1.*|2.*|3.*",
                 "doctrine/dbal": "2.*|3.*",
@@ -9079,7 +9080,7 @@
                 "nesbot/carbon": "1.*|2.*",
                 "ramsey/uuid": "3.*|4.*",
                 "sentry/sentry-laravel": "0.*|1.*|2.*",
-                "spatie/laravel-backup": "5.*|6.*|7.*",
+                "spatie/laravel-backup": "5.*|6.*|7.*|8.*",
                 "symfony/process": "4.*|5.*",
                 "tymon/jwt-auth": "0.*|1.*|2.*",
                 "webpatser/laravel-uuid": "3.*|4.*",
@@ -9119,9 +9120,9 @@
             "description": "Laravel Dev Helper Functions",
             "support": {
                 "issues": "https://github.com/viitech/laravel-dev-helpers/issues",
-                "source": "https://github.com/viitech/laravel-dev-helpers/tree/0.1.20"
+                "source": "https://github.com/viitech/laravel-dev-helpers/tree/0.1.22"
             },
-            "time": "2022-05-08T16:15:31+00:00"
+            "time": "2022-06-12T12:13:03+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
