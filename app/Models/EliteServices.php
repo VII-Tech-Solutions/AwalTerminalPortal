@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property string flight_type
  */
-class EliteServices extends Model
+class EliteServices extends CustomModel
 {
     use HasFactory;
 

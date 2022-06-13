@@ -9,9 +9,6 @@ use App\Helpers;
 use App\Models\EliteServices;
 use App\Models\Passengers;
 use App\Models\Bookers;
-use Dingo\Api\Http\Response;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use VIITech\Helpers\Constants\CastingTypes;
 use VIITech\Helpers\GlobalHelpers;
 

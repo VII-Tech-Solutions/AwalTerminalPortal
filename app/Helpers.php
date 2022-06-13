@@ -7,6 +7,7 @@ use App\Constants\FileType;
 use App\Models\Attachment;
 use App\Models\User;
 use Carbon\Carbon;
+use Cassandra\Type\UserType;
 use Exception;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\JsonResponse;

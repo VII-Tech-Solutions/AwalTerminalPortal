@@ -48,7 +48,7 @@ class GeneralAviationTransformer extends CustomTransformer
         Attributes::REMARKS,
     ];
 
-    protected $defaultIncludes = [
+    protected array $defaultIncludes = [
         Attributes::ATTACHMENTS
     ];
 
