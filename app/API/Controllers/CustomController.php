@@ -3,10 +3,12 @@
 namespace App\API\Controllers;
 
 use App\Constants\Attributes;
+use App\Constants\CastingTypes;
 use App\Constants\Values;
+use Dingo\Api\Http\Request;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use VIITech\Helpers\GlobalHelpers;
 
 /**
  * Class CustomController
@@ -31,9 +33,9 @@ class CustomController extends BaseController
     public function __construct(Request $request)
     {
         $this->request = $request;
-//        $this->limit = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::LIMIT, Values::ITEMS_PER_PAGE, CastingTypes::INTEGER);
-//        $this->page = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::PAGE, 1, CastingTypes::INTEGER);
-//        $this->last_update = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::LAST_UPDATE, null, CastingTypes::STRING);
+        $this->limit = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::LIMIT, Values::ITEMS_PER_PAGE, CastingTypes::INTEGER);
+        $this->page = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::PAGE, 1, CastingTypes::INTEGER);
+        $this->last_update = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::LAST_UPDATE, null, CastingTypes::STRING);
     }
 
 }

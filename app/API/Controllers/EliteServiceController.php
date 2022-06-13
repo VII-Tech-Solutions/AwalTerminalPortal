@@ -9,6 +9,8 @@ use App\Helpers;
 use App\Models\EliteServices;
 use App\Models\Passengers;
 use App\Models\Bookers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use VIITech\Helpers\Constants\CastingTypes;
 use VIITech\Helpers\GlobalHelpers;
 
@@ -70,16 +72,16 @@ class EliteServiceController extends CustomController
         // validate data
         foreach ($array as $key => $request) {
             if (is_null($request)) {
-                return GlobalHelpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
+                return Helpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
             }
         }
 
         if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $date)) {
-            return GlobalHelpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
+            return Helpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
         }
 
         if (!preg_match("/^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/", $time)) {
-            return GlobalHelpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
+            return Helpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
         }
 
         foreach ($passengers as $subkey => $passenger) {
@@ -95,7 +97,7 @@ class EliteServiceController extends CustomController
             // validate passenger array
             foreach ($passenger_array as $key => $subkey) {
                 if (is_null($passenger)) {
-                    return GlobalHelpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
+                    return Helpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
                 }
             }
 
@@ -104,13 +106,13 @@ class EliteServiceController extends CustomController
         // validate booker array
         foreach ($booker_array as $key => $subkey) {
             if (is_null($booker)) {
-                return GlobalHelpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
+                return Helpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
             }
         }
 
         // validate flight type
         if(empty(FlightType::getKey($flight_type))){
-            return GlobalHelpers::formattedJSONResponse("Invalid flight type", [], [], Response::HTTP_BAD_REQUEST);
+            return Helpers::formattedJSONResponse("Invalid flight type", [], [], Response::HTTP_BAD_REQUEST);
         }
 
         // save data
@@ -126,7 +128,7 @@ class EliteServiceController extends CustomController
         ]);
 
         if(!is_a($service, EliteServices::class)){
-            return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
+            return Helpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
         }
 
         $booker_info = Bookers::createOrUpdate([
@@ -158,13 +160,13 @@ class EliteServiceController extends CustomController
 
         // return response
         if ($service && $booker_info) {
-            return GlobalHelpers::formattedJSONResponse("Submitted successfully", [
+            return Helpers::formattedJSONResponse("Submitted successfully", [
                 Attributes::ELITE_SERVICES => EliteServices::returnTransformedItems($service, EliteServiceTransformer::class),
                 Attributes::PASSENGERS => $passengers,
                 Attributes::BOOKER => $booker
             ], null, Response::HTTP_OK);
         }
-        return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
+        return Helpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
 
     }
 }

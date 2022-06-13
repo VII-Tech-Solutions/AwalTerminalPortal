@@ -11,6 +11,7 @@ use Cassandra\Type\UserType;
 use Exception;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -33,6 +34,31 @@ use function Sentry\configureScope;
  */
 class Helpers
 {
+
+    /**
+     * Returns Formatted JSON Response (returnResponse version 2)
+     * @param string $message
+     * @param array $data
+     * @param array $error
+     * @param int $status
+     * @param array $headers
+     * @return JsonResponse
+     */
+    public static function formattedJSONResponse($message = '', $data = [], $error = [], $status = Response::HTTP_OK, $headers = [])
+    {
+        if (is_null($data)) {
+            $data = [];
+        }
+        if (is_null($error)) {
+            $error = [];
+        }
+
+        return response()->json([
+            \VIITech\Helpers\Constants\Attributes::MESSAGE => $message,
+            Attributes::DATA => $data,
+            Attributes::ERROR => $error,
+        ], $status, $headers);
+    }
 
     /**
      * Default Migration

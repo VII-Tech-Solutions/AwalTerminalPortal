@@ -15,8 +15,6 @@
  * API
  *******************************/
 
-use Illuminate\Support\Facades\Route;
-
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
     $api->get('/', function () {

@@ -5,11 +5,11 @@ namespace App\API\Controllers;
 use App\API\Transformers\ContactUsTransformer;
 use App\Constants\Attributes;
 use App\Constants\CastingTypes;
-use App\GlobalHelpers;
 use App\Helpers;
 use App\Models\ContactUs;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use VIITech\Helpers\GlobalHelpers;
 
 
 /**
@@ -48,11 +48,11 @@ class ContactUsController extends CustomController
         $array = [$first_name, $last_name, $email, $message];
         foreach ($array as $request) {
             if (is_null($request)) {
-                return GlobalHelpers::formattedJSONResponse("Please fill all attributes", [], [], Response::HTTP_BAD_REQUEST);
+                return Helpers::formattedJSONResponse("Please fill all attributes", [], [], Response::HTTP_BAD_REQUEST);
             }
         }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return GlobalHelpers::formattedJSONResponse("Email is not correct", [], [], Response::HTTP_BAD_REQUEST);
+            return Helpers::formattedJSONResponse("Email is not correct", [], [], Response::HTTP_BAD_REQUEST);
         }
 
         // save
@@ -65,10 +65,10 @@ class ContactUsController extends CustomController
 
         // return response
         if ($contact_us) {
-            return GlobalHelpers::formattedJSONResponse("Submitted successfully", [
+            return Helpers::formattedJSONResponse("Submitted successfully", [
                 Attributes::CONTACT_US => ContactUs::returnTransformedItems($contact_us, ContactUsTransformer::class),
             ], null, Response::HTTP_OK);
         }
-        return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
+        return Helpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
     }
 }

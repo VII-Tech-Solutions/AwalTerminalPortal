@@ -120,24 +120,24 @@ class GeneralAviationFormController extends CustomController
 
         foreach ($array as $key => $request) {
             if (is_null($request)) {
-                return GlobalHelpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
+                return Helpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
             }
         }
 
         if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $arrival_date)) {
-            return GlobalHelpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
+            return Helpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
         }
 
         if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $departure_date)) {
-            return GlobalHelpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
+            return Helpers::formattedJSONResponse("Date Format is wrong Ex. 2022-12-29", [], [], Response::HTTP_BAD_REQUEST);
         }
 
         if (!preg_match("/^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/", $estimated_time_of_arrival)) {
-            return GlobalHelpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
+            return Helpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
         }
 
         if (!preg_match("/^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/", $estimated_time_of_departure)) {
-            return GlobalHelpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
+            return Helpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
         }
 
         // save data
@@ -192,12 +192,12 @@ class GeneralAviationFormController extends CustomController
             $attachments = $general_service->attachments()->get();
 
             // return success response
-            return GlobalHelpers::formattedJSONResponse("Submitted successfully", [
+            return Helpers::formattedJSONResponse("Submitted successfully", [
                 Attributes::GENERAL_SERVICES => GeneralAviationServices::returnTransformedItems($general_service, GeneralAviationTransformer::class),
                 Attributes::ATTACHMENTS => Attachment::returnTransformedItems($attachments, AttachmentTransformer::class),
             ], null, Response::HTTP_OK);
         }
-        return GlobalHelpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
+        return Helpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -225,7 +225,7 @@ class GeneralAviationFormController extends CustomController
 
         // return response
 
-        return GlobalHelpers::formattedJSONResponse("Attachments Uploaded successfully", [
+        return Helpers::formattedJSONResponse("Attachments Uploaded successfully", [
             Attributes::ATTACHMENTS => Attachment::returnTransformedItems($attachments, AttachmentTransformer::class),
         ], null, Response::HTTP_OK);
 
