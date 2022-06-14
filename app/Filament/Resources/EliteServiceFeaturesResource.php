@@ -18,7 +18,7 @@ class EliteServiceFeaturesResource extends Resource
 {
     protected static ?string $model = EliteServiceFeatures::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
 
     protected static ?string $navigationGroup = 'Metadata';
 

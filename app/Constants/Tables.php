@@ -14,8 +14,7 @@ class Tables extends CustomEnum
     const ATTACHMENTS = "attachments";
     const BOOKERS = "bookers";
     const PASSENGERS = "passengers";
-    const GENERAL_SERVICES = "general_services";
-    const SERVICES = "services";
+    const GA = "ga";
     const CONTACT_US = "contact_us";
     const ABOUT_US = "about_us";
     const FAILED_JOBS = "failed_jobs";
@@ -23,4 +22,6 @@ class Tables extends CustomEnum
     const USERS = "users";
     const ELITE_SERVICES_FEATURES = "elite_service_features";
     const ELITE_SERVICES_TYPES = "elite_service_types";
+    const FORM_SERVICES = "form_services";
+    const GA_SERVICE = "ga_service";
 }

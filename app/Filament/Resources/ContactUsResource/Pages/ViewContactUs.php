@@ -8,5 +8,6 @@ use Filament\Resources\Pages\ViewRecord;
 class ViewContactUs extends ViewRecord
 {
     protected static string $resource = ContactUsResource::class;
+    protected static ?string $navigationLabel = "Contact Us Submissions";
 
 }

@@ -8,4 +8,8 @@ use Filament\Resources\Pages\ListRecords;
 class ListContactUs extends ListRecords
 {
     protected static string $resource = ContactUsResource::class;
+
+    protected static ?string $navigationLabel = "Contact Us Submissions";
+
+
 }

@@ -255,5 +255,7 @@ class Attributes extends CustomEnum
     const FEATURE_DETAILS = "feature_details";
     const ELITE_SERVICES_FEATURES = "elite_service_features";
     const ELITE_SERVICES_TYPES = "elite_service_types";
+    const HOTEL_NAME = "hotel_name";
+    const GENERAL_AVIATION_ID = "general_aviation_id";
 
 }

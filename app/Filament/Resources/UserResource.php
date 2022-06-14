@@ -19,7 +19,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?string $navigationIcon = 'heroicon-s-user-group';
 
     protected static ?string $navigationLabel = 'Users';
 
@@ -55,7 +55,7 @@ class UserResource extends Resource
                         AdminUserType::GA => 'General Aviation',
                         AdminUserType::ELITE_ONLY => 'Elite Services',
                         AdminUserType::SUPER_ADMIN => 'Admin',
-                    ]),
+                    ])
 
             ])
             ->filters([

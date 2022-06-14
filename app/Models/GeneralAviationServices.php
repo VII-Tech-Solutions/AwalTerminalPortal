@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class GeneralAviationServices extends CustomModel
 {
 
-    protected $table = Tables::GENERAL_SERVICES;
+    protected $table = Tables::GA;
 
     protected $fillable = [
         Attributes::AIRCRAFT_TYPE,
