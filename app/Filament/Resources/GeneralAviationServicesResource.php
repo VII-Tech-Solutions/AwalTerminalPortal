@@ -18,6 +18,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use io3x1\FilamentBrowser;
 
 class GeneralAviationServicesResource extends Resource
 {
@@ -112,11 +113,12 @@ class GeneralAviationServicesResource extends Resource
                     Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('services', 'name'),
                 ]),
                 Fieldset::make('Documents & Remarks')->schema([
-                    FileUpload::make('Document'),
-                    FileUpload::make('Aircraft Certifications Checklist'),
-                    FileUpload::make('Arrival Gendec'),
-                    FileUpload::make('Departure Gendec'),
-                    Forms\Components\Textarea::make(Attributes::REMARKS)->columns(1),
+                    Forms\Components\FileUpload::make('attachments')
+                        ->preserveFilenames(true)
+                        ->acceptedFileTypes(['application/pdf'])
+                        ->multiple(true)
+                        ->disablePreview(false)
+
                 ]),
             ]);
     }

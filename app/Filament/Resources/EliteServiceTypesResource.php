@@ -50,7 +50,9 @@ class EliteServiceTypesResource extends Resource
             ->schema([
                 //
                 Forms\Components\TextInput::make(Attributes::NAME)->required(),
-                Forms\Components\TextInput::make(Attributes::PRICE_PER_ADULT)->numeric(true)->required()->label("Price per adult in BHD:"),
+                Forms\Components\TextInput::make(Attributes::PRICE_PER_ADULT)->numeric(true)->required()
+                    ->label("Price per adult in BHD:")
+                    ->suffix('BHD')
             ]);
     }
 
@@ -61,6 +63,7 @@ class EliteServiceTypesResource extends Resource
                 //
                 Tables\Columns\TextColumn::make(Attributes::ID),
                 Tables\Columns\TextColumn::make(Attributes::NAME),
+                Tables\Columns\TextColumn::make(Attributes::PRICE_PER_ADULT)->suffix("BHD"),
 
             ])
             ->filters([

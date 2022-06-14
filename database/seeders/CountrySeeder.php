@@ -20,25 +20,6 @@ class CountrySeeder extends Seeder
         $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegowina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, the Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia (Hrvatska)", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "France Metropolitan", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard and Mc Donald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kuwait", "Kyrgyzstan", "Lao, People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia, The Former Yugoslav Republic of", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia (Slovak Republic)", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "Spain", "Sri Lanka", "St. Helena", "St. Pierre and Miquelon", "Sudan", "Suriname", "Svalbard and Jan Mayen Islands", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan, Province of China", "Tajikistan", "Tanzania, United Republic of", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands (British)", "Virgin Islands (U.S.)", "Wallis and Futuna Islands", "Western Sahara", "Yemen", "Yugoslavia", "Zambia", "Zimbabwe");
 
         db::insert("INSERT INTO `countries` (`id`, `name`) VALUES
-(42, 'Cayman Islands'),
-(43, 'Central African Republic'),
-(44, 'Chad'),
-(45, 'Chile'),
-(46, 'China'),
-(47, 'Christmas Island'),
-(48, 'Cocos (Keeling) Islands'),
-(49, 'Colombia'),
-(50, 'Comoros'),
-(51, 'Congo'),
-(52, 'Congo, Democratic Republic of the Congo'),
-(53, 'Cook Islands'),
-(54, 'Costa Rica'),
-(55, 'Cote D Ivoire'),
-(56, 'Croatia'),
-(57, 'Cuba'),
-(58, 'Curacao'),
-(59, 'Cyprus'),
-(60, 'Czech Republic'),
 (61, 'Denmark'),
 (62, 'Djibouti'),
 (63, 'Dominica'),
@@ -360,39 +341,120 @@ class CountrySeeder extends Seeder
         ]);
         Country::createOrUpdate([
             Attributes::ID => 32,
-            Attributes::NAME => "British Indian Ocean Territory"
+            Attributes::NAME => "Brazil"
         ]);
         Country::createOrUpdate([
             Attributes::ID => 33,
-            Attributes::NAME => "Brunei Darussalam"
+            Attributes::NAME => "British Indian Ocean Territory"
         ]);
         Country::createOrUpdate([
             Attributes::ID => 34,
-            Attributes::NAME => "Bulgaria"
+            Attributes::NAME => "Brunei Darussalam"
         ]);
         Country::createOrUpdate([
             Attributes::ID => 35,
-            Attributes::NAME => "Burkina Faso"
+            Attributes::NAME => "Bulgaria"
         ]);
         Country::createOrUpdate([
             Attributes::ID => 36,
-            Attributes::NAME => "Burundi"
+            Attributes::NAME => "Burkina Faso"
         ]);
         Country::createOrUpdate([
             Attributes::ID => 37,
-            Attributes::NAME => "Cambodia"
+            Attributes::NAME => "Burundi"
         ]);
         Country::createOrUpdate([
             Attributes::ID => 38,
-            Attributes::NAME => "Cameroon"
+            Attributes::NAME => "Cambodia"
         ]);
         Country::createOrUpdate([
             Attributes::ID => 39,
+            Attributes::NAME => "Cameroon"
+        ]);
+
+        Country::createOrUpdate([
+            Attributes::ID => 40,
             Attributes::NAME => "Canada"
         ]);
         Country::createOrUpdate([
-            Attributes::ID => 40,
+            Attributes::ID => 41,
             Attributes::NAME => "Cape Verde"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 42,
+            Attributes::NAME => "Cayman Islands"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 43,
+            Attributes::NAME => "Central African Republic"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 44,
+            Attributes::NAME => "Chad"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 45,
+            Attributes::NAME => "Chile"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 46,
+            Attributes::NAME => "China"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 47,
+            Attributes::NAME => "Christmas Island"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 48,
+            Attributes::NAME => "Cocos (Keeling) Islands"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 49,
+            Attributes::NAME => "Colombia"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 50,
+            Attributes::NAME => "Comoros"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 51,
+            Attributes::NAME => "Congo"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 52,
+            Attributes::NAME => "Congo, Democratic Republic of the Congo"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 53,
+            Attributes::NAME => "Cook Islands"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 54,
+            Attributes::NAME => "Costa Rica"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 55,
+            Attributes::NAME => "Cote D Ivoire"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 56,
+            Attributes::NAME => "Croatia"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 57,
+            Attributes::NAME => "Cuba"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 58,
+            Attributes::NAME => "Curacao"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 59,
+            Attributes::NAME => "Cyprus"
+        ]);
+        Country::createOrUpdate([
+            Attributes::ID => 60,
+            Attributes::NAME => "Czech Republic"
         ]);
 
     }
