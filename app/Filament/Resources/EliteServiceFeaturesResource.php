@@ -25,9 +25,9 @@ class EliteServiceFeaturesResource extends Resource
     protected static function getNavigationBadge(): ?string
     {
         if(env("FILAMENT_ENABLE_BADGE", false)){
-            return null;
+            return static::getModel()::count();
         }
-        return static::getModel()::count();
+        return null;
     }
 
     public static function form(Form $form): Form
