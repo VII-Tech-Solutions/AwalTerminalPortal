@@ -18,6 +18,7 @@ class CreateEliteServiceTypesTable extends Migration
         Schema::create(Tables::ELITE_SERVICES_TYPES, function (Blueprint $table) {
             $table->id();
             $table->integer(Attributes::PRICE_PER_ADULT)->nullable();
+            $table->string(Attributes::NAME)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +31,6 @@ class CreateEliteServiceTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('elite_service_types');
+        Schema::dropIfExists(Tables::ELITE_SERVICES_TYPES);
     }
 };

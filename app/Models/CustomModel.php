@@ -91,9 +91,9 @@ class CustomModel extends Model
      * Return Transformed Array Items
      * @param $items
      * @param string|null $class_name
-     * @return array
+     * @return \Spatie\Fractal\Fractal
      */
-    static function returnTransformedArrayItems($items, $class_name = null): array
+    static function returnTransformedArrayItems($items, $class_name = null): \Spatie\Fractal\Fractal
     {
         if(is_null($class_name)){
             $class_name = static::TRANSFORMER_NAME;

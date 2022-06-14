@@ -18,6 +18,7 @@ class CreateEliteServiceFeaturesTable extends Migration
         Schema::create(Tables::ELITE_SERVICES_FEATURES, function (Blueprint $table) {
             $table->id();
             $table->string(Attributes::FEATURE_DETAILS)->nullable();
+            $table->integer(Attributes::SERVICE_ID)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +31,6 @@ class CreateEliteServiceFeaturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('elite_service_features');
+        Schema::dropIfExists(Tables::ELITE_SERVICES_FEATURES);
     }
 };

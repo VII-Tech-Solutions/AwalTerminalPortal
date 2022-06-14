@@ -3,9 +3,10 @@
 namespace App\Filament\Resources\ContactUsResource\Pages;
 
 use App\Filament\Resources\ContactUsResource;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ViewRecord;
 
-class EditContactUs extends EditRecord
+class ViewContactUs extends ViewRecord
 {
     protected static string $resource = ContactUsResource::class;
+
 }
