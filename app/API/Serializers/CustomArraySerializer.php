@@ -8,14 +8,13 @@ use League\Fractal\Serializer\ArraySerializer;
 
 class CustomArraySerializer extends ArraySerializer
 {
-
+    
     /**
-     * @param string|null $resourceKey
+     * @param $resourceKey
      * @param array $data
      * @return array
      */
-    
-    public function collection(?string $resourceKey, array $data): array
+    public function collection($resourceKey, array $data): array
     {
         return $data;
     }
