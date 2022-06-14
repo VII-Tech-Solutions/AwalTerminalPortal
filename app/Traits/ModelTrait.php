@@ -3,12 +3,14 @@
 namespace App\Traits;
 
 use App\Constants\Attributes;
-use App\Constants\GroupType;
 use App\Constants\Status;
 use App\Helpers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+/**
+ * Model Trait
+ */
 trait ModelTrait
 {
 

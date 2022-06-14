@@ -3,89 +3,75 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
-use App\Helpers;
+use App\Traits\ModelTrait;
 use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-use Laravel\Sanctum\HasApiTokens;
-use Exception;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use VIITech\Helpers\Constants\CastingTypes;
 
-
-class User extends Authenticatable implements FilamentUser
+/**
+ * Class User
+ * @package App\Models
+ */
+class User extends CustomModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract, FilamentUser
 {
-    use HasApiTokens;
-    use HasFactory;
-    use Notifiable;
-    use SoftDeletes;
+    use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail, Notifiable, ModelTrait;
+    use HasApiTokens, HasFactory;
 
     /**
-     * @var array<int, string>
+     * The attributes that are mass assignable.
+     *
+     * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        Attributes::NAME,
+        Attributes::EMAIL,
+        Attributes::USER_TYPE,
+        Attributes::PASSWORD,
+        Attributes::STATUS,
+        Attributes::EMAIL_VERIFIED_AT,
+    ];
+
+    protected $casts = [
+        Attributes::NAME => CastingTypes::STRING,
+        Attributes::EMAIL => CastingTypes::STRING,
+        Attributes::USER_TYPE => CastingTypes::INTEGER,
+        Attributes::PASSWORD => CastingTypes::STRING,
+        Attributes::STATUS => CastingTypes::INTEGER,
+        Attributes::EMAIL_VERIFIED_AT => 'datetime',
     ];
 
     /**
-     * @var array<int, string>
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        Attributes::PASSWORD,
+        Attributes::REMEMBER_TOKEN,
     ];
 
     /**
-     * @var array<string, string>
+     * Set Attribute: password
+     * @param $value
+     * @return void
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function setPasswordAttribute($value)
+    {
+        $this->setPassword($value);
+    }
 
     public function canAccessFilament(): bool
     {
         return true;
     }
-
-    /**
-     * Create or Update
-     * @param array $data
-     * @param array|null $find_by
-     * @return static|null
-     */
-    public static function createOrUpdate(array $data, $find_by = null)
-    {
-        try {
-            $item = null;
-            if(!is_null($find_by)){
-                $q = static::query();
-                foreach ($find_by as $key){
-                    if ($key == Attributes::EMAIL) {
-                        $value = Str::lower($data[$key]);
-                    }else{
-                        $value = $data[$key];
-                    }
-                    $q = $q->where($key, $value);
-                }
-                $item = $q->withTrashed()->first();
-            }
-            if (is_null($item)) {
-                $item = new static();
-            }else if (!is_null($item->deleted_at)) {
-                $item->restore();
-            }
-            $item->fill($data);
-            if ($item->save()) {
-                return $item;
-            }
-            return null;
-        } catch (Exception $e) {
-            Helpers::captureException($e);
-            return null;
-        }
-    }
-
 }
