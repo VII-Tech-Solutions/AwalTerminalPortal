@@ -81,7 +81,7 @@ class EliteServices extends CustomModel
 
         // generate uuid if doesnt exist
         if(is_null($this->uuid)){
-            Helpers::setGeneratedUUID(EliteServices::class);
+            Helpers::setGeneratedUUID($this);
         }
 
         // generate url
