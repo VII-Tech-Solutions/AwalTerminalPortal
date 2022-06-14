@@ -145,8 +145,8 @@ class HomeController extends CustomController
      * Process Payment
      * @return void
      */
-    function processPayment(){
-        dd($this->request->all());
+    function processPayment(Request $request){
+        dd($request->all());
     }
 
 }
