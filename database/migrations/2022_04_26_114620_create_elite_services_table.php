@@ -26,6 +26,7 @@ class CreateEliteServicesTable extends Migration
                 $table->integer(Attributes::NUMBER_OF_ADULTS)->nullable();
                 $table->integer(Attributes::NUMBER_OF_CHILDREN)->nullable();
                 $table->integer(Attributes::NUMBER_OF_INFANTS)->nullable();
+                $table->integer(Attributes::SERVICE_TYPE)->nullable();
                 $table->date(Attributes::DOB)->nullable();
                 $table->string(Attributes::FLIGHT_CLASS)->nullable();
                 $table->string(Attributes::NATIONALITY)->nullable();

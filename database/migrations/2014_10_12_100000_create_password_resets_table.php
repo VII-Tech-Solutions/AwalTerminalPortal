@@ -1,7 +1,5 @@
 <?php
 
-use App\Constants\Attributes;
-use App\Constants\Tables;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,13 +13,11 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable(Tables::PASSWORD_RESETS)){
-            Schema::create(Tables::PASSWORD_RESETS, function (Blueprint $table) {
-                $table->string(Attributes::EMAIL)->index();
-                $table->string(Attributes::TOKEN);
-                $table->timestamp(Attributes::CREATED_AT)->nullable();
-            });
-        }
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
     }
 
     /**
@@ -31,6 +27,6 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(Tables::PASSWORD_RESETS);
+        Schema::dropIfExists('password_resets');
     }
-}
+};

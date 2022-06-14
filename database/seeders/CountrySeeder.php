@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeders;
 
 use App\Constants\Tables;
 use Illuminate\Database\Seeder;
@@ -7,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class CountrySeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */
