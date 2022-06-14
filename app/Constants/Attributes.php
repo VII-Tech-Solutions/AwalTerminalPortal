@@ -253,4 +253,7 @@ class Attributes extends CustomEnum
     const UUID = "uuid";
     const PRICE_PER_ADULT = "price_per_adult";
     const FEATURE_DETAILS = "feature_details";
+    const ELITE_SERVICES_FEATURES = "elite_service_features";
+    const ELITE_SERVICES_TYPES = "elite_service_types";
+
 }

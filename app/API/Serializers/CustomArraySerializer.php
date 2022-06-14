@@ -14,7 +14,7 @@ class CustomArraySerializer extends ArraySerializer
      * @param array $data
      * @return array
      */
-
+    
     public function collection(?string $resourceKey, array $data): array
     {
         return $data;
