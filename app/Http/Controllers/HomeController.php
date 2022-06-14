@@ -16,13 +16,9 @@ use App\Mail\GAServiceNewRequestMail;
 use App\Mail\GAServiceRequestReceivedMail;
 use App\Models\EliteServices;
 use App\Models\Transaction;
-use Dingo\Api\Http\Request;
-use Dotenv\Parser\Value;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
-use VIITech\Helpers\Constants\CastingTypes;
-use VIITech\Helpers\GlobalHelpers;
 
 /**
  * Home Controller
@@ -95,10 +91,10 @@ class HomeController extends CustomController
 
     /**
      * Pay
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return RedirectResponse
      */
-    function pay(\Illuminate\Http\Request $request){
+    function pay(Request $request){
 
         // validate signature
         if(!$request->hasValidSignature()){

@@ -1,7 +1,12 @@
 <?php
 
 use App\Constants\Attributes;
+use App\Constants\PaymentProvider;
 use App\Constants\Tables;
+use App\Constants\TransactionStatus;
+use App\Constants\Values;
+use App\Helpers;
+use App\Models\Transaction;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,6 +27,8 @@ return new class extends Migration
             $table->string(Attributes::AMOUNT)->nullable();
             $table->string(Attributes::CREDIMAX_SUCCESS_INDICATOR)->nullable();
             $table->integer(Attributes::PAYMENT_PROVIDER)->nullable();
+            $table->string(Attributes::UUID)->nullable();
+            $table->integer(Attributes::STATUS)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
