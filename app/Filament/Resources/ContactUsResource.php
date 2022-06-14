@@ -27,6 +27,8 @@ class ContactUsResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    protected static ?string $slug = "contact-us";
+
     protected static function getNavigationBadge(): ?string
     {
         if(env("FILAMENT_ENABLE_BADGE", false)){
