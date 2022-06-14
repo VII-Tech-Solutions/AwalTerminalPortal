@@ -7,6 +7,7 @@ use App\API\Transformers\GeneralAviationTransformer;
 use App\Constants\Attributes;
 use App\Helpers;
 use App\Models\Attachment;
+use App\Models\GeneralAviationSelectedServices;
 use App\Models\GeneralAviationServices;
 use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -79,7 +80,6 @@ class GeneralAviationFormController extends CustomController
         $attachments = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ATTACHMENTS, [], CastingTypes::ARRAY);
 
         // validate data
-
         $array = [
             'Air Craft Type' => $aircraft_type,
             'Registration number' => $registration_number,
@@ -176,6 +176,15 @@ class GeneralAviationFormController extends CustomController
             Attributes::TRANSPORT_TIME => $transport_time,
             Attributes::REMARKS => $remarks,
         ]);
+
+        if(!is_null($services) && $general_service){
+            foreach ($services as $service ){
+                GeneralAviationSelectedServices::createOrUpdate([
+                    Attributes::GENERAL_AVIATION_ID => $general_service->id,
+                    Attributes::SERVICE_ID => $service
+                ]);
+            }
+        }
 
         // return response
         if ($general_service) {

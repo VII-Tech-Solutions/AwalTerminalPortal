@@ -8,7 +8,7 @@ use League\Fractal\Serializer\ArraySerializer;
 
 class CustomArraySerializer extends ArraySerializer
 {
-    
+
     /**
      * @param $resourceKey
      * @param array $data

@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Filament\Facades\Filament;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,13 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Filament::serving(function () {
-            Filament::registerNavigationGroups([
-                'Submissions',
-                'Elite Services Metadata',
-                'General Metadata',
-            ]);
-        });
+        //
     }
 
     /**
@@ -30,6 +24,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        //
+        Filament::serving(function () {
+            Filament::registerNavigationGroups([
+                '',
+                'Submissions',
+                'Metadata',
+            ]);
+        });
     }
 }

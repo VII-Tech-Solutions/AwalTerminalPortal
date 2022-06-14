@@ -8,6 +8,7 @@ use App\Models\Airport;
 use App\Models\Country;
 use App\Models\GeneralAviationServices;
 use Filament\Forms;
+use Filament\Forms\Components\BelongsToManyCheckboxList;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -89,6 +90,10 @@ class GeneralAviationServicesResource extends Resource
                     Forms\Components\TextInput::make(Attributes::AGENT_EMAIL)->email(true)->required(),
                     Forms\Components\Textarea::make(Attributes::AGENT_ADDRESS)->required(),
                     Forms\Components\Textarea::make(Attributes::AGENT_BILLING_ADDRESS)->required(),
+
+                ]),
+                Fieldset::make('Required Services')->schema([
+
                 ]),
                 Fieldset::make('Documents & Remarks')->schema([
                     FileUpload::make('Document'),
@@ -96,7 +101,6 @@ class GeneralAviationServicesResource extends Resource
                     FileUpload::make('Arrival Gendec'),
                     FileUpload::make('Departure Gendec'),
                     Forms\Components\Textarea::make(Attributes::REMARKS),
-
                 ]),
             ]);
     }

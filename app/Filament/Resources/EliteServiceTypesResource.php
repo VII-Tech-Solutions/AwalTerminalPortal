@@ -16,7 +16,7 @@ class EliteServiceTypesResource extends Resource
 {
     protected static ?string $model = EliteServiceTypes::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-dots-circle-horizontal';
 
     protected static ?string $navigationGroup = 'Elite Services Metadata';
 

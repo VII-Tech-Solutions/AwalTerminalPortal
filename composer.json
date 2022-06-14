@@ -11,6 +11,7 @@
         "aws/aws-sdk-php-laravel": "^3.7",
         "bensampo/laravel-enum": "^5.3",
         "filament/filament": "^2.0",
+        "filament/spatie-laravel-media-library-plugin": "^2.12",
         "fruitcake/laravel-cors": "^3.0",
         "google/apiclient": "^2.12",
         "guzzlehttp/guzzle": "^7.2",
