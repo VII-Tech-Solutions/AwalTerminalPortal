@@ -61,7 +61,7 @@ class GeneralAviationServicesResource extends Resource
                     Forms\Components\TextInput::make(Attributes::REGISTRATION_NUMBER)->numeric(true)->required(),
                     Forms\Components\TextInput::make(Attributes::MTOW)->numeric(true)->required(),
                     Forms\Components\TextInput::make(Attributes::LEAD_PASSENGER_NAME)->required(),
-                    Forms\Components\TextInput::make(Attributes::LANDING_PURPOSE)->numeric(true)->required(),
+                    Forms\Components\TextInput::make(Attributes::LANDING_PURPOSE)->required(),
                 ]),
                 Fieldset::make('Arrival Information')->schema([
                     Forms\Components\TextInput::make(Attributes::ARRIVAL_CALL_SIGN)->required(),

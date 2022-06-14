@@ -44,6 +44,7 @@ class GeneralAviationServices extends CustomModel
         Attributes::IS_USING_AGENT,
         Attributes::AGENT_FULLNAME,
         Attributes::AGENT_COUNTRY,
+        Attributes::AGENT_EMAIL,
         Attributes::AGENT_PHONENUMBER,
         Attributes::AGENT_ADDRESS,
         Attributes::AGENT_BILLING_ADDRESS,
