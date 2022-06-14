@@ -69,6 +69,19 @@ class EliteServicesResource extends Resource
                 Forms\Components\TextInput::make(Attributes::NUMBER_OF_ADULTS)->numeric(true)->required(),
                 Forms\Components\TextInput::make(Attributes::NUMBER_OF_CHILDREN)->numeric(true)->required(),
                 Forms\Components\TextInput::make(Attributes::NUMBER_OF_INFANTS)->numeric(true)->required(),
+                Fieldset::make('Passengers')->schema([
+                    Forms\Components\HasManyRepeater::make('passengers')->relationship('passengers')->schema([
+                        Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required(),
+                        Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
+
+                    ])
+//                    Forms\Components\FileUpload::make('attachments')
+//                        ->preserveFilenames(true)
+//                        ->acceptedFileTypes(['application/pdf'])
+//                        ->multiple(true)
+//                        ->disablePreview(false)
+
+                ]),
             ]);
     }
 

@@ -15,10 +15,11 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
+use Filament\Resources\RelationManagers\HasManyRelationManager;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use io3x1\FilamentBrowser;
+use Spatie\MediaLibrary\HasMedia;
 
 class GeneralAviationServicesResource extends Resource
 {
@@ -113,11 +114,15 @@ class GeneralAviationServicesResource extends Resource
                     Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('services', 'name'),
                 ]),
                 Fieldset::make('Documents & Remarks')->schema([
-                    Forms\Components\FileUpload::make('attachments')
-                        ->preserveFilenames(true)
-                        ->acceptedFileTypes(['application/pdf'])
-                        ->multiple(true)
-                        ->disablePreview(false)
+                    Forms\Components\HasManyRepeater::make('attachments')->relationship('attachments')->schema([
+                        Forms\Components\TextInput::make(Attributes::PATH)->required(),
+
+                    ])
+//                    Forms\Components\FileUpload::make('attachments')
+//                        ->preserveFilenames(true)
+//                        ->acceptedFileTypes(['application/pdf'])
+//                        ->multiple(true)
+//                        ->disablePreview(false)
 
                 ]),
             ]);

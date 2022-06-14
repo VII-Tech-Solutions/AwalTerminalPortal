@@ -63,6 +63,13 @@ class EliteServices extends CustomModel
         return $this->belongsTo(Country::class, Attributes::NATIONALITY);
     }
 
+
+
+    public function passengers()
+    {
+        return $this->hasMany(Passengers::class,Attributes::SERVICE_ID);
+    }
+
     /**
      * Get Attribute: flight_type_name
      * @return string

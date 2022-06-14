@@ -8,9 +8,9 @@ use App\Constants\FlightType;
 use App\Helpers;
 use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;
+use App\Models\Bookers;
 use App\Models\EliteServices;
 use App\Models\Passengers;
-use App\Models\Bookers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use VIITech\Helpers\Constants\CastingTypes;
@@ -115,7 +115,7 @@ class EliteServiceController extends CustomController
         }
 
         // validate flight type
-        if(empty(FlightType::getKey($flight_type))){
+        if (empty(FlightType::getKey($flight_type))) {
             return Helpers::formattedJSONResponse("Invalid flight type", [], [], Response::HTTP_BAD_REQUEST);
         }
 
@@ -131,7 +131,7 @@ class EliteServiceController extends CustomController
             Attributes::NUMBER_OF_INFANTS => $number_of_infants,
         ]);
 
-        if(!is_a($service, EliteServices::class)){
+        if (!is_a($service, EliteServices::class)) {
             return Helpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
         }
 
@@ -144,22 +144,24 @@ class EliteServiceController extends CustomController
             Attributes::SERVICE_ID => $service->id
         ]);
 
-        foreach ($passengers as $subkey => $passenger) {
-            $first_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FIRST_NAME, null, CastingTypes::STRING);
-            $last_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::LAST_NAME, null, CastingTypes::STRING);
-            $gender = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::GENDER, null, CastingTypes::INTEGER);
-            $birth_date = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BIRTH_DATE, null, CastingTypes::STRING);
-            $nationality_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NATIONALITY_ID, null, CastingTypes::STRING);
-            $flight_class = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_CLASS, null, CastingTypes::STRING);
-            Passengers::createOrUpdate([
-                Attributes::FIRST_NAME => $first_name,
-                Attributes::LAST_NAME => $last_name,
-                Attributes::GENDER => $gender,
-                Attributes::BIRTH_DATE => $birth_date,
-                Attributes::NATIONALITY_ID => $nationality_id,
-                Attributes::FLIGHT_CLASS => $flight_class,
-                Attributes::SERVICE_ID => $service->id
-            ]);
+        if (!is_null($passengers)) {
+            foreach ($passengers as $passenger) {
+                $first_name = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::FIRST_NAME, null, CastingTypes::STRING);
+                $last_name = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::LAST_NAME, null, CastingTypes::STRING);
+                $gender = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::GENDER, null, CastingTypes::INTEGER);
+                $birth_date = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::BIRTH_DATE, null, CastingTypes::STRING);
+                $nationality_id = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::NATIONALITY_ID, null, CastingTypes::STRING);
+                $flight_class = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::FLIGHT_CLASS, null, CastingTypes::STRING);
+                Passengers::createOrUpdate([
+                    Attributes::FIRST_NAME => $first_name,
+                    Attributes::LAST_NAME => $last_name,
+                    Attributes::GENDER => $gender,
+                    Attributes::BIRTH_DATE => $birth_date,
+                    Attributes::NATIONALITY_ID => $nationality_id,
+                    Attributes::FLIGHT_CLASS => $flight_class,
+                    Attributes::SERVICE_ID => $service->id
+                ]);
+            }
 
         }
 

@@ -11,11 +11,13 @@ class EliteServiceTypeSeeder extends Seeder
     public function run()
     {
         EliteServiceTypes::createOrUpdate([
+            Attributes::ID =>1,
             Attributes::NAME=> "Common Lounge",
             Attributes::PRICE_PER_ADULT => 100
         ]);
 
         EliteServiceTypes::createOrUpdate([
+            Attributes::ID =>2,
             Attributes::NAME=> "Private Lounge",
             Attributes::PRICE_PER_ADULT => 150
         ]);
