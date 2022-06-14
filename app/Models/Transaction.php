@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Transaction
+ *
+ * @property string amount
+ * @property string order_id
  */
 class Transaction extends CustomModel
 {
@@ -15,9 +18,11 @@ class Transaction extends CustomModel
     protected $table = Tables::TRANSACTIONS;
 
     protected $fillable = [
+        Attributes::ID,
         Attributes::ORDER_ID,
         Attributes::ELITE_SERVICE_ID,
         Attributes::AMOUNT,
+        Attributes::UUID,
         Attributes::PAYMENT_PROVIDER,
         Attributes::CREDIMAX_SUCCESS_INDICATOR,
         Attributes::STATUS,
