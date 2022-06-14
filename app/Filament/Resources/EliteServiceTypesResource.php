@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\EliteServiceTypesResource\Pages;
 use App\Filament\Resources\EliteServiceTypesResource\RelationManagers;
 use App\Models\EliteServiceTypes;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -26,6 +28,20 @@ class EliteServiceTypesResource extends Resource
             return static::getModel()::count();
         }
         return null;
+    }
+
+    protected static function shouldRegisterNavigation(): bool
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        return $user->canAccess(AdminUserType::ELITE_ONLY);
+    }
+
+    public static function canViewAny(): bool
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        return $user->canAccess(AdminUserType::ELITE_ONLY);
     }
 
     public static function form(Form $form): Form

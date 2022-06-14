@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Traits\ModelTrait;
 use Filament\Models\Contracts\FilamentUser;
@@ -21,6 +22,8 @@ use VIITech\Helpers\Constants\CastingTypes;
 /**
  * Class User
  * @package App\Models
+ *
+ * @property int user_type
  */
 class User extends CustomModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract, FilamentUser
 {
@@ -70,8 +73,23 @@ class User extends CustomModel implements AuthenticatableContract, AuthorizableC
         $this->setPassword($value);
     }
 
+    /**
+     * Can Access Filament
+     * @return bool
+     */
     public function canAccessFilament(): bool
     {
         return true;
+    }
+
+    /**
+     * Can Access
+     * @return boolean
+     */
+    function canAccess($user_type){
+        if($user_type == AdminUserType::SUPER_ADMIN){
+            return $this->user_type === AdminUserType::SUPER_ADMIN;
+        }
+        return $this->user_type === AdminUserType::SUPER_ADMIN || $this->user_type === $user_type;
     }
 }

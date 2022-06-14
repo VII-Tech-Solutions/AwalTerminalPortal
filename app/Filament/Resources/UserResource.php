@@ -31,6 +31,20 @@ class UserResource extends Resource
         return null;
     }
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        return $user->canAccess(AdminUserType::SUPER_ADMIN);
+    }
+
+    public static function canViewAny(): bool
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        return $user->canAccess(AdminUserType::SUPER_ADMIN);
+    }
+
     public static function form(Form $form): Form
     {
         return $form
