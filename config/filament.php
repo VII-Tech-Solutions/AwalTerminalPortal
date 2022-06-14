@@ -194,7 +194,7 @@ return [
             'have_inline_labels' => false,
         ],
         'footer' => [
-            'should_show_logo' => true,
+            'should_show_logo' => false,
         ],
         'notifications' => [
             'vertical_alignment' => 'top',
@@ -223,7 +223,7 @@ return [
     |
     */
 
-    'favicon' => null,
+    'favicon' => url("favicon.png"),
 
     /*
     |--------------------------------------------------------------------------

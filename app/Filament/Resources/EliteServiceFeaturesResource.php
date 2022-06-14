@@ -20,7 +20,15 @@ class EliteServiceFeaturesResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
-    protected static ?string $navigationGroup = 'Metadata';
+    protected static ?string $navigationGroup = 'Elite Services Metadata';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        if(env("FILAMENT_ENABLE_BADGE", false)){
+            return null;
+        }
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {

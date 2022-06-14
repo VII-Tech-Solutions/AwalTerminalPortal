@@ -21,6 +21,18 @@ class AirportResource extends Resource
 
     protected static ?string $navigationGroup = 'Metadata';
 
+    protected static ?string $navigationLabel = 'Airports';
+
+    protected static ?string $pluralLabel = 'Airports';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        if(env("FILAMENT_ENABLE_BADGE", false)){
+            return null;
+        }
+        return static::getModel()::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form

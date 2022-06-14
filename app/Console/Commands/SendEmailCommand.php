@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\TestMail;
-use Exception;
+use App\Constants\Attributes;
+use App\Helpers;
+use App\Mail\ContactUsMail;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
 use VIITech\Helpers\GlobalHelpers;
 
 class SendEmailCommand extends Command
@@ -20,29 +20,9 @@ class SendEmailCommand extends Command
         if(empty($email)){
             dd("Invalid Email");
         }
-        $result = $this->sendMailable(new TestMail($email), $email);
+        $result = Helpers::sendMailable(new ContactUsMail($email, "Test", [
+            Attributes::LINK => url("")
+        ]), $email);
         $this->info("Email sent: " . GlobalHelpers::readableBoolean($result));
-    }
-
-    /**
-     * Send Mailable
-     * @param $mailable
-     * @param $send_to_emails
-     * @return mixed
-     */
-    function sendMailable($mailable, $send_to_emails)
-    {
-        try {
-            if (env("ENABLE_SENDING_EMAILS", true)) {
-                return Mail::to($send_to_emails)->send($mailable);
-            } else {
-                return false;
-            }
-        } catch (Exception $e) {
-            if(GlobalHelpers::isDevelopmentEnv()){
-                dd($e->getMessage());
-            }
-            return false;
-        }
     }
 }

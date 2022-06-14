@@ -6,11 +6,11 @@ use App\API\Transformers\ContactUsTransformer;
 use App\Constants\Attributes;
 use App\Constants\CastingTypes;
 use App\Helpers;
+use App\Mail\ContactUsMail;
 use App\Models\ContactUs;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use VIITech\Helpers\GlobalHelpers;
-
 
 /**
  * Class ContactUsController
@@ -55,6 +55,11 @@ class ContactUsController extends CustomController
             return Helpers::formattedJSONResponse("Email is not correct", [], [], Response::HTTP_BAD_REQUEST);
         }
 
+        // check length
+        if(strlen($first_name) > 200 || strlen($last_name) > 200 || strlen($email) > 200){
+            return Helpers::formattedJSONResponse("Please enter valid data", [], [], Response::HTTP_BAD_REQUEST);
+        }
+
         // save
         $contact_us = ContactUs::createOrUpdate([
             Attributes::FIRST_NAME => $first_name,
@@ -63,10 +68,15 @@ class ContactUsController extends CustomController
             Attributes::MESSAGE => $message
         ]);
 
-        // return response
-        if ($contact_us) {
+        // return response if success
+        if (is_a($contact_us, ContactUs::class)) {
 
+            // send email to admin
+            Helpers::sendMailable(new ContactUsMail(env("ADMIN_EMAIL"), env("ADMIN_NAME"), [
+                Attributes::LINK => url("admin/contact-us/" . $contact_us->id)
+            ]), env("ADMIN_EMAIL"));
 
+            // return response
             return Helpers::formattedJSONResponse("Submitted successfully", [
                 Attributes::CONTACT_US => ContactUs::returnTransformedItems($contact_us, ContactUsTransformer::class),
             ], null, Response::HTTP_OK);

@@ -49,7 +49,7 @@ class Helpers
         if($always_production){
 //            return "https://cdn.b4bh.com/" . $value;
         }
-        return env(EnvVariables::AWS_URL, env(EnvVariables::APP_URL)) . $value;
+        return env("AWS_URL", env("APP_URL")) . $value;
     }
 
     /**

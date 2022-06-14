@@ -21,11 +21,27 @@ class ContactUsResource extends Resource
 
     protected static ?string $navigationGroup = 'Submissions';
 
+    protected static ?string $pluralLabel = 'Contact Us';
+
+    protected static bool $shouldRegisterNavigation = true;
+
+    protected static ?int $navigationSort = 3;
+
+    protected static function getNavigationBadge(): ?string
+    {
+        if(env("FILAMENT_ENABLE_BADGE", false)){
+            return null;
+        }
+        return static::getModel()::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 //
+                Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required()->disabled(true),
+                Forms\Components\TextInput::make(Attributes::LAST_NAME)->required()->disabled(true),
                 Forms\Components\TextInput::make(Attributes::EMAIL)->required()->disabled(true),
                 Forms\Components\Textarea::make(Attributes::MESSAGE)->required()->disabled(true),
             ]);

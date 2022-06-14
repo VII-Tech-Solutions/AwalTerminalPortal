@@ -61,8 +61,6 @@ class HomeController extends Controller
         // Elite Service Status Update - To Customer
         Helpers::sendMailable(new ESBookingStatusUpdateMail($email, $to_name, []), $email);
 
-
-
     }
 
 
@@ -71,6 +69,10 @@ class HomeController extends Controller
      * @return void
      */
     function process(){
+
+        return view('emails.contact_us', [
+            "link" => url("admin/contactuses/1")
+        ]);
 
         dd("aa");
 

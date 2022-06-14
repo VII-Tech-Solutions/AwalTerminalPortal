@@ -101,7 +101,7 @@
       */
         body, #bodyTable {
             /*@editable*/
-            background-color: #F6F6F6;
+            #background-color: #F6F6F6;
         }
 
         /**
@@ -648,7 +648,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="background-color: #F6F6F6;">
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="#background-color: #F6F6F6;">
 <center>
     <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
         <tr>
@@ -676,9 +676,23 @@
                                     <td valign="top" class="bodyContent" mc:edit="body_content">
                                         <div class="main-content" style="margin-top: 101px; background-color: white;padding: 24px 37px 37px 37px;border-radius: 10px;overflow: hidden;">
                                             @yield('content')
+                                            <p style="margin-bottom: 0;line-height: 27px;font-size: 15px;">
+                                                Thanks,
+                                                <br>
+                                                Awal Private Terminal Team
+                                                <br>
+                                                <br>
+                                                <img src="{{ \App\Helpers::getCDNLink('/assets/images/logo.png', true) }}"  style="margin-bottom: 47px; width: 72px;" id="headerImage" mc:label="header_image" mc:edit="header_image" alt="Logo" mc:allowdesigner mc:allowtext/>
+                                                <br>
+                                                T: +973 39471116
+                                                <br>
+                                                E: cip@halabahrain.bh
+                                                <br>
+                                                <br>
+                                                Please do not reply to this email as this address cannot receive any replies.
+                                            </p>
                                         </div>
                                         <div style="margin-top: 60px">
-                                            <div style="font-size: 12px; margin-top: 16px; margin-bottom: 100px; text-align: center; color: #C3C3C3;">© 2022 Copyrights by b4bh. All Rights reserved.</div>
                                         </div>
                                     </td>
                                 </tr>

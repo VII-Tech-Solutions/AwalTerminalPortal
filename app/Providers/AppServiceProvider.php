@@ -14,7 +14,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Filament::serving(function () {
+            Filament::registerNavigationGroups([
+                'Submissions',
+                'Elite Services Metadata',
+                'General Metadata',
+            ]);
+        });
     }
 
     /**
@@ -24,7 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
 
     }
 }

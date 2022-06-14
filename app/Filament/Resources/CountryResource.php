@@ -17,8 +17,19 @@ class CountryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-globe';
 
+    protected static ?string $navigationLabel = 'Countries';
+
     protected static ?string $navigationGroup = 'Metadata';
 
+    protected static ?string $pluralLabel = 'Countries';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        if(env("FILAMENT_ENABLE_BADGE", false)){
+            return null;
+        }
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
