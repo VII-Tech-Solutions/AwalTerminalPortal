@@ -14,4 +14,5 @@ class Values extends CustomEnum
     const CARBON_DATE_FORMAT_3 = 'DD/MM/YYYY';
     const CARBON_DATE_FORMAT_4 = "Y-m-d";
     const CARBON_FORMAT_2 = "";
+    const PAYMENT_EXPIRES = 48;
 }

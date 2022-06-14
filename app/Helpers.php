@@ -4,6 +4,7 @@ namespace App;
 
 use App\constants\Attributes;
 use App\Models\Attachment;
+use App\Models\CustomModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -16,8 +17,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Image;
 use Sentry\State\Scope;
 use Throwable;
 use VIITech\Helpers\Constants\DebuggerLevels;
@@ -50,6 +53,84 @@ class Helpers
 //            return "https://cdn.b4bh.com/" . $value;
         }
         return env("AWS_URL", env("APP_URL")) . $value;
+    }
+
+
+    /**
+     * Set Generated UUID
+     * @param $model
+     */
+    static function setGeneratedUUID($model)
+    {
+        /* @var $model CustomModel */
+        if(Schema::hasColumn($model->getTable(), Attributes::UUID)){
+            if (empty($model->uuid) || $model->uuid == 0) {
+                $model->uuid = GlobalHelpers::returnString(Helpers::generateUUID($model, Attributes::UUID));
+            }
+        }
+    }
+
+    /**
+     * Generate Order ID
+     * @param string $model
+     * @param string $attribute
+     * @return mixed|null
+     */
+    static function generateOrderID($model, $attribute = Attributes::ID)
+    {
+        /* @var $model CustomModel */
+
+        try {
+            $order_id = 100000 + $model->getKey();
+
+            if (is_null($model)) {
+                return $order_id;
+            } else {
+                if (is_null($model::where($attribute, $order_id)->first())) {
+                    return $order_id;
+                } else {
+                    return self::generateOrderID($model);
+                }
+            }
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Generate UUID
+     * @param string $model
+     * @param string $attribute
+     * @return mixed|null
+     */
+    static function generateUUID($model, $attribute = Attributes::ID)
+    {
+        try {
+            $uuid = Helpers::generateCleanUUID(true);
+            if (is_null($model)) {
+                return $uuid;
+            } else {
+                if (is_null($model::where($attribute, $uuid)->first())) {
+                    return $uuid;
+                } else {
+                    return self::generateUUID($model);
+                }
+            }
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Generate UUID
+     * @return array|string|string[]|Uuid
+     * @throws Exception
+     */
+    static function generateCleanUUID($clean = false){
+        if(!$clean){
+            return Uuid::generate(1);
+        }
+        return str_replace("-", "", Uuid::generate(1));
     }
 
     /**
@@ -324,14 +405,14 @@ class Helpers
         $disk = "public";
 
         // if a base64 was sent, store it in the db
-        if (Str::startsWith($image, 'data:image') || is_a($image, UploadedFile::class) || is_a($image, \Intervention\Image\Image::class)) {
+        if (Str::startsWith($image, 'data:image') || is_a($image, UploadedFile::class) || is_a($image, Image::class)) {
 
             $allowed_types = ["jpg", "jpeg", "png", "pdf"];
 
             $extension = 'jpg';
             if (is_a($image, UploadedFile::class)) {
                 $extension = $image->extension();
-            } else if (is_a($image, \Intervention\Image\Image::class)) {
+            } else if (is_a($image, Image::class)) {
                 $extension = $image->extension;
             }else if(Str::contains($image, "data:image/png;base64")){
                 $extension = "png";
@@ -342,7 +423,7 @@ class Helpers
 
             // 0. Make the image
             // 1. Generate a filename.
-            if (!is_a($image, \Intervention\Image\Image::class) && $generate_name) {
+            if (!is_a($image, Image::class) && $generate_name) {
                 $image = Image::make($image)->encode($extension, 90);
                 $filename = $image->filename;
                 if(empty($filename)){

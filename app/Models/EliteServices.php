@@ -5,13 +5,16 @@ namespace App\Models;
 use App\Constants\Attributes;
 use App\Constants\FlightType;
 use App\Constants\Tables;
+use App\Constants\Values;
 use App\Helpers;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
+
 /**
  * Elite Services
  *
+ * @property string uuid
  * @property string flight_type
  */
 class EliteServices extends CustomModel
@@ -29,11 +32,27 @@ class EliteServices extends CustomModel
         Attributes::NUMBER_OF_ADULTS,
         Attributes::NUMBER_OF_CHILDREN,
         Attributes::NUMBER_OF_INFANTS,
+        Attributes::UUID,
     ];
 
     protected $appends = [
         Attributes::FLIGHT_TYPE_NAME
     ];
+
+    /**
+     * Boot
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            Helpers::setGeneratedUUID($model);
+        });
+        static::created(function ($model) {
+            Helpers::setGeneratedUUID($model);
+        });
+    }
 
     /**
      * Relationship: country
@@ -52,5 +71,24 @@ class EliteServices extends CustomModel
     {
         $flight_type = $this->flight_type;
         return Helpers::readableText(FlightType::getKey($flight_type));
+    }
+
+    /**
+     * Generate Payment Link
+     * @return string
+     */
+    function generatePaymentLink(){
+
+        // generate uuid if doesnt exist
+        if(is_null($this->uuid)){
+            Helpers::setGeneratedUUID(EliteServices::class);
+        }
+
+        // generate url
+        return URL::temporarySignedRoute(
+            'elite-service-payment', now()->addHours(Values::PAYMENT_EXPIRES), [
+                Attributes::UUID => $this->uuid
+            ]
+        );
     }
 }

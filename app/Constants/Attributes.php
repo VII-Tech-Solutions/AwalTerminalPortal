@@ -15,10 +15,16 @@ class Attributes extends CustomEnum
     const VALUE = "value";
     const NAME = 'name';
     const FORM_ID = 'form_id';
+    const ELITE_SERVICE_ID = "elite_service_id";
+    const RETURN_URL = "return_url";
+    const CREDIMAX_SUCCESS_INDICATOR = "credimax_success_indicator";
+    const AMOUNT = "amount";
     const DANGER = "danger";
     const CONNECTION = "connection";
+    const PAYMENT_PROVIDER = "payment_provider";
     const QUEUE = "queue";
     const TOKEN = "token";
+    const ORDER_ID = "order_id";
     const PAYLOAD = "payload";
     const AVATAR = "avatar";
     const EXCEPTION = "exception";
