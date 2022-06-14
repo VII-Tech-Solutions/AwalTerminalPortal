@@ -6,7 +6,7 @@ use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\GeneralServiceTypesResource\Pages;
 use App\Filament\Resources\GeneralServiceTypesResource\RelationManagers;
-use App\Models\GeneralServiceTypes;
+use App\Models\FormServices;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -16,7 +16,7 @@ use Filament\Tables;
 
 class GeneralServiceTypesResource extends Resource
 {
-    protected static ?string $model = GeneralServiceTypes::class;
+    protected static ?string $model = FormServices::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-server';
 

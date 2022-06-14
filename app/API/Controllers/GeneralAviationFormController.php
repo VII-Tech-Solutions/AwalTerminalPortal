@@ -9,7 +9,7 @@ use App\Helpers;
 use App\Mail\GAServiceNewRequestMail;
 use App\Mail\GAServiceRequestReceivedMail;
 use App\Models\Attachment;
-use App\Models\GeneralAviationSelectedServices;
+use App\Models\GAServices;
 use App\Models\GeneralAviationServices;
 use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -45,11 +45,11 @@ class GeneralAviationFormController extends CustomController
     {
 
         // validate data
-        $aircraft_type = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::AIRCRAFT_TYPE, null, CastingTypes::INTEGER);
+        $aircraft_type = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::AIRCRAFT_TYPE, null, CastingTypes::STRING);
         $registration_number = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REGISTRATION_NUMBER, null, CastingTypes::INTEGER);
         $mtow = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::MTOW, null, CastingTypes::STRING);
         $lead_passenger_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::LEAD_PASSENGER_NAME, null, CastingTypes::STRING);
-        $landing_purpose = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::LANDING_PURPOSE, null, CastingTypes::INTEGER);
+        $landing_purpose = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::LANDING_PURPOSE, null, CastingTypes::STRING);
         $arrival_call_sign = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ARRIVAL_CALL_SIGN, null, CastingTypes::STRING);
         $arriving_from_airport = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ARRIVING_FROM_AIRPORT, null, CastingTypes::INTEGER);
         $estimated_time_of_arrival = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ESTIMATED_TIME_OF_ARRIVAL, null, CastingTypes::STRING);
@@ -170,6 +170,7 @@ class GeneralAviationFormController extends CustomController
             Attributes::OPERATOR_BILLING_ADDRESS => $operator_billing_address,
             Attributes::IS_USING_AGENT => $is_using_agent,
             Attributes::AGENT_FULLNAME => $agent_fullname,
+            Attributes::AGENT_EMAIL => $agent_email,
             Attributes::AGENT_COUNTRY => $agent_country,
             Attributes::AGENT_PHONENUMBER => $agent_phoneNumber,
             Attributes::AGENT_ADDRESS => $agent_address,
@@ -181,7 +182,7 @@ class GeneralAviationFormController extends CustomController
 
         if(!is_null($services) && $general_service){
             foreach ($services as $service ){
-                GeneralAviationSelectedServices::createOrUpdate([
+                GAServices::createOrUpdate([
                     Attributes::GENERAL_AVIATION_ID => $general_service->id,
                     Attributes::SERVICE_ID => $service
                 ]);

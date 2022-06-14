@@ -21,7 +21,7 @@ class CreateGATable extends Migration
             $table->integer(Attributes::REGISTRATION_NUMBER)->nullable();
             $table->string(Attributes::MTOW)->nullable();
             $table->string(Attributes::LEAD_PASSENGER_NAME)->nullable();
-            $table->integer(Attributes::LANDING_PURPOSE)->nullable();
+            $table->string(Attributes::LANDING_PURPOSE)->nullable();
             $table->string(Attributes::ARRIVAL_CALL_SIGN)->nullable();
             $table->integer(Attributes::ARRIVING_FROM_AIRPORT)->nullable();
             $table->time(Attributes::ESTIMATED_TIME_OF_ARRIVAL)->nullable();

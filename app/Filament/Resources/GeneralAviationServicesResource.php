@@ -61,7 +61,7 @@ class GeneralAviationServicesResource extends Resource
                     Forms\Components\TextInput::make(Attributes::REGISTRATION_NUMBER)->numeric(true)->required(),
                     Forms\Components\TextInput::make(Attributes::MTOW)->numeric(true)->required(),
                     Forms\Components\TextInput::make(Attributes::LEAD_PASSENGER_NAME)->required(),
-                    Forms\Components\TextInput::make(Attributes::LANDING_PURPOSE)->numeric(true)->required(),
+                    Forms\Components\TextInput::make(Attributes::LANDING_PURPOSE)->required(),
                 ]),
                 Fieldset::make('Arrival Information')->schema([
                     Forms\Components\TextInput::make(Attributes::ARRIVAL_CALL_SIGN)->required(),
@@ -109,14 +109,14 @@ class GeneralAviationServicesResource extends Resource
 
                 ]),
                 Fieldset::make('Required Services')->schema([
-
+                    Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('services', 'name'),
                 ]),
                 Fieldset::make('Documents & Remarks')->schema([
                     FileUpload::make('Document'),
                     FileUpload::make('Aircraft Certifications Checklist'),
                     FileUpload::make('Arrival Gendec'),
                     FileUpload::make('Departure Gendec'),
-                    Forms\Components\Textarea::make(Attributes::REMARKS),
+                    Forms\Components\Textarea::make(Attributes::REMARKS)->columns(1),
                 ]),
             ]);
     }
