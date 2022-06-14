@@ -3,12 +3,9 @@
 namespace App;
 
 use App\constants\Attributes;
-use App\Constants\EnvVariables;
-use App\Constants\FileType;
 use App\Models\Attachment;
 use App\Models\User;
 use Carbon\Carbon;
-use Cassandra\Type\UserType;
 use Exception;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\JsonResponse;
@@ -21,8 +18,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
-use OpenApi\Annotations\MediaType;
 use Sentry\State\Scope;
 use Throwable;
 use VIITech\Helpers\Constants\DebuggerLevels;
@@ -36,6 +31,26 @@ use function Sentry\configureScope;
  */
 class Helpers
 {
+
+    /**
+     * Get CDN Link
+     * @param $value
+     * @param bool $always_production
+     * @return string
+     */
+    static function getCDNLink($value, $always_production = false)
+    {
+        if (empty($value)) {
+            return null;
+        }
+        if (Str::startsWith($value, "http")) {
+            return $value;
+        }
+        if($always_production){
+//            return "https://cdn.b4bh.com/" . $value;
+        }
+        return env(EnvVariables::AWS_URL, env(EnvVariables::APP_URL)) . $value;
+    }
 
     /**
      * Returns Formatted JSON Response (returnResponse version 2)

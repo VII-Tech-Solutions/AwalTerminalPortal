@@ -65,6 +65,8 @@ class ContactUsController extends CustomController
 
         // return response
         if ($contact_us) {
+
+
             return Helpers::formattedJSONResponse("Submitted successfully", [
                 Attributes::CONTACT_US => ContactUs::returnTransformedItems($contact_us, ContactUsTransformer::class),
             ], null, Response::HTTP_OK);
