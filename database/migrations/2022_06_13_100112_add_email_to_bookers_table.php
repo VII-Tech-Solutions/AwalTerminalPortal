@@ -1,11 +1,12 @@
 <?php
 
 use App\Constants\Attributes;
+use App\Constants\Tables;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class AddEmailToBookersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +15,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table(\App\Constants\Tables::BOOKERS, function (Blueprint $table) {
+        Schema::table(Tables::BOOKERS, function (Blueprint $table) {
             $table->string(Attributes::EMAIL)->nullable();
         });
     }
@@ -26,8 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table(\App\Constants\Tables::BOOKERS, function (Blueprint $table) {
+        Schema::table(Tables::BOOKERS, function (Blueprint $table) {
             $table->dropColumn(Attributes::EMAIL);
         });
     }
-};
+}
