@@ -7,7 +7,7 @@ use App\API\Transformers\GeneralAviationTransformer;
 use App\Constants\Attributes;
 use App\Helpers;
 use App\Models\Attachment;
-use App\Models\GeneralAviationSelectedServices;
+use App\Models\GAServices;
 use App\Models\GeneralAviationServices;
 use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -179,7 +179,7 @@ class GeneralAviationFormController extends CustomController
 
         if(!is_null($services) && $general_service){
             foreach ($services as $service ){
-                GeneralAviationSelectedServices::createOrUpdate([
+                GAServices::createOrUpdate([
                     Attributes::GENERAL_AVIATION_ID => $general_service->id,
                     Attributes::SERVICE_ID => $service
                 ]);

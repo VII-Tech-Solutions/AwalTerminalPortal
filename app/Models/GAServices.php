@@ -6,9 +6,9 @@ use App\Constants\Attributes;
 use App\Constants\Tables;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class GeneralAviationSelectedServices  extends CustomModel
+class GAServices  extends CustomModel
 {
-    protected $table = Tables::GA_SERVICE;
+    protected $table = Tables::GA_SERVICES;
 
     protected $fillable = [
         Attributes::GENERAL_AVIATION_ID,

@@ -97,6 +97,12 @@ class GeneralAviationServices extends CustomModel
         return $this->belongsTo(Country::class,Attributes::ID, Attributes::AGENT_COUNTRY);
     }
 
+    public function services()
+    {
+        return $this->belongsToMany(FormServices::class,Tables::GA_SERVICES,Attributes::GENERAL_AVIATION_ID,Attributes::ID);
+    }
+
+
     /**
      * Relationship: operator_country
      * @return BelongsTo
@@ -115,4 +121,5 @@ class GeneralAviationServices extends CustomModel
     {
         return Helpers::readableText(FlightType::getKey((int)$value));
     }
+
 }

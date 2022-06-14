@@ -23,5 +23,5 @@ class Tables extends CustomEnum
     const ELITE_SERVICES_FEATURES = "elite_service_features";
     const ELITE_SERVICES_TYPES = "elite_service_types";
     const FORM_SERVICES = "form_services";
-    const GA_SERVICE = "ga_service";
+    const GA_SERVICES = "ga_services";
 }

@@ -15,7 +15,7 @@ class CreateGAServiceTable extends Migration
      */
     public function up()
     {
-        Schema::create(Tables::GA_SERVICE, function (Blueprint $table) {
+        Schema::create(Tables::GA_SERVICES, function (Blueprint $table) {
 
             $table->id();
             $table->integer( Attributes::GENERAL_AVIATION_ID)->nullable();
@@ -34,6 +34,6 @@ class CreateGAServiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(Tables::GA_SERVICE);
+        Schema::dropIfExists(Tables::GA_SERVICES);
     }
 };
