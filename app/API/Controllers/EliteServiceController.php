@@ -6,6 +6,8 @@ use App\API\Transformers\EliteServiceTransformer;
 use App\Constants\Attributes;
 use App\Constants\FlightType;
 use App\Helpers;
+use App\Mail\ESNewBookingMail;
+use App\Mail\ESRequestReceivedMail;
 use App\Models\EliteServices;
 use App\Models\Passengers;
 use App\Models\Bookers;
@@ -52,11 +54,13 @@ class EliteServiceController extends CustomController
         $booker_firstname = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::FIRST_NAME, null, CastingTypes::STRING);
         $booker_lastname = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::LAST_NAME, null, CastingTypes::STRING);
         $booker_mobile_number = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::MOBILE_NUMBER, null, CastingTypes::STRING);
+        $booker_email = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::EMAIL, null, CastingTypes::STRING);
         $booker_comments = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::COMMENTS, null, CastingTypes::STRING);
         $booker_array = [
             'First name' => $booker_firstname,
             'Last name' => $booker_lastname,
-            'Booker mobile number' => $booker_mobile_number
+            'Booker mobile number' => $booker_mobile_number,
+            'Booker email' => $booker_email,
         ];
         $array = [
             'Flight Type' => $flight_type,
@@ -135,6 +139,7 @@ class EliteServiceController extends CustomController
             Attributes::FIRST_NAME => $booker_firstname,
             Attributes::LAST_NAME => $booker_lastname,
             Attributes::MOBILE_NUMBER => $booker_mobile_number,
+            Attributes::EMAIL => $booker_mobile_number,
             Attributes::COMMENTS => $booker_comments,
             Attributes::SERVICE_ID => $service->id
         ]);
@@ -160,6 +165,14 @@ class EliteServiceController extends CustomController
 
         // return response
         if ($service && $booker_info) {
+
+            // TODO send email to admin
+            Helpers::sendMailable(new ESNewBookingMail([]), env("ADMIN_EMAIL"));
+
+            // TODO send email to customer
+            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, $booker_firstname . " " . $booker_lastname, []), env("ADMIN_EMAIL"));
+
+            // return success
             return Helpers::formattedJSONResponse("Submitted successfully", [
                 Attributes::ELITE_SERVICES => EliteServices::returnTransformedItems($service, EliteServiceTransformer::class),
                 Attributes::PASSENGERS => $passengers,

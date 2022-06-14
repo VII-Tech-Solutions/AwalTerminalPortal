@@ -50,10 +50,10 @@ class HomeController extends Controller
         Helpers::sendMailable(new GAServiceRequestReceivedMail($email, $to_name, []), $email);
 
         // GA Request - To Admin
-        Helpers::sendMailable(new GAServiceNewRequestMail($email, $to_name, []), $email);
+        Helpers::sendMailable(new GAServiceNewRequestMail([]), $email);
 
         // Elite Service New Booking - To Admin
-        Helpers::sendMailable(new ESNewBookingMail($email, $to_name, []), $email);
+        Helpers::sendMailable(new ESNewBookingMail([]), $email);
 
         // Elite Service New Booking - To Customer
         Helpers::sendMailable(new ESRequestReceivedMail($email, $to_name, []), $email);
@@ -70,9 +70,8 @@ class HomeController extends Controller
      */
     function process(){
 
-        return view('emails.contact_us', [
-            "link" => url("admin/contactuses/1")
-        ]);
+
+
 
         dd("aa");
 

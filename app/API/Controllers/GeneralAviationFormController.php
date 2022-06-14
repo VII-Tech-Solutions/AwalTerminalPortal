@@ -6,6 +6,8 @@ use App\API\Transformers\AttachmentTransformer;
 use App\API\Transformers\GeneralAviationTransformer;
 use App\Constants\Attributes;
 use App\Helpers;
+use App\Mail\GAServiceNewRequestMail;
+use App\Mail\GAServiceRequestReceivedMail;
 use App\Models\Attachment;
 use App\Models\GeneralAviationSelectedServices;
 use App\Models\GeneralAviationServices;
@@ -198,7 +200,14 @@ class GeneralAviationFormController extends CustomController
                 }
             }
 
+            // get attachments
             $attachments = $general_service->attachments()->get();
+
+            // TODO send email to admin
+            Helpers::sendMailable(new GAServiceNewRequestMail([]), env("ADMIN_EMAIL"));
+
+            // TODO send email to customer
+            Helpers::sendMailable(new GAServiceRequestReceivedMail("email", "to email", []), $email);
 
             // return success response
             return Helpers::formattedJSONResponse("Submitted successfully", [
