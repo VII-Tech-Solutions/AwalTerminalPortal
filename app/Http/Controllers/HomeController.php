@@ -27,4 +27,16 @@ class HomeController extends Controller
         return redirect()->to("/");
     }
 
+
+    /**
+     * Process
+     * @return void
+     */
+    function process(){
+
+        dd("aa");
+
+
+    }
+
 }

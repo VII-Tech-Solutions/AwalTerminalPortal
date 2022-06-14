@@ -3,6 +3,7 @@
 namespace App;
 
 use App\constants\Attributes;
+use App\Constants\EnvVariables;
 use App\Constants\FileType;
 use App\Models\Attachment;
 use App\Models\User;
@@ -17,6 +18,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -177,6 +179,28 @@ class Helpers
             $level = DebuggerLevels::ERROR;
         }
         GlobalHelpers::debugger($exception, $level);
+    }
+
+    /**
+     * Send Mailable
+     * @param $mailable
+     * @param $send_to_emails
+     * @return mixed
+     */
+    static function sendMailable($mailable, $send_to_emails)
+    {
+        try {
+            if (env("ENABLE_SENDING_EMAILS", true)) {
+                Mail::to($send_to_emails)->send($mailable);
+                return true;
+            } else {
+                GlobalHelpers::debugger("Email not sent to $send_to_emails because sending emails is disabled in env file", DebuggerLevels::ALERT);
+                return false;
+            }
+        } catch (Exception $e) {
+            Helpers::captureException($e);
+            return false;
+        }
     }
 
     /**
