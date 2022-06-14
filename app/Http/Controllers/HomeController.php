@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\API\Controllers\CustomController;
+use App\Constants\Attributes;
+use App\Constants\Values;
 use App\Helpers;
 use App\Mail\ContactUsMail;
 use App\Mail\ESBookingStatusUpdateMail;
@@ -9,13 +12,17 @@ use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;
 use App\Mail\GAServiceNewRequestMail;
 use App\Mail\GAServiceRequestReceivedMail;
+use App\Models\EliteServices;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
+use VIITech\Helpers\Constants\CastingTypes;
+use VIITech\Helpers\GlobalHelpers;
 
 /**
  * Home Controller
  */
-class HomeController extends Controller
+class HomeController extends CustomController
 {
 
     /**
@@ -50,10 +57,10 @@ class HomeController extends Controller
         Helpers::sendMailable(new GAServiceRequestReceivedMail($email, $to_name, []), $email);
 
         // GA Request - To Admin
-        Helpers::sendMailable(new GAServiceNewRequestMail($email, $to_name, []), $email);
+        Helpers::sendMailable(new GAServiceNewRequestMail([]), $email);
 
         // Elite Service New Booking - To Admin
-        Helpers::sendMailable(new ESNewBookingMail($email, $to_name, []), $email);
+        Helpers::sendMailable(new ESNewBookingMail([]), $email);
 
         // Elite Service New Booking - To Customer
         Helpers::sendMailable(new ESRequestReceivedMail($email, $to_name, []), $email);
@@ -66,17 +73,58 @@ class HomeController extends Controller
 
     /**
      * Process
-     * @return void
+     * @return
      */
     function process(){
 
-        return view('emails.contact_us', [
-            "link" => url("admin/contactuses/1")
+        /** @var EliteServices $elite_service */
+        $elite_service = EliteServices::query()->orderByDesc(Attributes::CREATED_AT)->first();
+
+        // generate payment link
+        $link = $elite_service->generatePaymentLink();
+
+        // redirect to
+        return redirect()->to($link);
+
+    }
+
+    /**
+     * Pay
+     * @return
+     */
+    function pay(){
+
+        // validate signature
+        if(!$this->request->hasValidSignature()){
+            return redirect()->to(env("WEBSITE_URL") . "/elite-form?error=true");
+        }
+
+        // get uuid
+        $uuid = $this->request->get(Attributes::UUID);
+        if(empty($uuid)){
+            return redirect()->to(env("WEBSITE_URL") . "/elite-form?error=true");
+        }
+
+        // build url query
+        $query = http_build_query([
+            Attributes::RETURN_URL => "",
+            Attributes::AMOUNT => "",
+            Attributes::ORDER_ID => "",
+            Attributes::DESCRIPTION => "",
         ]);
 
-        dd("aa");
+        dd($query);
 
+        return redirect()->to(env("CREDIMAX_URL") . "/checkout");
 
+    }
+
+    /**
+     * Process Payment
+     * @return void
+     */
+    function processPayment(){
+        dd($this->request->all());
     }
 
 }

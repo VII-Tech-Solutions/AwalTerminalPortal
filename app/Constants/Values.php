@@ -15,4 +15,5 @@ class Values extends CustomEnum
     const CARBON_DATE_FORMAT_4 = "Y-m-d";
     const CARBON_FORMAT_2 = "";
     const STORAGE_DISK = "local";
+    const PAYMENT_EXPIRES = 48;
 }

@@ -17,6 +17,7 @@ class Bookers extends CustomModel
         Attributes::FIRST_NAME,
         Attributes::LAST_NAME,
         Attributes::MOBILE_NUMBER,
+        Attributes::EMAIL,
         Attributes::COMMENTS,
         Attributes::SERVICE_ID,
     ];

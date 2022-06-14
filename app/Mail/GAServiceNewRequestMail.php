@@ -8,8 +8,8 @@ namespace App\Mail;
  */
 class GAServiceNewRequestMail extends MailableTemplate
 {
-    public function __construct($to_email, $to_name, $data)
+    public function __construct($data)
     {
-        parent::__construct($to_email, $to_name, $data, "General Aviation: New Request", "emails.ga_service_new_request");
+        parent::__construct(env("ADMIN_EMAIL"), env("ADMIN_NAME"), $data, "General Aviation: New Request", "emails.ga_service_new_request");
     }
 }
