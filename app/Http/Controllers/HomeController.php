@@ -9,13 +9,16 @@ use App\Constants\TransactionStatus;
 use App\Constants\Values;
 use App\Helpers;
 use App\Mail\ContactUsMail;
-use App\Mail\ESBookingStatusUpdateMail;
+use App\Mail\ESBookingApproveMail;
+use App\Mail\ESBookingRejectUpdateMail;
 use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;
 use App\Mail\GAServiceNewRequestMail;
 use App\Mail\GAServiceRequestReceivedMail;
+use App\Models\Bookers;
 use App\Models\EliteServices;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -67,7 +70,7 @@ class HomeController extends CustomController
         Helpers::sendMailable(new ESRequestReceivedMail($email, $to_name, []), $email);
 
         // Elite Service Status Update - To Customer
-        Helpers::sendMailable(new ESBookingStatusUpdateMail($email, $to_name, []), $email);
+        Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $to_name, []), $email);
 
     }
 
@@ -80,7 +83,6 @@ class HomeController extends CustomController
 
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::query()->orderByDesc(Attributes::CREATED_AT)->first();
-
         // generate payment link
         $link = $elite_service->generatePaymentLink();
 
@@ -95,14 +97,12 @@ class HomeController extends CustomController
      * @return RedirectResponse
      */
     function pay(Request $request){
-
         // validate signature
         if(!$request->hasValidSignature()){
             return redirect()->to(env("WEBSITE_URL") . "/elite-form?error=true");
         }
 
         // get uuid
-        $uuid = $request->get(Attributes::UUID);
         if(empty($uuid)) {
             return redirect()->to(env("WEBSITE_URL") . "/elite-form?error=true");
         }
@@ -147,6 +147,59 @@ class HomeController extends CustomController
      */
     function processPayment(Request $request){
         dd($request->all());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function rejectSubmission(){
+        $email = 'fatima.zuhair@viitech.net';
+        $elite_service = EliteServices::query()->where(Attributes::ID,'7')->first();
+        $user = Bookers::query()->where(Attributes::ID,$elite_service->id)->first();
+//        dd($user);
+        // get transaction
+        $transaction = Transaction::createOrUpdate([
+            Attributes::ELITE_SERVICE_ID => $elite_service->id,
+            Attributes::AMOUNT => Values::TEST_AMOUNT,
+            Attributes::ORDER_ID => Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID),
+            Attributes::PAYMENT_PROVIDER => PaymentProvider::CREDIMAX,
+            Attributes::UUID => $elite_service->uuid,
+            Attributes::STATUS => TransactionStatus::FAIL
+        ], [
+            Attributes::ELITE_SERVICE_ID,
+            Attributes::UUID,
+            Attributes::AMOUNT,
+        ]);
+        Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $user->first_name, []), $email);
+
+    }
+
+    function approveSubmission(){
+        $elite_service = EliteServices::query()->where(Attributes::ID,'7')->first();
+        $user = Bookers::query()->where(Attributes::ID,$elite_service->id)->first();
+        dd($elite_service);
+        $link = $elite_service->generatePaymentLink($elite_service->uuid);
+
+        Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, []), $link);
+    }
+
+    function validatePaymentLink(){
+
+    }
+
+    function completePayment(){
+
     }
 
 }

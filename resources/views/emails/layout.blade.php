@@ -676,7 +676,7 @@
                                     <td valign="top" class="bodyContent" mc:edit="body_content">
                                         <div class="main-content" style="margin-top: 101px; background-color: white;padding: 24px 37px 37px 37px;border-radius: 10px;overflow: hidden;">
                                             @yield('content')
-                                            <p style="margin-bottom: 0;line-height: 27px;font-size: 15px;">
+                                            <p style="margin-bottom: 0;line-height: 27px;font-size: 15px; color: #011e41">
                                                 Thanks,
                                                 <br>
                                                 Awal Private Terminal Team
