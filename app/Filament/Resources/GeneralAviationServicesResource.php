@@ -126,7 +126,7 @@ class GeneralAviationServicesResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make(Attributes::ID),
+                Tables\Columns\TextColumn::make(Attributes::ID)->label("ID"),
                 Tables\Columns\TextColumn::make(Attributes::REGISTRATION_NUMBER),
                 Tables\Columns\TextColumn::make(Attributes::CREATED_AT)->label('Submitted at'),
                 Tables\Columns\TextColumn::make(Attributes::ESTIMATED_TIME_OF_ARRIVAL),

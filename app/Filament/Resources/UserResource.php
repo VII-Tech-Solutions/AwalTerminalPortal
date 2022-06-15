@@ -7,7 +7,9 @@ use App\Constants\Attributes;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\Country;
 use App\Models\User;
+use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -58,9 +60,11 @@ class UserResource extends Resource
                         AdminUserType::GA => 'General Aviation',
                         AdminUserType::ELITE_ONLY => 'Elite Services',
                         AdminUserType::SUPER_ADMIN => 'Admin',
-                    ]),
-                Forms\Components\TextInput::make(Attributes::PASSWORD)->default('123abC--')->visible(false)
+                    ])->required(),
 
+                Forms\Components\TextInput::make(Attributes::PASSWORD)->password()
+                    ->required()
+                    ->hiddenOn(Pages\EditUser::class),
             ]);
     }
 
@@ -69,7 +73,7 @@ class UserResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make( Attributes::ID),
+                Tables\Columns\TextColumn::make( Attributes::ID)->label("ID"),
                 Tables\Columns\TextColumn::make( Attributes::NAME),
                 Tables\Columns\TextColumn::make( Attributes::EMAIL),
                 BadgeColumn::make(Attributes::USER_TYPE)
