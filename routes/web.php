@@ -26,3 +26,8 @@ Route::get('/elite-service/pay/process', "App\Http\Controllers\HomeController@pr
 Route::get('/rejectSubmission', "App\Http\Controllers\HomeController@rejectSubmission");
 Route::get('/approveSubmission', "App\Http\Controllers\HomeController@approveSubmission");
 Route::get('/bookingSubmission', "App\Http\Controllers\HomeController@bookingSubmission");
+
+
+Route::get('/generalAviationSubmission', "App\Http\Controllers\HomeController@generalAviationSubmission");
+Route::get('/generalAviationReject', "App\Http\Controllers\HomeController@generalAviationReject");
+Route::get('/generalAviationApprove', "App\Http\Controllers\HomeController@generalAviationApprove");
