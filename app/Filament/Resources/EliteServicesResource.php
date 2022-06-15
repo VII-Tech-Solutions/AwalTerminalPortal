@@ -120,7 +120,6 @@ class EliteServicesResource extends Resource
             ])
             ->filters([
                 //
-                SelectFilter::make('service.name')
 
             ]);
     }
