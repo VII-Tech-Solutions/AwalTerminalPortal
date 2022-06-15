@@ -6,8 +6,6 @@ use App\API\Transformers\EliteServiceTransformer;
 use App\Constants\Attributes;
 use App\Constants\FlightType;
 use App\Helpers;
-use App\Mail\ESNewBookingMail;
-use App\Mail\ESRequestReceivedMail;
 use App\Models\Bookers;
 use App\Models\EliteServices;
 use App\Models\Passengers;
@@ -22,15 +20,17 @@ use VIITech\Helpers\GlobalHelpers;
  */
 class EliteServiceController extends CustomController
 {
+
     /**
-     * List All
+     * Get One
      * @return JsonResponse
      */
-    public function all()
+    public function getOne($uuid)
     {
-        $all = EliteServices::all();
+        $uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::UUID, null, CastingTypes::STRING);
+        $elite_services = EliteServices::where(Attributes::UUID, $uuid)->get();
         return Helpers::returnResponse([
-            Attributes::ELITE_SERVICES => EliteServices::returnTransformedItems($all, EliteServiceTransformer::class),
+            Attributes::ELITE_SERVICES => EliteServices::returnTransformedItems($elite_services, EliteServiceTransformer::class),
         ]);
     }
 
