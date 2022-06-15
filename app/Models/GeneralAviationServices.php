@@ -54,6 +54,9 @@ class GeneralAviationServices extends CustomModel
         Attributes::REMARKS,
     ];
 
+    protected $casts = [
+        'attachments' => 'array',
+    ];
 
     /**
      * Relationship: country

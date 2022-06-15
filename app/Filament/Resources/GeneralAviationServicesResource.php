@@ -10,19 +10,16 @@ use App\Models\Country;
 use App\Models\GeneralAviationServices;
 use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Components\BelongsToManyCheckboxList;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\HasManyRelationManager;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Spatie\MediaLibrary\HasMedia;
 
 class GeneralAviationServicesResource extends Resource
 {
+
     protected static ?string $model = GeneralAviationServices::class;
 
     protected static ?string $navigationIcon = 'ri-plane-fill';
@@ -33,7 +30,7 @@ class GeneralAviationServicesResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
-        if(env("FILAMENT_ENABLE_BADGE", false)){
+        if (env("FILAMENT_ENABLE_BADGE", false)) {
             return static::getModel()::count();
         }
         return null;
@@ -63,8 +60,8 @@ class GeneralAviationServicesResource extends Resource
                     Forms\Components\TextInput::make(Attributes::REGISTRATION_NUMBER)->numeric(true)->required(),
                     Forms\Components\TextInput::make(Attributes::MTOW)->numeric(true)->required(),
                     Forms\Components\TextInput::make(Attributes::LEAD_PASSENGER_NAME)->required(),
-                    Forms\Components\TextInput::make(Attributes::LANDING_PURPOSE)->required(),
-                ]),
+                    Forms\Components\Textarea::make(Attributes::LANDING_PURPOSE)->required(),
+                ])->disabled(true),
                 Fieldset::make('Arrival Information')->schema([
                     Forms\Components\TextInput::make(Attributes::ARRIVAL_CALL_SIGN)->required(),
                     Select::make(Attributes::ARRIVING_FROM_AIRPORT)
@@ -75,7 +72,7 @@ class GeneralAviationServicesResource extends Resource
                     Forms\Components\DatePicker::make(Attributes::ARRIVAL_DATE)->required(),
                     Forms\Components\TextInput::make(Attributes::ARRIVAL_PASSENGER_COUNT)->numeric(true)->required(),
                     Forms\Components\Textarea::make(Attributes::ARRIVAL_FLIGHT_NATURE)->required(),
-                ]),
+                ])->disabled(true),
                 Fieldset::make('Departure Information')->schema([
                     Forms\Components\TextInput::make(Attributes::DEPARTURE_CALL_SIGN)->required(),
                     Select::make(Attributes::DEPARTURE_TO_AIRPORT)
@@ -86,7 +83,7 @@ class GeneralAviationServicesResource extends Resource
                     Forms\Components\DatePicker::make(Attributes::DEPARTURE_DATE)->required(),
                     Forms\Components\TextInput::make(Attributes::DEPARTURE_PASSENGER_COUNT)->numeric(true)->required(),
                     Forms\Components\Textarea::make(Attributes::DEPARTURE_FLIGHT_NATURE)->required(),
-                ]),
+                ])->disabled(true),
                 Fieldset::make('Operator Information')->schema([
                     Forms\Components\TextInput::make(Attributes::OPERATOR_FULL_NAME)->required(),
                     Select::make(Attributes::OPERATOR_COUNTRY)
@@ -97,7 +94,7 @@ class GeneralAviationServicesResource extends Resource
                     Forms\Components\TextInput::make(Attributes::OPERATOR_EMAIL)->email(true)->required(),
                     Forms\Components\Textarea::make(Attributes::OPERATOR_ADDRESS)->required(),
                     Forms\Components\Textarea::make(Attributes::OPERATOR_BILLING_ADDRESS)->required(),
-                ]),
+                ])->disabled(true),
                 Fieldset::make('Agent Information')->schema([
                     Forms\Components\TextInput::make(Attributes::AGENT_FULLNAME)->required(),
                     Select::make(Attributes::AGENT_COUNTRY)
@@ -109,23 +106,19 @@ class GeneralAviationServicesResource extends Resource
                     Forms\Components\Textarea::make(Attributes::AGENT_ADDRESS)->required(),
                     Forms\Components\Textarea::make(Attributes::AGENT_BILLING_ADDRESS)->required(),
 
-                ]),
+                ])->disabled(true),
                 Fieldset::make('Required Services')->schema([
                     Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('services', 'name'),
-                ]),
+                ])->disabled(true),
                 Fieldset::make('Documents & Remarks')->schema([
                     Forms\Components\HasManyRepeater::make('attachments')->relationship('attachments')->schema([
-                        Forms\Components\TextInput::make(Attributes::PATH)->required(),
+                        Forms\Components\TextInput::make(Attributes::URL)->required(),
 
-                    ])
-//                    Forms\Components\FileUpload::make('attachments')
-//                        ->preserveFilenames(true)
-//                        ->acceptedFileTypes(['application/pdf'])
-//                        ->multiple(true)
-//                        ->disablePreview(false)
+                    ]),
+                    Forms\Components\Textarea::make(Attributes::REMARKS)->required(),
 
-                ]),
-            ]);
+                ])->columns(1)->disabled(true),
+            ])->disabled(true);
     }
 
     public static function table(Table $table): Table
@@ -135,10 +128,10 @@ class GeneralAviationServicesResource extends Resource
                 //
                 Tables\Columns\TextColumn::make(Attributes::ID),
                 Tables\Columns\TextColumn::make(Attributes::REGISTRATION_NUMBER),
-                Tables\Columns\TextColumn::make(Attributes::CREATED_AT),
+                Tables\Columns\TextColumn::make(Attributes::CREATED_AT)->label('Submitted at'),
                 Tables\Columns\TextColumn::make(Attributes::ESTIMATED_TIME_OF_ARRIVAL),
-                Tables\Columns\TextColumn::make(Attributes::LEAD_PASSENGER_NAME)
-
+                Tables\Columns\TextColumn::make(Attributes::LEAD_PASSENGER_NAME),
+                Tables\Columns\TagsColumn::make('services.name')->label('Required Services'),
             ])
             ->filters([
                 //

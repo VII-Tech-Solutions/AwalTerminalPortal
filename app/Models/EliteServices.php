@@ -24,6 +24,8 @@ class EliteServices extends CustomModel
     protected $table = Tables::ELITE_SERVICES;
 
     protected $fillable = [
+        Attributes::SERVICE_ID,
+        Attributes::AIRPORT_ID,
         Attributes::FLIGHT_TYPE,
         Attributes::DATE,
         Attributes::TIME,
@@ -63,12 +65,21 @@ class EliteServices extends CustomModel
         return $this->belongsTo(Country::class, Attributes::NATIONALITY);
     }
 
-
+    public function service()
+    {
+        return $this->belongsTo(EliteServiceTypes::class,Attributes::SERVICE_ID);
+    }
 
     public function passengers()
     {
         return $this->hasMany(Passengers::class,Attributes::SERVICE_ID);
     }
+
+    public function booker()
+    {
+        return $this->HasMany(Bookers::class, Attributes::SERVICE_ID);
+    }
+
 
     /**
      * Get Attribute: flight_type_name

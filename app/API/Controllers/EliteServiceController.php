@@ -45,6 +45,9 @@ class EliteServiceController extends CustomController
         $flight_type = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_TYPE, null, CastingTypes::INTEGER);
         $date = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::DATE, null, CastingTypes::STRING);
         $time = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::TIME, null, CastingTypes::STRING);
+        $service_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SERVICE_ID, null, CastingTypes::INTEGER);
+        $is_arrival_flight = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::IS_ARRIVAL_FLIGHT, null, CastingTypes::INTEGER);
+        $airport_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::AIRPORT_ID, null, CastingTypes::INTEGER);
         $flight_number = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_NUMBER, null, CastingTypes::STRING);
         $number_of_adults = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NUMBER_OF_ADULTS, null, CastingTypes::INTEGER);
         $number_of_children = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NUMBER_OF_CHILDREN, null, CastingTypes::INTEGER);
@@ -122,6 +125,9 @@ class EliteServiceController extends CustomController
         // save data
 
         $service = EliteServices::createOrUpdate([
+            Attributes::SERVICE_ID => $service_id,
+            Attributes::IS_ARRIVAL_FLIGHT => $is_arrival_flight,
+            Attributes::AIRPORT_ID => $airport_id,
             Attributes::FLIGHT_TYPE => $flight_type,
             Attributes::DATE => $date,
             Attributes::TIME => $time,
@@ -139,7 +145,7 @@ class EliteServiceController extends CustomController
             Attributes::FIRST_NAME => $booker_firstname,
             Attributes::LAST_NAME => $booker_lastname,
             Attributes::MOBILE_NUMBER => $booker_mobile_number,
-            Attributes::EMAIL => $booker_mobile_number,
+            Attributes::EMAIL => $booker_email,
             Attributes::COMMENTS => $booker_comments,
             Attributes::SERVICE_ID => $service->id
         ]);
@@ -167,13 +173,14 @@ class EliteServiceController extends CustomController
 
         // return response
         if ($service && $booker_info) {
-
-            // TODO send email to admin
-            Helpers::sendMailable(new ESNewBookingMail([]), env("ADMIN_EMAIL"));
-
-            // TODO send email to customer
-            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, $booker_firstname . " " . $booker_lastname, []), env("ADMIN_EMAIL"));
-
+//
+//
+//            // TODO send email to admin
+//            Helpers::sendMailable(new ESNewBookingMail([]), env("ADMIN_EMAIL"));
+//
+//            // TODO send email to customer
+//            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, $booker_firstname . " " . $booker_lastname, []), env("ADMIN_EMAIL"));
+//
             // return success
             return Helpers::formattedJSONResponse("Submitted successfully", [
                 Attributes::ELITE_SERVICES => EliteServices::returnTransformedItems($service, EliteServiceTransformer::class),

@@ -43,15 +43,15 @@ class FormServicesSeeder  extends Seeder
             Attributes::NAME => "Water Service"
         ]);
         FormServices::createOrUpdate([
-            Attributes::ID =>8,
+            Attributes::ID =>9,
             Attributes::NAME => "Air Conditioning Unit (ACU)"
         ]);
         FormServices::createOrUpdate([
-            Attributes::ID =>9,
+            Attributes::ID =>10,
             Attributes::NAME => "Air Start Unit (ASU)"
         ]);
         FormServices::createOrUpdate([
-            Attributes::ID =>10,
+            Attributes::ID =>11,
             Attributes::NAME => "Ground Power Unit (GPU)"
         ]);
 

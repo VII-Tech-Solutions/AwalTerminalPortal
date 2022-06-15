@@ -22,4 +22,15 @@ class Passengers extends CustomModel
         Attributes::FLIGHT_CLASS,
         Attributes::SERVICE_ID,
     ];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class,Attributes::NATIONALITY_ID);
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(EliteServices::class,Attributes::SERVICE_ID);
+    }
+
 }

@@ -17,4 +17,9 @@ class EliteServiceFeatures extends CustomModel
         Attributes::SERVICE_ID,
     ];
 
+    public function service()
+    {
+        return $this->belongsTo(EliteServiceTypes::class,Attributes::SERVICE_ID);
+    }
+
 }

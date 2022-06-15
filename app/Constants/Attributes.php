@@ -111,6 +111,7 @@ class Attributes extends CustomEnum
     const ARRIVAL_PASSENGER_COUNT = "arrival_passenger_count";
     const DEPARTURE_CALL_SIGN = "departure_call_sign";
     const DEPARTURE_TO_AIRPORT = "departure_to_airport";
+    const AIRPORT_ID = "airport_id";
     const ESTIMATED_TIME_OF_DEPARTURE = "estimated_time_of_departure";
     const DEPARTURE_DATE = "departure_date";
     const DEPARTURE_FLIGHT_NATURE = "departure_flight_nature";
@@ -122,6 +123,7 @@ class Attributes extends CustomEnum
     const OPERATOR_ADDRESS = "operator_address";
     const OPERATOR_BILLING_ADDRESS = "operator_billing_address";
     const IS_USING_AGENT = "is_using_agent";
+    const IS_ARRIVAL_FLIGHT = "is_arrival_flight";
     const AGENT_FULLNAME = "agent_fullname";
     const AGENT_COUNTRY = "agent_country";
     const AGENT_PHONENUMBER = "agent_phoneNumber";

@@ -25,6 +25,11 @@ class Attachment extends CustomModel
         Attributes::URL
     ];
 
+    public function form()
+    {
+        return $this->belongsTo(GeneralAviationServices::class,Attributes::FORM_ID);
+    }
+
     /**
      * Create or Update
      * @param $name
@@ -60,6 +65,7 @@ class Attachment extends CustomModel
      */
     function getUrlAttribute($value)
     {
+        return \Storage::disk("public")->url($this->path);
         return url($this->path);
     }
 }
