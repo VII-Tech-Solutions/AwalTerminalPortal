@@ -13,6 +13,8 @@ use App\Mail\ESBookingApproveMail;
 use App\Mail\ESBookingRejectUpdateMail;
 use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;
+use App\Mail\GAServiceBookingAprrovedMail;
+use App\Mail\GAServiceBookingRejectMail;
 use App\Mail\GAServiceNewRequestMail;
 use App\Mail\GAServiceRequestReceivedMail;
 use App\Models\Bookers;
@@ -172,32 +174,28 @@ class HomeController extends CustomController
         $general_aviation = GeneralAviationServices::query()->where(Attributes::ID,'1')->first();
         $operator_full_name = $general_aviation->operator_full_name;
         $agent_fullname = $general_aviation->agent_fullname;
-        Helpers::sendMailable(new GAServiceRequestReceivedMail($general_aviation->email, $general_aviation->first_name, [$operator_full_name,$agent_fullname]), $general_aviation->emaill);
+        $operator_email = $general_aviation->operator_email;
+        Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullname]),  $operator_email);
     }
 
 
 
     function generalAviationReject(){
         $general_aviation = GeneralAviationServices::query()->where(Attributes::ID,'1')->first();
-        $number = 'BH101';
-//         get transaction
-        $elite = EliteServices::createOrUpdate([
-            Attributes::SERVICE_ID => $general_aviation->id,
-            Attributes::UUID => $general_aviation->uuid,
-        ], [
-            Attributes::FLIGHT_NUMBER => $general_aviation->id,
-        ]);
-
-        dd($elite);
-        Helpers::sendMailable(new ESBookingRejectUpdateMail($user->email, $user->first_name, []), $user->email);
+        $operator_full_name = $general_aviation->operator_full_name;
+        $agent_fullname = $general_aviation->agent_fullname;
+        $operator_email = $general_aviation->operator_email;
+        Helpers::sendMailable(new GAServiceBookingRejectMail($operator_email, $operator_full_name, [$agent_fullname]),  $operator_email);
 
     }
 
 
     function generalAviationApprove(){
         $general_aviation = GeneralAviationServices::query()->where(Attributes::ID,'1')->first();
-        $link = $general_aviation->generatePaymentLink($general_aviation->uuid);
-        Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
+        $operator_full_name = $general_aviation->operator_full_name;
+        $agent_fullname = $general_aviation->agent_fullname;
+        $operator_email = $general_aviation->operator_email;
+        Helpers::sendMailable(new GAServiceBookingAprrovedMail($operator_email, $operator_full_name, [$agent_fullname]),  $operator_email);
     }
 
 
