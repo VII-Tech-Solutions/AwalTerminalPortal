@@ -43,6 +43,7 @@ class Attributes extends CustomEnum
     const OPTIONS = "options";
     const DEFAULT = "default";
     const STATUS = "status";
+    const SUBMISSION_STATUS_ID = "submission_status_id";
     const MAINTENANCE_CONTRACT = "maintenance_contract";
     const RTL = "rtl";
     const DIR = "dir";

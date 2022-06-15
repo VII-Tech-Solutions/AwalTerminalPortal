@@ -36,6 +36,9 @@ return new class extends Migration
                 if(Schema::hasColumn(Tables::ELITE_SERVICES, Attributes::NATIONALITY)){
                     $table->dropColumn(Attributes::NATIONALITY);
                 }
+                if(Schema::hasColumn(Tables::ELITE_SERVICES, Attributes::PASSENGER)){
+                    $table->dropColumn(Attributes::PASSENGER);
+                }
             });
         }
     }
@@ -48,7 +51,7 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists(Tables::ELITE_SERVICES);
+//        Schema::dropIfExists(Tables::ELITE_SERVICES);
 
     }
 };

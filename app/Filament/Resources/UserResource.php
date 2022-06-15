@@ -5,11 +5,8 @@ namespace App\Filament\Resources;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\UserResource\Pages;
-use App\Models\Country;
 use App\Models\User;
-use Closure;
 use Filament\Forms;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -27,7 +24,7 @@ class UserResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
-        if(env("FILAMENT_ENABLE_BADGE", false)){
+        if (env("FILAMENT_ENABLE_BADGE", false)) {
             return static::getModel()::count();
         }
         return null;
@@ -73,9 +70,9 @@ class UserResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make( Attributes::ID)->label("ID"),
-                Tables\Columns\TextColumn::make( Attributes::NAME),
-                Tables\Columns\TextColumn::make( Attributes::EMAIL),
+                Tables\Columns\TextColumn::make(Attributes::ID)->label("ID"),
+                Tables\Columns\TextColumn::make(Attributes::NAME),
+                Tables\Columns\TextColumn::make(Attributes::EMAIL),
                 BadgeColumn::make(Attributes::USER_TYPE)
                     ->enum([
                         AdminUserType::GA => 'General Aviation',
