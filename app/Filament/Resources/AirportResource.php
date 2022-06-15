@@ -67,7 +67,7 @@ class AirportResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make( Attributes::ID),
+                Tables\Columns\TextColumn::make( Attributes::ID)->label("ID"),
                 Tables\Columns\TextColumn::make( Attributes::NAME),
 
             ])

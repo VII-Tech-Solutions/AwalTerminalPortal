@@ -61,7 +61,7 @@ class EliteServiceTypesResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make(Attributes::ID),
+                Tables\Columns\TextColumn::make(Attributes::ID)->label("ID"),
                 Tables\Columns\TextColumn::make(Attributes::NAME),
                 Tables\Columns\TextColumn::make(Attributes::PRICE_PER_ADULT)->suffix("BHD"),
 

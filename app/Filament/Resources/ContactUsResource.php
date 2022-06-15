@@ -73,7 +73,7 @@ class ContactUsResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make(Attributes::ID),
+                Tables\Columns\TextColumn::make(Attributes::ID)->label("ID"),
                 Tables\Columns\TextColumn::make(Attributes::EMAIL),
                 Tables\Columns\TextColumn::make(Attributes::MESSAGE),
             ])
