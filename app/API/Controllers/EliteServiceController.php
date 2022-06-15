@@ -27,10 +27,22 @@ class EliteServiceController extends CustomController
      */
     public function getOne($uuid)
     {
-        $uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::UUID, null, CastingTypes::STRING);
+        // get elite service
         $elite_services = EliteServices::where(Attributes::UUID, $uuid)->get();
+
+        // get passengers
+        $passengers = $elite_services->map->passengers;
+        $passengers = $passengers->flatten()->unique(Attributes::ID)->values();
+
+        // get booker
+        $booker = $elite_services->map->booker;
+        $booker = $booker->flatten()->unique(Attributes::ID)->values();
+
+        // return response
         return Helpers::returnResponse([
             Attributes::ELITE_SERVICES => EliteServices::returnTransformedItems($elite_services, EliteServiceTransformer::class),
+            Attributes::PASSENGERS => $passengers,
+            Attributes::BOOKER => $booker
         ]);
     }
 
