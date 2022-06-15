@@ -12,17 +12,15 @@ use App\Models\EliteServices;
 use App\Models\EliteServiceTypes;
 use App\Models\SubmissionStatus;
 use App\Models\User;
-use Database\Seeders\SubmissionStatusSeeder;
 use Filament\Forms;
-use Filament\Forms\Components\Builder;
+use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Filters\Filter;
-use Filament\Tables\Filters\SelectFilter;
+
 
 class EliteServicesResource extends Resource
 {
@@ -125,7 +123,7 @@ class EliteServicesResource extends Resource
                 Tables\Columns\TextColumn::make(Attributes::CREATED_AT)->label('Submitted at'),
                 Tables\Columns\TextColumn::make(Attributes::TIME)->label('Flight time'),
                 Tables\Columns\TextColumn::make(Attributes::DATE)->label('Flight date'),
-                Tables\Columns\BadgeColumn::make('service.name')->colors(['secondary','primary'])
+                Tables\Columns\BadgeColumn::make('service.name')->colors(['secondary', 'primary'])
 
             ])
             ->filters([
@@ -149,4 +147,5 @@ class EliteServicesResource extends Resource
             'edit' => Pages\EditEliteServices::route('/{record}/edit'),
         ];
     }
+
 }
