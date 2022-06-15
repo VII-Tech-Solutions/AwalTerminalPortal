@@ -164,10 +164,8 @@ class HomeController extends CustomController
 
 
     function rejectSubmission(){
-        $email = 'fatima.zuhair@viitech.net';
-        $elite_service = EliteServices::query()->where(Attributes::ID,'7')->first();
+        $elite_service = EliteServices::query()->where(Attributes::ID,'10')->first();
         $user = Bookers::query()->where(Attributes::ID,$elite_service->id)->first();
-//        dd($user);
         // get transaction
         $transaction = Transaction::createOrUpdate([
             Attributes::ELITE_SERVICE_ID => $elite_service->id,
@@ -181,17 +179,17 @@ class HomeController extends CustomController
             Attributes::UUID,
             Attributes::AMOUNT,
         ]);
-        Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $user->first_name, []), $email);
+        Helpers::sendMailable(new ESBookingRejectUpdateMail($user->email, $user->first_name, []), $user->email);
 
     }
 
     function approveSubmission(){
-        $elite_service = EliteServices::query()->where(Attributes::ID,'7')->first();
+        $elite_service = EliteServices::query()->where(Attributes::ID,'10')->first();
         $user = Bookers::query()->where(Attributes::ID,$elite_service->id)->first();
-        dd($elite_service);
         $link = $elite_service->generatePaymentLink($elite_service->uuid);
-
-        Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, []), $link);
+//        $approve['name'] =  $user->first_name;
+//        $approve['link'] = $link;
+        Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
     }
 
     function validatePaymentLink(){
