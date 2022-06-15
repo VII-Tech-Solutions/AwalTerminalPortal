@@ -51,7 +51,7 @@ class HomeController extends CustomController
      */
     function emails(){
 
-        $email = "ahmed.yusuf@viitech.net";
+        $email = "fatima.zuhair@viitech.net";
         $to_name = "Ahmed Yusuf";
 
         // Contact Us - To Admin
@@ -84,7 +84,7 @@ class HomeController extends CustomController
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::query()->orderByDesc(Attributes::CREATED_AT)->first();
         // generate payment link
-        $link = $elite_service->generatePaymentLink($elite_service->uuid);
+        $link = $elite_service->generatePaymentLink();
 
         // redirect to
         return redirect()->to($link);
@@ -98,7 +98,7 @@ class HomeController extends CustomController
      */
     function pay(Request $request){
         $elite_service = EliteServices::query()->where(Attributes::ID,'10')->first();
-
+        $uuid = request()->uuid;
         // validate signature
         if(!$request->hasValidSignature()){
             return redirect()->to(env("WEBSITE_URL") . "/elite-form?error=true");
@@ -115,7 +115,6 @@ class HomeController extends CustomController
         if(is_null($elite_service)){
             return redirect()->to(env("WEBSITE_URL") . "/elite-form?error=true");
         }
-
         // get transaction
         $transaction = Transaction::createOrUpdate([
             Attributes::ELITE_SERVICE_ID => $elite_service->id,
@@ -138,8 +137,9 @@ class HomeController extends CustomController
             Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
         ]);
 
+
         // go to payment page
-        return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
+//        return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
 
     }
 
