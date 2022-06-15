@@ -17,6 +17,8 @@ use App\Mail\GAServiceNewRequestMail;
 use App\Mail\GAServiceRequestReceivedMail;
 use App\Models\Bookers;
 use App\Models\EliteServices;
+use App\Models\GAServices;
+use App\Models\GeneralAviationServices;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -129,10 +131,10 @@ class HomeController extends CustomController
             Attributes::AMOUNT,
         ]);
 
-        dd(env("WEBSITE_URL") . "elite-payement-form?uuid=$elite_service->uuid&secret=atp");
+//        dd(env("WEBSITE_URL") . "elite-payement-form?uuid=$elite_service->uuid&secret=atp");
 
         // redirect to page
-        return redirect()->to(env("WEBSITE_URL") . "elite-payement-form?uuid=$elite_service->uuid&secret=atp");
+        return redirect()->to(env("WEBSITE_URL") . "payment-recevied");
 
 
 
@@ -164,18 +166,19 @@ class HomeController extends CustomController
 
 
 
+// General Aviation emails
 
     function generalAviationSubmission(){
-        $general_aviation = EliteServices::query()->where(Attributes::ID,'10')->first();
-        $user = Bookers::query()->where(Attributes::ID,$general_aviation->id)->first();
-        Helpers::sendMailable(new ESRequestReceivedMail($user->email, $user->first_name, []), $user->emaill);
+        $general_aviation = GeneralAviationServices::query()->where(Attributes::ID,'1')->first();
+        $operator_full_name = $general_aviation->operator_full_name;
+        $agent_fullname = $general_aviation->agent_fullname;
+        Helpers::sendMailable(new GAServiceRequestReceivedMail($general_aviation->email, $general_aviation->first_name, [$operator_full_name,$agent_fullname]), $general_aviation->emaill);
     }
 
 
 
     function generalAviationReject(){
-        $general_aviation = EliteServices::query()->where(Attributes::ID,'10')->first();
-        $user = Bookers::query()->where(Attributes::ID,$general_aviation->id)->first();
+        $general_aviation = GeneralAviationServices::query()->where(Attributes::ID,'1')->first();
         $number = 'BH101';
 //         get transaction
         $elite = EliteServices::createOrUpdate([
@@ -191,15 +194,16 @@ class HomeController extends CustomController
     }
 
 
-
     function generalAviationApprove(){
-        $general_aviation = EliteServices::query()->where(Attributes::ID,'10')->first();
-        $user = Bookers::query()->where(Attributes::ID,$general_aviation->id)->first();
+        $general_aviation = GeneralAviationServices::query()->where(Attributes::ID,'1')->first();
         $link = $general_aviation->generatePaymentLink($general_aviation->uuid);
         Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
     }
 
 
+
+
+    //Elite Services emails
 
 
     function bookingSubmission(){
@@ -224,7 +228,6 @@ class HomeController extends CustomController
             Attributes::FLIGHT_NUMBER => $elite_service->id,
         ]);
 
-dd($elite);
         Helpers::sendMailable(new ESBookingRejectUpdateMail($user->email, $user->first_name, []), $user->email);
 
     }
@@ -234,14 +237,6 @@ dd($elite);
         $user = Bookers::query()->where(Attributes::ID,$elite_service->id)->first();
         $link = $elite_service->generatePaymentLink($elite_service->uuid);
         Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
-    }
-
-    function validatePaymentLink(){
-
-    }
-
-    function completePayment(){
-
     }
 
 }
