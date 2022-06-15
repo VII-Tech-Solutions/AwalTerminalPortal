@@ -95,12 +95,15 @@ class EliteServices extends CustomModel
      * Generate Payment Link
      * @return string
      */
-    function generatePaymentLink($uuid){
+    function generatePaymentLink($uuid = null){
+
+        $uuid = $this->uuid;
 
         // generate uuid if doesnt exist
-        if(is_null($uuid)){
+        if(empty($uuid)){
             Helpers::setGeneratedUUID($this);
             $this->save();
+            $uuid = $this->uuid;
         }
 
         // generate url
