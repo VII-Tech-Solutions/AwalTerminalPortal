@@ -42,7 +42,6 @@ class EliteServiceController extends CustomController
     {
 
         // get data
-        $flight_type = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_TYPE, null, CastingTypes::INTEGER);
         $date = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::DATE, null, CastingTypes::STRING);
         $time = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::TIME, null, CastingTypes::STRING);
         $service_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SERVICE_ID, null, CastingTypes::INTEGER);
@@ -65,11 +64,14 @@ class EliteServiceController extends CustomController
             'Booker mobile number' => $booker_mobile_number,
             'Booker email' => $booker_email,
         ];
+
         $array = [
-            'Flight Type' => $flight_type,
             'Date' => $date,
             'Time' => $time,
+            'Is arrival flight' => $is_arrival_flight,
             'Flight Number' => $flight_number,
+            'Airport ID' => $airport_id,
+            'Service ID' => $service_id,
             'number of infants' => $number_of_infants,
             'number of children' => $number_of_children,
             'number of adults' => $number_of_adults,
@@ -117,20 +119,15 @@ class EliteServiceController extends CustomController
             }
         }
 
-        // validate flight type
-        if (empty(FlightType::getKey($flight_type))) {
-            return Helpers::formattedJSONResponse("Invalid flight type", [], [], Response::HTTP_BAD_REQUEST);
-        }
-
         // save data
 
         $service = EliteServices::createOrUpdate([
             Attributes::SERVICE_ID => $service_id,
             Attributes::IS_ARRIVAL_FLIGHT => $is_arrival_flight,
             Attributes::AIRPORT_ID => $airport_id,
-            Attributes::FLIGHT_TYPE => $flight_type,
             Attributes::DATE => $date,
             Attributes::TIME => $time,
+            Attributes::SUBMISSION_STATUS_ID => 1,
             Attributes::FLIGHT_NUMBER => $flight_number,
             Attributes::NUMBER_OF_ADULTS => $number_of_adults,
             Attributes::NUMBER_OF_CHILDREN => $number_of_children,

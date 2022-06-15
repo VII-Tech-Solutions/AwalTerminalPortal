@@ -34,15 +34,18 @@ return new class extends Migration
      */
     public function down()
     {
-        if(!Schema::hasColumn(Tables::ELITE_SERVICES, Attributes::UUID)){
-            Schema::table(Tables::ELITE_SERVICES, function (Blueprint $table) {
-                $table->dropColumn(Attributes::UUID);
-            });
-        }
-        if(Schema::hasColumn(Tables::GA, Attributes::UUID)){
-            Schema::table(Tables::GA, function (Blueprint $table) {
-                $table->dropColumn(Attributes::UUID);
-            });
+        if (Schema::hasTable(Tables::ELITE_SERVICES)) {
+
+            if (Schema::hasColumn(Tables::ELITE_SERVICES, Attributes::UUID)) {
+                Schema::table(Tables::ELITE_SERVICES, function (Blueprint $table) {
+                    $table->dropColumn(Attributes::UUID);
+                });
+            }
+            if (Schema::hasColumn(Tables::GA, Attributes::UUID)) {
+                Schema::table(Tables::GA, function (Blueprint $table) {
+                    $table->dropColumn(Attributes::UUID);
+                });
+            }
         }
     }
 };

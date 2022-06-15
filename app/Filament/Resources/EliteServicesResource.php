@@ -10,7 +10,9 @@ use App\Models\Airport;
 use App\Models\Country;
 use App\Models\EliteServices;
 use App\Models\EliteServiceTypes;
+use App\Models\SubmissionStatus;
 use App\Models\User;
+use Database\Seeders\SubmissionStatusSeeder;
 use Filament\Forms;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Fieldset;
@@ -29,7 +31,6 @@ class EliteServicesResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-star';
 
     protected static ?string $navigationGroup = 'Submissions';
-
 
 
     protected static function getNavigationBadge(): ?string
@@ -59,17 +60,26 @@ class EliteServicesResource extends Resource
         return $form
             ->schema([
                 //
-                Fieldset::make('Service')->schema([
+                Fieldset::make('General Information')->schema([
                     Select::make(Attributes::SERVICE_ID)
-                        ->label('')
+                        ->label('Selected Service')
                         ->options(EliteServiceTypes::all()->pluck('name', 'id'))
-                        ->searchable(),
+                        ->searchable()->disabled(true),
+
+                    Select::make(Attributes::SUBMISSION_STATUS_ID)
+                        ->label('Form Status')
+                        ->options(SubmissionStatus::all()->pluck('name', 'id'))
+                        ->searchable()
                 ]),
                 Fieldset::make('Flight Details')->schema([
                     Select::make(Attributes::AIRPORT_ID)
                         ->label('Arriving From')
                         ->options(Airport::all()->pluck('name', 'id'))
                         ->searchable(),
+                    Forms\Components\Radio::make(Attributes::IS_ARRIVAL_FLIGHT)->options([
+                        1 => 'Arrival',
+                        0 => 'Departure',
+                    ])->label('Flight type:'),
                     Forms\Components\DatePicker::make(Attributes::DATE),
                     Forms\Components\TimePicker::make(Attributes::TIME),
                     Forms\Components\TextInput::make(Attributes::FLIGHT_NUMBER),

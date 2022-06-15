@@ -27,6 +27,7 @@ class EliteServices extends CustomModel
         Attributes::SERVICE_ID,
         Attributes::AIRPORT_ID,
         Attributes::FLIGHT_TYPE,
+        Attributes::IS_ARRIVAL_FLIGHT,
         Attributes::DATE,
         Attributes::TIME,
         Attributes::FLIGHT_NUMBER,
@@ -34,6 +35,7 @@ class EliteServices extends CustomModel
         Attributes::NUMBER_OF_ADULTS,
         Attributes::NUMBER_OF_CHILDREN,
         Attributes::NUMBER_OF_INFANTS,
+        Attributes::SUBMISSION_STATUS_ID,
         Attributes::UUID,
     ];
 
@@ -80,6 +82,10 @@ class EliteServices extends CustomModel
         return $this->HasMany(Bookers::class, Attributes::SERVICE_ID);
     }
 
+    public function status()
+    {
+        return $this->belongsTo(SubmissionStatus::class,Attributes::SUBMISSION_STATUS_ID);
+    }
 
     /**
      * Get Attribute: flight_type_name

@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FormServicesSeeder::class);
         $this->call(EliteServiceTypeSeeder::class);
         $this->call(EliteServiceFeatureSeeder::class);
+        $this->call(SubmissionStatusSeeder::class);
     }
 }

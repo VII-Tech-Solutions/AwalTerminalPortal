@@ -117,7 +117,6 @@ class GeneralAviationFormController extends CustomController
             'Remarks' => $remarks
         ];
 
-
         foreach ($array as $key => $request) {
             if (is_null($request)) {
                 return Helpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);

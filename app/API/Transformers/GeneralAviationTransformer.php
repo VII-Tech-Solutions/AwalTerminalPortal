@@ -59,6 +59,10 @@ class GeneralAviationTransformer extends CustomTransformer
      */
     public function includeAttachments($item)
     {
-        return $this->collection($item->attachments, new IDTransformer(), Values::NO_RESOURCE_KEY);
+        $attachments = $item->attachments;
+        if(is_null($attachments)){
+            $attachments = [];
+        }
+        return $this->collection($attachments, new IDTransformer(), Values::NO_RESOURCE_KEY);
     }
 }
