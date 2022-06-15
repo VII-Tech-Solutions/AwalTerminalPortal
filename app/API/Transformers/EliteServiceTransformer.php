@@ -15,6 +15,7 @@ class EliteServiceTransformer extends CustomTransformer
         Attributes::SERVICE_ID,
         Attributes::IS_ARRIVAL_FLIGHT,
         Attributes::AIRPORT_ID,
+        Attributes::UUID,
         Attributes::DATE,
         Attributes::TIME,
         Attributes::FLIGHT_NUMBER,

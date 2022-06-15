@@ -97,24 +97,24 @@ class HomeController extends CustomController
      * @return RedirectResponse
      */
     function pay(Request $request){
-        $elite_service = EliteServices::query()->where(Attributes::ID,'10')->first();
-        $uuid = request()->uuid;
-        // validate signature
-        if(!$request->hasValidSignature()){
-            return redirect()->to(env("WEBSITE_URL") . "/elite-form?error=true");
+
+        $uuid = $request->get(Attributes::UUID);
+        if(empty($uuid)){
+            return redirect()->to(env("WEBSITE_URL") . "expired");
         }
 
-        // get uuid
-        if(empty($uuid)) {
-            return redirect()->to(env("WEBSITE_URL") . "/elite-form?error=true");
+        // validate signature
+        if(!$request->hasValidSignature()){
+            return redirect()->to(env("WEBSITE_URL") . "expired");
         }
 
         // get elite service
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
         if(is_null($elite_service)){
-            return redirect()->to(env("WEBSITE_URL") . "/elite-form?error=true");
+            return redirect()->to(env("WEBSITE_URL") . "expired");
         }
+
         // get transaction
         $transaction = Transaction::createOrUpdate([
             Attributes::ELITE_SERVICE_ID => $elite_service->id,
@@ -129,13 +129,20 @@ class HomeController extends CustomController
             Attributes::AMOUNT,
         ]);
 
-        // build url query
-        $query = http_build_query([
-            Attributes::RETURN_URL => url("elite-service/pay/process"),
-            Attributes::AMOUNT => $transaction->amount,
-            Attributes::ORDER_ID => $transaction->order_id,
-            Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
-        ]);
+        dd(env("WEBSITE_URL") . "elite-payement-form?uuid=$elite_service->uuid&secret=atp");
+
+        // redirect to page
+        return redirect()->to(env("WEBSITE_URL") . "elite-payement-form?uuid=$elite_service->uuid&secret=atp");
+
+
+
+//        // build url query
+//        $query = http_build_query([
+//            Attributes::RETURN_URL => url("elite-service/pay/process"),
+//            Attributes::AMOUNT => $transaction->amount,
+//            Attributes::ORDER_ID => $transaction->order_id,
+//            Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
+//        ]);
 
 
         // go to payment page
@@ -158,9 +165,49 @@ class HomeController extends CustomController
 
 
 
+    function generalAviationSubmission(){
+        $general_aviation = EliteServices::query()->where(Attributes::ID,'10')->first();
+        $user = Bookers::query()->where(Attributes::ID,$general_aviation->id)->first();
+        Helpers::sendMailable(new ESRequestReceivedMail($user->email, $user->first_name, []), $user->emaill);
+    }
 
 
 
+    function generalAviationReject(){
+        $general_aviation = EliteServices::query()->where(Attributes::ID,'10')->first();
+        $user = Bookers::query()->where(Attributes::ID,$general_aviation->id)->first();
+        $number = 'BH101';
+//         get transaction
+        $elite = EliteServices::createOrUpdate([
+            Attributes::SERVICE_ID => $general_aviation->id,
+            Attributes::UUID => $general_aviation->uuid,
+        ], [
+            Attributes::FLIGHT_NUMBER => $general_aviation->id,
+        ]);
+
+        dd($elite);
+        Helpers::sendMailable(new ESBookingRejectUpdateMail($user->email, $user->first_name, []), $user->email);
+
+    }
+
+
+
+    function generalAviationApprove(){
+        $general_aviation = EliteServices::query()->where(Attributes::ID,'10')->first();
+        $user = Bookers::query()->where(Attributes::ID,$general_aviation->id)->first();
+        $link = $general_aviation->generatePaymentLink($general_aviation->uuid);
+        Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
+    }
+
+
+
+
+    function bookingSubmission(){
+        $elite_service = EliteServices::query()->where(Attributes::ID,'10')->first();
+        dd($elite_service->amount);
+        $user = Bookers::query()->where(Attributes::ID,$elite_service->id)->first();
+        Helpers::sendMailable(new ESRequestReceivedMail($user->email, $user->first_name, []), $user->emaill);
+    }
 
 
 
@@ -168,27 +215,16 @@ class HomeController extends CustomController
     function rejectSubmission(){
         $elite_service = EliteServices::query()->where(Attributes::ID,'10')->first();
         $user = Bookers::query()->where(Attributes::ID,$elite_service->id)->first();
+        $number = 'BH101';
+//         get transaction
+        $elite = EliteServices::createOrUpdate([
+            Attributes::SERVICE_ID => $elite_service->id,
+            Attributes::UUID => $elite_service->uuid,
+        ], [
+            Attributes::FLIGHT_NUMBER => $elite_service->id,
+        ]);
 
-        // get transaction
-//        $elite = EliteServices::createOrUpdate([
-//            Attributes::SERVICE_ID => $elite_service->id,
-//            Attributes::UUID => $elite_service->uuid,
-//            Attributes::AIRPORT_ID => $elite_service->airport_id,
-//            Attributes::FLIGHT_TYPE => $elite_service->flight_type,
-//            Attributes::DATE => $elite_service->date,
-//            Attributes::TIME => $elite_service->time,
-//            Attributes::PASSENGER => $elite_service->passenger,
-//            Attributes::NUMBER_OF_ADULTS => $elite_service->number_of_adults,
-//            Attributes::NUMBER_OF_CHILDREN => $elite_service->number_of_children,
-//            Attributes::NUMBER_OF_INFANTS => $elite_service->number_of_infants,
-//            Attributes::FLIGHT_NUMBER => '5'
-//        ], [
-//            Attributes::FLIGHT_NUMBER,
-//            Attributes::SERVICE_ID,
-//            Attributes::UUID
-//        ]);
-
-
+dd($elite);
         Helpers::sendMailable(new ESBookingRejectUpdateMail($user->email, $user->first_name, []), $user->email);
 
     }
