@@ -6,8 +6,6 @@ use App\API\Transformers\AttachmentTransformer;
 use App\API\Transformers\GeneralAviationTransformer;
 use App\Constants\Attributes;
 use App\Helpers;
-use App\Mail\GAServiceNewRequestMail;
-use App\Mail\GAServiceRequestReceivedMail;
 use App\Models\Attachment;
 use App\Models\GAServices;
 use App\Models\GeneralAviationServices;
@@ -180,8 +178,8 @@ class GeneralAviationFormController extends CustomController
             Attributes::REMARKS => $remarks,
         ]);
 
-        if(!is_null($services) && $general_service){
-            foreach ($services as $service ){
+        if (!is_null($services) && $general_service) {
+            foreach ($services as $service) {
                 GAServices::createOrUpdate([
                     Attributes::GENERAL_AVIATION_ID => $general_service->id,
                     Attributes::SERVICE_ID => $service
@@ -193,9 +191,9 @@ class GeneralAviationFormController extends CustomController
         if ($general_service) {
 
             // Adding attachments to the form
-            if(!is_null($attachments)){
+            if (!is_null($attachments)) {
                 $attachments = Attachment::find($attachments);
-                foreach ($attachments as $attachment ){
+                foreach ($attachments as $attachment) {
                     $attachment->form_id = $general_service->id;
                     $attachment->save();
                 }
@@ -205,10 +203,10 @@ class GeneralAviationFormController extends CustomController
             $attachments = $general_service->attachments()->get();
 
             // TODO send email to admin
-            Helpers::sendMailable(new GAServiceNewRequestMail([]), env("ADMIN_EMAIL"));
+//            Helpers::sendMailable(new GAServiceNewRequestMail([]), env("ADMIN_EMAIL"));
 
             // TODO send email to customer
-            Helpers::sendMailable(new GAServiceRequestReceivedMail("email", "to email", []), $email);
+//            Helpers::sendMailable(new GAServiceRequestReceivedMail("email", "to email", []), $email);
 
             // return success response
             return Helpers::formattedJSONResponse("Submitted successfully", [
@@ -231,7 +229,7 @@ class GeneralAviationFormController extends CustomController
         $files = $request->allFiles();
         foreach ($files as $key => $file) {
 
-            /** @var UploadedFile  $file */
+            /** @var UploadedFile $file */
             $upload_result = Helpers::storeFile(null, null, null, $file, true, false);
 
             $attachment = Attachment::createOrUpdate([

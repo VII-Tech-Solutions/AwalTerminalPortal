@@ -15,5 +15,4 @@ class EliteServiceTypes extends CustomModel
         Attributes::NAME,
     ];
 
-
 }

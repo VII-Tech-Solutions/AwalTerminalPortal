@@ -8,6 +8,7 @@ use App\Filament\Resources\ContactUsResource\Pages;
 use App\Models\ContactUs;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -33,7 +34,7 @@ class ContactUsResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
-        if(env("FILAMENT_ENABLE_BADGE", false)){
+        if (env("FILAMENT_ENABLE_BADGE", false)) {
             return static::getModel()::count();
         }
         return null;
@@ -58,10 +59,12 @@ class ContactUsResource extends Resource
         return $form
             ->schema([
                 //
-                Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required()->disabled(true),
-                Forms\Components\TextInput::make(Attributes::LAST_NAME)->required()->disabled(true),
-                Forms\Components\TextInput::make(Attributes::EMAIL)->required()->disabled(true),
-                Forms\Components\Textarea::make(Attributes::MESSAGE)->required()->disabled(true),
+                Fieldset::make('Form Details:')->schema([
+                    Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required()->disabled(true),
+                    Forms\Components\TextInput::make(Attributes::LAST_NAME)->required()->disabled(true),
+                    Forms\Components\TextInput::make(Attributes::EMAIL)->required()->disabled(true),
+                    Forms\Components\Textarea::make(Attributes::MESSAGE)->required()->disabled(true),
+                ])->columns(1)
             ]);
     }
 
@@ -70,9 +73,9 @@ class ContactUsResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make( Attributes::ID),
-                Tables\Columns\TextColumn::make( Attributes::EMAIL),
-                Tables\Columns\TextColumn::make( Attributes::MESSAGE),
+                Tables\Columns\TextColumn::make(Attributes::ID),
+                Tables\Columns\TextColumn::make(Attributes::EMAIL),
+                Tables\Columns\TextColumn::make(Attributes::MESSAGE),
             ])
             ->filters([
                 //

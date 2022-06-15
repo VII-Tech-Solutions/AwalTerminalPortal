@@ -67,6 +67,7 @@ class EliteServiceFeaturesResource extends Resource
                 //
                 Tables\Columns\TextColumn::make(Attributes::ID),
                 Tables\Columns\TextColumn::make(Attributes::FEATURE_DETAILS)->limit(50)->wrap(),
+                Tables\Columns\BadgeColumn::make('service.name')->colors(['secondary','primary'])
 
             ])
             ->filters([

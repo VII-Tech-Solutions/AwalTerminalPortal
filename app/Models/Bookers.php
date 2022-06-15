@@ -21,4 +21,10 @@ class Bookers extends CustomModel
         Attributes::COMMENTS,
         Attributes::SERVICE_ID,
     ];
+
+    public function service()
+    {
+        return $this->belongsTo(EliteServices::class,Attributes::SERVICE_ID);
+    }
+
 }

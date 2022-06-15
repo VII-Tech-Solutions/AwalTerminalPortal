@@ -59,7 +59,7 @@ class UserResource extends Resource
                         AdminUserType::ELITE_ONLY => 'Elite Services',
                         AdminUserType::SUPER_ADMIN => 'Admin',
                     ]),
-                Forms\Components\TextInput::make(Attributes::PASSWORD)->default('123abC--')->visible(false)
+                Forms\Components\TextInput::make(Attributes::PASSWORD)->default('123abC--')->visible(false)->
 
             ]);
     }

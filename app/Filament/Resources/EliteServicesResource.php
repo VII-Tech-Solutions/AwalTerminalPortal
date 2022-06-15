@@ -7,15 +7,20 @@ use App\Constants\Attributes;
 use App\Filament\Resources\EliteServicesResource\Pages;
 use App\Filament\Resources\EliteServicesResource\RelationManagers;
 use App\Models\Airport;
+use App\Models\Country;
 use App\Models\EliteServices;
+use App\Models\EliteServiceTypes;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 
 class EliteServicesResource extends Resource
 {
@@ -25,9 +30,11 @@ class EliteServicesResource extends Resource
 
     protected static ?string $navigationGroup = 'Submissions';
 
+
+
     protected static function getNavigationBadge(): ?string
     {
-        if(env("FILAMENT_ENABLE_BADGE", false)){
+        if (env("FILAMENT_ENABLE_BADGE", false)) {
             return static::getModel()::count();
         }
         return null;
@@ -52,36 +59,50 @@ class EliteServicesResource extends Resource
         return $form
             ->schema([
                 //
-                Fieldset::make('Flight Details')->schema([
-//                    Select::make(Attributes::SERVICE_ID)
-//                        ->label('Service')
-//                        ->options(Airport::all()->pluck('name', 'id'))
-//                        ->searchable(),
-
+                Fieldset::make('Service')->schema([
+                    Select::make(Attributes::SERVICE_ID)
+                        ->label('')
+                        ->options(EliteServiceTypes::all()->pluck('name', 'id'))
+                        ->searchable(),
                 ]),
-                Select::make(Attributes::ARRIVING_FROM_AIRPORT)
-                    ->label('Arriving From')
-                    ->options(Airport::all()->pluck('name', 'id'))
-                    ->searchable(),
-                Forms\Components\DatePicker::make(Attributes::DATE)->required(),
-                Forms\Components\TimePicker::make(Attributes::TIME)->required(),
-                Forms\Components\TextInput::make(Attributes::FLIGHT_NUMBER)->required(),
-                Forms\Components\TextInput::make(Attributes::NUMBER_OF_ADULTS)->numeric(true)->required(),
-                Forms\Components\TextInput::make(Attributes::NUMBER_OF_CHILDREN)->numeric(true)->required(),
-                Forms\Components\TextInput::make(Attributes::NUMBER_OF_INFANTS)->numeric(true)->required(),
-                Fieldset::make('Passengers')->schema([
+                Fieldset::make('Flight Details')->schema([
+                    Select::make(Attributes::AIRPORT_ID)
+                        ->label('Arriving From')
+                        ->options(Airport::all()->pluck('name', 'id'))
+                        ->searchable(),
+                    Forms\Components\DatePicker::make(Attributes::DATE),
+                    Forms\Components\TimePicker::make(Attributes::TIME),
+                    Forms\Components\TextInput::make(Attributes::FLIGHT_NUMBER),
+                    Forms\Components\TextInput::make(Attributes::NUMBER_OF_ADULTS)->numeric(true)->required(),
+                    Forms\Components\TextInput::make(Attributes::NUMBER_OF_CHILDREN)->numeric(true)->required(),
+                    Forms\Components\TextInput::make(Attributes::NUMBER_OF_INFANTS)->numeric(true)->required(),
+                ])->disabled(true),
+                Fieldset::make('Passengers List')->schema([
                     Forms\Components\HasManyRepeater::make('passengers')->relationship('passengers')->schema([
                         Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required(),
                         Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
+                        Select::make(Attributes::NATIONALITY_ID)
+                            ->label('Nationality')
+                            ->options(Country::all()->pluck('name', 'id'))
+                            ->searchable(),
+                        Select::make(Attributes::GENDER)
+                            ->options([
+                                1 => 'Male',
+                                2 => 'Female',
+                            ])
 
-                    ])
-//                    Forms\Components\FileUpload::make('attachments')
-//                        ->preserveFilenames(true)
-//                        ->acceptedFileTypes(['application/pdf'])
-//                        ->multiple(true)
-//                        ->disablePreview(false)
+                    ])->label('Passengers')
 
-                ]),
+                ])->columns(1)->disabled(true),
+                Fieldset::make('Booker Information')->schema([
+                    Forms\Components\HasManyRepeater::make('booker')->relationship('booker')->schema([
+                        Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required(),
+                        Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
+                        Forms\Components\TextInput::make(Attributes::EMAIL)->required(),
+                        Forms\Components\TextInput::make(Attributes::MOBILE_NUMBER)->required(),
+                    ])->label('')
+
+                ])->columns(1)->disabled(true)
             ]);
     }
 
@@ -90,14 +111,17 @@ class EliteServicesResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make(Attributes::ID),
-                Tables\Columns\TextColumn::make(Attributes::CREATED_AT),
-                Tables\Columns\TextColumn::make(Attributes::TIME),
-                Tables\Columns\TextColumn::make(Attributes::DATE),
+                Tables\Columns\TextColumn::make(Attributes::ID)->label("ID"),
+                Tables\Columns\TextColumn::make(Attributes::CREATED_AT)->label('Submitted at'),
+                Tables\Columns\TextColumn::make(Attributes::TIME)->label('Flight time'),
+                Tables\Columns\TextColumn::make(Attributes::DATE)->label('Flight date'),
+                Tables\Columns\BadgeColumn::make('service.name')->colors(['secondary','primary'])
 
             ])
             ->filters([
                 //
+                SelectFilter::make('service.name')
+
             ]);
     }
 
