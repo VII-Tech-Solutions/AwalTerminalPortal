@@ -95,10 +95,10 @@ class EliteServices extends CustomModel
      * Generate Payment Link
      * @return string
      */
-    function generatePaymentLink(){
+    function generatePaymentLink($uuid){
 
         // generate uuid if doesnt exist
-        if(is_null($this->uuid)){
+        if(is_null($uuid)){
             Helpers::setGeneratedUUID($this);
             $this->save();
         }
@@ -106,7 +106,7 @@ class EliteServices extends CustomModel
         // generate url
         return URL::temporarySignedRoute(
             'elite-service-payment', now()->addHours(Values::PAYMENT_EXPIRES), [
-                Attributes::UUID => $this->uuid
+                Attributes::UUID => $uuid
             ]
         );
     }
