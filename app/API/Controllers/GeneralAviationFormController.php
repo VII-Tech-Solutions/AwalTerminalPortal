@@ -181,7 +181,8 @@ class GeneralAviationFormController extends CustomController
             foreach ($services as $service) {
                 GAServices::createOrUpdate([
                     Attributes::GENERAL_AVIATION_ID => $general_service->id,
-                    Attributes::SERVICE_ID => $service
+                    Attributes::SERVICE_ID => $service,
+                    Attributes::SUBMISSION_STATUS_ID=> 0
                 ]);
             }
         }

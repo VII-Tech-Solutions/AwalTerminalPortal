@@ -17,4 +17,12 @@ class GAServices  extends CustomModel
         Attributes::TIME
     ];
 
+    /**
+     * @return BelongsTo
+     */
+    public function genralAviation()
+    {
+        return $this->belongsTo(GeneralAviationServices::class,Attributes::GENERAL_AVIATION_ID);
+    }
+
 }
