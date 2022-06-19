@@ -100,26 +100,26 @@ class HomeController extends CustomController
     /**
      * Pay
      * @param Request $request
+     * @param $uuid
      * @return RedirectResponse
      */
-    function pay(Request $request)
+    function pay(Request $request, $uuid)
     {
 
-        $uuid = $request->get(Attributes::UUID);
         if (empty($uuid)) {
-            return redirect()->to(env("WEBSITE_URL") . "expired");
+            return redirect()->to(env("WEBSITE_URL") . "/expired");
         }
 
         // validate signature
         if (!$request->hasValidSignature()) {
-            return redirect()->to(env("WEBSITE_URL") . "expired");
+            return redirect()->to(env("WEBSITE_URL") . "/expired");
         }
 
         // get elite service
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
         if (is_null($elite_service)) {
-            return redirect()->to(env("WEBSITE_URL") . "expired");
+            return redirect()->to(env("WEBSITE_URL") . "/expired");
         }
 
         // get transaction
@@ -138,17 +138,18 @@ class HomeController extends CustomController
 
         // redirect to page
         if(is_a($transaction, Transaction::class)){
-            return redirect()->to(env("WEBSITE_URL") . "payment-recevied");
+            return redirect()->to(env("WEBSITE_URL") . "/payment-recevied");
         }
-        return redirect()->to(env("WEBSITE_URL") . "expired");
+        return redirect()->to(env("WEBSITE_URL") . "/expired");
     }
 
     /**
      * Process Payment
      * @param Request $request
+     * @param $uuid
      * @return RedirectResponse
      */
-    function processPayment(Request $request)
+    function processPayment(Request $request, $uuid)
     {
 
         // get payment method
@@ -164,23 +165,22 @@ class HomeController extends CustomController
         }
 
         // get uuid
-        $uuid = $request->get(Attributes::UUID);
         if (empty($uuid)) {
-            return redirect()->to(env("WEBSITE_URL") . "expired");
+            return redirect()->to(env("WEBSITE_URL") . "/expired");
         }
 
         // get elite service
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
         if (is_null($elite_service)) {
-            return redirect()->to(env("WEBSITE_URL") . "expired");
+            return redirect()->to(env("WEBSITE_URL") . "/expired");
         }
 
         // get transaction
         /** @var Transaction $transaction */
         $transaction = Transaction::where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
         if (is_null($transaction)) {
-            return redirect()->to(env("WEBSITE_URL") . "expired");
+            return redirect()->to(env("WEBSITE_URL") . "/expired");
         }
 
         // TODO if $payment_method benefit, switch to benefit
