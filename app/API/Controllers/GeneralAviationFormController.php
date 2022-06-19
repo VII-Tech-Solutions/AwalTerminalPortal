@@ -140,8 +140,11 @@ class GeneralAviationFormController extends CustomController
             return Helpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
         }
 
-        // save data
+        if(is_string($aircraft_type)){
+            return Helpers::formattedJSONResponse("Invalid aircraft type", [], [], Response::HTTP_BAD_REQUEST);
+        }
 
+        // save data
         $general_service = GeneralAviationServices::createOrUpdate([
             Attributes::AIRCRAFT_TYPE => $aircraft_type,
             Attributes::REGISTRATION_NUMBER => $registration_number,
