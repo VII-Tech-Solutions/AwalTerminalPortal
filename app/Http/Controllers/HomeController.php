@@ -198,9 +198,10 @@ class HomeController extends CustomController
         Helpers::sendMailable(new GAServiceBookingAprrovedMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
     }
 
-
-    //Elite Services emails
-
+    /**
+     * Booking Submission
+     * @return void
+     */
     function bookingSubmission()
     {
         $elite_service = EliteServices::query()->where(Attributes::ID, '10')->first();
@@ -208,17 +209,25 @@ class HomeController extends CustomController
         Helpers::sendMailable(new ESRequestReceivedMail($user->email, $user->first_name, []), $user->emaill);
     }
 
-
+    /**
+     * Reject Submission
+     * @param $id
+     * @return void
+     */
     function rejectSubmission($id)
     {
         $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
         $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
-        $number = 'BH101';
         Helpers::sendMailable(new ESBookingRejectUpdateMail($user->email, $user->first_name, []), $user->email);
     }
 
+    /**
+     * Approve Submission
+     * @return void
+     */
     function approveSubmission()
     {
+        /** @var EliteServices $elite_service */
         $elite_service = EliteServices::query()->where(Attributes::ID, '10')->first();
         $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
         $link = $elite_service->generatePaymentLink($elite_service->uuid);

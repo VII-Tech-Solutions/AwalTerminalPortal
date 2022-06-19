@@ -103,7 +103,9 @@ class EliteServices extends CustomModel
      */
     function generatePaymentLink($uuid = null){
 
-        $uuid = $this->uuid;
+        if(is_null($uuid)){
+            $uuid = $this->uuid;
+        }
 
         // generate uuid if doesnt exist
         if(empty($uuid)){

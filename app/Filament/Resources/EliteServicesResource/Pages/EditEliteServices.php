@@ -34,6 +34,7 @@ class EditEliteServices extends EditRecord
                     Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $name, []), $email);
                     break;
                 case 3:
+                    /** @var EliteServices $elite_service */
                     $elite_service = EliteServices::query()->where(Attributes::ID, $this->data['id'])->first();
                     $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                     $link = $elite_service->generatePaymentLink($elite_service->uuid);
