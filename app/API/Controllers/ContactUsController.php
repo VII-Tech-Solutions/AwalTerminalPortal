@@ -72,7 +72,7 @@ class ContactUsController extends CustomController
         if (is_a($contact_us, ContactUs::class)) {
 
             // send email to admin
-            Helpers::sendMailable(new ContactUsMail(env("ADMIN_EMAIL"), env("ADMIN_NAME"), [
+            Helpers::sendMailable(new ContactUsMail( [
                 Attributes::LINK => url("admin/contact-us/" . $contact_us->id)
             ]), env("ADMIN_EMAIL"));
 
