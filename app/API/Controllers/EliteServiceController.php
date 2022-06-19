@@ -6,6 +6,7 @@ use App\API\Transformers\EliteServiceTransformer;
 use App\Constants\Attributes;
 use App\Constants\FlightType;
 use App\Helpers;
+use App\Mail\ESRequestReceivedMail;
 use App\Models\Bookers;
 use App\Models\EliteServices;
 use App\Models\Passengers;
@@ -182,14 +183,13 @@ class EliteServiceController extends CustomController
 
         // return response
         if ($service && $booker_info) {
-//
-//
-//            // TODO send email to admin
+
+            // TODO send email to admin
 //            Helpers::sendMailable(new ESNewBookingMail([]), env("ADMIN_EMAIL"));
-//
-//            // TODO send email to customer
-//            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, $booker_firstname . " " . $booker_lastname, []), env("ADMIN_EMAIL"));
-//
+
+            // send email to customer
+            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", []), $booker_email);
+
             // return success
             return Helpers::formattedJSONResponse("Submitted successfully", [
                 Attributes::ELITE_SERVICES => EliteServices::returnTransformedItems($service, EliteServiceTransformer::class),

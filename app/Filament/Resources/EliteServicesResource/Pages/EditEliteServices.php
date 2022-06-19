@@ -10,6 +10,7 @@ use App\Mail\ESBookingRejectUpdateMail;
 use App\Mail\ESRequestReceivedMail;
 use App\Models\Bookers;
 use App\Models\EliteServices;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Str;
 
@@ -36,10 +37,22 @@ class EditEliteServices extends EditRecord
                     $elite_service = EliteServices::query()->where(Attributes::ID, $this->data['id'])->first();
                     $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                     $link = $elite_service->generatePaymentLink($elite_service->uuid);
-                    Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);                    break;
+                    Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
+                    break;
                 case 4:
             }
 
         }
     }
+
+
+    protected function getActions(): array{
+        parent::getActions();
+        return [
+            Action::make('delete')
+                ->action(fn () => $this->record->delete())
+                ->requiresConfirmation()
+        ];
+    }
+
 }
