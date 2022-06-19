@@ -136,33 +136,65 @@ class HomeController extends CustomController
             Attributes::AMOUNT,
         ]);
 
-//        dd(env("WEBSITE_URL") . "elite-payement-form?uuid=$elite_service->uuid&secret=atp");
-
         // redirect to page
-        return redirect()->to(env("WEBSITE_URL") . "payment-recevied");
-
-
-//        // build url query
-//        $query = http_build_query([
-//            Attributes::RETURN_URL => url("elite-service/pay/process"),
-//            Attributes::AMOUNT => $transaction->amount,
-//            Attributes::ORDER_ID => $transaction->order_id,
-//            Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
-//        ]);
-
-
-        // go to payment page
-//        return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
-
+        if(is_a($transaction, Transaction::class)){
+            return redirect()->to(env("WEBSITE_URL") . "payment-recevied");
+        }
+        return redirect()->to(env("WEBSITE_URL") . "expired");
     }
 
     /**
      * Process Payment
-     * @return void
+     * @param Request $request
+     * @return RedirectResponse
      */
     function processPayment(Request $request)
     {
-        dd($request->all());
+
+        // get payment method
+        $payment_method = $request->get(Attributes::PAYMENT_METHOD);
+        switch ($payment_method){
+            case PaymentProvider::CREDIMAX:
+            default:
+                $payment_method = PaymentProvider::CREDIMAX;
+                break;
+            case PaymentProvider::BENEFIT:
+                $payment_method = PaymentProvider::BENEFIT;
+                break;
+        }
+
+        // get uuid
+        $uuid = $request->get(Attributes::UUID);
+        if (empty($uuid)) {
+            return redirect()->to(env("WEBSITE_URL") . "expired");
+        }
+
+        // get elite service
+        /** @var EliteServices $elite_service */
+        $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
+        if (is_null($elite_service)) {
+            return redirect()->to(env("WEBSITE_URL") . "expired");
+        }
+
+        // get transaction
+        /** @var Transaction $transaction */
+        $transaction = Transaction::where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
+        if (is_null($transaction)) {
+            return redirect()->to(env("WEBSITE_URL") . "expired");
+        }
+
+        // TODO if $payment_method benefit, switch to benefit
+
+        // build url query
+        $query = http_build_query([
+            Attributes::RETURN_URL => url("elite-service/pay/process"),
+            Attributes::AMOUNT => $transaction->amount,
+            Attributes::ORDER_ID => $transaction->order_id,
+            Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
+        ]);
+
+        // go to payment page
+        return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
     }
 
 
