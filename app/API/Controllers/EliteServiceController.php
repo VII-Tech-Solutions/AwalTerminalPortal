@@ -187,9 +187,9 @@ class EliteServiceController extends CustomController
         // return response
         if ($service && $booker_info) {
 
-            // TODO send email to admin
+            // send email to admin
             $admin_users = User::where(Attributes::USER_TYPE, AdminUserType::ELITE_ONLY)->orWhere(Attributes::USER_TYPE, AdminUserType::SUPER_ADMIN)->get();
-         
+
             foreach($admin_users as $admin_user){
                 Helpers::sendMailable(new ESNewBookingMail([]),$admin_user->email);
             }

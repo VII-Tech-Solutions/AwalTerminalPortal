@@ -4,13 +4,16 @@ namespace App\API\Controllers;
 
 use App\API\Transformers\AttachmentTransformer;
 use App\API\Transformers\GeneralAviationTransformer;
+use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Helpers;
+use App\Mail\ESNewBookingMail;
 use App\Mail\GAServiceNewRequestMail;
 use App\Mail\GAServiceRequestReceivedMail;
 use App\Models\Attachment;
 use App\Models\GAServices;
 use App\Models\GeneralAviationServices;
+use App\Models\User;
 use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -205,7 +208,12 @@ class GeneralAviationFormController extends CustomController
             $attachments = $general_service->attachments()->get();
 
             // send email to admin
-            Helpers::sendMailable(new GAServiceNewRequestMail([]), env("ADMIN_EMAIL"));
+            $admin_users = User::where(Attributes::USER_TYPE, AdminUserType::ELITE_ONLY)->orWhere(Attributes::USER_TYPE, AdminUserType::SUPER_ADMIN)->get();
+
+            foreach($admin_users as $admin_user){
+                Helpers::sendMailable(new GAServiceNewRequestMail([]),$admin_user->email);
+            }
+
 
             // send email to customer
             Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
