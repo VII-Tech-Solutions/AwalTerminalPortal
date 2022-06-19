@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\constants\Attributes;
+use App\Constants\Attributes;
 use App\constants\FieldTypes;
 use App\Constants\FlightClasses;
 use App\Constants\PassengerTitles;

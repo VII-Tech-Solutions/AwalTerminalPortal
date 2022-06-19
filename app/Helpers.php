@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\constants\Attributes;
+use App\Constants\Attributes;
 use App\Models\Attachment;
 use App\Models\CustomModel;
 use App\Models\User;

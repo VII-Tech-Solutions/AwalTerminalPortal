@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\API\Serializers\CustomArraySerializer;
 use App\API\Transformers\IDTransformer;
-use App\constants\Attributes;
+use App\Constants\Attributes;
 use App\constants\Status;
 use App\Helpers;
 use Exception;
