@@ -3,13 +3,16 @@
 namespace App\API\Controllers;
 
 use App\API\Transformers\EliteServiceTransformer;
+use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Constants\FlightType;
 use App\Helpers;
+use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;
 use App\Models\Bookers;
 use App\Models\EliteServices;
 use App\Models\Passengers;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use VIITech\Helpers\Constants\CastingTypes;
@@ -185,7 +188,11 @@ class EliteServiceController extends CustomController
         if ($service && $booker_info) {
 
             // TODO send email to admin
-//            Helpers::sendMailable(new ESNewBookingMail([]), env("ADMIN_EMAIL"));
+            $admin_users = User::where(Attributes::USER_TYPE, AdminUserType::ELITE_ONLY)->orWhere(Attributes::USER_TYPE, AdminUserType::SUPER_ADMIN)->get();
+         
+            foreach($admin_users as $admin_user){
+                Helpers::sendMailable(new ESNewBookingMail([]),$admin_user->email);
+            }
 
             // send email to customer
             Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", []), $booker_email);
