@@ -127,8 +127,6 @@ class EliteServices extends CustomModel
             $uuid = $this->uuid;
         }
 
-        dd($uuid);
-
         // generate url
         return URL::temporarySignedRoute(
             'elite-service-payment', now()->addHours(Values::PAYMENT_EXPIRES), [

@@ -7,6 +7,10 @@ use Exception;
 use ReflectionClass;
 use ReflectionClassConstant;
 
+/**
+ * Class FlightType
+ * @package App\Constants
+ */
 class FlightType extends CustomEnum
 {
     const Arrival = 1;

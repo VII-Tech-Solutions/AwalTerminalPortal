@@ -4,6 +4,10 @@ namespace App\Constants;
 
 use App\Helpers;
 
+/**
+ * Class AdminUserType
+ * @package App\Constants
+ */
 class AdminUserType extends CustomEnum
 {
     const GA = 300;

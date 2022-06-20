@@ -1,11 +1,13 @@
 <?php
 
-
 namespace App\API\Serializers;
-
 
 use League\Fractal\Serializer\ArraySerializer;
 
+/**
+ * Class CustomArraySerializer
+ * @package App\API\Serializers
+ */
 class CustomArraySerializer extends ArraySerializer
 {
 

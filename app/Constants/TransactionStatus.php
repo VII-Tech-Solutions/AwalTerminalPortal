@@ -2,6 +2,10 @@
 
 namespace App\Constants;
 
+/**
+ * Class TransactionStatus
+ * @package App\Constants
+ */
 class TransactionStatus extends CustomEnum
 {
     const FAIL = 0;

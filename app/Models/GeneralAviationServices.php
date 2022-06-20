@@ -3,14 +3,18 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
+use App\Constants\CastingTypes;
 use App\Constants\FlightType;
 use App\Constants\Tables;
 use App\Helpers;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * General Aviation Services
+ *
+ * @property Collection attachments
  */
 class GeneralAviationServices extends CustomModel
 {
@@ -57,7 +61,7 @@ class GeneralAviationServices extends CustomModel
     ];
 
     protected $casts = [
-        'attachments' => 'array',
+        Attributes::ATTACHMENTS => CastingTypes::ARRAY,
     ];
 
     /**
