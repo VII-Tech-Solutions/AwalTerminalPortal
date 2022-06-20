@@ -7,7 +7,6 @@ use App\API\Transformers\GeneralAviationTransformer;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Helpers;
-use App\Mail\ESNewBookingMail;
 use App\Mail\GAServiceNewRequestMail;
 use App\Mail\GAServiceRequestReceivedMail;
 use App\Models\Attachment;
@@ -180,6 +179,7 @@ class GeneralAviationFormController extends CustomController
             Attributes::TRANSPORT_HOTEL_NAME => $transport_hotel_name,
             Attributes::TRANSPORT_TIME => $transport_time,
             Attributes::REMARKS => $remarks,
+            Attributes::SUBMISSION_STATUS_ID => 1
         ]);
 
         if (!is_null($services) && $general_service) {
@@ -187,7 +187,6 @@ class GeneralAviationFormController extends CustomController
                 GAServices::createOrUpdate([
                     Attributes::GENERAL_AVIATION_ID => $general_service->id,
                     Attributes::SERVICE_ID => $service,
-                    Attributes::SUBMISSION_STATUS_ID=> 0
                 ]);
             }
         }
@@ -210,21 +209,19 @@ class GeneralAviationFormController extends CustomController
             // send email to admin
             $admin_users = User::where(Attributes::USER_TYPE, AdminUserType::ELITE_ONLY)->orWhere(Attributes::USER_TYPE, AdminUserType::SUPER_ADMIN)->get();
 
-            foreach($admin_users as $admin_user){
-                Helpers::sendMailable(new GAServiceNewRequestMail([]),$admin_user->email);
+            foreach ($admin_users as $admin_user) {
+                Helpers::sendMailable(new GAServiceNewRequestMail([]), $admin_user->email);
             }
-
 
             // send email to customer
             Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
-
 
             // return success response
             return Helpers::formattedJSONResponse("Submitted successfully", [
                 Attributes::GENERAL_SERVICES => GeneralAviationServices::returnTransformedItems($general_service, GeneralAviationTransformer::class),
                 Attributes::ATTACHMENTS => Attachment::returnTransformedItems($attachments, AttachmentTransformer::class),
-
             ], null, Response::HTTP_OK);
+
         }
         return Helpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
     }
@@ -240,10 +237,8 @@ class GeneralAviationFormController extends CustomController
 
         $files = $request->allFiles();
         foreach ($files as $key => $file) {
-
             /** @var UploadedFile $file */
-            $upload_result = Helpers::storeFile(null, null, null, $file, true, false);
-
+            $upload_result = Helpers::storeFile(null, null, null, $file, false);
             $attachment = Attachment::createOrUpdate([
                 Attributes::PATH => $upload_result,
             ]);
@@ -253,11 +248,9 @@ class GeneralAviationFormController extends CustomController
         }
 
         // return response
-
         return Helpers::formattedJSONResponse("Attachments Uploaded successfully", [
             Attributes::ATTACHMENTS => Attachment::returnTransformedItems($attachments, AttachmentTransformer::class),
         ], null, Response::HTTP_OK);
-
 
     }
 }

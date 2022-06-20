@@ -49,7 +49,7 @@ class Helpers
         if (Str::startsWith($value, "http")) {
             return $value;
         }
-        if($always_production){
+        if ($always_production) {
 //            return "https://cdn.b4bh.com/" . $value;
         }
         return env("AWS_URL", env("APP_URL")) . $value;
@@ -63,7 +63,7 @@ class Helpers
     static function setGeneratedUUID($model)
     {
         /* @var $model CustomModel */
-        if(Schema::hasColumn($model->getTable(), Attributes::UUID)){
+        if (Schema::hasColumn($model->getTable(), Attributes::UUID)) {
             if (empty($model->uuid) || $model->uuid == 0) {
                 $model->uuid = GlobalHelpers::returnString(Helpers::generateUUID($model, Attributes::UUID));
             }
@@ -126,8 +126,9 @@ class Helpers
      * @return array|string|string[]|Uuid
      * @throws Exception
      */
-    static function generateCleanUUID($clean = false){
-        if(!$clean){
+    static function generateCleanUUID($clean = false)
+    {
+        if (!$clean) {
             return Uuid::generate(1);
         }
         return str_replace("-", "", Uuid::generate(1));
@@ -164,7 +165,8 @@ class Helpers
      * @param int $default_status
      * @return void
      */
-    static function defaultMigration(Blueprint $table, int $default_status = Status::ACTIVE){
+    static function defaultMigration(Blueprint $table, int $default_status = Status::ACTIVE)
+    {
         $table->bigIncrements(Attributes::ID);
         $table->integer(Attributes::STATUS)->default($default_status);
         $table->timestamps();
@@ -194,10 +196,11 @@ class Helpers
      *  Is Admin
      * @return bool
      */
-    static function isAdmin(){
+    static function isAdmin()
+    {
         /** @var User $user */
         $user = backpack_user();
-        if(!is_null($user) && $user->user_type == UserType::EMPLOYEE){
+        if (!is_null($user) && $user->user_type == UserType::EMPLOYEE) {
             return true;
         }
         return false;
@@ -205,14 +208,14 @@ class Helpers
 
     static function isFromGoogle($user)
     {
-        if(!is_null($user)) {
+        if (!is_null($user)) {
             if ($user instanceof User) {
                 if ($user->provider_type == ProviderType::GOOGLE) {
                     return true;
                 }
             }
         }
-            return false;
+        return false;
     }
 
     /**
@@ -220,7 +223,8 @@ class Helpers
      * @param $length
      * @return string
      */
-    static function generateCode($length = 9) {
+    static function generateCode($length = 9)
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -236,7 +240,8 @@ class Helpers
      * @param string $format
      * @return string
      */
-    static function formattedPrice($price, $format = '%0.1f'){
+    static function formattedPrice($price, $format = '%0.1f')
+    {
         return sprintf($format, $price);
     }
 
@@ -247,7 +252,7 @@ class Helpers
      */
     static function nullableCollection($collection): Collection
     {
-        if(is_null($collection)){
+        if (is_null($collection)) {
             return collect();
         }
         return $collection;
@@ -257,16 +262,17 @@ class Helpers
      * Capture Exception
      * @param $exception
      */
-    static function captureException($exception){
-        if(GlobalHelpers::isDevelopmentEnv()){
+    static function captureException($exception)
+    {
+        if (GlobalHelpers::isDevelopmentEnv()) {
             dd($exception);
         }
         $level = DebuggerLevels::INFO;
         if (!is_null($exception) && is_a($exception, Throwable::class)) {
             if (env("SENTRY_ENABLED", false)) {
                 $user_id = self::resolveUserID();
-                if(!is_null($user_id)){
-                    configureScope(function (Scope $scope) use($user_id): void {
+                if (!is_null($user_id)) {
+                    configureScope(function (Scope $scope) use ($user_id): void {
                         $scope->setUser([Attributes::USER_ID => $user_id]);
                     });
                 }
@@ -305,11 +311,12 @@ class Helpers
      * @param $last_update
      * @return mixed
      */
-    static function getLatestOnlyInCollection($collection, $last_update){
-        return $collection->filter(function($item) use($last_update){
-            if(is_null($last_update)){
+    static function getLatestOnlyInCollection($collection, $last_update)
+    {
+        return $collection->filter(function ($item) use ($last_update) {
+            if (is_null($last_update)) {
                 return is_null($item->deleted_at);
-            }else{
+            } else {
                 return Carbon::parse($item->updated_at)->greaterThanOrEqualTo($last_update);
             }
         });
@@ -331,13 +338,14 @@ class Helpers
      * Resolve User
      * @return User
      */
-    static function resolveUser(){
+    static function resolveUser()
+    {
         try {
-            $user =  resolve(Attributes::USER);
-            if(is_null($user)){
+            $user = resolve(Attributes::USER);
+            if (is_null($user)) {
                 $user = Auth::guard("api")->user();
             }
-            if(is_null($user)){
+            if (is_null($user)) {
                 $user = Auth::guard("web")->user();
             }
             return $user;
@@ -350,12 +358,13 @@ class Helpers
      * Resolve User ID
      * @return string
      */
-    static function resolveUserID(){
+    static function resolveUserID()
+    {
         try {
             $user_id = resolve(Attributes::USER_ID);
-            if(is_null($user_id)){
+            if (is_null($user_id)) {
                 $user = self::resolveUser();
-                if(!is_null($user)){
+                if (!is_null($user)) {
                     $user_id = $user->id;
                 }
             }
@@ -370,7 +379,8 @@ class Helpers
      * @param $text
      * @return string
      */
-    static function readableText($text){
+    static function readableText($text)
+    {
         return ucwords(strtolower(str_replace("_", " ", $text)));
     }
 
@@ -381,9 +391,10 @@ class Helpers
      * @param $field
      * @return void
      */
-    public static function validateValueInCollection(&$collection, &$new_collection, $field){
+    public static function validateValueInCollection(&$collection, &$new_collection, $field)
+    {
         $value = $collection->get($field);
-        if(!is_null($value)){
+        if (!is_null($value)) {
             $new_collection->put($field, $value);
         }
     }
@@ -414,7 +425,7 @@ class Helpers
                 $extension = $image->extension();
             } else if (is_a($image, Image::class)) {
                 $extension = $image->extension;
-            }else if(Str::contains($image, "data:image/png;base64")){
+            } else if (Str::contains($image, "data:image/png;base64")) {
                 $extension = "png";
             }
             if (!in_array($extension, $allowed_types)) {
@@ -426,7 +437,7 @@ class Helpers
             if (!is_a($image, Image::class) && $generate_name) {
                 $image = Image::make($image)->encode($extension, 90);
                 $filename = $image->filename;
-                if(empty($filename)){
+                if (empty($filename)) {
                     $filename = Str::random();
                 }
                 $filename = $filename . ".$extension";
@@ -476,9 +487,9 @@ class Helpers
      */
     public static function readableBoolean($boolean)
     {
-        if($boolean === true || $boolean === 1){
+        if ($boolean === true || $boolean === 1) {
             return "Yes";
-        } else{
+        } else {
             return "No";
         }
     }
@@ -495,10 +506,10 @@ class Helpers
             $benefits = collect($paginator->items())->map->benefits;
         } else if (is_a($paginator, Benefit::class)) {
             $benefits = $paginator->items->map->benefits();
-        }else if(is_a($paginator, \Illuminate\Database\Eloquent\Collection::class) || is_a($paginator, Collection::class)){
+        } else if (is_a($paginator, \Illuminate\Database\Eloquent\Collection::class) || is_a($paginator, Collection::class)) {
             $benefits = $paginator->map->benefits;
         }
-        if(!isset($benefits)){
+        if (!isset($benefits)) {
             return collect();
         }
         $benefits = $benefits->flatten()->unique(Attributes::ID);
@@ -512,9 +523,10 @@ class Helpers
      * To Custom Array
      * @return array
      */
-    static function toCustomArray($collection , $value_name){
+    static function toCustomArray($collection, $value_name)
+    {
         $collect = collect();
-        foreach ($collection as $value){
+        foreach ($collection as $value) {
             $collect->add(
                 $value['id'] = $value[$value_name]
             );
@@ -542,7 +554,7 @@ class Helpers
      * @param $id
      * @param $directory
      * @param $file_name
-     * @param $output
+     * @param UploadedFile $output
      * @param bool $overwrite
      * @return string
      */
@@ -557,10 +569,14 @@ class Helpers
             return null;
         }
 
+        if (is_null($filename) && is_a($output, UploadedFile::class)) {
+            $filename = $output->hashName();
+        }
+
         if (is_null($filename)) {
             $image_file_name = str_replace("-", "", Uuid::generate(1));
             $filename = $image_file_name . ".$extension";
-        }else{
+        } else if(!Str::endsWith($filename,$extension)) {
             $filename = $filename . ".$extension";
         }
 
@@ -576,7 +592,6 @@ class Helpers
         }
         return null;
 
-
     }
 
 
@@ -585,19 +600,20 @@ class Helpers
      * @param $allow_type
      * @return bool
      */
-    public static function allowedAdminUsers($allow_type){
+    public static function allowedAdminUsers($allow_type)
+    {
         /** @var User $user */
         $user = backpack_auth()->user();
-        if(is_null($user)){
+        if (is_null($user)) {
             return false;
         }
         $user_type = $user->user_type;
-        if(!GlobalHelpers::isValidVariable($user_type)){
+        if (!GlobalHelpers::isValidVariable($user_type)) {
             return false;
         }
-        if(!is_array($allow_type) && $user_type == $allow_type){
+        if (!is_array($allow_type) && $user_type == $allow_type) {
             return true;
-        }else if(is_array($allow_type) && in_array($user_type, $allow_type)){
+        } else if (is_array($allow_type) && in_array($user_type, $allow_type)) {
             return true;
         }
         return false;
