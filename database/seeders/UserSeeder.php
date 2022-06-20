@@ -17,37 +17,39 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::createOrUpdate([
+        $this->insert([
             Attributes::NAME => "VII Tech",
             Attributes::EMAIL => "webmaster@viitech.net",
             Attributes::PASSWORD => "123abC--",
             Attributes::STATUS => Status::ACTIVE,
             Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
             Attributes::USER_TYPE=>\App\Constants\AdminUserType::SUPER_ADMIN,
-        ],[
-            Attributes::EMAIL
         ]);
 
-        User::createOrUpdate([
+        $this->insert([
             Attributes::NAME => "Mohd Turki",
             Attributes::EMAIL => "mohd.turki@viitech.net",
             Attributes::PASSWORD => "123abC--",
             Attributes::STATUS => Status::ACTIVE,
             Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
             Attributes::USER_TYPE=>\App\Constants\AdminUserType::GA,
-        ],[
-            Attributes::EMAIL
         ]);
 
-        User::createOrUpdate([
+        $this->insert([
             Attributes::NAME => "Hussain Sabba",
             Attributes::EMAIL => "hussain.sabba@viitech.net",
             Attributes::PASSWORD => "123abC--",
             Attributes::STATUS => Status::ACTIVE,
             Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
             Attributes::USER_TYPE=>\App\Constants\AdminUserType::ELITE_ONLY,
-        ],[
+        ]);
+    }
+
+
+    function insert($data){
+        User::createOrUpdate($data, [
             Attributes::EMAIL
         ]);
     }
+
 }
