@@ -2,12 +2,11 @@
 
 namespace App\Constants;
 
-
 use BenSampo\Enum\Enum;
 
 /**
  * Class CastingTypes
- * @package VIITech\Helpers\Constants
+ * @package App\Constants
  */
 class CastingTypes extends Enum
 {

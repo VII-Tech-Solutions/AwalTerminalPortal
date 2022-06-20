@@ -4,6 +4,7 @@ namespace App\API\Transformers;
 
 use App\Constants\Attributes;
 use App\Constants\Values;
+use App\Models\GeneralAviationServices;
 use League\Fractal\Resource\Collection;
 
 /**
@@ -54,7 +55,7 @@ class GeneralAviationTransformer extends CustomTransformer
 
     /**
      * Include Attachments
-     * @param $item
+     * @param GeneralAviationServices $item
      * @return Collection
      */
     public function includeAttachments($item)

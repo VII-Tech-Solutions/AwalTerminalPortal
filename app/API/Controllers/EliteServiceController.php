@@ -5,7 +5,6 @@ namespace App\API\Controllers;
 use App\API\Transformers\EliteServiceTransformer;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
-use App\Constants\FlightType;
 use App\Helpers;
 use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;

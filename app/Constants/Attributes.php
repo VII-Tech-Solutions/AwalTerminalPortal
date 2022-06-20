@@ -2,6 +2,10 @@
 
 namespace App\Constants;
 
+/**
+ * Class Attributes
+ * @package App\Constants
+ */
 class Attributes extends CustomEnum
 {
     const ID = "id";

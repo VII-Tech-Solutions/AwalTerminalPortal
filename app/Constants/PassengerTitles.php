@@ -6,6 +6,10 @@ use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionException;
 
+/**
+ * Class PassengerTitles
+ * @package App\Constants
+ */
 class PassengerTitles extends CustomEnum
 {
     const Mr = 0;

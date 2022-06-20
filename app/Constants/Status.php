@@ -7,6 +7,10 @@ use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionException;
 
+/**
+ * Class Status
+ * @package App\Constants
+ */
 class Status extends CustomEnum
 {
     const INACTIVE = 0;
