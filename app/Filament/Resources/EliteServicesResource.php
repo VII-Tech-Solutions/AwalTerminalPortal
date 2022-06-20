@@ -71,50 +71,50 @@ class EliteServicesResource extends Resource
                                     Select::make(Attributes::SUBMISSION_STATUS_ID)
                                         ->label('Form Status')
                                         ->options(SubmissionStatus::all()->pluck('name', 'id'))
-                                        ->searchable()
-                                ]),
-
-                        Fieldset::make('Flight Details')->schema([
-                            Forms\Components\Radio::make(Attributes::IS_ARRIVAL_FLIGHT)->options([
-                                1 => 'Arrival',
-                                0 => 'Departure',
-                            ])->label('Flight type:'),
-                            Select::make(Attributes::AIRPORT_ID)
-                                ->label('Airport:')
-                                ->options(Airport::all()->pluck('name', 'id'))
-                                ->searchable(),
-                            Forms\Components\DatePicker::make(Attributes::DATE),
-                            Forms\Components\TimePicker::make(Attributes::TIME),
-                            Forms\Components\TextInput::make(Attributes::FLIGHT_NUMBER),
-                            Forms\Components\TextInput::make(Attributes::NUMBER_OF_ADULTS)->numeric(true)->required(),
-                            Forms\Components\TextInput::make(Attributes::NUMBER_OF_CHILDREN)->numeric(true)->required(),
-                            Forms\Components\TextInput::make(Attributes::NUMBER_OF_INFANTS)->numeric(true)->required(),
-                        ])->disabled(true),
+                                        ->searchable(),
+                                    Forms\Components\Textarea::make(Attributes::REJECTION_REASON)->columns(1),
+                                ])->columns(1),
+                                Fieldset::make('Flight Details')->schema([
+                                    Forms\Components\Radio::make(Attributes::IS_ARRIVAL_FLIGHT)->options([
+                                        1 => 'Arrival',
+                                        0 => 'Departure',
+                                    ])->label('Flight type:'),
+                                    Select::make(Attributes::AIRPORT_ID)
+                                        ->label('Airport:')
+                                        ->options(Airport::all()->pluck('name', 'id'))
+                                        ->searchable(),
+                                    Forms\Components\DatePicker::make(Attributes::DATE),
+                                    Forms\Components\TimePicker::make(Attributes::TIME),
+                                    Forms\Components\TextInput::make(Attributes::FLIGHT_NUMBER),
+                                    Forms\Components\TextInput::make(Attributes::NUMBER_OF_ADULTS)->numeric(true)->required(),
+                                    Forms\Components\TextInput::make(Attributes::NUMBER_OF_CHILDREN)->numeric(true)->required(),
+                                    Forms\Components\TextInput::make(Attributes::NUMBER_OF_INFANTS)->numeric(true)->required(),
+                                ])->disabled(true),
                             ]),
                         Tabs\Tab::make('Passenger Details')
                             ->schema([
-                                    Forms\Components\HasManyRepeater::make('passengers')->relationship('passengers')->schema([
-                                        Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required(),
-                                        Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
-                                        Select::make(Attributes::NATIONALITY_ID)
-                                            ->label('Nationality')
-                                            ->options(Country::all()->pluck('name', 'id'))
-                                            ->searchable(),
-                                        Select::make(Attributes::GENDER)
-                                            ->options([
-                                                1 => 'Male',
-                                                2 => 'Female',
-                                            ])
+                                Forms\Components\HasManyRepeater::make('passengers')->relationship('passengers')->schema([
+                                    Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required(),
+                                    Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
+                                    Select::make(Attributes::NATIONALITY_ID)
+                                        ->label('Nationality')
+                                        ->options(Country::all()->pluck('name', 'id'))
+                                        ->searchable(),
+                                    Select::make(Attributes::GENDER)
+                                        ->options([
+                                            1 => 'Male',
+                                            2 => 'Female',
+                                        ]),
 
-                                    ])->label('Passengers')
+                                ])->label('Passengers')
                             ])->columns(1)->disabled(true),
                         Tabs\Tab::make('Booker Details')
                             ->schema([
-                                    Forms\Components\HasManyRepeater::make('booker')->relationship('booker')->schema([
-                                        Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required(),
-                                        Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
-                                        Forms\Components\TextInput::make(Attributes::EMAIL)->required(),
-                                        Forms\Components\TextInput::make(Attributes::MOBILE_NUMBER)->required(),
+                                Forms\Components\HasManyRepeater::make('booker')->relationship('booker')->schema([
+                                    Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required(),
+                                    Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
+                                    Forms\Components\TextInput::make(Attributes::EMAIL)->required(),
+                                    Forms\Components\TextInput::make(Attributes::MOBILE_NUMBER)->required(),
                                 ])->columns(1)->disabled(true)
                             ])
                     ])

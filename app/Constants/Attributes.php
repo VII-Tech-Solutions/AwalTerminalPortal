@@ -38,7 +38,6 @@ class Attributes extends CustomEnum
     const IP = "ip";
     const LOCATION = "location";
     const CLIENT = "client";
-    const DEPARTMENT = "department";
     const ELITE_SERVICES = "elite_services";
     const TYPE = "type";
     const OPTIONS = "options";
@@ -268,5 +267,6 @@ class Attributes extends CustomEnum
     const HOTEL_NAME = "hotel_name";
     const GENERAL_AVIATION_ID = "general_aviation_id";
     const FORM_SERVICES = "form_services";
+    const REJECTION_REASON = "rejection_reason";
 
 }

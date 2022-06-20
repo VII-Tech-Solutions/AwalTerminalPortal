@@ -25,13 +25,14 @@ class EditEliteServices extends EditRecord
         if (Str::contains($name, [Attributes::SUBMISSION_STATUS_ID])) {
             $email = $this->data['booker']['record-1']['email'];
             $name = $this->data['booker']['record-1']['first_name'];
+            $rejectionReason = $this->data['rejection_reason'];
 
             switch ($value) {
                 case 1:
                     Helpers::sendMailable(new ESRequestReceivedMail($email, $name, []), $email);
                     break;
                 case 2:
-                    Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $name, []), $email);
+                    Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $name, $rejectionReason, []), $email);
                     break;
                 case 3:
                     /** @var EliteServices $elite_service */
@@ -47,12 +48,13 @@ class EditEliteServices extends EditRecord
     }
 
 
-    protected function getActions(): array{
+    protected function getActions(): array
+    {
         parent::getActions();
         return [
             Action::make('delete')
-                ->action(fn () => $this->record->delete())
-                ->requiresConfirmation()
+                ->action(fn() => $this->record->delete())
+                ->requiresConfirmation()->color('danger'),
         ];
     }
 

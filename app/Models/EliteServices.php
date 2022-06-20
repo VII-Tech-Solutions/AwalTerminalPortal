@@ -37,6 +37,7 @@ class EliteServices extends CustomModel
         Attributes::NUMBER_OF_INFANTS,
         Attributes::SUBMISSION_STATUS_ID,
         Attributes::UUID,
+        Attributes::REJECTION_REASON,
     ];
 
     protected $appends = [
@@ -67,21 +68,33 @@ class EliteServices extends CustomModel
         return $this->belongsTo(Country::class, Attributes::NATIONALITY);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function service()
     {
         return $this->belongsTo(EliteServiceTypes::class,Attributes::SERVICE_ID);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function passengers()
     {
         return $this->hasMany(Passengers::class,Attributes::SERVICE_ID);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function booker()
     {
         return $this->HasMany(Bookers::class, Attributes::SERVICE_ID);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function status()
     {
         return $this->belongsTo(SubmissionStatus::class,Attributes::SUBMISSION_STATUS_ID);

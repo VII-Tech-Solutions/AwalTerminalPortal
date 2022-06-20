@@ -65,6 +65,7 @@ class GeneralAviationServicesResource extends Resource
                                     ->label('Form Status')
                                     ->options(SubmissionStatus::all()->pluck('name', 'id'))
                                     ->searchable(),
+                                Forms\Components\Textarea::make(Attributes::REJECTION_REASON),
                                 Forms\Components\TextInput::make(Attributes::AIRCRAFT_TYPE)->required()->disabled(true),
                                 Forms\Components\TextInput::make(Attributes::REGISTRATION_NUMBER)->numeric(true)->required()->disabled(true),
                                 Forms\Components\TextInput::make(Attributes::MTOW)->numeric(true)->required()->disabled(true),

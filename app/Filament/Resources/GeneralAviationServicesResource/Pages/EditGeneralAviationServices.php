@@ -5,13 +5,11 @@ namespace App\Filament\Resources\GeneralAviationServicesResource\Pages;
 use App\Constants\Attributes;
 use App\Filament\Resources\GeneralAviationServicesResource;
 use App\Helpers;
-use App\Mail\ESBookingApproveMail;
 use App\Mail\GAServiceBookingAprrovedMail;
 use App\Mail\GAServiceBookingRejectMail;
 use App\Mail\GAServiceRequestReceivedMail;
-use App\Models\Bookers;
-use App\Models\EliteServices;
 use App\Models\GeneralAviationServices;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Str;
 
@@ -30,13 +28,14 @@ class EditGeneralAviationServices extends EditRecord
             $operator_full_name = $general_aviation->operator_full_name;
             $agent_fullname = $general_aviation->agent_fullname;
             $operator_email = $general_aviation->operator_email;
+            $rejectionReason = $general_aviation->rejection_reason;
 
             switch ($value) {
                 case 1:
                     Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
                     break;
                 case 2:
-                    Helpers::sendMailable(new GAServiceBookingRejectMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
+                    Helpers::sendMailable(new GAServiceBookingRejectMail($operator_email, $operator_full_name, $rejectionReason, [$agent_fullname]), $operator_email);
                     break;
                 case 3:
                     Helpers::sendMailable(new GAServiceBookingAprrovedMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
@@ -44,5 +43,15 @@ class EditGeneralAviationServices extends EditRecord
             }
 
         }
+    }
+
+    protected function getActions(): array
+    {
+        parent::getActions();
+        return [
+            Action::make('delete')
+                ->action(fn() => $this->record->delete())
+                ->requiresConfirmation()->color('danger'),
+        ];
     }
 }

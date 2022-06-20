@@ -52,7 +52,8 @@ class GeneralAviationServices extends CustomModel
         Attributes::TRANSPORT_TIME,
         Attributes::STATUS,
         Attributes::REMARKS,
-        Attributes::SUBMISSION_STATUS_ID
+        Attributes::SUBMISSION_STATUS_ID,
+        Attributes::REJECTION_REASON,
     ];
 
     protected $casts = [
