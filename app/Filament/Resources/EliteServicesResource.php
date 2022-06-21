@@ -63,6 +63,7 @@ class EliteServicesResource extends Resource
                         Tabs\Tab::make('Information')
                             ->schema([
                                 Fieldset::make('General Information')->schema([
+                                    Forms\Components\TextInput::make(Attributes::UUID)->columns(1)->disabled(true),
                                     Select::make(Attributes::SERVICE_ID)
                                         ->label('Selected Service')
                                         ->options(EliteServiceTypes::all()->pluck('name', 'id'))
