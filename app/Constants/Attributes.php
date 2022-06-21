@@ -22,6 +22,7 @@ class Attributes extends CustomEnum
     const PAYMENT_METHOD = "payment_method";
     const ELITE_SERVICE_ID = "elite_service_id";
     const RETURN_URL = "return_url";
+    const PAYMENT_LINK = "payment_link";
     const CREDIMAX_SUCCESS_INDICATOR = "credimax_success_indicator";
     const AMOUNT = "amount";
     const DANGER = "danger";
