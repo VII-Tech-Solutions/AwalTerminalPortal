@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\URL;
  */
 class EliteServices extends CustomModel
 {
-    use HasFactory;
 
     protected $table = Tables::ELITE_SERVICES;
 
@@ -41,7 +40,8 @@ class EliteServices extends CustomModel
     ];
 
     protected $appends = [
-        Attributes::FLIGHT_TYPE_NAME
+        Attributes::FLIGHT_TYPE_NAME,
+        Attributes::PAYMENT_LINK,
     ];
 
     /**
@@ -127,11 +127,25 @@ class EliteServices extends CustomModel
             $uuid = $this->uuid;
         }
 
+        if(empty($uuid)){
+            return null;
+        }
+
         // generate url
         return URL::temporarySignedRoute(
             'elite-service-payment', now()->addHours(Values::PAYMENT_EXPIRES), [
                 Attributes::UUID => $uuid
             ]
         );
+    }
+
+    /**
+     * Attribute: payment_link
+     * @return string
+     */
+    function getPaymentLinkAttribute(){
+        $uuid = $this->uuid;
+        return url("/elite-service/$uuid/pay/process");
+        return $this->generatePaymentLink();
     }
 }
