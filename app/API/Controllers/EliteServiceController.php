@@ -115,7 +115,7 @@ class EliteServiceController extends CustomController
             $nationality_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NATIONALITY_ID, null, CastingTypes::STRING);
             $flight_class = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_CLASS, null, CastingTypes::STRING);
 
-            $passenger_array = ['First name' => $first_name, 'Last name' => $last_name, 'Gender' => $gender, 'Birth date' => $birth_date, 'Nationality id' => $nationality_id, 'Flight class' => $flight_class];
+            $passenger_array = ['First name' => $first_name, 'Last name' => $last_name, 'Birth date' => $birth_date, 'Nationality id' => $nationality_id, 'Flight class' => $flight_class];
 
             // validate passenger array
             foreach ($passenger_array as $key => $subkey) {
