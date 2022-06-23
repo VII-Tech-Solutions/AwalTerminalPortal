@@ -7,11 +7,14 @@ use App\Constants\Attributes;
 use App\Filament\Resources\GeneralAviationServicesResource\Pages;
 use App\Models\Airport;
 use App\Models\Country;
+use App\Models\FormServices;
 use App\Models\GeneralAviationServices;
 use App\Models\SubmissionStatus;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\MultiSelect;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Resources\Form;
@@ -126,7 +129,7 @@ class GeneralAviationServicesResource extends Resource
                         Tabs\Tab::make('Services')
                             ->schema([
                                 Fieldset::make('Required Services')->schema([
-                                    Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('services', 'name'),
+                                    Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('services', 'name')->disabled(true),
                                 ]),
                                 Fieldset::make('Documents & Remarks')->schema([
                                     Forms\Components\HasManyRepeater::make('attachments')->relationship('attachments')->schema([

@@ -41,7 +41,8 @@ class EditEliteServices extends EditRecord
                     $elite_service = EliteServices::query()->where(Attributes::ID, $this->data[Attributes::ID])->first();
                     $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                     $link = $elite_service->generatePaymentLink($elite_service->uuid);
-                    Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
+                    $amount = $elite_service->total;
+                    Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link, $amount]), $user->email);
                     break;
             }
 

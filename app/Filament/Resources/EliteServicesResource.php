@@ -58,10 +58,13 @@ class EliteServicesResource extends Resource
         return $form
             ->schema([
                 //
+                Forms\Components\TextInput::make(Attributes::TOTAL)->numeric(true)->columns(2)->suffix('BHD'),
+
                 Tabs::make('Heading')
                     ->tabs([
                         Tabs\Tab::make('Information')
                             ->schema([
+
                                 Fieldset::make('General Information')->schema([
                                     Forms\Components\TextInput::make(Attributes::UUID)->columns(1)->disabled(true),
                                     Select::make(Attributes::SERVICE_ID)
@@ -109,7 +112,7 @@ class EliteServicesResource extends Resource
                                     Forms\Components\TextInput::make(Attributes::FLIGHT_CLASS)->required(),
                                     Forms\Components\DatePicker::make(Attributes::BIRTH_DATE)->label('Date of birth')
                                 ])->label('Passengers'),
-                            ]),
+                            ])->columns(2),
                         Tabs\Tab::make('Booker Details')
                             ->schema([
                                 Forms\Components\HasManyRepeater::make('booker')->relationship('booker')->schema([
@@ -120,7 +123,7 @@ class EliteServicesResource extends Resource
                                 ])->columns(1)
                             ])
                     ])
-            ]);
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
