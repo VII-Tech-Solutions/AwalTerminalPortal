@@ -67,8 +67,7 @@ class EliteServicesResource extends Resource
                                     Select::make(Attributes::SERVICE_ID)
                                         ->label('Selected Service')
                                         ->options(EliteServiceTypes::all()->pluck('name', 'id'))
-                                        ->searchable()->disabled(true),
-
+                                        ->searchable(),
                                     Select::make(Attributes::SUBMISSION_STATUS_ID)
                                         ->label('Form Status')
                                         ->options(SubmissionStatus::all()->pluck('name', 'id'))
@@ -90,25 +89,27 @@ class EliteServicesResource extends Resource
                                     Forms\Components\TextInput::make(Attributes::NUMBER_OF_ADULTS)->numeric(true)->required(),
                                     Forms\Components\TextInput::make(Attributes::NUMBER_OF_CHILDREN)->numeric(true)->required(),
                                     Forms\Components\TextInput::make(Attributes::NUMBER_OF_INFANTS)->numeric(true)->required(),
-                                ])->disabled(true),
+                                ]),
                             ]),
                         Tabs\Tab::make('Passenger Details')
                             ->schema([
                                 Forms\Components\HasManyRepeater::make('passengers')->relationship('passengers')->schema([
+                                    Select::make(Attributes::TITLE)
+                                        ->label('Title')
+                                        ->options(['Mr' => 'Mr',
+                                            'Ms' => 'Ms',
+                                            'Miss' => 'Miss',
+                                            'Mrs' => 'Mrs']),
                                     Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required(),
                                     Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
                                     Select::make(Attributes::NATIONALITY_ID)
                                         ->label('Nationality')
                                         ->options(Country::all()->pluck('name', 'id'))
                                         ->searchable(),
-                                    Select::make(Attributes::GENDER)
-                                        ->options([
-                                            1 => 'Male',
-                                            2 => 'Female',
-                                        ]),
-
-                                ])->label('Passengers')
-                            ])->columns(1)->disabled(true),
+                                    Forms\Components\TextInput::make(Attributes::FLIGHT_CLASS)->required(),
+                                    Forms\Components\DatePicker::make(Attributes::BIRTH_DATE)->label('Date of birth')
+                                ])->label('Passengers'),
+                            ]),
                         Tabs\Tab::make('Booker Details')
                             ->schema([
                                 Forms\Components\HasManyRepeater::make('booker')->relationship('booker')->schema([
@@ -116,7 +117,7 @@ class EliteServicesResource extends Resource
                                     Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
                                     Forms\Components\TextInput::make(Attributes::EMAIL)->required(),
                                     Forms\Components\TextInput::make(Attributes::MOBILE_NUMBER)->required(),
-                                ])->columns(1)->disabled(true)
+                                ])->columns(1)
                             ])
                     ])
             ]);

@@ -109,13 +109,14 @@ class EliteServiceController extends CustomController
         }
 
         foreach ($passengers as $subkey => $passenger) {
+            $title = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::TITLE, null, CastingTypes::STRING);
             $first_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FIRST_NAME, null, CastingTypes::STRING);
             $last_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::LAST_NAME, null, CastingTypes::STRING);
             $birth_date = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BIRTH_DATE, null, CastingTypes::STRING);
             $nationality_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NATIONALITY_ID, null, CastingTypes::STRING);
             $flight_class = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_CLASS, null, CastingTypes::STRING);
 
-            $passenger_array = ['First name' => $first_name, 'Last name' => $last_name, 'Birth date' => $birth_date, 'Nationality id' => $nationality_id, 'Flight class' => $flight_class];
+            $passenger_array = ['passenger title' => $title, 'First name' => $first_name, 'Last name' => $last_name, 'Birth date' => $birth_date, 'Nationality id' => $nationality_id, 'Flight class' => $flight_class];
 
             // validate passenger array
             foreach ($passenger_array as $key => $subkey) {
@@ -163,12 +164,14 @@ class EliteServiceController extends CustomController
 
         if (!is_null($passengers)) {
             foreach ($passengers as $passenger) {
+                $title = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::TITLE, null, CastingTypes::STRING);
                 $first_name = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::FIRST_NAME, null, CastingTypes::STRING);
                 $last_name = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::LAST_NAME, null, CastingTypes::STRING);
                 $birth_date = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::BIRTH_DATE, null, CastingTypes::STRING);
                 $nationality_id = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::NATIONALITY_ID, null, CastingTypes::STRING);
                 $flight_class = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::FLIGHT_CLASS, null, CastingTypes::STRING);
                 Passengers::createOrUpdate([
+                    Attributes::TITLE => $title,
                     Attributes::FIRST_NAME => $first_name,
                     Attributes::LAST_NAME => $last_name,
                     Attributes::BIRTH_DATE => $birth_date,
@@ -186,8 +189,8 @@ class EliteServiceController extends CustomController
             // send email to admin
             $admin_users = User::where(Attributes::USER_TYPE, AdminUserType::ELITE_ONLY)->orWhere(Attributes::USER_TYPE, AdminUserType::SUPER_ADMIN)->get();
 
-            foreach($admin_users as $admin_user){
-                Helpers::sendMailable(new ESNewBookingMail([]),$admin_user->email);
+            foreach ($admin_users as $admin_user) {
+                Helpers::sendMailable(new ESNewBookingMail([]), $admin_user->email);
             }
 
             // send email to customer

@@ -14,6 +14,7 @@ class Passengers extends CustomModel
     protected $table = Tables::PASSENGERS;
 
     protected $fillable = [
+        Attributes::TITLE,
         Attributes::FIRST_NAME,
         Attributes::LAST_NAME,
         Attributes::GENDER,
