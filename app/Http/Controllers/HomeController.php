@@ -72,7 +72,7 @@ class HomeController extends CustomController
 
         // validate signature
         if (!$request->hasValidSignature()) {
-//            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
+            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
         }
 
         // get elite service
@@ -157,6 +157,8 @@ class HomeController extends CustomController
 
         }
         else if($payment_method == PaymentProvider::BENEFIT){
+
+            // TODO implement benefit
 
             // go to payment page
             return redirect()->to(env("BENEFIT_URL") . "/checkout");
