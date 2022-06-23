@@ -5,16 +5,20 @@ namespace App\API\Controllers;
 use App\API\Transformers\EliteServiceTransformer;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
+use App\Constants\Values;
 use App\Helpers;
 use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;
 use App\Models\Bookers;
 use App\Models\EliteServices;
+use App\Models\EliteServiceTypes;
 use App\Models\Passengers;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use VIITech\Helpers\Constants\CastingTypes;
+use VIITech\Helpers\Constants\EnvVariables;
 use VIITech\Helpers\GlobalHelpers;
 
 /**
@@ -124,7 +128,6 @@ class EliteServiceController extends CustomController
                     return Helpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
                 }
             }
-
         }
 
         // validate booker array
@@ -134,6 +137,37 @@ class EliteServiceController extends CustomController
             }
         }
 
+        $subtotal = 0;
+
+        $adult_priced_passengers = $number_of_children + $number_of_adults;
+        $selected_service = EliteServiceTypes::where(Attributes::ID, $service_id)->get();
+        $price_per_adult = $selected_service->first()->price_per_adult;
+
+        if ($service_id == 1) {
+            if ($adult_priced_passengers > 4) {
+                $subtotal += (4 * $price_per_adult);
+
+                $extra_adult_passengers = $adult_priced_passengers - 4;
+                $subtotal += ($extra_adult_passengers * 20);
+
+            } else {
+                $subtotal += (4 * $price_per_adult);
+            }
+        } else if ($service_id == 2) {
+            if ($adult_priced_passengers > 4) {
+                $subtotal += (4 * $price_per_adult);
+
+                $extra_adult_passengers = $adult_priced_passengers - 4;
+                $subtotal += ($extra_adult_passengers * 25);
+
+            } else {
+                $subtotal += (4 * $price_per_adult);
+            }
+        }
+
+        $values = $this->calculateVAT($subtotal);
+        $vat_amount = $values[Attributes::VAT_AMOUNT];
+        $total = $vat_amount + $subtotal;
         // save data
 
         $service = EliteServices::createOrUpdate([
@@ -147,6 +181,9 @@ class EliteServiceController extends CustomController
             Attributes::NUMBER_OF_ADULTS => $number_of_adults,
             Attributes::NUMBER_OF_CHILDREN => $number_of_children,
             Attributes::NUMBER_OF_INFANTS => $number_of_infants,
+            Attributes::SUBTOTAL => $subtotal,
+            Attributes::VAT_AMOUNT => $vat_amount,
+            Attributes::TOTAL => $total,
         ]);
 
         if (!is_a($service, EliteServices::class)) {
@@ -180,7 +217,6 @@ class EliteServiceController extends CustomController
                     Attributes::SERVICE_ID => $service->id
                 ]);
             }
-
         }
 
         // return response
@@ -205,5 +241,26 @@ class EliteServiceController extends CustomController
         }
         return Helpers::formattedJSONResponse("Something went wrong", [], [], Response::HTTP_BAD_REQUEST);
 
+    }
+
+    /**
+     * Calculate VAT
+     * @return array
+     */
+    static function calculateVAT($fee, $today = null, $timezone = Values::DEFAULT_TIMEZONE)
+    {
+        $new_year = Carbon::parse(env(EnvVariables::NEW_YEAR, "2022-01-01"), $timezone)->startOfDay();
+        if (is_null($today)) {
+            $today = Carbon::today($timezone);
+        }
+        if ($new_year->diffInDays($today, false) >= 0) {
+            $vat_percentage = 0.10;
+        } else {
+            $vat_percentage = (0.05 / 1.05);
+        }
+        return [
+            Attributes::VAT_AMOUNT => round(($vat_percentage * $fee), 3),
+            Attributes::VAT_PERCENTAGE => $vat_percentage,
+        ];
     }
 }

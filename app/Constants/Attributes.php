@@ -273,5 +273,8 @@ class Attributes extends CustomEnum
     const GENERAL_AVIATION_ID = "general_aviation_id";
     const FORM_SERVICES = "form_services";
     const REJECTION_REASON = "rejection_reason";
-
+    const VAT_AMOUNT = "vat_amount";
+    const VAT_PERCENTAGE = "vat_percentage";
+    const SUBTOTAL = "subtotal";
+    const TOTAL = "total";
 }

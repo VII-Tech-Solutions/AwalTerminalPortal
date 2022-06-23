@@ -44,6 +44,9 @@ class EliteServices extends CustomModel
         Attributes::SUBMISSION_STATUS_ID,
         Attributes::UUID,
         Attributes::REJECTION_REASON,
+        Attributes::SUBTOTAL,
+        Attributes::VAT_AMOUNT,
+        Attributes::TOTAL,
     ];
 
     protected $appends = [

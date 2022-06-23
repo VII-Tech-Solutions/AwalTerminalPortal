@@ -62,6 +62,7 @@ class GeneralAviationServices extends CustomModel
 
     protected $casts = [
         Attributes::ATTACHMENTS => CastingTypes::ARRAY,
+        Attributes::SERVICES => CastingTypes::ARRAY,
     ];
 
     /**
