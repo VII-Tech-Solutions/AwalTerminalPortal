@@ -18,6 +18,7 @@ Route::get('/', 'App\Http\Controllers\HomeController@welcome');
 Route::get('/process', 'App\Http\Controllers\HomeController@process');
 Route::get('/elite-service/{uuid}/pay', "App\Http\Controllers\HomeController@pay")->name("elite-service-payment");
 Route::get('/elite-service/{uuid}/pay/process', "App\Http\Controllers\HomeController@processPayment")->name("elite-service-process-payment");
+Route::get('/elite-service/{uuid}/pay/complete', "App\Http\Controllers\HomeController@completePayment")->name("elite-service-complete-payment");
 
 Route::get('/rejectSubmission', "App\Http\Controllers\HomeController@rejectSubmission");
 Route::get('/approveSubmission', "App\Http\Controllers\HomeController@approveSubmission");

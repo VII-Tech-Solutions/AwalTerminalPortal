@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\URL;
  * @property string uuid
  * @property string flight_type
  * @property Collection bookers
+ * @property int submission_status_id
  */
 class EliteServices extends CustomModel
 {
@@ -177,6 +178,26 @@ class EliteServices extends CustomModel
                 $link = $elite_service->generatePaymentLink($elite_service->uuid);
                 Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
                 break;
+            case ESStatus::PAID:
+                // TODO paid
+                break;
+        }
+    }
+
+    /**
+     * Mark As Paid
+     */
+    function markAsPaid(){
+
+        // change status
+        $this->submission_status_id = ESStatus::REJECTED;
+        $this->save();
+
+        // send email
+        /** @var Bookers $booker */
+        $booker = $this->booker()->first();
+        if(!is_null($booker)){
+            EliteServices::changeStatus($this->id, $booker->first_name, $this->email, ESStatus::PAID, null);
         }
     }
 }

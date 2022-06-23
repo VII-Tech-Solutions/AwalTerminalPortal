@@ -4,21 +4,17 @@ namespace App\Http\Controllers;
 
 use App\API\Controllers\CustomController;
 use App\Constants\Attributes;
+use App\Constants\CastingTypes;
 use App\Constants\PaymentProvider;
 use App\Constants\TransactionStatus;
 use App\Constants\Values;
 use App\Helpers;
-use App\Mail\ContactUsMail;
-use App\Mail\ESBookingRejectUpdateMail;
-use App\Mail\ESNewBookingMail;
-use App\Mail\ESRequestReceivedMail;
-use App\Mail\GAServiceNewRequestMail;
-use App\Mail\GAServiceRequestReceivedMail;
 use App\Models\EliteServices;
 use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use VIITech\Helpers\GlobalHelpers;
 
 /**
  * Home Controller
@@ -71,23 +67,23 @@ class HomeController extends CustomController
     {
 
         if (empty($uuid)) {
-            return redirect()->to(env("WEBSITE_URL") . "/expired");
+            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
         }
 
         // validate signature
         if (!$request->hasValidSignature()) {
-            return redirect()->to(env("WEBSITE_URL") . "/expired");
+//            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
         }
 
         // get elite service
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
         if (is_null($elite_service)) {
-            return redirect()->to(env("WEBSITE_URL") . "/expired");
+            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
         }
 
         // get transaction
-        $transaction = Transaction::createOrUpdate([
+        Transaction::createOrUpdate([
             Attributes::ELITE_SERVICE_ID => $elite_service->id,
             Attributes::AMOUNT => Values::TEST_AMOUNT,
             Attributes::ORDER_ID => Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID),
@@ -127,34 +123,85 @@ class HomeController extends CustomController
 
         // get uuid
         if (empty($uuid)) {
-            return redirect()->to(env("WEBSITE_URL") . "/expired");
+            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
         }
 
         // get elite service
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
         if (is_null($elite_service)) {
-            return redirect()->to(env("WEBSITE_URL") . "/expired");
+            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
         }
 
         // get transaction
         /** @var Transaction $transaction */
         $transaction = Transaction::where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
         if (is_null($transaction)) {
-            return redirect()->to(env("WEBSITE_URL") . "/expired");
+            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
         }
 
-        // TODO if $payment_method benefit, switch to benefit
+        // redirect to payment gateway
+        if($payment_method == PaymentProvider::CREDIMAX){
 
-        // build url query
-        $query = http_build_query([
-            Attributes::RETURN_URL => url("elite-service/pay/process"),
-            Attributes::AMOUNT => $transaction->amount,
-            Attributes::ORDER_ID => $transaction->order_id,
-            Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
-        ]);
+            // build url query
+            $query = http_build_query([
+                Attributes::RETURN_URL => url("elite-service/$uuid/pay/complete"),
+                Attributes::AMOUNT => $transaction->amount,
+                Attributes::ORDER_ID => $transaction->order_id,
+                Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
+            ]);
 
-        // go to payment page
-        return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
+            // go to payment page
+            dd(env("CREDIMAX_URL") . "/checkout?$query");
+            return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
+
+        }
+        else if($payment_method == PaymentProvider::BENEFIT){
+
+            // go to payment page
+            return redirect()->to(env("BENEFIT_URL") . "/checkout");
+        }
+
+
+        // redirect to link expired
+        return redirect()->to(env("WEBSITE_URL") . "/link-expired");
+
+    }
+
+    /**
+     * Complete Payment
+     * @param Request $request
+     * @param $uuid
+     * @return RedirectResponse
+     */
+    function completePayment(Request $request, $uuid)
+    {
+
+        // get elite service
+        /** @var EliteServices $elite_service */
+        $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
+        if (is_null($elite_service)) {
+            return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
+        }
+
+        $success = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SUCCESS, false, CastingTypes::BOOLEAN);
+        $order_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ORDER_ID, false, CastingTypes::STRING);
+
+        // get transaction
+        $transaction = Transaction::where(Attributes::ORDER_ID, $order_id)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
+        if (is_null($transaction)) {
+            return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
+        }
+
+        // update transaction status
+        $transaction->status = $success;
+        $transaction->save();
+
+        // update elite service
+        $elite_service->markAsPaid();
+
+        // return response
+        return redirect()->to(env("WEBSITE_URL") . "/payment-received");
+
     }
 }
