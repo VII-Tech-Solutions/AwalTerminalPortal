@@ -19,7 +19,7 @@ class EliteServiceTypeSeeder extends Seeder
         EliteServiceTypes::createOrUpdate([
             Attributes::ID => 2,
             Attributes::NAME => "Private Lounge",
-            Attributes::PRICE_PER_ADULT => 150
+            Attributes::PRICE_PER_ADULT => 200
         ], [Attributes::NAME]);
     }
 }

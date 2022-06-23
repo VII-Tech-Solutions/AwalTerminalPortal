@@ -66,11 +66,11 @@ class GeneralAviationServicesResource extends Resource
                                     ->options(SubmissionStatus::all()->pluck('name', 'id'))
                                     ->searchable(),
                                 Forms\Components\Textarea::make(Attributes::REJECTION_REASON),
-                                Forms\Components\TextInput::make(Attributes::AIRCRAFT_TYPE)->required()->disabled(true),
-                                Forms\Components\TextInput::make(Attributes::REGISTRATION_NUMBER)->numeric(true)->required()->disabled(true),
-                                Forms\Components\TextInput::make(Attributes::MTOW)->numeric(true)->required()->disabled(true),
-                                Forms\Components\TextInput::make(Attributes::LEAD_PASSENGER_NAME)->required()->disabled(true),
-                                Forms\Components\Textarea::make(Attributes::LANDING_PURPOSE)->required()->disabled(true),
+                                Forms\Components\TextInput::make(Attributes::AIRCRAFT_TYPE)->required(),
+                                Forms\Components\TextInput::make(Attributes::REGISTRATION_NUMBER)->numeric(true)->required(),
+                                Forms\Components\TextInput::make(Attributes::MTOW)->numeric(true)->required(),
+                                Forms\Components\TextInput::make(Attributes::LEAD_PASSENGER_NAME)->required(),
+                                Forms\Components\Textarea::make(Attributes::LANDING_PURPOSE)->required(),
                             ]),
                         Tabs\Tab::make('Flight Information')
                             ->schema([
@@ -84,7 +84,7 @@ class GeneralAviationServicesResource extends Resource
                                     Forms\Components\DatePicker::make(Attributes::ARRIVAL_DATE)->required(),
                                     Forms\Components\TextInput::make(Attributes::ARRIVAL_PASSENGER_COUNT)->numeric(true)->required(),
                                     Forms\Components\Textarea::make(Attributes::ARRIVAL_FLIGHT_NATURE)->required(),
-                                ])->disabled(true),
+                                ]),
                                 Fieldset::make('Departure Information')->schema([
                                     Forms\Components\TextInput::make(Attributes::DEPARTURE_CALL_SIGN)->required(),
                                     Select::make(Attributes::DEPARTURE_TO_AIRPORT)
@@ -95,7 +95,7 @@ class GeneralAviationServicesResource extends Resource
                                     Forms\Components\DatePicker::make(Attributes::DEPARTURE_DATE)->required(),
                                     Forms\Components\TextInput::make(Attributes::DEPARTURE_PASSENGER_COUNT)->numeric(true)->required(),
                                     Forms\Components\Textarea::make(Attributes::DEPARTURE_FLIGHT_NATURE)->required(),
-                                ])->disabled(true),
+                                ]),
                             ]),
                         Tabs\Tab::make('Passengers')
                             ->schema([
@@ -109,7 +109,7 @@ class GeneralAviationServicesResource extends Resource
                                     Forms\Components\TextInput::make(Attributes::OPERATOR_EMAIL)->email(true)->required(),
                                     Forms\Components\Textarea::make(Attributes::OPERATOR_ADDRESS)->required(),
                                     Forms\Components\Textarea::make(Attributes::OPERATOR_BILLING_ADDRESS)->required(),
-                                ])->disabled(true),
+                                ]),
                                 Fieldset::make('Agent Information')->schema([
                                     Forms\Components\TextInput::make(Attributes::AGENT_FULLNAME)->required(),
                                     Select::make(Attributes::AGENT_COUNTRY)
@@ -121,22 +121,21 @@ class GeneralAviationServicesResource extends Resource
                                     Forms\Components\Textarea::make(Attributes::AGENT_ADDRESS)->required(),
                                     Forms\Components\Textarea::make(Attributes::AGENT_BILLING_ADDRESS)->required(),
 
-                                ])->disabled(true),
+                                ]),
                             ]),
                         Tabs\Tab::make('Services')
                             ->schema([
                                 Fieldset::make('Required Services')->schema([
                                     Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('services', 'name'),
-                                ])->disabled(true),
+                                ]),
                                 Fieldset::make('Documents & Remarks')->schema([
                                     Forms\Components\HasManyRepeater::make('attachments')->relationship('attachments')->schema([
                                         Forms\Components\TextInput::make(Attributes::URL)->required(),
-
+//                                        Forms\Components\FileUpload::make(Attributes::URL)->disk('public')
                                     ]),
                                     Forms\Components\Textarea::make(Attributes::REMARKS)->required(),
 
-                                ])->columns(1)->disabled(true),
-
+                                ])->columns(1),
                             ])
                     ])
             ]);
