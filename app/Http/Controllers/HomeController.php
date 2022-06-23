@@ -184,8 +184,9 @@ class HomeController extends CustomController
             return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
         }
 
-        $success = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SUCCESS, false, CastingTypes::BOOLEAN);
-        $order_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ORDER_ID, false, CastingTypes::STRING);
+        // get values
+        $success = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::SUCCESS, false, CastingTypes::BOOLEAN);
+        $order_id = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::ORDER_ID, false, CastingTypes::STRING);
 
         // get transaction
         $transaction = Transaction::where(Attributes::ORDER_ID, $order_id)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
