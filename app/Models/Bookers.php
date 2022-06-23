@@ -4,9 +4,14 @@ namespace App\Models;
 
 use App\Constants\Attributes;
 use App\Constants\Tables;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Bookers
+ *
+ * @property string first_name
+ * @property string last_name
+ * @property string email
  */
 class Bookers extends CustomModel
 {
@@ -22,6 +27,10 @@ class Bookers extends CustomModel
         Attributes::SERVICE_ID,
     ];
 
+    /**
+     * Relationship: service
+     * @return BelongsTo
+     */
     public function service()
     {
         return $this->belongsTo(EliteServices::class,Attributes::SERVICE_ID);

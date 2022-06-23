@@ -9,17 +9,12 @@ use App\Constants\TransactionStatus;
 use App\Constants\Values;
 use App\Helpers;
 use App\Mail\ContactUsMail;
-use App\Mail\ESBookingApproveMail;
 use App\Mail\ESBookingRejectUpdateMail;
 use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;
-use App\Mail\GAServiceBookingAprrovedMail;
-use App\Mail\GAServiceBookingRejectMail;
 use App\Mail\GAServiceNewRequestMail;
 use App\Mail\GAServiceRequestReceivedMail;
-use App\Models\Bookers;
 use App\Models\EliteServices;
-use App\Models\GeneralAviationServices;
 use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -50,39 +45,8 @@ class HomeController extends CustomController
     }
 
     /**
-     * Emails
-     * @return void
-     */
-    function emails()
-    {
-
-        $email = "fatima.zuhair@viitech.net";
-        $to_name = "Ahmed Yusuf";
-
-        // Contact Us - To Admin
-        Helpers::sendMailable(new ContactUsMail($email, $to_name, []), $email);
-
-        // GA Request - To Customer
-        Helpers::sendMailable(new GAServiceRequestReceivedMail($email, $to_name, []), $email);
-
-        // GA Request - To Admin
-        Helpers::sendMailable(new GAServiceNewRequestMail([]), $email);
-
-        // Elite Service New Booking - To Admin
-        Helpers::sendMailable(new ESNewBookingMail([]), $email);
-
-        // Elite Service New Booking - To Customer
-        Helpers::sendMailable(new ESRequestReceivedMail($email, $to_name, []), $email);
-
-        // Elite Service Status Update - To Customer
-        Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $to_name, []), $email);
-
-    }
-
-
-    /**
      * Process
-     * @return
+     * @return RedirectResponse
      */
     function process()
     {
@@ -137,10 +101,7 @@ class HomeController extends CustomController
         ]);
 
         // redirect to page
-        if(is_a($transaction, Transaction::class)){
-            return redirect()->to(env("WEBSITE_URL") . "/payment-recevied");
-        }
-        return redirect()->to(env("WEBSITE_URL") . "/expired");
+        return redirect()->to(url("/elite-service/$uuid/pay/process"));
     }
 
     /**
@@ -196,75 +157,4 @@ class HomeController extends CustomController
         // go to payment page
         return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
     }
-
-
-    // General Aviation emails
-
-    function generalAviationSubmission()
-    {
-        $general_aviation = GeneralAviationServices::query()->where(Attributes::ID, '1')->first();
-        $operator_full_name = $general_aviation->operator_full_name;
-        $agent_fullname = $general_aviation->agent_fullname;
-        $operator_email = $general_aviation->operator_email;
-        Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
-    }
-
-
-    function generalAviationReject()
-    {
-        $general_aviation = GeneralAviationServices::query()->where(Attributes::ID, '1')->first();
-        $operator_full_name = $general_aviation->operator_full_name;
-        $agent_fullname = $general_aviation->agent_fullname;
-        $operator_email = $general_aviation->operator_email;
-        Helpers::sendMailable(new GAServiceBookingRejectMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
-
-    }
-
-
-    function generalAviationApprove()
-    {
-        $general_aviation = GeneralAviationServices::query()->where(Attributes::ID, '1')->first();
-        $operator_full_name = $general_aviation->operator_full_name;
-        $agent_fullname = $general_aviation->agent_fullname;
-        $operator_email = $general_aviation->operator_email;
-        Helpers::sendMailable(new GAServiceBookingAprrovedMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
-    }
-
-    /**
-     * Booking Submission
-     * @return void
-     */
-    function bookingSubmission()
-    {
-        $elite_service = EliteServices::query()->where(Attributes::ID, '10')->first();
-        $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
-        Helpers::sendMailable(new ESRequestReceivedMail($user->email, $user->first_name, []), $user->emaill);
-    }
-
-    /**
-     * Reject Submission
-     * @param $id
-     * @return void
-     */
-    function rejectSubmission($id)
-    {
-        $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
-        $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
-        Helpers::sendMailable(new ESBookingRejectUpdateMail($user->email, $user->first_name, []), $user->email);
-    }
-
-    /**
-     * Approve Submission
-     * @return void
-     */
-    function approveSubmission()
-    {
-        /** @var EliteServices $elite_service */
-        $elite_service = EliteServices::query()->where(Attributes::ID, '10')->first();
-        $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
-        $link = $elite_service->generatePaymentLink($elite_service->uuid);
-        Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
-    }
-
-
 }

@@ -3,12 +3,17 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
+use App\Constants\ESStatus;
 use App\Constants\FlightType;
 use App\Constants\Tables;
 use App\Constants\Values;
 use App\Helpers;
+use App\Mail\ESBookingApproveMail;
+use App\Mail\ESBookingRejectUpdateMail;
+use App\Mail\ESRequestReceivedMail;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 
 /**
@@ -16,6 +21,7 @@ use Illuminate\Support\Facades\URL;
  *
  * @property string uuid
  * @property string flight_type
+ * @property Collection bookers
  */
 class EliteServices extends CustomModel
 {
@@ -80,7 +86,7 @@ class EliteServices extends CustomModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function passengers()
     {
@@ -88,7 +94,7 @@ class EliteServices extends CustomModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function booker()
     {
@@ -149,6 +155,31 @@ class EliteServices extends CustomModel
     function getPaymentLinkAttribute(){
         $uuid = $this->uuid;
         return url("/elite-service/$uuid/pay/process");
-        return $this->generatePaymentLink();
+    }
+
+    /**
+     * Change Status
+     * @param $id
+     * @param $name
+     * @param $email
+     * @param $status
+     * @param $rejection_reason
+     */
+    static function changeStatus($id, $name, $email, $status, $rejection_reason = null){
+        switch ($status) {
+            case ESStatus::PENDING_APPROVAL:
+                Helpers::sendMailable(new ESRequestReceivedMail($email, $name, []), $email);
+                break;
+            case ESStatus::REJECTED:
+                Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $name, $rejection_reason, []), $email);
+                break;
+            case ESStatus::APPROVED:
+                /** @var EliteServices $elite_service */
+                $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
+                $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
+                $link = $elite_service->generatePaymentLink($elite_service->uuid);
+                Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
+                break;
+        }
     }
 }
