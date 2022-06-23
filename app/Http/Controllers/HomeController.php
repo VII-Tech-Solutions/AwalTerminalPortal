@@ -136,6 +136,8 @@ class HomeController extends CustomController
             Attributes::AMOUNT,
         ]);
 
+        return redirect()->to(url("/elite-service/$uuid/pay/process"));
+
         // redirect to page
         if(is_a($transaction, Transaction::class)){
             return redirect()->to(env("WEBSITE_URL") . "/payment-recevied");
