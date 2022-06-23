@@ -169,17 +169,25 @@ class EliteServices extends CustomModel
     static function changeStatus($id, $name, $email, $status, $rejection_reason = null){
         switch ($status) {
             case ESStatus::PENDING_APPROVAL:
-                Helpers::sendMailable(new ESRequestReceivedMail($email, $name, []), $email);
+                $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
+//                dd($elite_service);
+
+                $amount = $elite_service->total;
+                Helpers::sendMailable(new ESRequestReceivedMail($email, $name, [$amount]), $email);
                 break;
             case ESStatus::REJECTED:
                 Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $name, $rejection_reason, []), $email);
                 break;
             case ESStatus::APPROVED:
                 /** @var EliteServices $elite_service */
+
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
+//                dd($elite_service);
+
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                 $link = $elite_service->generatePaymentLink($elite_service->uuid);
-                Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
+                $amount = $elite_service->total;
+                Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link, $amount]), $user->email);
                 break;
             case ESStatus::PAID:
                 // TODO paid
