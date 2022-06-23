@@ -3,13 +3,7 @@
 namespace App\Filament\Resources\EliteServicesResource\Pages;
 
 use App\Constants\Attributes;
-use App\Constants\ESStatus;
 use App\Filament\Resources\EliteServicesResource;
-use App\Helpers;
-use App\Mail\ESBookingApproveMail;
-use App\Mail\ESBookingRejectUpdateMail;
-use App\Mail\ESRequestReceivedMail;
-use App\Models\Bookers;
 use App\Models\EliteServices;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
@@ -27,24 +21,9 @@ class EditEliteServices extends EditRecord
             $booker = collect($this->data[Attributes::BOOKER])->first();
             $email = $booker[Attributes::EMAIL];
             $name = $booker[Attributes::FIRST_NAME];
-            $rejectionReason = $this->data[Attributes::REJECTION_REASON];
-
-            switch ($value) {
-                case ESStatus::PENDING_APPROVAL:
-                    Helpers::sendMailable(new ESRequestReceivedMail($email, $name, []), $email);
-                    break;
-                case ESStatus::REJECTED:
-                    Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $name, $rejectionReason, []), $email);
-                    break;
-                case ESStatus::APPROVED:
-                    /** @var EliteServices $elite_service */
-                    $elite_service = EliteServices::query()->where(Attributes::ID, $this->data[Attributes::ID])->first();
-                    $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
-                    $link = $elite_service->generatePaymentLink($elite_service->uuid);
-                    Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link]), $user->email);
-                    break;
-            }
-
+            $rejection_reason = $this->data[Attributes::REJECTION_REASON];
+            $id = $this->data[Attributes::ID];
+            EliteServices::changeStatus($id, $name, $email, $value, $rejection_reason);
         }
     }
 
