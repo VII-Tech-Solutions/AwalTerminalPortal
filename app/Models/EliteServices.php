@@ -170,7 +170,6 @@ class EliteServices extends CustomModel
         switch ($status) {
             case ESStatus::PENDING_APPROVAL:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
-//                dd($elite_service);
 
                 $amount = $elite_service->total;
                 Helpers::sendMailable(new ESRequestReceivedMail($email, $name, [$amount]), $email);
@@ -182,7 +181,6 @@ class EliteServices extends CustomModel
                 /** @var EliteServices $elite_service */
 
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
-//                dd($elite_service);
 
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                 $link = $elite_service->generatePaymentLink($elite_service->uuid);
@@ -191,6 +189,7 @@ class EliteServices extends CustomModel
                 break;
             case ESStatus::PAID:
                 // TODO paid
+
                 break;
         }
     }

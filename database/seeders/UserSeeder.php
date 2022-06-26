@@ -43,6 +43,15 @@ class UserSeeder extends Seeder
             Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
             Attributes::USER_TYPE=>\App\Constants\AdminUserType::ELITE_ONLY,
         ]);
+
+        $this->insert([
+            Attributes::NAME => "Tasleem AlSharqi",
+            Attributes::EMAIL => "tasleem.alsharqi@viitech.net",
+            Attributes::PASSWORD => "123abC--",
+            Attributes::STATUS => Status::ACTIVE,
+            Attributes::EMAIL_VERIFIED_AT => Carbon::now(),
+            Attributes::USER_TYPE=>\App\Constants\AdminUserType::MODERATOR,
+        ]);
     }
 
 

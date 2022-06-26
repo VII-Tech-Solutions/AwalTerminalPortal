@@ -24,9 +24,6 @@ class UserResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
-        if (env("FILAMENT_ENABLE_BADGE", false)) {
-            return static::getModel()::count();
-        }
         return null;
     }
 
@@ -78,8 +75,8 @@ class UserResource extends Resource
                         AdminUserType::GA => 'General Aviation',
                         AdminUserType::ELITE_ONLY => 'Elite Services',
                         AdminUserType::SUPER_ADMIN => 'Admin',
+                        AdminUserType::MODERATOR => 'Moderator',
                     ])
-
             ])
             ->filters([
                 //

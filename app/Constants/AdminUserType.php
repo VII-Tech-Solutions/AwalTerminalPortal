@@ -12,6 +12,7 @@ class AdminUserType extends CustomEnum
 {
     const GA = 300;
     const ELITE_ONLY = 400;
+    const MODERATOR = 500;
     const SUPER_ADMIN = 1000;
 
     /**

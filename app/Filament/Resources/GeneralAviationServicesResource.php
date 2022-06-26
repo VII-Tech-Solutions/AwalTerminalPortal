@@ -7,20 +7,19 @@ use App\Constants\Attributes;
 use App\Filament\Resources\GeneralAviationServicesResource\Pages;
 use App\Models\Airport;
 use App\Models\Country;
-use App\Models\FormServices;
 use App\Models\GeneralAviationServices;
 use App\Models\SubmissionStatus;
 use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\MultiSelect;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\Layout;
+use Filament\Tables\Filters\SelectFilter;
 
 class GeneralAviationServicesResource extends Resource
 {
@@ -36,7 +35,7 @@ class GeneralAviationServicesResource extends Resource
     protected static function getNavigationBadge(): ?string
     {
         if (env("FILAMENT_ENABLE_BADGE", false)) {
-            return static::getModel()::count();
+            return GeneralAviationServices::all()->where(Attributes::SUBMISSION_STATUS_ID,1 )->count();
         }
         return null;
     }
@@ -66,8 +65,7 @@ class GeneralAviationServicesResource extends Resource
                             ->schema([
                                 Select::make(Attributes::SUBMISSION_STATUS_ID)
                                     ->label('Form Status')
-                                    ->options(SubmissionStatus::all()->pluck('name', 'id'))
-                                    ->searchable(),
+                                    ->options(SubmissionStatus::all()->whereNotIn('id', [2, 4])->pluck('name', 'id')),
                                 Forms\Components\Textarea::make(Attributes::REJECTION_REASON),
                                 Forms\Components\TextInput::make(Attributes::AIRCRAFT_TYPE)->required(),
                                 Forms\Components\TextInput::make(Attributes::REGISTRATION_NUMBER)->numeric(true)->required(),
@@ -129,19 +127,18 @@ class GeneralAviationServicesResource extends Resource
                         Tabs\Tab::make('Services')
                             ->schema([
                                 Fieldset::make('Required Services')->schema([
-                                    Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('services', 'name')->disabled(true),
+                                    Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('formservices', 'name'),
                                 ]),
                                 Fieldset::make('Documents & Remarks')->schema([
                                     Forms\Components\HasManyRepeater::make('attachments')->relationship('attachments')->schema([
-                                        Forms\Components\TextInput::make(Attributes::URL)->required(),
-//                                        Forms\Components\FileUpload::make(Attributes::URL)->disk('public')
+//                                        Forms\Components\TextInput::make(Attributes::URL)->required(),
+                                        Forms\Components\FileUpload::make(Attributes::URL)
                                     ]),
                                     Forms\Components\Textarea::make(Attributes::REMARKS)->required(),
-
                                 ])->columns(1),
                             ])
                     ])
-            ]);
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -150,21 +147,22 @@ class GeneralAviationServicesResource extends Resource
             ->columns([
                 //
                 Tables\Columns\TextColumn::make(Attributes::ID)->label("ID"),
+                Tables\Columns\TextColumn::make(Attributes::CREATED_AT)->label('Submitted at')->sortable(),
                 Tables\Columns\TextColumn::make(Attributes::REGISTRATION_NUMBER),
-                Tables\Columns\TextColumn::make(Attributes::CREATED_AT)->label('Submitted at'),
                 Tables\Columns\TextColumn::make(Attributes::ESTIMATED_TIME_OF_ARRIVAL),
                 Tables\Columns\TextColumn::make(Attributes::LEAD_PASSENGER_NAME),
-                Tables\Columns\TagsColumn::make('services.name')->label('Required Services'),
+                Tables\Columns\TagsColumn::make('formservices.name')->label('Required Services'),
                 Tables\Columns\BadgeColumn::make('status.name')->colors([
-                    'danger' => fn($state): bool => $state === 'Rejected',
                     'warning' => fn($state): bool => $state === 'Pending review',
                     'success' => fn($state): bool => $state === 'Approved',
-                    'success' => fn($state): bool => $state === 'Paid',
-                ])
+                ])->sortable()
             ])
+            ->defaultSort(Attributes::CREATED_AT, 'desc')
             ->filters([
                 //
-            ]);
+                SelectFilter::make('status')->relationship('status', 'name')->options(SubmissionStatus::all()->whereNotIn('id', [2, 4])->pluck('name', 'id')),
+//                MultiSelectFilter::make('services')->options(FormServices::all()->pluck('name', 'id'))
+            ], layout: Layout::AboveContent);
     }
 
     public static function getRelations(): array

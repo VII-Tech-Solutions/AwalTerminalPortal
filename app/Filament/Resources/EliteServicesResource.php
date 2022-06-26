@@ -16,10 +16,13 @@ use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\Layout;
+use Filament\Tables\Filters\SelectFilter;
 
 
 class EliteServicesResource extends Resource
@@ -30,11 +33,10 @@ class EliteServicesResource extends Resource
 
     protected static ?string $navigationGroup = 'Submissions';
 
-
     protected static function getNavigationBadge(): ?string
     {
         if (env("FILAMENT_ENABLE_BADGE", false)) {
-            return static::getModel()::count();
+            return EliteServices::all()->where(Attributes::SUBMISSION_STATUS_ID,1 )->count();
         }
         return null;
     }
@@ -58,7 +60,9 @@ class EliteServicesResource extends Resource
         return $form
             ->schema([
                 //
-                Forms\Components\TextInput::make(Attributes::TOTAL)->numeric(true)->columns(2)->suffix('BHD'),
+                TextInput::make(Attributes::TOTAL)->mask(fn(TextInput\Mask $mask) => $mask
+                    ->numeric()
+                    ->decimalPlaces(3))->suffix('BHD'),
 
                 Tabs::make('Heading')
                     ->tabs([
@@ -132,7 +136,7 @@ class EliteServicesResource extends Resource
             ->columns([
                 //
                 Tables\Columns\TextColumn::make(Attributes::ID)->label("ID"),
-                Tables\Columns\TextColumn::make(Attributes::CREATED_AT)->label('Submitted at'),
+                Tables\Columns\TextColumn::make(Attributes::CREATED_AT)->label('Submitted at')->sortable(),
                 Tables\Columns\TextColumn::make(Attributes::TIME)->label('Flight time'),
                 Tables\Columns\TextColumn::make(Attributes::DATE)->label('Flight date'),
                 Tables\Columns\BadgeColumn::make('service.name')->colors(['secondary', 'primary']),
@@ -141,12 +145,13 @@ class EliteServicesResource extends Resource
                     'warning' => fn($state): bool => $state === 'Pending review',
                     'success' => fn($state): bool => $state === 'Approved',
                     'success' => fn($state): bool => $state === 'Paid',
-                ])
+                ])->sortable()
             ])
+            ->defaultSort(Attributes::CREATED_AT, 'desc')
             ->filters([
                 //
-
-            ]);
+                SelectFilter::make('status')->relationship('status', 'name'),
+            ], layout: Layout::AboveContent);
     }
 
     public static function getRelations(): array

@@ -24,9 +24,6 @@ class EliteServiceTypesResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
-        if(env("FILAMENT_ENABLE_BADGE", false)){
-            return static::getModel()::count();
-        }
         return null;
     }
 
