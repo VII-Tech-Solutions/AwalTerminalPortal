@@ -6,6 +6,7 @@ use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\EliteServicesResource\Pages;
 use App\Filament\Resources\EliteServicesResource\RelationManagers;
+use App\Helpers;
 use App\Models\Airport;
 use App\Models\Country;
 use App\Models\EliteServices;
@@ -70,7 +71,7 @@ class EliteServicesResource extends Resource
                     TextInput::make(Attributes::TOTAL)
                         ->numeric()
                         ->suffix('BHD')
-                        ->label(ucwords(Attributes::TOTAL_PRICE))->disabled(!$user->canAccess(AdminUserType::SUPER_ADMIN)),
+                        ->label(Helpers::readableText(Attributes::TOTAL_PRICE))->disabled(!$user->canAccess(AdminUserType::SUPER_ADMIN)),
 
                     Select::make(Attributes::OFFLINE_PAYMENT_METHOD)
                         ->label('Offline Payment Method')

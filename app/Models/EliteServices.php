@@ -50,6 +50,7 @@ class EliteServices extends CustomModel
         Attributes::TOTAL,
         Attributes::OFFLINE_PAYMENT_METHOD,
         Attributes::PAYMENT_NOTES,
+        Attributes::LINK_EXPIRES_AT
     ];
 
     protected $appends = [
@@ -144,9 +145,14 @@ class EliteServices extends CustomModel
             return null;
         }
 
+        $expires_at = now()->addHours(Values::PAYMENT_EXPIRES);
+
+        $this->link_expires_at = $expires_at;
+        $this->save();
+
         // generate url
         return URL::temporarySignedRoute(
-            'elite-service-payment', now()->addHours(Values::PAYMENT_EXPIRES), [
+            'elite-service-payment', $expires_at, [
                 Attributes::UUID => $uuid
             ]
         );
@@ -193,6 +199,9 @@ class EliteServices extends CustomModel
             case ESStatus::PAID:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
+
+                $elite_service->link_expires_at = null;
+                $elite_service->save();
 
                 // send email
                 Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount]), $user->email);
