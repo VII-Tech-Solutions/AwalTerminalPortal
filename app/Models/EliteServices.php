@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
+use VerumConsilium\Browsershot\Facades\PDF;
 
 /**
  * Elite Services
@@ -203,8 +204,12 @@ class EliteServices extends CustomModel
                 $elite_service->link_expires_at = null;
                 $elite_service->save();
 
+                // generate pdf
+                PDF::loadView('invoice')->save('invoice2.pdf');
+
                 // send email
-                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount]), $user->email);
+                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'invoice.pdf'), $user->email);
+                unlink('invoice.pdf');
                 break;
         }
     }
