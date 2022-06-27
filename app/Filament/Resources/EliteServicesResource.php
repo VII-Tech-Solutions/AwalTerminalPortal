@@ -139,8 +139,16 @@ class EliteServicesResource extends Resource
                                     Forms\Components\TextInput::make(Attributes::EMAIL)->required(),
                                     Forms\Components\TextInput::make(Attributes::MOBILE_NUMBER)->required(),
                                 ])->columns(1)
-                            ])
-                    ])
+                            ]),
+                    ]),
+                    Forms\Components\HasManyRepeater::make('transactions')->relationship('transactions')
+                        ->schema([
+                            Forms\Components\TextInput::make(Attributes::ORDER_ID)->disabled(),
+                            Forms\Components\TextInput::make(Attributes::AMOUNT)->disabled(),
+                            Forms\Components\TextInput::make(Attributes::PAYMENT_PROVIDER)->disabled(),
+                        ])
+                        ->columns(3)
+                        ->label('Transaction Details')->disabled(),
             ])->columns(1);
     }
 

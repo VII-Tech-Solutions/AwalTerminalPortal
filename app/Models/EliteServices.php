@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Constants\Attributes;
+use App\Constants\CastingTypes;
 use App\Constants\ESStatus;
 use App\Constants\FlightType;
 use App\Constants\Tables;
@@ -59,6 +60,10 @@ class EliteServices extends CustomModel
         Attributes::PAYMENT_LINK,
     ];
 
+    protected $casts = [
+        Attributes::TRANSACTIONS => CastingTypes::ARRAY,
+    ];
+
     /**
      * Boot
      */
@@ -113,6 +118,13 @@ class EliteServices extends CustomModel
     public function status()
     {
         return $this->belongsTo(SubmissionStatus::class,Attributes::SUBMISSION_STATUS_ID);
+    }
+
+    /**
+     * @return hasMany
+     */
+    public function transactions() {
+        return $this->hasMany(Transaction::class, Attributes::ELITE_SERVICE_ID, Attributes::ID);
     }
 
     /**
