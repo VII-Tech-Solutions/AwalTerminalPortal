@@ -282,4 +282,5 @@ class Attributes extends CustomEnum
     const FILE_LABEL = "file_label";
     const TOTAL_PRICE = "total_price";
     const LINK_EXPIRES_AT = "link_expires_at";
+    const TRANSACTIONS = "transactions";
 }

@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\GeneralAviationServicesResource\Pages;
+use App\Forms\Components\ViewLabel;
 use App\Models\Airport;
 use App\Models\Country;
 use App\Models\GeneralAviationServices;
@@ -134,15 +135,17 @@ class GeneralAviationServicesResource extends Resource
                                 ]),
                                 Fieldset::make('Documents & Remarks')->schema([
                                     Forms\Components\Repeater::make('attachments')->relationship('attachments')->schema([
-                                        Placeholder::make(Attributes::FILE_LABEL)
-                                            ->content(Attributes::FILE_LABEL)->name(Attributes::FILE_LABEL),
+//                                        Placeholder::make(Attributes::FILE_LABEL)
+//                                            ->content(Attributes::FILE_LABEL)->name(Attributes::FILE_LABEL)->columns([]),
+                                        Forms\Components\TextInput::make(Attributes::FILE_LABEL)->disabled(true),
+//                                        ViewLabel::make(Attributes::FILE_LABEL),
                                         Forms\Components\FileUpload::make(Attributes::PATH)
                                             ->disablePreview(false)
                                             ->maxFiles(1)
                                             ->maxSize(2000)
                                             ->preserveFilenames(false)
                                             ->enableDownload(true)
-                                            ->label('Attachment')
+                                            ->label('Attachment')->name(Attributes::FILE_LABEL)
                                     ]),
                                     Forms\Components\Textarea::make(Attributes::REMARKS)->required(),
                                 ])->columns(1),
