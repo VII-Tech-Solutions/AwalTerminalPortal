@@ -67,9 +67,10 @@ class EliteServicesResource extends Resource
 
                 Fieldset::make('Payment Information')->schema([
 
-                    TextInput::make(Attributes::TOTAL)->mask(fn(TextInput\Mask $mask) => $mask
+                    TextInput::make(Attributes::TOTAL)
                         ->numeric()
-                        ->decimalPlaces(3))->suffix('BHD')->disabled(!$user->canAccess(AdminUserType::SUPER_ADMIN)),
+                        ->suffix('BHD')
+                        ->label(ucwords(Attributes::TOTAL_PRICE))->disabled(!$user->canAccess(AdminUserType::SUPER_ADMIN)),
 
                     Select::make(Attributes::OFFLINE_PAYMENT_METHOD)
                         ->label('Offline Payment Method')
