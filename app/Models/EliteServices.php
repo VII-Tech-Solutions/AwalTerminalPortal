@@ -48,6 +48,8 @@ class EliteServices extends CustomModel
         Attributes::SUBTOTAL,
         Attributes::VAT_AMOUNT,
         Attributes::TOTAL,
+        Attributes::OFFLINE_PAYMENT_METHOD,
+        Attributes::PAYMENT_NOTES,
     ];
 
     protected $appends = [

@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\GeneralAviationServicesResource\Pages;
+use App\Helpers;
 use App\Models\Airport;
 use App\Models\Country;
 use App\Models\GeneralAviationServices;
@@ -35,7 +36,7 @@ class GeneralAviationServicesResource extends Resource
     protected static function getNavigationBadge(): ?string
     {
         if (env("FILAMENT_ENABLE_BADGE", false)) {
-            return GeneralAviationServices::all()->where(Attributes::SUBMISSION_STATUS_ID,1 )->count();
+            return GeneralAviationServices::all()->where(Attributes::SUBMISSION_STATUS_ID, 1)->count();
         }
         return null;
     }
@@ -128,11 +129,14 @@ class GeneralAviationServicesResource extends Resource
                             ->schema([
                                 Fieldset::make('Required Services')->schema([
                                     Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('formservices', 'name'),
+                                    Forms\Components\TextInput::make(Attributes::TRANSPORT_HOTEL_NAME)->required(),
+                                    Forms\Components\TimePicker::make(Attributes::TRANSPORT_TIME)->required(),
                                 ]),
+
                                 Fieldset::make('Documents & Remarks')->schema([
                                     Forms\Components\HasManyRepeater::make('attachments')->relationship('attachments')->schema([
 //                                        Forms\Components\TextInput::make(Attributes::URL)->required(),
-                                        Forms\Components\FileUpload::make(Attributes::URL)
+                                        Forms\Components\FileUpload::make(Attributes::PATH)->disablePreview(false)->maxFiles(1)->label(Attributes::URL)
                                     ]),
                                     Forms\Components\Textarea::make(Attributes::REMARKS)->required(),
                                 ])->columns(1),
