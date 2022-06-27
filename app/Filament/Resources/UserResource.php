@@ -53,7 +53,8 @@ class UserResource extends Resource
                     ->options([
                         AdminUserType::GA => 'General Aviation',
                         AdminUserType::ELITE_ONLY => 'Elite Services',
-                        AdminUserType::SUPER_ADMIN => 'Admin',
+                        AdminUserType::SUPER_ADMIN => 'Hala Admin',
+                        AdminUserType::MODERATOR => 'Content Moderator',
                     ])->required(),
 
                 Forms\Components\TextInput::make(Attributes::PASSWORD)->password()

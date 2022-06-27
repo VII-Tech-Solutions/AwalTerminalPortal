@@ -36,7 +36,7 @@ class EliteServicesResource extends Resource
     protected static function getNavigationBadge(): ?string
     {
         if (env("FILAMENT_ENABLE_BADGE", false)) {
-            return EliteServices::all()->where(Attributes::SUBMISSION_STATUS_ID,1 )->count();
+            return EliteServices::all()->where(Attributes::SUBMISSION_STATUS_ID, 1)->count();
         }
         return null;
     }
@@ -57,13 +57,28 @@ class EliteServicesResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $user = auth()->user();
+//        dd(getid);
+//        EliteServices::all()->where('id', $model->id);
         return $form
             ->schema([
                 //
-                TextInput::make(Attributes::TOTAL)->mask(fn(TextInput\Mask $mask) => $mask
-                    ->numeric()
-                    ->decimalPlaces(3))->suffix('BHD'),
 
+
+                Fieldset::make('Payment Information')->schema([
+
+                    TextInput::make(Attributes::TOTAL)->mask(fn(TextInput\Mask $mask) => $mask
+                        ->numeric()
+                        ->decimalPlaces(3))->suffix('BHD')->disabled(!$user->canAccess(AdminUserType::SUPER_ADMIN)),
+
+                    Select::make(Attributes::OFFLINE_PAYMENT_METHOD)
+                        ->label('Offline Payment Method')
+                        ->options(['Cash' => 'Cash',
+                            'Card' => 'Card',
+                            'Cheque' => 'Cheque',
+                            'Bank transfer' => 'Bank transfer'])->visible(),
+                    Forms\Components\Textarea::make(Attributes::PAYMENT_NOTES)->columns(1),
+                ]),
                 Tabs::make('Heading')
                     ->tabs([
                         Tabs\Tab::make('Information')
