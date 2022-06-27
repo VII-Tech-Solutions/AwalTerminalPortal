@@ -11,6 +11,7 @@ use App\Helpers;
 use App\Mail\ESBookingApproveMail;
 use App\Mail\ESBookingRejectUpdateMail;
 use App\Mail\ESRequestReceivedMail;
+use App\Mail\PaymentCompleted;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
@@ -188,8 +189,11 @@ class EliteServices extends CustomModel
                 Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link, $amount]), $user->email);
                 break;
             case ESStatus::PAID:
-                // TODO paid
+                $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
+                $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
 
+                // send email
+                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount]), $user->email);
                 break;
         }
     }
