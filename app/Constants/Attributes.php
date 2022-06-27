@@ -277,4 +277,5 @@ class Attributes extends CustomEnum
     const VAT_PERCENTAGE = "vat_percentage";
     const SUBTOTAL = "subtotal";
     const TOTAL = "total";
+    const TOTAL_PRICE = "total price";
 }

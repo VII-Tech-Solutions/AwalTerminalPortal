@@ -60,9 +60,10 @@ class EliteServicesResource extends Resource
         return $form
             ->schema([
                 //
-                TextInput::make(Attributes::TOTAL)->mask(fn(TextInput\Mask $mask) => $mask
+                TextInput::make(Attributes::TOTAL)
                     ->numeric()
-                    ->decimalPlaces(3))->suffix('BHD'),
+                    ->suffix('BHD')
+                    ->label(ucwords(Attributes::TOTAL_PRICE)),
 
                 Tabs::make('Heading')
                     ->tabs([
