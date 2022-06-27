@@ -58,12 +58,9 @@ class EliteServicesResource extends Resource
     public static function form(Form $form): Form
     {
         $user = auth()->user();
-//        dd(getid);
-//        EliteServices::all()->where('id', $model->id);
         return $form
             ->schema([
                 //
-
 
                 Fieldset::make('Payment Information')->schema([
 

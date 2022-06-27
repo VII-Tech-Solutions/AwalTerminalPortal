@@ -280,4 +280,5 @@ class Attributes extends CustomEnum
     const OFFLINE_PAYMENT_METHOD = "offline_payment_method";
     const PAYMENT_NOTES = "payment_notes";
     const TOTAL_PRICE = "total price";
+    const FILE_LABEL = "file_label";
 }

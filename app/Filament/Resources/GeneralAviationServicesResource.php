@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\GeneralAviationServicesResource\Pages;
-use App\Helpers;
 use App\Models\Airport;
 use App\Models\Country;
 use App\Models\GeneralAviationServices;
@@ -13,6 +12,7 @@ use App\Models\SubmissionStatus;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Resources\Form;
@@ -128,15 +128,21 @@ class GeneralAviationServicesResource extends Resource
                         Tabs\Tab::make('Services')
                             ->schema([
                                 Fieldset::make('Required Services')->schema([
-                                    Forms\Components\BelongsToManyCheckboxList::make('services')->relationship('formservices', 'name'),
-                                    Forms\Components\TextInput::make(Attributes::TRANSPORT_HOTEL_NAME)->required(),
-                                    Forms\Components\TimePicker::make(Attributes::TRANSPORT_TIME)->required(),
+                                    Forms\Components\CheckboxList::make('services')->relationship('formservices', 'name'),
+                                    Forms\Components\TextInput::make(Attributes::TRANSPORT_HOTEL_NAME),
+                                    Forms\Components\TimePicker::make(Attributes::TRANSPORT_TIME),
                                 ]),
-
                                 Fieldset::make('Documents & Remarks')->schema([
-                                    Forms\Components\HasManyRepeater::make('attachments')->relationship('attachments')->schema([
-//                                        Forms\Components\TextInput::make(Attributes::URL)->required(),
-                                        Forms\Components\FileUpload::make(Attributes::PATH)->disablePreview(false)->maxFiles(1)->label(Attributes::URL)
+                                    Forms\Components\Repeater::make('attachments')->relationship('attachments')->schema([
+                                        Placeholder::make(Attributes::FILE_LABEL)
+                                            ->content(Attributes::FILE_LABEL)->name(Attributes::FILE_LABEL),
+                                        Forms\Components\FileUpload::make(Attributes::PATH)
+                                            ->disablePreview(false)
+                                            ->maxFiles(1)
+                                            ->maxSize(2000)
+                                            ->preserveFilenames(false)
+                                            ->enableDownload(true)
+                                            ->label('Attachment')
                                     ]),
                                     Forms\Components\Textarea::make(Attributes::REMARKS)->required(),
                                 ])->columns(1),
@@ -165,7 +171,6 @@ class GeneralAviationServicesResource extends Resource
             ->filters([
                 //
                 SelectFilter::make('status')->relationship('status', 'name')->options(SubmissionStatus::all()->whereNotIn('id', [2, 4])->pluck('name', 'id')),
-//                MultiSelectFilter::make('services')->options(FormServices::all()->pluck('name', 'id'))
             ], layout: Layout::AboveContent);
     }
 

@@ -19,10 +19,11 @@ class Attachment extends CustomModel
         Attributes::PATH,
         Attributes::FORM_ID,
         Attributes::SERVICE_ID,
+        Attributes::FILE_LABEL
     ];
 
     protected $appends = [
-        Attributes::URL
+        Attributes::URL,
     ];
 
     public function form()
