@@ -3,226 +3,270 @@
 namespace App\Forms\Components;
 
 use Closure;
-
-use Filament\Forms\Components\BaseFileUpload;
+use Filament\Forms\Components\Concerns\CanBeAutocapitalized;
+use Filament\Forms\Components\Concerns\CanBeAutocompleted;
+use Filament\Forms\Components\Concerns\CanBeLengthConstrained;
+use Filament\Forms\Components\Concerns\HasAffixes;
 use Filament\Forms\Components\Concerns\HasExtraInputAttributes;
+use Filament\Forms\Components\Concerns\HasPlaceholder;
 use Filament\Forms\Components\Field;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TextInput\Mask;
 use Filament\Support\Concerns\HasExtraAlpineAttributes;
-use Filament\Tables\Filters\Concerns\HasPlaceholder;
+use Illuminate\Contracts\Support\Arrayable;
 
-class CustomFileUpload extends BaseFileUpload
+class CustomFileUpload extends Field
 {
+    use CanBeAutocapitalized;
+    use CanBeAutocompleted;
+    use CanBeLengthConstrained;
+    use HasAffixes;
     use HasExtraInputAttributes;
     use HasPlaceholder;
     use HasExtraAlpineAttributes;
 
     protected string $view = 'forms.components.custom-file-upload';
 
-    protected string | Closure | null $imageCropAspectRatio = null;
+    protected ?Closure $configureMaskUsing = null;
 
-    protected string | Closure | null $imagePreviewHeight = null;
+    protected array|Arrayable|Closure|null $datalistOptions = null;
 
-    protected string | Closure | null $imageResizeTargetHeight = null;
+    protected string|Closure|null $inputMode = null;
 
-    protected string | Closure | null $imageResizeTargetWidth = null;
+    protected bool|Closure $isEmail = false;
 
-    protected string | Closure | null $imageResizeMode = null;
+    protected bool|Closure $isNumeric = false;
 
-    protected bool | Closure $isAvatar = false;
+    protected bool|Closure $isPassword = false;
 
-    protected string | Closure $loadingIndicatorPosition = 'right';
+    protected bool|Closure $isTel = false;
 
-    protected string | Closure | null $panelAspectRatio = null;
+    protected bool|Closure $isUrl = false;
 
-    protected string | Closure | null $panelLayout = 'compact';
+    protected $maxValue = null;
 
-    protected string | Closure $removeUploadedFileButtonPosition = 'left';
+    protected $minValue = null;
 
-    protected bool | Closure $shouldAppendFiles = false;
+    protected int|float|string|Closure|null $step = null;
 
-    protected string | Closure $uploadButtonPosition = 'right';
+    protected string|Closure|null $type = null;
 
-    protected string | Closure $uploadProgressIndicatorPosition = 'right';
-
-    public function appendFiles(bool | Closure $condition = true): static
+    public function currentPassword(bool|Closure $condition = true): static
     {
-        $this->shouldAppendFiles = $condition;
+        $this->rule('current_password', $condition);
 
         return $this;
     }
 
-    public function avatar(): static
+    public function datalist(array|Arrayable|Closure|null $options): static
     {
-        $this->isAvatar = true;
-
-        $this->image();
-        $this->imageCropAspectRatio('1:1');
-        $this->imageResizeTargetHeight('500');
-        $this->imageResizeTargetWidth('500');
-        $this->loadingIndicatorPosition('center bottom');
-        $this->panelLayout('compact circle');
-        $this->removeUploadedFileButtonPosition('center bottom');
-        $this->uploadButtonPosition('center bottom');
-        $this->uploadProgressIndicatorPosition('center bottom');
+        $this->datalistOptions = $options;
 
         return $this;
     }
 
-    public function idleLabel(string | Closure | null $label): static
+    public function email(bool|Closure $condition = true): static
     {
-        $this->placeholder($label);
+        $this->isEmail = $condition;
+
+        $this->rule('email', $condition);
 
         return $this;
     }
 
-    public function image(): static
+    public function inputMode(string|Closure|null $mode): static
     {
-        $this->acceptedFileTypes([
-            'image/*',
+        $this->inputMode = $mode;
+
+        return $this;
+    }
+
+    public function integer(bool|Closure $condition = true): static
+    {
+        $this->numeric($condition);
+        $this->inputMode(static fn(): ?string => $condition ? 'numeric' : null);
+        $this->step(static fn(): ?int => $condition ? 1 : null);
+
+        return $this;
+    }
+
+    public function mask(?Closure $configuration): static
+    {
+        $this->configureMaskUsing = $configuration;
+
+        return $this;
+    }
+
+    public function maxValue($value): static
+    {
+        $this->maxValue = $value;
+
+        $this->rule(static function (TextInput $component): string {
+            $value = $component->getMaxValue();
+
+            return "max:{$value}";
+        });
+
+        return $this;
+    }
+
+    public function minValue($value): static
+    {
+        $this->minValue = $value;
+
+        $this->rule(static function (TextInput $component): string {
+            $value = $component->getMinValue();
+
+            return "min:{$value}";
+        });
+
+        return $this;
+    }
+
+    public function numeric(bool|Closure $condition = true): static
+    {
+        $this->isNumeric = $condition;
+
+        $this->inputMode(static fn(): ?string => $condition ? 'decimal' : null);
+        $this->rule('numeric', $condition);
+        $this->step(static fn(): ?string => $condition ? 'any' : null);
+
+        return $this;
+    }
+
+    public function password(bool|Closure $condition = true): static
+    {
+        $this->isPassword = $condition;
+
+        return $this;
+    }
+
+    public function step(int|float|string|Closure|null $interval): static
+    {
+        $this->step = $interval;
+
+        return $this;
+    }
+
+    public function tel(bool|Closure $condition = true): static
+    {
+        $this->isTel = $condition;
+
+        $this->regex(static fn(TextInput $component) => $component->evaluate($condition) ? '/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/' : null);
+
+        return $this;
+    }
+
+    public function type(string|Closure|null $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function url(bool|Closure $condition = true): static
+    {
+        $this->isUrl = $condition;
+
+        $this->rule('url', $condition);
+
+        return $this;
+    }
+
+    public function getDatalistOptions(): ?array
+    {
+        $options = $this->evaluate($this->datalistOptions);
+
+        if ($options instanceof Arrayable) {
+            $options = $options->toArray();
+        }
+
+        return $options;
+    }
+
+    public function getInputMode(): ?string
+    {
+        return $this->evaluate($this->inputMode);
+    }
+
+    public function getMask(): ?Mask
+    {
+        if (!$this->hasMask()) {
+            return null;
+        }
+
+        return $this->evaluate($this->configureMaskUsing, [
+            'mask' => app(TextInput\Mask::class),
         ]);
-
-        return $this;
     }
 
-    public function imageCropAspectRatio(string | Closure | null $ratio): static
+    public function getJsonMaskConfiguration(): ?string
     {
-        $this->imageCropAspectRatio = $ratio;
-
-        return $this;
+        return $this->getMask()?->toJson();
     }
 
-    public function imagePreviewHeight(string | Closure | null $height): static
+    public function getMaxValue()
     {
-        $this->imagePreviewHeight = $height;
-
-        return $this;
+        return $this->evaluate($this->maxValue);
     }
 
-    public function imageResizeTargetHeight(string | Closure | null $height): static
+    public function getMinValue()
     {
-        $this->imageResizeTargetHeight = $height;
-
-        return $this;
+        return $this->evaluate($this->minValue);
     }
 
-    public function imageResizeTargetWidth(string | Closure | null $width): static
+    public function getStep(): int|float|string|null
     {
-        $this->imageResizeTargetWidth = $width;
-
-        return $this;
+        return $this->evaluate($this->step);
     }
 
-    public function imageResizeMode(string | Closure | null $mode): static
+    public function getType(): string
     {
-        $this->imageResizeMode = $mode;
+        if ($type = $this->evaluate($this->type)) {
+            return $type;
+        } elseif ($this->isEmail()) {
+            return 'email';
+        } elseif ($this->isNumeric()) {
+            return 'number';
+        } elseif ($this->isPassword()) {
+            return 'password';
+        } elseif ($this->isTel()) {
+            return 'tel';
+        } elseif ($this->isUrl()) {
+            return 'url';
+        }
 
-        return $this;
+        return 'text';
     }
 
-    public function loadingIndicatorPosition(string | Closure | null $position): static
+    public function hasMask(): bool
     {
-        $this->loadingIndicatorPosition = $position;
-
-        return $this;
+        return $this->configureMaskUsing !== null;
     }
 
-    public function panelAspectRatio(string | Closure | null $ratio): static
+    public function isEmail(): bool
     {
-        $this->panelAspectRatio = $ratio;
-
-        return $this;
+        return (bool)$this->evaluate($this->isEmail);
     }
 
-    public function panelLayout(string | Closure | null $layout): static
+    public function isNumeric(): bool
     {
-        $this->panelLayout = $layout;
-
-        return $this;
+        return (bool)$this->evaluate($this->isNumeric);
     }
 
-    public function removeUploadedFileButtonPosition(string | Closure | null $position): static
+    public function isPassword(): bool
     {
-        $this->removeUploadedFileButtonPosition = $position;
-
-        return $this;
+        return (bool)$this->evaluate($this->isPassword);
     }
 
-    public function uploadButtonPosition(string | Closure | null $position): static
+    public function isTel(): bool
     {
-        $this->uploadButtonPosition = $position;
-
-        return $this;
+        return (bool)$this->evaluate($this->isTel);
     }
 
-    public function uploadProgressIndicatorPosition(string | Closure | null $position): static
+    public function isUrl(): bool
     {
-        $this->uploadProgressIndicatorPosition = $position;
-
-        return $this;
-    }
-
-    public function getImageCropAspectRatio(): ?string
-    {
-        return $this->evaluate($this->imageCropAspectRatio);
-    }
-
-    public function getImagePreviewHeight(): ?string
-    {
-        return $this->evaluate($this->imagePreviewHeight);
-    }
-
-    public function getImageResizeTargetHeight(): ?string
-    {
-        return $this->evaluate($this->imageResizeTargetHeight);
-    }
-
-    public function getImageResizeTargetWidth(): ?string
-    {
-        return $this->evaluate($this->imageResizeTargetWidth);
-    }
-
-    public function getImageResizeMode(): ?string
-    {
-        return $this->evaluate($this->imageResizeMode);
-    }
-
-    public function getLoadingIndicatorPosition(): string
-    {
-        return $this->evaluate($this->loadingIndicatorPosition);
-    }
-
-    public function getPanelAspectRatio(): ?string
-    {
-        return $this->evaluate($this->panelAspectRatio);
-    }
-
-    public function getPanelLayout(): ?string
-    {
-        return $this->evaluate($this->panelLayout);
-    }
-
-    public function getRemoveUploadedFileButtonPosition(): string
-    {
-        return $this->evaluate($this->removeUploadedFileButtonPosition);
-    }
-
-    public function getUploadButtonPosition(): string
-    {
-        return $this->evaluate($this->uploadButtonPosition);
-    }
-
-    public function getUploadProgressIndicatorPosition(): string
-    {
-        return $this->evaluate($this->uploadProgressIndicatorPosition);
-    }
-
-    public function isAvatar(): bool
-    {
-        return (bool) $this->evaluate($this->isAvatar);
-    }
-
-    public function shouldAppendFiles(): bool
-    {
-        return $this->evaluate($this->shouldAppendFiles);
+        return (bool)$this->evaluate($this->isUrl);
     }
 }
+

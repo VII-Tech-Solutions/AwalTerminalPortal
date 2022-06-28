@@ -137,15 +137,16 @@ class GeneralAviationServicesResource extends Resource
                                 Fieldset::make('Documents & Remarks')->schema([
                                     Forms\Components\Repeater::make('attachments')->relationship('attachments')->schema([
                                         ViewLabel::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
-                                        CustomFileUpload::make(Attributes::PATH)
-                                            ->disablePreview(false)
-                                            ->maxFiles(1)
-                                            ->maxSize(2000)
-                                            ->preserveFilenames(false)
-                                            ->enableDownload(true)
-                                            ->label('Attachment')
-                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
-                                            ->disableLabel()
+                                        CustomFileUpload::make(Attributes::PATH)->disabled()->disableLabel(),
+//                                        CustomFileUpload::make(Attributes::PATH)
+//                                            ->disablePreview(false)
+//                                            ->maxFiles(1)
+//                                            ->maxSize(2000)
+//                                            ->preserveFilenames(false)
+//                                            ->enableDownload(true)
+//                                            ->label('Attachment')
+//                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
+//                                            ->disableLabel()
                                     ]),
                                     Forms\Components\Textarea::make(Attributes::REMARKS)->required(),
                                 ])->columns(1),

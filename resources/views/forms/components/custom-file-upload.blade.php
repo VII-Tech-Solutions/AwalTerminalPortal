@@ -9,8 +9,8 @@
     :state-path="$getStatePath()"
 >
     <div x-data="{ state: $wire.entangle('{{ $getStatePath() }}') }">
-        <input wire:model="{{$getStatePath()}}" type="submit">
-{{--        <output wire:model="{{$getStatePath()}}"></output>--}}
+{{--        <input wire:model="{{$getStatePath()."path"}}" type="text">--}}
+        <output wire:model="{{$getStatePath()}}" type="text"></output>
 {{--        <x-inputs.text wire:model="{{$getStatePath()}}"/>--}}
     </div>
 </x-forms::field-wrapper>
