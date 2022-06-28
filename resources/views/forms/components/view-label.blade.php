@@ -1,3 +1,9 @@
+@php
+    $datalistOptions = $getDatalistOptions();
+
+
+@endphp
+
 <x-forms::field-wrapper
     :id="$getId()"
     :label="$getLabel()"
