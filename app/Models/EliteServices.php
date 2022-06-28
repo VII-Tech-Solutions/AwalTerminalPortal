@@ -26,6 +26,7 @@ use VerumConsilium\Browsershot\Facades\PDF;
  * @property string flight_type
  * @property Collection bookers
  * @property int submission_status_id
+ * @property mixed total
  */
 class EliteServices extends CustomModel
 {
