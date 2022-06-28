@@ -129,7 +129,7 @@ class GeneralAviationServicesResource extends Resource
                         Tabs\Tab::make('Services')
                             ->schema([
                                 Fieldset::make('Required Services')->schema([
-                                    Forms\Components\CheckboxList::make('services')->relationship('formservices', 'name'),
+                                    Forms\Components\CheckboxList::make('services')->relationship('services', 'name'),
                                     Forms\Components\TextInput::make(Attributes::TRANSPORT_HOTEL_NAME),
                                     Forms\Components\TimePicker::make(Attributes::TRANSPORT_TIME),
                                 ]),
@@ -164,7 +164,7 @@ class GeneralAviationServicesResource extends Resource
                 Tables\Columns\TextColumn::make(Attributes::REGISTRATION_NUMBER),
                 Tables\Columns\TextColumn::make(Attributes::ESTIMATED_TIME_OF_ARRIVAL),
                 Tables\Columns\TextColumn::make(Attributes::LEAD_PASSENGER_NAME),
-                Tables\Columns\TagsColumn::make('formservices.name')->label('Required Services'),
+                Tables\Columns\TagsColumn::make('services.name')->label('Required Services'),
                 Tables\Columns\BadgeColumn::make('status.name')->colors([
                     'warning' => fn($state): bool => $state === 'Pending review',
                     'success' => fn($state): bool => $state === 'Approved',

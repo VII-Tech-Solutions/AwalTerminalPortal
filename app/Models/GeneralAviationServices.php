@@ -113,7 +113,7 @@ class GeneralAviationServices extends CustomModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function formservices()
+    public function services()
     {
         return $this->belongsToMany(FormServices::class,Tables::GA_SERVICES,Attributes::GENERAL_AVIATION_ID,Attributes::SERVICE_ID);
     }

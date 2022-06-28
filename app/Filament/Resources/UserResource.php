@@ -75,7 +75,7 @@ class UserResource extends Resource
                     ->enum([
                         AdminUserType::GA => 'General Aviation',
                         AdminUserType::ELITE_ONLY => 'Elite Services',
-                        AdminUserType::SUPER_ADMIN => 'Admin',
+                        AdminUserType::SUPER_ADMIN => 'Hala Admin',
                         AdminUserType::MODERATOR => 'Moderator',
                     ])
             ])
