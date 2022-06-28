@@ -20,6 +20,7 @@ class Attributes extends CustomEnum
     const NAME = 'name';
     const FORM_ID = 'form_id';
     const PAYMENT_METHOD = "payment_method";
+    const UPLOADED = "uploaded";
     const ELITE_SERVICE_ID = "elite_service_id";
     const RETURN_URL = "return_url";
     const PAYMENT_LINK = "payment_link";
@@ -152,6 +153,7 @@ class Attributes extends CustomEnum
     const COUNTRIES = "countries";
     const AIRPORTS = "airports";
     const ATTACHMENTS = "attachments";
+    const NEW_ATTACHMENTS = "new_attachments";
     const PATH = "path";
     const IS_PREDEFINED = "is_predefined";
     const STEP = "step";
@@ -283,4 +285,5 @@ class Attributes extends CustomEnum
     const TOTAL_PRICE = "total_price";
     const LINK_EXPIRES_AT = "link_expires_at";
     const TRANSACTIONS = "transactions";
+    const DELETED_AT = "deleted_at";
 }

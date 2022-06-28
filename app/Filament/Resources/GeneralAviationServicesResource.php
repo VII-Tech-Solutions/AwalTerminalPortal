@@ -5,8 +5,6 @@ namespace App\Filament\Resources;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\GeneralAviationServicesResource\Pages;
-use App\Forms\Components\CustomFileUpload;
-use App\Forms\Components\ViewLabel;
 use App\Models\Airport;
 use App\Models\Country;
 use App\Models\GeneralAviationServices;
@@ -14,7 +12,7 @@ use App\Models\SubmissionStatus;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Resources\Form;
@@ -135,19 +133,44 @@ class GeneralAviationServicesResource extends Resource
                                     Forms\Components\TimePicker::make(Attributes::TRANSPORT_TIME),
                                 ]),
                                 Fieldset::make('Documents & Remarks')->schema([
+//                                    Forms\Components\Repeater::make('attachments')->relationship('attachments')->schema([
+//                                        ViewLabel::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
+//                                        CustomFileUpload::make(Attributes::PATH)->disabled()->disableLabel(),
+////                                        CustomFileUpload::make(Attributes::PATH)
+////                                            ->disablePreview(false)
+////                                            ->maxFiles(1)
+////                                            ->maxSize(2000)
+////                                            ->preserveFilenames(false)
+////                                            ->enableDownload(true)
+////                                            ->label('Attachment')
+////                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
+////                                            ->disableLabel()
+//                                    ])->disabled(true)->disableItemDeletion(true),
                                     Forms\Components\Repeater::make('attachments')->relationship('attachments')->schema([
-                                        ViewLabel::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
-                                        CustomFileUpload::make(Attributes::PATH)->disabled()->disableLabel(),
-//                                        CustomFileUpload::make(Attributes::PATH)
-//                                            ->disablePreview(false)
-//                                            ->maxFiles(1)
-//                                            ->maxSize(2000)
-//                                            ->preserveFilenames(false)
-//                                            ->enableDownload(true)
-//                                            ->label('Attachment')
-//                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
-//                                            ->disableLabel()
+                                        Forms\Components\TextInput::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
+                                        FileUpload::make(Attributes::PATH)
+                                            ->disablePreview(false)
+                                            ->maxFiles(1)
+                                            ->maxSize(2000)
+                                            ->preserveFilenames(false)
+                                            ->enableDownload(true)
+                                            ->label('Attachment')
+                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
+                                            ->disableLabel()
+                                    ])->disabled(),
+                                    Forms\Components\Repeater::make('newAttachments')->relationship('newAttachments')->schema([
+                                        Forms\Components\TextInput::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
+                                        FileUpload::make(Attributes::PATH)
+                                            ->disablePreview(false)
+                                            ->maxFiles(1)
+                                            ->maxSize(2000)
+                                            ->preserveFilenames(false)
+                                            ->enableDownload(true)
+                                            ->label('Attachment')
+                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
+                                            ->disableLabel()
                                     ]),
+
                                     Forms\Components\Textarea::make(Attributes::REMARKS)->required(),
                                 ])->columns(1),
                             ])

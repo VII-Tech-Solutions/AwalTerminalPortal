@@ -79,7 +79,15 @@ class GeneralAviationServices extends CustomModel
      * @return HasMany
      */
     function attachments(){
-        return $this->hasMany(Attachment::class, Attributes::FORM_ID, Attributes::ID);
+        return $this->hasMany(Attachment::class, Attributes::FORM_ID, Attributes::ID)->where(Attributes::UPLOADED, true);
+    }
+
+
+    /**
+     * @return HasMany
+     */
+    function newAttachments(){
+        return $this->hasMany(Attachment::class, Attributes::FORM_ID, Attributes::ID)->where(Attributes::UPLOADED, false);
     }
 
     /**
