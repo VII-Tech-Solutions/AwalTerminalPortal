@@ -241,6 +241,7 @@ class GeneralAviationFormController extends CustomController
             $upload_result = Helpers::storeFile(null, null, null, $file, false);
             $attachment = Attachment::createOrUpdate([
                 Attributes::PATH => $upload_result,
+                Attributes::FILE_LABEL => $key
             ]);
             if (is_a($attachment, Attachment::class)) {
                 $attachments->put($key, $attachment);
