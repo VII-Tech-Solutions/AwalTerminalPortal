@@ -85,7 +85,7 @@ class HomeController extends CustomController
         // get transaction
         Transaction::createOrUpdate([
             Attributes::ELITE_SERVICE_ID => $elite_service->id,
-            Attributes::AMOUNT => Values::TEST_AMOUNT,
+            Attributes::AMOUNT => $elite_service->total,
             Attributes::ORDER_ID => Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID),
             Attributes::PAYMENT_PROVIDER => PaymentProvider::CREDIMAX,
             Attributes::UUID => $elite_service->uuid,
