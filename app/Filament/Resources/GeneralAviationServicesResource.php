@@ -162,7 +162,7 @@ class GeneralAviationServicesResource extends Resource
                                     CustomFileUpload::make("attachments")->options(Country::all()->pluck('name', 'id')),
 
                                     Forms\Components\Repeater::make('newAttachments')->relationship('newAttachments')->schema([
-                                        Forms\Components\TextInput::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
+                                        Forms\Components\TextInput::make(Attributes::FILE_LABEL),
                                         FileUpload::make(Attributes::PATH)
                                             ->disablePreview(false)
                                             ->maxFiles(1)
