@@ -61,8 +61,9 @@ class GeneralAviationServices extends CustomModel
     ];
 
     protected $casts = [
-        Attributes::ATTACHMENTS => CastingTypes::ARRAY,
+//        Attributes::ATTACHMENTS => CastingTypes::ARRAY,
         Attributes::SERVICES => CastingTypes::ARRAY,
+        Attributes::UPLOADED => CastingTypes::BOOLEAN,
     ];
 
     /**
@@ -79,6 +80,14 @@ class GeneralAviationServices extends CustomModel
      * @return HasMany
      */
     function attachments(){
+        return $this->hasMany(Attachment::class, Attributes::FORM_ID, Attributes::ID);
+    }
+
+    /**
+     * Relationship: attachments
+     * @return HasMany
+     */
+    function allAttachments(){
         return $this->hasMany(Attachment::class, Attributes::FORM_ID, Attributes::ID)->where(Attributes::UPLOADED, true);
     }
 

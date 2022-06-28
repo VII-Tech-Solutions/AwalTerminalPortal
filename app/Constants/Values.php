@@ -19,4 +19,5 @@ class Values extends CustomEnum
 
     // Elite Service Payment
     const PAYMENT_EXPIRES = 48;
+    const TEST_AMOUNT = 0.1;
 }

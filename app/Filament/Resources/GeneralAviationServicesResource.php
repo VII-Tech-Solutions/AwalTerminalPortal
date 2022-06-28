@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\GeneralAviationServicesResource\Pages;
+use App\Forms\Components\CustomFileUpload;
 use App\Models\Airport;
 use App\Models\Country;
 use App\Models\GeneralAviationServices;
@@ -146,18 +147,20 @@ class GeneralAviationServicesResource extends Resource
 ////                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
 ////                                            ->disableLabel()
 //                                    ])->disabled(true)->disableItemDeletion(true),
-                                    Forms\Components\Repeater::make('attachments')->relationship('attachments')->schema([
-                                        Forms\Components\TextInput::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
-                                        FileUpload::make(Attributes::PATH)
-                                            ->disablePreview(false)
-                                            ->maxFiles(1)
-                                            ->maxSize(2000)
-                                            ->preserveFilenames(false)
-                                            ->enableDownload(true)
-                                            ->label('Attachment')
-                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
-                                            ->disableLabel()
-                                    ])->disabled(),
+//                                    Forms\Components\Repeater::make('attachments')->relationship('attachments')->schema([
+//                                        Forms\Components\TextInput::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
+//                                        FileUpload::make(Attributes::PATH)
+//                                            ->disablePreview(false)
+//                                            ->maxFiles(1)
+//                                            ->maxSize(2000)
+//                                            ->preserveFilenames(false)
+//                                            ->enableDownload(true)
+//                                            ->label('Attachment')
+//                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
+//                                            ->disableLabel()
+//                                    ])->disabled(),
+                                    CustomFileUpload::make("attachments")->options(Country::all()->pluck('name', 'id')),
+
                                     Forms\Components\Repeater::make('newAttachments')->relationship('newAttachments')->schema([
                                         Forms\Components\TextInput::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
                                         FileUpload::make(Attributes::PATH)

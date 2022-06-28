@@ -28,6 +28,15 @@ class HomeController extends CustomController
      */
     function welcome()
     {
+
+        $payment_url = Helpers\BenefitPaymentHelper::generatePaymentLink(collect([
+            Attributes::CUSTOMER_NAME => "Ahmed Yusuf",
+            Attributes::CUSTOMER_PHONE_NUMBER => "33083524",
+            Attributes::AMOUNT => "0.1",
+            Attributes::TRANSACTION_UUID => "1120",
+        ]));
+        dd($payment_url);
+
         return view('welcome');
     }
 

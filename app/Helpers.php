@@ -55,6 +55,19 @@ class Helpers
         return env("AWS_URL", env("APP_URL")) . $value;
     }
 
+    //convert a key-val array to a multipart array (an array of arrays of "name" & "contents")
+    //to be used in guzzle POST requests
+    public static function array_to_multipart_array( $array ) {
+        $multipart_array = [];
+        foreach ( $array as $key => $val ) {
+            $multipart_array[] = [
+                'name'     => $key,
+                'contents' => $val
+            ];
+        }
+
+        return $multipart_array;
+    }
 
     /**
      * Set Generated UUID

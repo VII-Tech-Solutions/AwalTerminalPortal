@@ -24,6 +24,7 @@ class CustomFileUpload extends Field
     use HasExtraInputAttributes;
     use HasPlaceholder;
     use HasExtraAlpineAttributes;
+    use \Filament\Forms\Components\Concerns\HasOptions;
 
     protected string $view = 'forms.components.custom-file-upload';
 
