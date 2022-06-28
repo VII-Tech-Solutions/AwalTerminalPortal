@@ -27,7 +27,7 @@
         @if ($icon = $getPrefixIcon())
             <x-dynamic-component :component="$icon" class="w-5 h-5"/>
         @endif
-
+            <use x-bind:xlink:href="myicon" xlink:href="#myicon"></use>
         @if ($label = $getPrefixLabel())
             <span @class($affixLabelClasses)>
                 {{ $label }}
@@ -46,6 +46,7 @@
             type="text"
             wire:ignore
             {{ $getExtraAlpineAttributeBag() }}
+
         @endunless
         dusk="filament.forms.{{ $getStatePath() }}"
         {!! ($autocapitalize = $getAutocapitalize()) ? "autocapitalize=\"{$autocapitalize}\"" : null !!}
@@ -65,7 +66,7 @@
             {!! $isRequired() ? 'required' : null !!}
         @endif
         {{ $getExtraInputAttributeBag()->class([
-                     'block w-full transition duration-75  focus:border-transparent focus:ring-transparent disabled:opacity-70',
+                     'block w-full transition duration-75  focus:border-transparent focus:ring-transparent focus:ring-transparent disabled:opacity-70',
                      'dark:bg-gray-700 dark:text-white dark:focus:border-transparent' => config('forms.dark_mode'),
                      'border-transparent' => ! $errors->has($getStatePath()),
                      'dark:border-transparent' => (! $errors->has($getStatePath())) && config('forms.dark_mode'),

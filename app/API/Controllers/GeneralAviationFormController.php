@@ -17,6 +17,7 @@ use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 use VIITech\Helpers\Constants\CastingTypes;
 use VIITech\Helpers\GlobalHelpers;
 
@@ -241,7 +242,11 @@ class GeneralAviationFormController extends CustomController
             $upload_result = Helpers::storeFile(null, null, null, $file, false);
             $attachment = Attachment::createOrUpdate([
                 Attributes::PATH => $upload_result,
-                Attributes::FILE_LABEL => $key
+                Attributes::FILE_LABEL => Str::of($key)
+                    ->afterLast('.')
+                    ->kebab()
+                    ->replace(['-', '_'], ' ')
+                    ->ucfirst()
             ]);
             if (is_a($attachment, Attachment::class)) {
                 $attachments->put($key, $attachment);
