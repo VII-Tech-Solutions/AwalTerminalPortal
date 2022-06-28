@@ -10,7 +10,7 @@
         "aws/aws-sdk-php": "^3.225",
         "aws/aws-sdk-php-laravel": "^3.7",
         "bensampo/laravel-enum": "^5.3",
-        "filament/filament": "^2.0",
+        "filament/filament": "^2.13",
         "filament/spatie-laravel-media-library-plugin": "^2.0",
         "fruitcake/laravel-cors": "^3.0",
         "google/apiclient": "^2.12",
