@@ -146,9 +146,10 @@ class GeneralAviationServicesResource extends Resource
                                             ->preserveFilenames(false)
                                             ->enableDownload(true)
                                             ->label('Attachment')
-                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
-                                            ->required()
+                                            ->name(Attributes::FILE_LABEL)
+                                            ->removeUploadedFileButtonPosition('right')
                                             ->disableLabel()
+                                            ->required()
                                     ]),
 
                                     Forms\Components\Textarea::make(Attributes::REMARKS),
