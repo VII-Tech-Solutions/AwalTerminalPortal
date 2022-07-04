@@ -138,7 +138,7 @@ class GeneralAviationServicesResource extends Resource
                                     CustomFileUpload::make("attachments")->options(Country::all()->pluck('name', 'id')),
 
                                     Forms\Components\Repeater::make('newAttachments')->relationship('newAttachments')->schema([
-                                        Forms\Components\TextInput::make(Attributes::FILE_LABEL),
+                                        Forms\Components\TextInput::make(Attributes::FILE_LABEL)->required(),
                                         FileUpload::make(Attributes::PATH)
                                             ->disablePreview(false)
                                             ->maxFiles(1)
@@ -147,6 +147,7 @@ class GeneralAviationServicesResource extends Resource
                                             ->enableDownload(true)
                                             ->label('Attachment')
                                             ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
+                                            ->required()
                                             ->disableLabel()
                                     ]),
 
