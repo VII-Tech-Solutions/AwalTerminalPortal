@@ -134,31 +134,7 @@ class GeneralAviationServicesResource extends Resource
                                     Forms\Components\TimePicker::make(Attributes::TRANSPORT_TIME),
                                 ]),
                                 Fieldset::make('Documents & Remarks')->schema([
-//                                    Forms\Components\Repeater::make('attachments')->relationship('attachments')->schema([
-//                                        ViewLabel::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
-//                                        CustomFileUpload::make(Attributes::PATH)->disabled()->disableLabel(),
-////                                        CustomFileUpload::make(Attributes::PATH)
-////                                            ->disablePreview(false)
-////                                            ->maxFiles(1)
-////                                            ->maxSize(2000)
-////                                            ->preserveFilenames(false)
-////                                            ->enableDownload(true)
-////                                            ->label('Attachment')
-////                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
-////                                            ->disableLabel()
-//                                    ])->disabled(true)->disableItemDeletion(true),
-//                                    Forms\Components\Repeater::make('attachments')->relationship('attachments')->schema([
-//                                        Forms\Components\TextInput::make(Attributes::FILE_LABEL)->disabled()->disableLabel(),
-//                                        FileUpload::make(Attributes::PATH)
-//                                            ->disablePreview(false)
-//                                            ->maxFiles(1)
-//                                            ->maxSize(2000)
-//                                            ->preserveFilenames(false)
-//                                            ->enableDownload(true)
-//                                            ->label('Attachment')
-//                                            ->name(Attributes::FILE_LABEL)->removeUploadedFileButtonPosition('right')
-//                                            ->disableLabel()
-//                                    ])->disabled(),
+
                                     CustomFileUpload::make("attachments")->options(Country::all()->pluck('name', 'id')),
 
                                     Forms\Components\Repeater::make('newAttachments')->relationship('newAttachments')->schema([
@@ -174,7 +150,7 @@ class GeneralAviationServicesResource extends Resource
                                             ->disableLabel()
                                     ]),
 
-                                    Forms\Components\Textarea::make(Attributes::REMARKS)->required(),
+                                    Forms\Components\Textarea::make(Attributes::REMARKS),
                                 ])->columns(1),
                             ])
                     ])

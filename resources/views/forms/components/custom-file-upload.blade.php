@@ -1,10 +1,10 @@
 @php
     $attachments = \App\Models\Attachment::where(\App\Constants\Attributes::FORM_ID, $this->record->id)->get();
 @endphp
-<table class="table-auto border-separate border-spacing-2 " >
+<table>
     <tbody>
     @foreach($attachments as $attachment)
-        <tr class="row-auto">
+        <tr role="row">
             <td style="vertical-align: middle;" width="450px">{{ $attachment->file_label }}</td>
             <td>
                 <button class="font-bold py-2 px-4 rounded inline-flex items-center"

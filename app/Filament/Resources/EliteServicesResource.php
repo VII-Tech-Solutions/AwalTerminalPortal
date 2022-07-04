@@ -133,15 +133,16 @@ class EliteServicesResource extends Resource
                             ])->columns(2),
                         Tabs\Tab::make('Booker Details')
                             ->schema([
-                                Forms\Components\HasManyRepeater::make('booker')->relationship('booker')->schema([
+                                Forms\Components\Repeater::make('booker')->relationship('booker')->schema([
                                     Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required(),
                                     Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
                                     Forms\Components\TextInput::make(Attributes::EMAIL)->required(),
                                     Forms\Components\TextInput::make(Attributes::MOBILE_NUMBER)->required(),
-                                ])->columns(1)
+                                ])->maxItems(1)->columns(1)
                             ]),
                     ]),
-                    Forms\Components\HasManyRepeater::make('transactions')->relationship('transactions')
+
+                    Forms\Components\Repeater::make('transactions')->relationship('transactions')
                         ->schema([
                             Forms\Components\TextInput::make(Attributes::ORDER_ID)->disabled(),
                             Forms\Components\TextInput::make(Attributes::AMOUNT)->disabled(),
