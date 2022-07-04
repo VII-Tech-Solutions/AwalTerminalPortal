@@ -82,7 +82,6 @@ class GeneralAviationServicesResource extends Resource
                             ]),
                         Tabs\Tab::make('Flight Information')
                             ->schema([
-
                                 Fieldset::make('Arrival Information')->schema([
                                     Forms\Components\TextInput::make(Attributes::ARRIVAL_CALL_SIGN)->required(),
                                     Select::make(Attributes::ARRIVING_FROM_AIRPORT)
@@ -163,6 +162,7 @@ class GeneralAviationServicesResource extends Resource
                             ])
                     ])
             ])->columns(1);
+        dd($form);
     }
 
     public static function table(Table $table): Table

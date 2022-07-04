@@ -37,26 +37,26 @@ class EditEliteServices extends EditRecord
         parent::getActions();
         $user = auth()->user();
         return [
-            Action::make('Change Status')
-                ->action(function (array $data): void {
-                    $this->record->totalPrice()->associate($data[Attributes::TOTAL]);
-                    $this->record->save();
-                })
-                ->requiresConfirmation()
-                ->color('primary')
-                ->form([
-                    TextInput::make(Attributes::TOTAL)
-                        ->numeric()
-                        ->suffix('BHD')
-                        ->label(Helpers::readableText(Attributes::TOTAL))->disabled(!$user->canAccess(AdminUserType::SUPER_ADMIN)),
-
-                    Select::make(Attributes::OFFLINE_PAYMENT_METHOD)
-                        ->label('Offline Payment Method')
-                        ->options(['Cash' => 'Cash',
-                            'Card' => 'Card',
-                            'Cheque' => 'Cheque',
-                            'Bank transfer' => 'Bank transfer'])->visible(),
-                ]),
+//            Action::make('Change Status')
+//                ->action(function (array $data): void {
+//                    $this->record->totalPrice()->associate($data[Attributes::TOTAL]);
+//                    $this->record->save();
+//                })
+//                ->requiresConfirmation()
+//                ->color('primary')
+//                ->form([
+//                    TextInput::make(Attributes::TOTAL)
+//                        ->numeric()
+//                        ->suffix('BHD')
+//                        ->label(Helpers::readableText(Attributes::TOTAL))->disabled(!$user->canAccess(AdminUserType::SUPER_ADMIN)),
+//
+//                    Select::make(Attributes::OFFLINE_PAYMENT_METHOD)
+//                        ->label('Offline Payment Method')
+//                        ->options(['Cash' => 'Cash',
+//                            'Card' => 'Card',
+//                            'Cheque' => 'Cheque',
+//                            'Bank transfer' => 'Bank transfer'])->visible(),
+//                ]),
             Action::make('delete')
                 ->action(fn() => $this->record->delete())
                 ->requiresConfirmation()->color('danger'),

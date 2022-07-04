@@ -114,7 +114,7 @@ class EliteServicesResource extends Resource
                             ]),
                         Tabs\Tab::make('Passenger Details')
                             ->schema([
-                                Forms\Components\HasManyRepeater::make('passengers')->relationship('passengers')->schema([
+                                Forms\Components\Repeater::make('passengers')->relationship('passengers')->schema([
                                     Select::make(Attributes::TITLE)
                                         ->label('Title')
                                         ->options(['Mr' => 'Mr',
