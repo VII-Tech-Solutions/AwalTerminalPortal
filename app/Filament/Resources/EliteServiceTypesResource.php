@@ -79,7 +79,7 @@ class EliteServiceTypesResource extends Resource
     {
         return [
             'index' => Pages\ListEliteServiceTypes::route('/'),
-            'create' => Pages\CreateEliteServiceTypes::route('/create'),
+//            'create' => Pages\CreateEliteServiceTypes::route('/create'),
             'edit' => Pages\EditEliteServiceTypes::route('/{record}/edit'),
         ];
     }

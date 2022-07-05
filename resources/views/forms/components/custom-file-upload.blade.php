@@ -1,5 +1,9 @@
 @php
-    $attachments = \App\Models\Attachment::where(\App\Constants\Attributes::FORM_ID, $this->record->id)->get();
+    if(!is_null($this->record)){
+            $attachments = \App\Models\Attachment::where(\App\Constants\Attributes::FORM_ID, $this->record->id)->get();
+    }else{
+        $attachments = [];
+    }
 @endphp
 <table>
     <tbody>
