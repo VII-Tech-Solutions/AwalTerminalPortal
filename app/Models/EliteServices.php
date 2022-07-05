@@ -218,7 +218,7 @@ class EliteServices extends CustomModel
                 $elite_service->save();
 
                 // generate pdf
-                PDF::loadView('invoice')->save('invoice2.pdf');
+                PDF::loadView('invoice')->save('invoice.pdf');
 
                 // send email
                 Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'invoice.pdf'), $user->email);

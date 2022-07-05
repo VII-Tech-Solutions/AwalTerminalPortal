@@ -13,6 +13,7 @@ use App\Models\EliteServices;
 use App\Models\EliteServiceTypes;
 use App\Models\SubmissionStatus;
 use App\Models\User;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
@@ -59,6 +60,7 @@ class EliteServicesResource extends Resource
     public static function form(Form $form): Form
     {
         $user = auth()->user();
+        $rejected_id = SubmissionStatus::where(Attributes::NAME, 'Rejected')->first()->id;
         return $form
             ->schema([
                 //
@@ -92,8 +94,10 @@ class EliteServicesResource extends Resource
                                     Select::make(Attributes::SUBMISSION_STATUS_ID)
                                         ->label('Form Status')
                                         ->options(SubmissionStatus::all()->pluck('name', 'id'))
-                                        ->searchable(),
-                                    Forms\Components\Textarea::make(Attributes::REJECTION_REASON)->columns(1),
+                                        ->searchable()
+                                        ->reactive(),
+                                    Forms\Components\Textarea::make(Attributes::REJECTION_REASON)->columns(1)
+                                    ->visible(fn (Closure $get) => $get(Attributes::SUBMISSION_STATUS_ID) == $rejected_id),
                                 ])->columns(1),
                                 Fieldset::make('Flight Details')->schema([
                                     Forms\Components\Radio::make(Attributes::IS_ARRIVAL_FLIGHT)->options([
