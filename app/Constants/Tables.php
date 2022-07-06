@@ -27,4 +27,10 @@ class Tables extends CustomEnum
     const GA_SERVICES = "ga_services";
     const SUBMISSION_STATUS = "submission_status";
     const FORM_STATUS = "form_status";
+    const HEADER_SECTION = "header_section";
+    const FIRST_MAIN_SECTION = "first_main_section";
+    const SECOND_MAIN_SECTION = "second_main_section";
+    const MINOR_SECTION = "minor_section";
+    const IMAGE_SECTION = "image_section";
+    const FOOTER_SECTION = "footer_section";
 }

@@ -289,4 +289,12 @@ class Attributes extends CustomEnum
     const LINK_EXPIRES_AT = "link_expires_at";
     const TRANSACTIONS = "transactions";
     const DELETED_AT = "deleted_at";
+    const BACKGROUND_IMAGE = "background_image";
+    const HEADING_TOP = "heading_top";
+    const HEADING = "heading";
+    const SUBHEADING = "subheading";
+    const PARAGRAPH = "paragraph";
+    const SQUARE_IMAGE = "square_image";
+    const BULLET_POINTS = "bullet_points";
+    const SECTION_IMAGE = "section_image";
 }
