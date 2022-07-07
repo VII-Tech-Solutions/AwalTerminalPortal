@@ -297,4 +297,5 @@ class Attributes extends CustomEnum
     const SQUARE_IMAGE = "square_image";
     const BULLET_POINTS = "bullet_points";
     const SECTION_IMAGE = "section_image";
+    const IATA = "iata";
 }
