@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Constants\Attributes;
 use App\Constants\Tables;
+use App\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -27,7 +28,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property boolean has_bullet_points
 
  */
-class ServicesContent extends Model
+class ServicesContent extends CustomModel
 {
     use HasFactory;
     protected $table = Tables::SERVICES_CONTENT;
@@ -53,5 +54,23 @@ class ServicesContent extends Model
      */
     public function bulletPointsContent() {
         return $this->hasMany(BulletPointsContent::class, Attributes::SECTION_CONTENT_ID, Attributes::ID);
+    }
+
+    /**
+     * Attribute: background image
+     * @param $value
+     * @return string|null
+     */
+    function getBackgroundImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
+
+    /**
+     * Attribute: image
+     * @param $value
+     * @return string|null
+     */
+    function getImageAttribute($value) {
+        return Helpers::getCDNLink($value);
     }
 }

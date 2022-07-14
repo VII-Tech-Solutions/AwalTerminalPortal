@@ -28,5 +28,12 @@ $api->version('v1', function ($api) {
         $api->post('/general-aviation', 'GeneralAviationFormController@submitForm');
         $api->post('/general-aviation/media', 'GeneralAviationFormController@uploadMedia');
         $api->post('/contact-us', 'ContactUsController@submitForm');
+        $api->get('/homepage-content', 'WebsiteContentController@homepageContent');
+        $api->get('/tour-the-terminal-content', 'WebsiteContentController@tourTheTerminalContent');
+        $api->get('/our-story-content', 'WebsiteContentController@ourStoryContent');
+        $api->get('/services-content', 'WebsiteContentController@servicesContent');
+        $api->get('/elite-services-content', 'WebsiteContentController@eliteServicesContent');
+        $api->get('/general-aviation-content', 'WebsiteContentController@generalAviationContent');
+        $api->get('/contact-us-content', 'WebsiteContentController@contactUsContent');
     });
 });

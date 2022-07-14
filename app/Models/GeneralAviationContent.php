@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Constants\Attributes;
 use App\Constants\Tables;
+use App\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string text
  * @property boolean has_bullet_points
  */
-class GeneralAviationContent extends Model
+class GeneralAviationContent extends CustomModel
 {
     use HasFactory;
     protected $table = Tables::GENERAL_AVIATION_CONTENT;
@@ -50,5 +51,50 @@ class GeneralAviationContent extends Model
      */
     public function bulletPointsContent() {
         return $this->hasMany(BulletPointsContent::class, Attributes::SECTION_CONTENT_ID, Attributes::ID);
+    }
+
+    /**
+     * Attribute: background image
+     * @param $value
+     * @return string|null
+     */
+    function getBackgroundImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
+
+    /**
+     * Attribute: square image
+     * @param $value
+     * @return string|null
+     */
+    function getSquareImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
+
+    /**
+     * Attribute: big image
+     * @param $value
+     * @return string|null
+     */
+    function getBigImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
+
+    /**
+     * Attribute: image
+     * @param $value
+     * @return string|null
+     */
+    function getImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
+
+    /**
+     * Attribute: section image
+     * @param $value
+     * @return string|null
+     */
+    function getSectionImageAttribute($value) {
+        return Helpers::getCDNLink($value);
     }
 }

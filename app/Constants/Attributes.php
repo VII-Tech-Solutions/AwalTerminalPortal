@@ -320,4 +320,11 @@ class Attributes extends CustomEnum
     const TEXT = "text";
     const SECTION_CONTENT_ID = "section_content_id";
     const CAPTION = "caption";
+    const HOMEPAGE_CONTENT = "homepage_content";
+    const TOUR_THE_TERMINAL_CONTENT = "tour_the_terminal_content";
+    const OUR_STORY_CONTENT = "our_story_content";
+    const SERVICES_CONTENT = "services_content";
+    const ELITE_SERVICES_CONTENT = "elite_services_content";
+    const GENERAL_AVIATION_CONTENT = "general_aviation_content";
+    const CONTACT_US_CONTENT = "contact_us_content";
 }

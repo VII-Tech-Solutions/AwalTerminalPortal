@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Constants\Attributes;
 use App\Constants\Tables;
+use App\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -48,5 +49,41 @@ class TourTheTerminalContent extends CustomModel
      */
     public function imageGalleryContent() {
         return $this->hasMany(ImageGalleryContent::class, Attributes::SECTION_CONTENT_ID, Attributes::ID);
+    }
+
+    /**
+     * Attribute: background image
+     * @param $value
+     * @return string|null
+     */
+    function getBackgroundImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
+
+    /**
+     * Attribute: section image
+     * @param $value
+     * @return string|null
+     */
+    function getSectionImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
+
+    /**
+     * Attribute: image
+     * @param $value
+     * @return string|null
+     */
+    function getImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
+
+    /**
+     * Attribute: video
+     * @param $value
+     * @return string|null
+     */
+    function getVideoAttribute($value) {
+        return Helpers::getCDNLink($value);
     }
 }

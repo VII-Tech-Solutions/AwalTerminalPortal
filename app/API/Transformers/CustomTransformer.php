@@ -118,4 +118,22 @@ class CustomTransformer extends TransformerAbstract
     {
         return $this->collection($item->media, new IDTransformer(), Values::NO_RESOURCE_KEY);
     }
+
+    /**
+     * Include Bullet Points
+     * @param $item
+     * @return Collection
+     */
+    public function includeBulletPoints($item) {
+        return $this->collection($item->bulletPointsContent, new ListBulletPointsContentTransformer(), Values::NO_RESOURCE_KEY);
+    }
+
+    /**
+     * Include Image Gallery
+     * @param $item
+     * @return Collection
+     */
+    public function includeImageGallery($item) {
+        return $this->collection($item->imageGalleryContent, new ListImageGalleryContentTransformer(), Values::NO_RESOURCE_KEY);
+    }
 }

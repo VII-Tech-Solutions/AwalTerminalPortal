@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Constants\Attributes;
 use App\Constants\Tables;
+use App\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string heading
  * @property string subheading
  */
-class ContactUsContent extends Model
+class ContactUsContent extends CustomModel
 {
     use HasFactory;
     protected $table = Tables::CONTACT_US_CONTENT;
@@ -29,4 +30,13 @@ class ContactUsContent extends Model
         Attributes::HEADING,
         Attributes::SUBHEADING,
     ];
+
+    /**
+     * Attribute: background image
+     * @param $value
+     * @return string|null
+     */
+    function getBackgroundImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
 }

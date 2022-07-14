@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Constants\Attributes;
 use App\Constants\Tables;
+use App\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string column_2_heading
  * @property string column_2_paragraph
  */
-class OurStoryContent extends Model
+class OurStoryContent extends CustomModel
 {
     use HasFactory;
     protected $table = Tables::OUR_STORY_CONTENT;
@@ -43,4 +44,22 @@ class OurStoryContent extends Model
         Attributes::COLUMN_2_HEADING,
         Attributes::COLUMN_2_PARAGRAPH,
     ];
+
+    /**
+     * Attribute: background image
+     * @param $value
+     * @return string|null
+     */
+    function getBackgroundImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
+
+    /**
+     * Attribute: image
+     * @param $value
+     * @return string|null
+     */
+    function getImageAttribute($value) {
+        return Helpers::getCDNLink($value);
+    }
 }
