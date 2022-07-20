@@ -11,20 +11,29 @@ use App\Constants\Attributes;
 class ListHomepageContentTransformer extends CustomTransformer
 {
     public $fields = [
-        Attributes::SECTION_TYPE,
-        Attributes::BACKGROUND_IMAGE,
-        Attributes::HEADING_TOP,
-        Attributes::HEADING,
-        Attributes::SUBHEADING,
-        Attributes::PARAGRAPH,
-        Attributes::SQUARE_IMAGE,
-        Attributes::IMAGE,
-        Attributes::SECTION_IMAGE,
-        Attributes::HAS_BULLET_POINTS,
+        Attributes::BACKGROUND_IMAGE_1,
+        Attributes::BACKGROUND_IMAGE_2,
+        Attributes::BACKGROUND_IMAGE_3,
+        Attributes::BACKGROUND_IMAGE_4,
+        Attributes::HEADING_TOP_1,
+        Attributes::HEADING_TOP_2,
+        Attributes::HEADING_1,
+        Attributes::HEADING_2,
+        Attributes::HEADING_3,
+        Attributes::HEADING_4,
+        Attributes::SUBHEADING_1,
+        Attributes::PARAGRAPH_1,
+        Attributes::PARAGRAPH_2,
+        Attributes::PARAGRAPH_3,
+        Attributes::PARAGRAPH_4,
+        Attributes::SQUARE_IMAGE_1,
+        Attributes::IMAGE_1,
+        Attributes::IMAGE_2,
+        Attributes::SECTION_IMAGE_1,
+        Attributes::BULLET_POINT_1,
+        Attributes::BULLET_POINT_2,
+        Attributes::BULLET_POINT_3,
+        Attributes::BULLET_POINT_4,
+        Attributes::BULLET_POINT_5,
     ];
-
-    public $defaultIncludes = [
-        Attributes::BULLET_POINTS,
-    ];
-
 }
