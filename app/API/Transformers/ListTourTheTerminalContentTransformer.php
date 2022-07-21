@@ -11,6 +11,7 @@ use App\Constants\Attributes;
 class ListTourTheTerminalContentTransformer extends CustomTransformer
 {
     public $fields = [
+        Attributes::ID,
         Attributes::BACKGROUND_IMAGE_1,
         Attributes::BACKGROUND_IMAGE_2,
         Attributes::HEADING_TOP_1,

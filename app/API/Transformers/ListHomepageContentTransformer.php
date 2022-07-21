@@ -11,6 +11,7 @@ use App\Constants\Attributes;
 class ListHomepageContentTransformer extends CustomTransformer
 {
     public $fields = [
+        Attributes::ID,
         Attributes::BACKGROUND_IMAGE_1,
         Attributes::BACKGROUND_IMAGE_2,
         Attributes::BACKGROUND_IMAGE_3,

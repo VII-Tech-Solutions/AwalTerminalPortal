@@ -12,11 +12,11 @@ class ListContactUsContentTransformer extends CustomTransformer
 {
     public $fields = [
         Attributes::ID,
-        Attributes::SECTION_TYPE,
-        Attributes::BACKGROUND_IMAGE,
-        Attributes::HEADING_TOP,
-        Attributes::HEADING,
-        Attributes::SUBHEADING,
+        Attributes::BACKGROUND_IMAGE_1,
+        Attributes::HEADING_TOP_1,
+        Attributes::HEADING_1,
+        Attributes::HEADING_2,
+        Attributes::SUBHEADING_1,
     ];
 
 }
