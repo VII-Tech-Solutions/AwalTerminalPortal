@@ -369,4 +369,6 @@ class Attributes extends CustomEnum
     const ELITE_SERVICES_CONTENT = "elite_services_content";
     const GENERAL_AVIATION_CONTENT = "general_aviation_content";
     const CONTACT_US_CONTENT = "contact_us_content";
+    const OUR_PHOTO_GALLERY = "our_photo_gallery";
+    const PRIVATE_AND_PERSONAL_GALLERY = "private_and_personal_gallery";
 }

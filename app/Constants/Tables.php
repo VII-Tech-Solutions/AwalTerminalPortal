@@ -42,4 +42,6 @@ class Tables extends CustomEnum
     const CONTACT_US_CONTENT = "contact_us_content";
     const BULLET_POINTS_CONTENT = "bullet_points_content";
     const IMAGE_GALLERY_CONTENT = "image_gallery_content";
+    const OUR_PHOTO_GALLERY = "our_photo_gallery";
+    const PRIVATE_AND_PERSONAL_GALLERY = "private_and_personal_gallery";
 }

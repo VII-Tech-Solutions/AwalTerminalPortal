@@ -12,17 +12,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class TourTheTerminalContent
  * @package App\Models
  *
- * @property string section_type
- * @property string background_image
- * @property string heading_top
- * @property string heading
- * @property string subheading
- * @property string paragraph
- * @property string image
- * @property string section_image
- * @property boolean has_bullet_points
- * @property string visible
- * @property string video
+ * @property string background_image_1
+ * @property string background_image_2
+ * @property string heading_top_1
+ * @property string heading_top_2
+ * @property string heading_1
+ * @property string heading_2
+ * @property string heading_3
+ * @property string heading_4
+ * @property string heading_5
+ * @property string subheading_1
+ * @property string paragraph_1
+ * @property string paragraph_2
+ * @property string paragraph_3
+ * @property string image_1
+ * @property string visible_1
+ * @property string video_1
  */
 class TourTheTerminalContent extends CustomModel
 {
@@ -30,60 +35,73 @@ class TourTheTerminalContent extends CustomModel
     protected $table = Tables::TOUR_THE_TERMINAL_CONTENT;
 
     protected $fillable = [
-        Attributes::SECTION_TYPE,
-        Attributes::BACKGROUND_IMAGE,
-        Attributes::HEADING_TOP,
-        Attributes::HEADING,
-        Attributes::SUBHEADING,
-        Attributes::PARAGRAPH,
-        Attributes::IMAGE,
-        Attributes::SECTION_IMAGE,
-        Attributes::HAS_BULLET_POINTS,
-        Attributes::VISIBLE,
-        Attributes::VIDEO
+        Attributes::BACKGROUND_IMAGE_1,
+        Attributes::BACKGROUND_IMAGE_2,
+        Attributes::HEADING_TOP_1,
+        Attributes::HEADING_TOP_2,
+        Attributes::HEADING_1,
+        Attributes::HEADING_2,
+        Attributes::HEADING_3,
+        Attributes::HEADING_4,
+        Attributes::HEADING_5,
+        Attributes::SUBHEADING_1,
+        Attributes::PARAGRAPH_1,
+        Attributes::PARAGRAPH_2,
+        Attributes::PARAGRAPH_3,
+        Attributes::IMAGE_1,
+        Attributes::VISIBLE_1,
+        Attributes::VIDEO_1
     ];
 
     /**
-     * Relationship: image gallery content
+     * Relationship: our photo gallery
      * @return HasMany
      */
-    public function imageGalleryContent() {
-        return $this->hasMany(ImageGalleryContent::class, Attributes::SECTION_CONTENT_ID, Attributes::ID);
+    public function OurPhotoGallery() {
+        return $this->hasMany(OurPhotoGallery::class, Attributes::SECTION_CONTENT_ID, Attributes::ID);
     }
 
     /**
-     * Attribute: background image
+     * Relationship: private and personal gallery
+     * @return HasMany
+     */
+    public function PrivateAndPersonalGallery() {
+        return $this->hasMany(PrivateAndPersonalGallery::class, Attributes::SECTION_CONTENT_ID, Attributes::ID);
+    }
+
+    /**
+     * Attribute: background image 1
      * @param $value
      * @return string|null
      */
-    function getBackgroundImageAttribute($value) {
+    function getBackgroundImage1Attribute($value) {
         return Helpers::getCDNLink($value);
     }
 
     /**
-     * Attribute: section image
+     * Attribute: background image 2
      * @param $value
      * @return string|null
      */
-    function getSectionImageAttribute($value) {
+    function getBackgroundImage2Attribute($value) {
         return Helpers::getCDNLink($value);
     }
 
     /**
-     * Attribute: image
+     * Attribute: image 1
      * @param $value
      * @return string|null
      */
-    function getImageAttribute($value) {
+    function getImage1Attribute($value) {
         return Helpers::getCDNLink($value);
     }
 
     /**
-     * Attribute: video
+     * Attribute: video 1
      * @param $value
      * @return string|null
      */
-    function getVideoAttribute($value) {
+    function getVideo1Attribute($value) {
         return Helpers::getCDNLink($value);
     }
 }

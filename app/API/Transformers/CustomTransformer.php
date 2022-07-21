@@ -136,4 +136,22 @@ class CustomTransformer extends TransformerAbstract
     public function includeImageGallery($item) {
         return $this->collection($item->imageGalleryContent, new ListImageGalleryContentTransformer(), Values::NO_RESOURCE_KEY);
     }
+
+    /**
+     * Include Our Photo Gallery
+     * @param $item
+     * @return Collection
+     */
+    public function includeOurPhotoGallery($item) {
+        return $this->collection($item->OurPhotoGallery, new ListImageGalleryContentTransformer(), Values::NO_RESOURCE_KEY);
+    }
+
+    /**
+     * Include Our Photo Gallery
+     * @param $item
+     * @return Collection
+     */
+    public function includePrivateAndPersonalGallery($item) {
+        return $this->collection($item->PrivateAndPersonalGallery, new ListImageGalleryContentTransformer(), Values::NO_RESOURCE_KEY);
+    }
 }
