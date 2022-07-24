@@ -40,59 +40,6 @@ class TourTheTerminalContentResource extends Resource
 
     public static function form(Form $form): Form
     {
-//        return $form
-//            ->schema([
-//                Select::make(Attributes::SECTION_TYPE)
-//                    ->options(SectionTypes::all())
-//                    ->reactive(),
-//                FileUpload::make(Attributes::BACKGROUND_IMAGE)
-//                    ->image()
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::FOOTER)
-//                    ->required(),
-//                FileUpload::make(Attributes::IMAGE)->image()
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_1)
-//                    ->required(),
-//                FileUpload::make(Attributes::VIDEO)
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_3)
-//                    ->required(),
-//                TextInput::make(Attributes::HEADING_TOP)
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::FOOTER)
-//                    ->required(),
-//                TextInput::make(Attributes::HEADING)
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_2
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_3
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_4
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::FOOTER)
-//                    ->required(),
-//                TextInput::make(Attributes::SUBHEADING)
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER)
-//                    ->required(),
-//                Textarea::make(Attributes::PARAGRAPH)
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_2
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_3
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_4)
-//                    ->required(),
-//                Checkbox::make(Attributes::VISIBLE)
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_3)
-//                    ->required(),
-//                Repeater::make(Attributes::IMAGE_GALLERY)->relationship("imageGalleryContent")
-//                    ->schema([
-//                        FileUpload::make(Attributes::IMAGE)->image(),
-//                        TextInput::make(Attributes::CAPTION)
-//                    ])
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_2
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_4)
-//                    ->required(),
-//                Checkbox::make(Attributes::HAS_IMAGE_GALLERY)
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_2
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_4)
-//                    ->default(true)
-//                    ->hidden(),
-//            ])->columns(1);
-
         return $form->schema([
             Tabs::make('Heading')
             ->tabs([
