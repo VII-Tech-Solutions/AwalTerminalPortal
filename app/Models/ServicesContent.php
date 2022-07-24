@@ -13,20 +13,29 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class ServicesContent
  * @package App\Models
  *
- * @property string section_type
- * @property string background_image
- * @property string image
- * @property string heading_top
- * @property string heading
- * @property string subheading
- * @property string paragraph
- * @property string quote
- * @property string column_1_heading
- * @property string column_1_paragraph
- * @property string column_2_heading
- * @property string column_2_paragraph
- * @property boolean has_bullet_points
-
+ * @property string background_image_1
+ * @property string background_image_2
+ * @property string background_image_3
+ * @property string heading_top_1
+ * @property string heading_top_2
+ * @property string heading_1
+ * @property string heading_2
+ * @property string heading_3
+ * @property string heading_4
+ * @property string subheading_1
+ * @property string paragraph_1
+ * @property string column_1_heading_1
+ * @property string column_1_paragraph_1
+ * @property string column_2_heading_1
+ * @property string column_2_paragraph_1
+ * @property string bullet_point_1
+ * @property string bullet_point_2
+ * @property string bullet_point_3
+ * @property string bullet_point_4
+ * @property string bullet_point_5
+ * @property string bullet_point_6
+ * @property string bullet_point_7
+ * @property string bullet_point_8
  */
 class ServicesContent extends CustomModel
 {
@@ -34,43 +43,55 @@ class ServicesContent extends CustomModel
     protected $table = Tables::SERVICES_CONTENT;
 
     protected $fillable = [
-        Attributes::SECTION_TYPE,
-        Attributes::BACKGROUND_IMAGE,
-        Attributes::IMAGE,
-        Attributes::HEADING_TOP,
-        Attributes::HEADING,
-        Attributes::SUBHEADING,
-        Attributes::PARAGRAPH,
-        Attributes::QUOTE,
-        Attributes::COLUMN_1_HEADING,
-        Attributes::COLUMN_1_PARAGRAPH,
-        Attributes::COLUMN_2_HEADING,
-        Attributes::COLUMN_2_PARAGRAPH,
-        Attributes::HAS_BULLET_POINTS,
+        Attributes::BACKGROUND_IMAGE_1,
+        Attributes::BACKGROUND_IMAGE_2,
+        Attributes::BACKGROUND_IMAGE_3,
+        Attributes::HEADING_TOP_1,
+        Attributes::HEADING_TOP_2,
+        Attributes::HEADING_1,
+        Attributes::HEADING_2,
+        Attributes::HEADING_3,
+        Attributes::HEADING_4,
+        Attributes::SUBHEADING_1,
+        Attributes::PARAGRAPH_1,
+        Attributes::COLUMN_1_HEADING_1,
+        Attributes::COLUMN_1_PARAGRAPH_1,
+        Attributes::COLUMN_2_HEADING_1,
+        Attributes::COLUMN_2_PARAGRAPH_1,
+        Attributes::BULLET_POINT_1,
+        Attributes::BULLET_POINT_2,
+        Attributes::BULLET_POINT_3,
+        Attributes::BULLET_POINT_4,
+        Attributes::BULLET_POINT_5,
+        Attributes::BULLET_POINT_6,
+        Attributes::BULLET_POINT_7,
+        Attributes::BULLET_POINT_8,
     ];
-    /**
-     * Relationship: bullet points content
-     * @return HasMany
-     */
-    public function bulletPointsContent() {
-        return $this->hasMany(BulletPointsContent::class, Attributes::SECTION_CONTENT_ID, Attributes::ID);
-    }
 
     /**
-     * Attribute: background image
+     * Attribute: background image 1
      * @param $value
      * @return string|null
      */
-    function getBackgroundImageAttribute($value) {
+    function getBackgroundImage1Attribute($value) {
         return Helpers::getCDNLink($value);
     }
 
     /**
-     * Attribute: image
+     * Attribute: background image 2
      * @param $value
      * @return string|null
      */
-    function getImageAttribute($value) {
+    function getBackgroundImage2Attribute($value) {
+        return Helpers::getCDNLink($value);
+    }
+
+    /**
+     * Attribute: background image 3
+     * @param $value
+     * @return string|null
+     */
+    function getBackgroundImage3Attribute($value) {
         return Helpers::getCDNLink($value);
     }
 }

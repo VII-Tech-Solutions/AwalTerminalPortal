@@ -6,13 +6,17 @@ use App\Constants\Attributes;
 use App\Constants\SectionTypes;
 use App\Filament\Resources\ServicesContentResource\Pages;
 use App\Filament\Resources\ServicesContentResource\RelationManagers;
+use App\Helpers;
 use App\Models\ServicesContent;
 use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -36,91 +40,125 @@ class ServicesContentResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Select::make(Attributes::SECTION_TYPE)
-                    ->options(SectionTypes::all())
-                    ->reactive(),
-                FileUpload::make(Attributes::BACKGROUND_IMAGE)
-                    ->image()
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_5
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::FOOTER)
-                    ->required(),
-                FileUpload::make(Attributes::IMAGE)->image()
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_1
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_4)
-                    ->required(),
-                TextInput::make(Attributes::HEADING_TOP)
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::FOOTER)
-                    ->required(),
-                TextInput::make(Attributes::HEADING)
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_1
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_2
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_3
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_5
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_6
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::FOOTER)
-                    ->required(),
-                TextInput::make(Attributes::SUBHEADING)
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_2)
-                    ->required(),
-                Textarea::make(Attributes::PARAGRAPH)
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_1
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_3
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_4
-                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_5)
-                    ->required(),
-                Textarea::make(Attributes::QUOTE)
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_1)
-                    ->required(),
-                TextInput::make(Attributes::COLUMN_1_HEADING)
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_5)
-                    ->required(),
-                Textarea::make(Attributes::COLUMN_1_PARAGRAPH)
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_5)
-                    ->required(),
-                TextInput::make(Attributes::COLUMN_2_HEADING)
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_5)
-                    ->required(),
-                Textarea::make(Attributes::COLUMN_2_PARAGRAPH)
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_5)
-                    ->required(),
-                Repeater::make(Attributes::BULLET_POINTS)->relationship("bulletPointsContent")
-                    ->schema([
-                        TextInput::make(Attributes::TEXT)
-                            ->label(""),
-                    ])
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_6)
-                    ->required(),
-                Checkbox::make(Attributes::HAS_BULLET_POINTS)
-                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_6)
-                    ->default(true)
-                    ->hidden(),
-            ])->columns(1);
+        return $form->schema([
+            Tabs::make('Heading')
+            ->tabs([
+                Tab::make('Information')
+                ->schema([
+                    Fieldset::make(Helpers::readableText(Attributes::HEADER))->schema([
+                        FileUpload::make(Attributes::BACKGROUND_IMAGE_1)
+                            ->image()
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BACKGROUND_IMAGE)),
+                        TextInput::make(Attributes::HEADING_TOP_1)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::HEADING_TOP)),
+                        TextInput::make(Attributes::HEADING_1)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::HEADING)),
+                        TextInput::make(Attributes::SUBHEADING_1)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::SUBHEADING)),
+                    ])->columns(1),
+                    Fieldset::make(Helpers::readableText(Attributes::SECTION_1))->schema([
+                        FileUpload::make(Attributes::BACKGROUND_IMAGE_2)
+                            ->image()
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BACKGROUND_IMAGE)),
+                        TextInput::make(Attributes::HEADING_2)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::HEADING)),
+                        Textarea::make(Attributes::PARAGRAPH_1)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::PARAGRAPH)),
+                        TextInput::make(Attributes::COLUMN_1_HEADING_1)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::COLUMN_1_HEADING)),
+                        Textarea::make(Attributes::COLUMN_1_PARAGRAPH_1)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::COLUMN_1_PARAGRAPH)),
+                        TextInput::make(Attributes::COLUMN_2_HEADING_1)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::COLUMN_2_HEADING)),
+                        Textarea::make(Attributes::COLUMN_2_PARAGRAPH_1)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::COLUMN_2_PARAGRAPH)),
+                    ])->columns(1),
+                    Fieldset::make(Helpers::readableText(Attributes::SECTION_2))->schema([
+                        TextInput::make(Attributes::HEADING_3)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::HEADING)),
+                        TextInput::make(Attributes::BULLET_POINT_1)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BULLET_POINT_1)),
+                        TextInput::make(Attributes::BULLET_POINT_2)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BULLET_POINT_2)),
+                        TextInput::make(Attributes::BULLET_POINT_3)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BULLET_POINT_3)),
+                        TextInput::make(Attributes::BULLET_POINT_4)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BULLET_POINT_4)),
+                        TextInput::make(Attributes::BULLET_POINT_5)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BULLET_POINT_5)),
+                        TextInput::make(Attributes::BULLET_POINT_6)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BULLET_POINT_6)),
+                        TextInput::make(Attributes::BULLET_POINT_7)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BULLET_POINT_7)),
+                        TextInput::make(Attributes::BULLET_POINT_8)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BULLET_POINT_8)),
+                    ])->columns(1),
+                    Fieldset::make(Helpers::readableText(Attributes::FOOTER))->schema([
+                        FileUpload::make(Attributes::BACKGROUND_IMAGE_3)
+                            ->image()
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::BACKGROUND_IMAGE)),
+                        TextInput::make(Attributes::HEADING_TOP_2)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::HEADING_TOP)),
+                        TextInput::make(Attributes::HEADING_4)
+                            ->required()
+                            ->label(Helpers::readableText(Attributes::HEADING)),
+                    ])->columns(1)
+                ])->columns(1),
+            ])
+        ])->columns(1);
+
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make(Attributes::SECTION_TYPE),
-                ImageColumn::make(Attributes::BACKGROUND_IMAGE),
-                ImageColumn::make(Attributes::IMAGE),
-                TextColumn::make(Attributes::HEADING_TOP),
-                TextColumn::make(Attributes::HEADING),
-                TextColumn::make(Attributes::SUBHEADING),
-                TextColumn::make(Attributes::PARAGRAPH),
-                TextColumn::make(Attributes::QUOTE),
-                TextColumn::make(Attributes::COLUMN_1_HEADING),
-                TextColumn::make(Attributes::COLUMN_1_PARAGRAPH),
-                TextColumn::make(Attributes::COLUMN_2_HEADING),
-                TextColumn::make(Attributes::COLUMN_2_PARAGRAPH),
-                TextColumn::make(Attributes::HAS_BULLET_POINTS),
-            ])
+                ImageColumn::make(Attributes::BACKGROUND_IMAGE_1),
+                ImageColumn::make(Attributes::BACKGROUND_IMAGE_2),
+                ImageColumn::make(Attributes::BACKGROUND_IMAGE_3),
+                TextColumn::make(Attributes::HEADING_TOP_1),
+                TextColumn::make(Attributes::HEADING_TOP_2),
+                TextColumn::make(Attributes::HEADING_1),
+                TextColumn::make(Attributes::HEADING_2),
+                TextColumn::make(Attributes::HEADING_3),
+                TextColumn::make(Attributes::HEADING_4),
+                TextColumn::make(Attributes::SUBHEADING_1),
+                TextColumn::make(Attributes::PARAGRAPH_1),
+                TextColumn::make(Attributes::COLUMN_1_HEADING_1),
+                TextColumn::make(Attributes::COLUMN_1_PARAGRAPH_1),
+                TextColumn::make(Attributes::COLUMN_2_HEADING_1),
+                TextColumn::make(Attributes::COLUMN_2_PARAGRAPH_1),
+                TextColumn::make(Attributes::BULLET_POINT_1),
+                TextColumn::make(Attributes::BULLET_POINT_2),
+                TextColumn::make(Attributes::BULLET_POINT_3),
+                TextColumn::make(Attributes::BULLET_POINT_4),
+                TextColumn::make(Attributes::BULLET_POINT_5),
+                TextColumn::make(Attributes::BULLET_POINT_6),
+                TextColumn::make(Attributes::BULLET_POINT_7),
+                TextColumn::make(Attributes::BULLET_POINT_8),
+                ])
             ->filters([
                 //
             ])
