@@ -38,27 +38,6 @@ class ContactUsContentResource extends Resource
 
     public static function form(Form $form): Form
     {
-//        return $form
-//            ->schema([
-//                Select::make(Attributes::SECTION_TYPE)
-//                    ->options(SectionTypes::all())
-//                    ->reactive(),
-//                FileUpload::make(Attributes::BACKGROUND_IMAGE)
-//                    ->image()
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER)
-//                    ->required(),
-//                TextInput::make(Attributes::HEADING_TOP)
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER)
-//                    ->required(),
-//                TextInput::make(Attributes::HEADING)
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER
-//                        || $get(Attributes::SECTION_TYPE) == SectionTypes::SECTION_1)
-//                    ->required(),
-//                TextInput::make(Attributes::SUBHEADING)
-//                    ->visible(fn (Closure $get) => $get(Attributes::SECTION_TYPE) == SectionTypes::HEADER)
-//                    ->required(),
-//            ])->columns(1);
-
         return $form->schema([
             Tabs::make('Heading')
                 ->tabs([
