@@ -243,6 +243,59 @@ class EliteServiceController extends CustomController
 
     }
 
+    function calculatePrice()
+    {
+        $number_of_adults = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NUMBER_OF_ADULTS, null, CastingTypes::INTEGER);
+        $number_of_children = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NUMBER_OF_CHILDREN, null, CastingTypes::INTEGER);
+        $service_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SERVICE_ID, null, CastingTypes::INTEGER);
+
+        $subtotal = 0;
+
+        $attributes_array = ['Number of adults' => $number_of_adults, 'Number of children' => $number_of_children, 'Service ID' => $service_id];
+
+        // validate passenger array
+        foreach ($attributes_array as $key => $subkey) {
+            if (is_null($subkey)) {
+                return Helpers::formattedJSONResponse("Attribute " . $key . " is Missing", [], [], Response::HTTP_BAD_REQUEST);
+            }
+        }
+
+        $adult_priced_passengers = $number_of_children + $number_of_adults;
+        $selected_service = EliteServiceTypes::where(Attributes::ID, $service_id)->get();
+        $price_per_adult = $selected_service->first()->price_per_adult;
+
+        if ($service_id == 1) {
+            if ($adult_priced_passengers > 4) {
+                $subtotal += (4 * $price_per_adult);
+
+                $extra_adult_passengers = $adult_priced_passengers - 4;
+                $subtotal += ($extra_adult_passengers * 20);
+
+            } else {
+                $subtotal += (4 * $price_per_adult);
+            }
+        } else if ($service_id == 2) {
+            if ($adult_priced_passengers > 4) {
+                $subtotal += (4 * $price_per_adult);
+
+                $extra_adult_passengers = $adult_priced_passengers - 4;
+                $subtotal += ($extra_adult_passengers * 25);
+
+            } else {
+                $subtotal += (4 * $price_per_adult);
+            }
+        }
+
+        $values = $this->calculateVAT($subtotal);
+        $vat_amount = $values[Attributes::VAT_AMOUNT];
+        $total = $vat_amount + $subtotal;
+
+        return Helpers::formattedJSONResponse("Submitted successfully", [
+            Attributes::TOTAL_PRICE => $total
+        ]);
+    }
+
+
     /**
      * Calculate VAT
      * @return array

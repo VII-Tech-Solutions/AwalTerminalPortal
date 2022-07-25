@@ -166,7 +166,7 @@ class TourTheTerminalContentResource extends Resource
     {
         return [
             'index' => Pages\ListTourTheTerminalContents::route('/'),
-            'create' => Pages\CreateTourTheTerminalContent::route('/create'),
+//            'create' => Pages\CreateTourTheTerminalContent::route('/create'),
             'edit' => Pages\EditTourTheTerminalContent::route('/{record}/edit'),
         ];
     }

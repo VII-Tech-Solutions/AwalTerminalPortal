@@ -177,6 +177,7 @@ class HomepageContentResource extends Resource
             ]);
     }
 
+
     public static function getRelations(): array
     {
         return [
@@ -188,7 +189,7 @@ class HomepageContentResource extends Resource
     {
         return [
             'index' => Pages\ListHomepageContents::route('/'),
-            'create' => Pages\CreateHomepageContent::route('/create'),
+//            'create' => Pages\CreateHomepageContent::route('/create'),
             'edit' => Pages\EditHomepageContent::route('/{record}/edit'),
         ];
     }

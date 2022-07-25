@@ -17,9 +17,9 @@ class ListContactUs extends ListRecords
     {
         parent::getActions();
         return [
-            Action::make('delete')
-                ->action(fn() => $this->record->delete())
-                ->requiresConfirmation()->color('danger'),
+//            Action::make('delete')
+//                ->action(fn() => $this->record->delete())
+//                ->requiresConfirmation()->color('danger'),
         ];
     }
 

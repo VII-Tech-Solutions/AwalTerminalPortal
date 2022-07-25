@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\HomepageContentResource\Pages;
 
 use App\Filament\Resources\HomepageContentResource;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListHomepageContents extends ListRecords
@@ -12,8 +11,7 @@ class ListHomepageContents extends ListRecords
 
     protected function getActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        parent::getActions();
+        return [];
     }
 }

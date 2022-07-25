@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\OurStoryContentResource\Pages;
 
 use App\Filament\Resources\OurStoryContentResource;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 
 class EditOurStoryContent extends EditRecord
@@ -12,8 +11,6 @@ class EditOurStoryContent extends EditRecord
 
     protected function getActions(): array
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        return [];
     }
 }
