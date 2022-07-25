@@ -29,7 +29,7 @@ class WebsiteContentController extends CustomController
      */
     public function homepageContent() {
         // get data
-        $homepage_content = HomepageContent::all();
+        $homepage_content = HomepageContent::all()->first();
 
         // return response
         return Helpers::returnResponse([
@@ -43,7 +43,7 @@ class WebsiteContentController extends CustomController
      */
     public function tourTheTerminalContent() {
         // get data
-        $tourTheTerminalContent = TourTheTerminalContent::all();
+        $tourTheTerminalContent = TourTheTerminalContent::all()->first();
 
         // return response
         return Helpers::returnResponse([
@@ -57,7 +57,7 @@ class WebsiteContentController extends CustomController
      */
     public function ourStoryContent() {
         // get data
-        $ourStoryContent = OurStoryContent::all();
+        $ourStoryContent = OurStoryContent::all()->first();
 
         // return response
         return Helpers::returnResponse([
@@ -71,7 +71,7 @@ class WebsiteContentController extends CustomController
      */
     public function servicesContent() {
         // get data
-        $servicesContent = ServicesContent::all();
+        $servicesContent = ServicesContent::all()->first();
 
         // return response
         return Helpers::returnResponse([
@@ -85,7 +85,7 @@ class WebsiteContentController extends CustomController
      */
     public function eliteServicesContent() {
         // get data
-        $eliteServicesContent = EliteServicesContent::all();
+        $eliteServicesContent = EliteServicesContent::all()->first();
 
         // return response
         return Helpers::returnResponse([
@@ -99,7 +99,7 @@ class WebsiteContentController extends CustomController
      */
     public function generalAviationContent() {
         // get data
-        $generalAviationContent = GeneralAviationContent::all();
+        $generalAviationContent = GeneralAviationContent::all()->first();
 
         // return response
         return Helpers::returnResponse([
@@ -113,7 +113,7 @@ class WebsiteContentController extends CustomController
      */
     public function contactUsContent() {
         // get data
-        $contactUsContent = ContactUsContent::all();
+        $contactUsContent = ContactUsContent::all()->first();
 
         // return response
         return Helpers::returnResponse([
