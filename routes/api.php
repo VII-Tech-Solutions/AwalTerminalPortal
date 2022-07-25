@@ -25,7 +25,7 @@ $api->version('v1', function ($api) {
         $api->get('/metadata', 'MetadataController@all');
         $api->get('/elite-service/{uuid}', 'EliteServiceController@getOne');
         $api->post('/elite-service', 'EliteServiceController@submitForm');
-        $api->post('/calculate-price', 'EliteServiceController@calculatePrice');
+        $api->get('/calculate-price', 'EliteServiceController@calculatePrice');
         $api->post('/general-aviation', 'GeneralAviationFormController@submitForm');
         $api->post('/general-aviation/media', 'GeneralAviationFormController@uploadMedia');
         $api->post('/contact-us', 'ContactUsController@submitForm');
