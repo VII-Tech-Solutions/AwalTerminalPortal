@@ -9,6 +9,8 @@ class ListHomepageContents extends ListRecords
 {
     protected static string $resource = HomepageContentResource::class;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     protected function getActions(): array
     {
         parent::getActions();

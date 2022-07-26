@@ -206,7 +206,6 @@ class GeneralAviationContentResource extends Resource
     {
         return [
             'index' => Pages\ListGeneralAviationContents::route('/'),
-            'create' => Pages\CreateGeneralAviationContent::route('/create'),
             'edit' => Pages\EditGeneralAviationContent::route('/{record}/edit'),
         ];
     }

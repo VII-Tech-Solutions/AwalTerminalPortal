@@ -181,7 +181,6 @@ class ServicesContentResource extends Resource
     {
         return [
             'index' => Pages\ListServicesContents::route('/'),
-            'create' => Pages\CreateServicesContent::route('/create'),
             'edit' => Pages\EditServicesContent::route('/{record}/edit'),
         ];
     }

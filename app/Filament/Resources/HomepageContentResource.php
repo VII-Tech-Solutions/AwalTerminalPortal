@@ -13,6 +13,7 @@ use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\View;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -168,13 +169,8 @@ class HomepageContentResource extends Resource
             ])
             ->filters([
                 //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
             ]);
+
     }
 
 
@@ -189,8 +185,8 @@ class HomepageContentResource extends Resource
     {
         return [
             'index' => Pages\ListHomepageContents::route('/'),
-//            'create' => Pages\CreateHomepageContent::route('/create'),
             'edit' => Pages\EditHomepageContent::route('/{record}/edit'),
         ];
     }
+
 }

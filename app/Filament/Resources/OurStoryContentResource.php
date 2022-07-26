@@ -183,7 +183,6 @@ class OurStoryContentResource extends Resource
     {
         return [
             'index' => Pages\ListOurStoryContents::route('/'),
-            'create' => Pages\CreateOurStoryContent::route('/create'),
             'edit' => Pages\EditOurStoryContent::route('/{record}/edit'),
         ];
     }
