@@ -77,13 +77,22 @@ class GeneralAviationContent extends CustomModel
         Attributes::BULLET_POINT_6,
     ];
 
+    protected $appends = [
+        Attributes::BACKGROUND_IMAGE_1_URL,
+        Attributes::BACKGROUND_IMAGE_2_URL,
+        Attributes::SQUARE_IMAGE_1_URL,
+        Attributes::SQUARE_IMAGE_2_URL,
+        Attributes::SECTION_IMAGE_1_URL,
+    ];
+
+
     /**
      * Attribute: background image 1
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->background_image_1);
     }
 
     /**
@@ -91,8 +100,8 @@ class GeneralAviationContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage2Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage2UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->background_image_2);
     }
 
     /**
@@ -100,8 +109,8 @@ class GeneralAviationContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getSquareImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getSquareImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->square_image_1);
     }
 
     /**
@@ -109,8 +118,8 @@ class GeneralAviationContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getSquareImage2Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getSquareImage2UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->square_image_2);
     }
 
     /**
@@ -118,8 +127,8 @@ class GeneralAviationContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBigImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBigImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->big_image_1);
     }
 
     /**
@@ -127,8 +136,8 @@ class GeneralAviationContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->image_1);
     }
 
     /**
@@ -136,7 +145,7 @@ class GeneralAviationContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getSectionImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getSectionImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->section_image_1);
     }
 }

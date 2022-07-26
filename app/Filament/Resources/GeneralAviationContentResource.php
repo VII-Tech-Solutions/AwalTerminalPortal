@@ -56,7 +56,7 @@ class GeneralAviationContentResource extends Resource
                         TextInput::make(Attributes::HEADING_1)
                             ->required()
                             ->label(Helpers::readableText(Attributes::HEADING)),
-                        TextInput::make(Attributes::SUBHEADING_1)
+                        Textarea::make(Attributes::SUBHEADING_1)
                             ->required()
                             ->label(Helpers::readableText(Attributes::SUBHEADING)),
                     ])->columns(1),
