@@ -80,20 +80,6 @@ class TourTheTerminalContentResource extends Resource
                             ])->label(Helpers::readableText(Attributes::IMAGE_GALLERY))
                     ])->columns(1),
                     Fieldset::make(Helpers::readableText(Attributes::SECTION_3))->schema([
-                        Checkbox::make(Attributes::VISIBLE_1)
-                            ->required()
-                            ->label(Helpers::readableText(Attributes::VISIBLE)),
-                        TextInput::make(Attributes::HEADING_3)
-                            ->required()
-                            ->label(Helpers::readableText(Attributes::HEADING)),
-                        Textarea::make(Attributes::PARAGRAPH_2)
-                            ->required()
-                            ->label(Helpers::readableText(Attributes::PARAGRAPH)),
-                        FileUpload::make(Attributes::VIDEO_1)
-                            ->required()
-                            ->label(Helpers::readableText(Attributes::VIDEO)),
-                    ])->columns(1),
-                    Fieldset::make(Helpers::readableText(Attributes::SECTION_4))->schema([
                         TextInput::make(Attributes::HEADING_4)
                             ->required()
                             ->label(Helpers::readableText(Attributes::HEADING)),
@@ -141,8 +127,6 @@ class TourTheTerminalContentResource extends Resource
                 TextColumn::make(Attributes::PARAGRAPH_1),
                 TextColumn::make(Attributes::PARAGRAPH_2),
                 TextColumn::make(Attributes::PARAGRAPH_3),
-                ImageColumn::make(Attributes::VIDEO_1),
-                TextColumn::make(Attributes::VISIBLE_1),
             ])
             ->filters([
                 //
