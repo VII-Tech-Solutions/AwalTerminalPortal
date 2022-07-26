@@ -6,7 +6,6 @@ use App\Constants\Attributes;
 use App\Constants\Tables;
 use App\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class OurStoryContent
@@ -40,6 +39,7 @@ use Illuminate\Database\Eloquent\Model;
 class OurStoryContent extends CustomModel
 {
     use HasFactory;
+
     protected $table = Tables::OUR_STORY_CONTENT;
 
     protected $fillable = [
@@ -69,13 +69,23 @@ class OurStoryContent extends CustomModel
         Attributes::COLUMN_2_PARAGRAPH_1,
     ];
 
+    protected $appends = [
+        Attributes::BACKGROUND_IMAGE_1_URL,
+        Attributes::BACKGROUND_IMAGE_2_URL,
+        Attributes::BACKGROUND_IMAGE_3_URL,
+        Attributes::IMAGE_1_URL,
+        Attributes::IMAGE_2_URL,
+    ];
+
+
     /**
      * Attribute: background image 1
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage1UrlAttribute($value)
+    {
+        return \Storage::disk("public")->url($this->background_image_1);
     }
 
     /**
@@ -83,8 +93,9 @@ class OurStoryContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage2Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage2UrlAttribute($value)
+    {
+        return \Storage::disk("public")->url($this->background_image_2);
     }
 
     /**
@@ -92,8 +103,9 @@ class OurStoryContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage3Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage3UrlAttribute($value)
+    {
+        return \Storage::disk("public")->url($this->background_image_3);
     }
 
     /**
@@ -101,8 +113,9 @@ class OurStoryContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getImage1UrlAttribute($value)
+    {
+        return \Storage::disk("public")->url( $this->image_1);
     }
 
     /**
@@ -110,7 +123,8 @@ class OurStoryContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getImage2Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getImage2UrlAttribute($value)
+    {
+        return \Storage::disk("public")->url( $this->image_2);
     }
 }
