@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class TourTheTerminalContent extends CustomModel
 {
     use HasFactory;
+
     protected $table = Tables::TOUR_THE_TERMINAL_CONTENT;
 
     protected $fillable = [
@@ -51,11 +52,18 @@ class TourTheTerminalContent extends CustomModel
         Attributes::IMAGE_1,
     ];
 
+    protected $appends = [
+        Attributes::BACKGROUND_IMAGE_1_URL,
+        Attributes::BACKGROUND_IMAGE_2_URL,
+        Attributes::IMAGE_1_URL,
+    ];
+
     /**
      * Relationship: our photo gallery
      * @return HasMany
      */
-    public function OurPhotoGallery() {
+    public function OurPhotoGallery()
+    {
         return $this->hasMany(OurPhotoGallery::class, Attributes::SECTION_CONTENT_ID, Attributes::ID);
     }
 
@@ -63,7 +71,8 @@ class TourTheTerminalContent extends CustomModel
      * Relationship: private and personal gallery
      * @return HasMany
      */
-    public function PrivateAndPersonalGallery() {
+    public function PrivateAndPersonalGallery()
+    {
         return $this->hasMany(PrivateAndPersonalGallery::class, Attributes::SECTION_CONTENT_ID, Attributes::ID);
     }
 
@@ -72,8 +81,9 @@ class TourTheTerminalContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage1UrlAttribute($value)
+    {
+        return \Storage::disk("public")->url( $this->background_image_1);
     }
 
     /**
@@ -81,8 +91,9 @@ class TourTheTerminalContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage2Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage2UrlAttribute($value)
+    {
+        return \Storage::disk("public")->url( $this->background_image_2);
     }
 
     /**
@@ -90,16 +101,9 @@ class TourTheTerminalContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getImage1UrlAttribute($value)
+    {
+        return \Storage::disk("public")->url( $this->image_1);
     }
 
-    /**
-     * Attribute: video 1
-     * @param $value
-     * @return string|null
-     */
-    function getVideo1Attribute($value) {
-        return Helpers::getCDNLink($value);
-    }
 }

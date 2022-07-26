@@ -12,8 +12,8 @@ class ListTourTheTerminalContentTransformer extends CustomTransformer
 {
     public $fields = [
         Attributes::ID,
-        Attributes::BACKGROUND_IMAGE_1,
-        Attributes::BACKGROUND_IMAGE_2,
+        Attributes::BACKGROUND_IMAGE_1_URL,
+        Attributes::BACKGROUND_IMAGE_2_URL,
         Attributes::HEADING_TOP_1,
         Attributes::HEADING_TOP_2,
         Attributes::HEADING_1,
@@ -25,9 +25,7 @@ class ListTourTheTerminalContentTransformer extends CustomTransformer
         Attributes::PARAGRAPH_1,
         Attributes::PARAGRAPH_2,
         Attributes::PARAGRAPH_3,
-        Attributes::IMAGE_1,
-        Attributes::VISIBLE_1,
-        Attributes::VIDEO_1
+        Attributes::IMAGE_1_URL,
     ];
 
     public $defaultIncludes = [
