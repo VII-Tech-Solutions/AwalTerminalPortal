@@ -328,6 +328,7 @@ class Attributes extends CustomEnum
     const SQUARE_IMAGE_2_URL = "square_image_2_url";
     const BIG_IMAGE = "big_image";
     const BIG_IMAGE_1 = "big_image_1";
+    const BIG_IMAGE_1_URL = "big_image_1_url";
     const BULLET_POINTS = "bullet_points";
     const BULLET_POINT = "bullet_point";
     const BULLET_POINT_1 = "bullet_point_1";

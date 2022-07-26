@@ -76,13 +76,22 @@ class EliteServicesContent extends CustomModel
         Attributes::BULLET_POINT_7,
     ];
 
+    protected $appends = [
+        Attributes::BACKGROUND_IMAGE_1_URL,
+        Attributes::BACKGROUND_IMAGE_2_URL,
+        Attributes::BACKGROUND_IMAGE_3_URL,
+        Attributes::SQUARE_IMAGE_1_URL,
+        Attributes::SQUARE_IMAGE_2_URL,
+        Attributes::BIG_IMAGE_1_URL,
+    ];
+
     /**
      * Attribute: background image 1
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->background_image_1);
     }
 
     /**
@@ -90,8 +99,8 @@ class EliteServicesContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage2Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage2UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->background_image_2);
     }
 
     /**
@@ -99,8 +108,8 @@ class EliteServicesContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage3Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage3UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->background_image_3);
     }
 
     /**
@@ -108,8 +117,8 @@ class EliteServicesContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getSquareImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getSquareImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->square_image_1);
     }
 
     /**
@@ -117,8 +126,8 @@ class EliteServicesContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getSquareImage2Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getSquareImage2UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->square_image_2);
     }
 
     /**
@@ -126,7 +135,7 @@ class EliteServicesContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBigImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBigImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->big_image_1);
     }
 }
