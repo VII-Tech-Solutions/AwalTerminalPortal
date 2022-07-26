@@ -67,6 +67,5 @@ class Attachment extends CustomModel
     function getUrlAttribute($value)
     {
         return \Storage::disk("public")->url($this->path);
-        return url($this->path);
     }
 }

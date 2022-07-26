@@ -88,6 +88,7 @@ class Attributes extends CustomEnum
     const CONTACT_US = "contact_us";
     const CREATED_AT = "created_at";
     const IMAGE = 'image';
+    const IMAGE_URL = 'image_url';
     const IMAGE_1 = 'image_1';
     const IMAGE_1_URL = 'image_1_url';
     const IMAGE_2 = 'image_2';

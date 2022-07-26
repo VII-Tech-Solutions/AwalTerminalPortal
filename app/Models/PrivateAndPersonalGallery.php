@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string caption
  * @property integer section_content_id
  */
-class PrivateAndPersonalGallery extends Model
+class PrivateAndPersonalGallery extends CustomModel
 {
     use HasFactory;
     protected $table = Tables::PRIVATE_AND_PERSONAL_GALLERY;
@@ -25,4 +25,16 @@ class PrivateAndPersonalGallery extends Model
         Attributes::CAPTION,
         Attributes::SECTION_CONTENT_ID
     ];
+
+
+    protected $appends = [
+        Attributes::IMAGE_URL,
+    ];
+
+
+    function getImageUrlAttribute($value)
+    {
+        return \Storage::disk("public")->url($this->image);
+    }
+
 }

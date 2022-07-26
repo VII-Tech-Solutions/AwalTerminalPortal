@@ -12,7 +12,7 @@ class ListImageGalleryContentTransformer extends CustomTransformer
 {
     public $fields = [
         Attributes::ID,
-        Attributes::IMAGE,
+        Attributes::IMAGE_URL,
         Attributes::CAPTION,
         Attributes::SECTION_CONTENT_ID
     ];
