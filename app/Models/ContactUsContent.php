@@ -4,9 +4,7 @@ namespace App\Models;
 
 use App\Constants\Attributes;
 use App\Constants\Tables;
-use App\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ContactUsContent
@@ -21,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class ContactUsContent extends CustomModel
 {
     use HasFactory;
+
     protected $table = Tables::CONTACT_US_CONTENT;
 
     protected $fillable = [
@@ -31,12 +30,17 @@ class ContactUsContent extends CustomModel
         Attributes::SUBHEADING_1,
     ];
 
+    protected $appends = [
+        Attributes::BACKGROUND_IMAGE_1_URL,
+    ];
+
     /**
      * Attribute: background image 1
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage1UrlAttribute($value)
+    {
+        return \Storage::disk("public")->url($this->background_image_1);
     }
 }
