@@ -12,9 +12,9 @@ class ListServicesContentTransformer extends CustomTransformer
 {
     public $fields = [
         Attributes::ID,
-        Attributes::BACKGROUND_IMAGE_1,
-        Attributes::BACKGROUND_IMAGE_2,
-        Attributes::BACKGROUND_IMAGE_3,
+        Attributes::BACKGROUND_IMAGE_1_URL,
+        Attributes::BACKGROUND_IMAGE_2_URL,
+        Attributes::BACKGROUND_IMAGE_3_URL,
         Attributes::HEADING_TOP_1,
         Attributes::HEADING_TOP_2,
         Attributes::HEADING_1,
