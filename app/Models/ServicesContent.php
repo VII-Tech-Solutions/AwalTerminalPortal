@@ -68,13 +68,20 @@ class ServicesContent extends CustomModel
         Attributes::BULLET_POINT_8,
     ];
 
+
+    protected $appends = [
+        Attributes::BACKGROUND_IMAGE_1_URL,
+        Attributes::BACKGROUND_IMAGE_2_URL,
+        Attributes::BACKGROUND_IMAGE_3_URL,
+    ];
+
     /**
      * Attribute: background image 1
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url($this->background_image_1);
     }
 
     /**
@@ -82,8 +89,8 @@ class ServicesContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage2Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage2UrlAttribute($value) {
+        return \Storage::disk("public")->url($this->background_image_2);
     }
 
     /**
@@ -91,7 +98,7 @@ class ServicesContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage3Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage3UrlAttribute($value) {
+        return \Storage::disk("public")->url($this->background_image_3);
     }
 }
