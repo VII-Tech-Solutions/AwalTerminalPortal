@@ -89,7 +89,9 @@ class Attributes extends CustomEnum
     const CREATED_AT = "created_at";
     const IMAGE = 'image';
     const IMAGE_1 = 'image_1';
+    const IMAGE_1_URL = 'image_1_url';
     const IMAGE_2 = 'image_2';
+    const IMAGE_2_URL = 'image_2_url';
     const FLIGHT_TYPE = "flight_type";
     const DATE = "date";
     const TIME = "time";
@@ -293,9 +295,13 @@ class Attributes extends CustomEnum
     const DELETED_AT = "deleted_at";
     const BACKGROUND_IMAGE = "background_image";
     const BACKGROUND_IMAGE_1 = "background_image_1";
+    const BACKGROUND_IMAGE_1_URL = "background_image_1_url";
     const BACKGROUND_IMAGE_2 = "background_image_2";
+    const BACKGROUND_IMAGE_2_URL = "background_image_2_url";
     const BACKGROUND_IMAGE_3 = "background_image_3";
+    const BACKGROUND_IMAGE_3_URL = "background_image_3_url";
     const BACKGROUND_IMAGE_4 = "background_image_4";
+    const BACKGROUND_IMAGE_4_URL = "background_image_4_url";
     const HEADING_TOP = "heading_top";
     const HEADING_TOP_1 = "heading_top_1";
     const HEADING_TOP_2 = "heading_top_2";
@@ -316,7 +322,9 @@ class Attributes extends CustomEnum
     const PARAGRAPH_4 = "paragraph_4";
     const SQUARE_IMAGE = "square_image";
     const SQUARE_IMAGE_1 = "square_image_1";
+    const SQUARE_IMAGE_1_URL = "square_image_1_url";
     const SQUARE_IMAGE_2 = "square_image_2";
+    const SQUARE_IMAGE_2_URL = "square_image_2_url";
     const BIG_IMAGE = "big_image";
     const BIG_IMAGE_1 = "big_image_1";
     const BULLET_POINTS = "bullet_points";
@@ -330,7 +338,9 @@ class Attributes extends CustomEnum
     const BULLET_POINT_7 = "bullet_point_7";
     const BULLET_POINT_8 = "bullet_point_8";
     const SECTION_IMAGE = "section_image";
+    const SECTION_IMAGE_URL = "section_image";
     const SECTION_IMAGE_1 = "section_image_1";
+    const SECTION_IMAGE_1_URL = "section_image_1_url";
     const IATA = "iata";
     const HEADER = "header";
     const SECTION_1 = "section_1";

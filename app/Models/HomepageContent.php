@@ -70,6 +70,18 @@ class HomepageContent extends CustomModel
         Attributes::BULLET_POINT_5,
     ];
 
+
+    protected $appends = [
+        Attributes::BACKGROUND_IMAGE_1_URL,
+        Attributes::BACKGROUND_IMAGE_2_URL,
+        Attributes::BACKGROUND_IMAGE_3_URL,
+        Attributes::BACKGROUND_IMAGE_4_URL,
+        Attributes::SQUARE_IMAGE_1_URL,
+        Attributes::IMAGE_1_URL,
+        Attributes::IMAGE_2_URL,
+        Attributes::SECTION_IMAGE_1_URL,
+    ];
+
     /**
      * Relationship: bullet points content
      * @return HasMany
@@ -83,8 +95,8 @@ class HomepageContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->background_image_1);
     }
 
     /**
@@ -92,8 +104,8 @@ class HomepageContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage2Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage2UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->background_image_2);
     }
 
 
@@ -102,8 +114,8 @@ class HomepageContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage3Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage3UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->background_image_3);
     }
 
 
@@ -112,8 +124,8 @@ class HomepageContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getBackgroundImage4Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getBackgroundImage4UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->background_image_4);
     }
 
     /**
@@ -121,8 +133,8 @@ class HomepageContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getSquareImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getSquareImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->square_image_1);
     }
 
     /**
@@ -130,8 +142,8 @@ class HomepageContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getSectionImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getSectionImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->section_image_1);
     }
 
     /**
@@ -139,8 +151,8 @@ class HomepageContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getImage1Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getImage1UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->image_1);
     }
 
     /**
@@ -148,7 +160,7 @@ class HomepageContent extends CustomModel
      * @param $value
      * @return string|null
      */
-    function getImage2Attribute($value) {
-        return Helpers::getCDNLink($value);
+    function getImage2UrlAttribute($value) {
+        return \Storage::disk("public")->url( $this->image_2);
     }
 }
