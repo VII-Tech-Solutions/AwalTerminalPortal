@@ -84,6 +84,7 @@ class GeneralAviationContent extends CustomModel
         Attributes::SQUARE_IMAGE_1_URL,
         Attributes::SQUARE_IMAGE_2_URL,
         Attributes::SECTION_IMAGE_1_URL,
+        Attributes::BIG_IMAGE_1_URL,
     ];
 
 
