@@ -41,7 +41,7 @@ class OurStoryContentResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Tabs::make('Headning')
+            Tabs::make('Heading')
             ->tabs([
                 Tab::make("Information")
                 ->schema([

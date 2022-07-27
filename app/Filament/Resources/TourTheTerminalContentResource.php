@@ -81,7 +81,8 @@ class TourTheTerminalContentResource extends Resource
                         Textarea::make(Attributes::PARAGRAPH_1)
                             ->required()
                             ->label(Helpers::readableText(Attributes::PARAGRAPH)),
-                        Repeater::make(Attributes::OUR_PHOTO_GALLERY)->relationship("OurPhotoGallery")
+                        Repeater::make(Attributes::OUR_PHOTO_GALLERY)
+                            ->relationship("OurPhotoGallery")
                             ->schema([
                                 FileUpload::make(Attributes::IMAGE)->image(),
                                 TextInput::make(Attributes::CAPTION)
@@ -94,7 +95,8 @@ class TourTheTerminalContentResource extends Resource
                         Textarea::make(Attributes::PARAGRAPH_3)
                             ->required()
                             ->label(Helpers::readableText(Attributes::PARAGRAPH)),
-                        Repeater::make(Attributes::PRIVATE_AND_PERSONAL_GALLERY)->relationship("PrivateAndPersonalGallery")
+                        Repeater::make(Attributes::PRIVATE_AND_PERSONAL_GALLERY)
+                            ->relationship("PrivateAndPersonalGallery")
                             ->schema([
                                 FileUpload::make(Attributes::IMAGE)->image(),
                                 TextInput::make(Attributes::CAPTION)

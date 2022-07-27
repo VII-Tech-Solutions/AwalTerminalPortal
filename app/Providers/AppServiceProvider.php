@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Constants\AdminUserType;
 use App\Models\ContactUsContent;
+use App\Models\EliteServicesContent;
 use App\Models\GeneralAviationContent;
 use App\Models\HomepageContent;
 use App\Models\OurStoryContent;
@@ -38,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $OurStoryPageContentId = OurStoryContent::all()->first()->id;
         $servicesPageContentId = ServicesContent::all()->first()->id;
         $generalAviationPageContentId = GeneralAviationContent::all()->first()->id;
-        $eliteServicesPageContentId = GeneralAviationContent::all()->first()->id;
+        $eliteServicesPageContentId = EliteServicesContent::all()->first()->id;
         $contactUsPageContentId = ContactUsContent::all()->first()->id;
         //
         Filament::serving(function () use ($homePageContentId, $tourPageContentId, $OurStoryPageContentId, $servicesPageContentId, $generalAviationPageContentId, $eliteServicesPageContentId, $contactUsPageContentId) {
