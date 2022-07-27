@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors')
+layout.footer.should_show_logo = false
 
 module.exports = {
     content: [

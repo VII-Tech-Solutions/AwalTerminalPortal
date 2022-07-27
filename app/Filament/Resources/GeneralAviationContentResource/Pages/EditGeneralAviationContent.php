@@ -10,6 +10,8 @@ class EditGeneralAviationContent extends EditRecord
 {
     protected static string $resource = GeneralAviationContentResource::class;
 
+    protected static ?string $navigationLabel = "General Aviation Content";
+
     protected function getActions(): array
     {
         return [];

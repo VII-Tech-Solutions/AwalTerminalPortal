@@ -10,6 +10,8 @@ class EditHomepageContent extends EditRecord
 {
     protected static string $resource = HomepageContentResource::class;
 
+    protected static ?string $navigationLabel = "Homepage Content";
+
     /**
      * @param bool $shouldRegisterNavigation
      */

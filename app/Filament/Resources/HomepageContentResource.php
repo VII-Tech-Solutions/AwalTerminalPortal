@@ -2,11 +2,14 @@
 
 namespace App\Filament\Resources;
 
+use App\Constants\AdminUserType;
 use App\Constants\Attributes;
+use App\Filament\Pages\EditHomeContent;
 use App\Filament\Resources\HomepageContentResource\Pages;
 use App\Filament\Resources\HomepageContentResource\RelationManagers;
 use App\Helpers;
 use App\Models\HomepageContent;
+use App\Models\User;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Tabs;
@@ -31,6 +34,20 @@ class HomepageContentResource extends Resource
 
     protected static ?string $navigationGroup = "Website Content";
 
+    protected static bool $shouldRegisterNavigation = false;
+
+    protected static ?string $modelLabel = "Homepage content";
+
+    protected static ?string $pluralModelLabel = "Homepage";
+
+    protected static ?string $breadcrumb = '';
+
+    public static function canViewAny(): bool
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        return $user->canAccess(AdminUserType::MODERATOR);
+    }
 
     public static function form(Form $form): Form
     {
@@ -182,9 +199,6 @@ class HomepageContentResource extends Resource
 
     public static function getPages(): array
     {
-//        $homeContent = HomepageContent::all()->first();
-//        $record = $homeContent->id;
-
         return [
             'index' => Pages\ListHomepageContents::route('/'),
             'edit' => Pages\EditHomepageContent::route('/{record}/edit'),

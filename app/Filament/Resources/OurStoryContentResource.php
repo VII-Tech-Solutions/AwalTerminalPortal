@@ -30,6 +30,14 @@ class OurStoryContentResource extends Resource
 
     protected static ?string $navigationGroup = "Website Content";
 
+    protected static bool $shouldRegisterNavigation = false;
+
+    protected static ?string $modelLabel = "Our story page content";
+
+    protected static ?string $pluralModelLabel = "Our story";
+
+    protected static ?string $breadcrumb = '';
+
     public static function form(Form $form): Form
     {
         return $form->schema([

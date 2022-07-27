@@ -38,6 +38,14 @@ class TourTheTerminalContentResource extends Resource
 
     protected static ?string $navigationGroup = "Website Content";
 
+    protected static bool $shouldRegisterNavigation = false;
+
+    protected static ?string $modelLabel = "Tour page content";
+
+    protected static ?string $pluralModelLabel = "Tour the terminal";
+
+    protected static ?string $breadcrumb = '';
+
     public static function form(Form $form): Form
     {
         return $form->schema([

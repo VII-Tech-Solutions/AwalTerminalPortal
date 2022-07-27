@@ -36,6 +36,14 @@ class ContactUsContentResource extends Resource
 
     protected static ?string $navigationGroup = "Website Content";
 
+    protected static bool $shouldRegisterNavigation = false;
+
+    protected static ?string $modelLabel = "Contact us page content";
+
+    protected static ?string $pluralModelLabel = "Contact us";
+
+    protected static ?string $breadcrumb = '';
+
     public static function form(Form $form): Form
     {
         return $form->schema([

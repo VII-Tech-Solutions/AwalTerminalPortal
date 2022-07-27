@@ -30,6 +30,14 @@ class EliteServicesContentResource extends Resource
 
     protected static ?string $navigationGroup = "Website Content";
 
+    protected static bool $shouldRegisterNavigation = false;
+
+    protected static ?string $modelLabel = "Elite services page content";
+
+    protected static ?string $pluralModelLabel = "Elite services";
+
+    protected static ?string $breadcrumb = '';
+
     public static function form(Form $form): Form
     {
         return $form->schema([

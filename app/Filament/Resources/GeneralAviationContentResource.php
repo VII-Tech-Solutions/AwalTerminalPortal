@@ -38,6 +38,15 @@ class GeneralAviationContentResource extends Resource
 
     protected static ?string $navigationGroup = "Website Content";
 
+    protected static bool $shouldRegisterNavigation = false;
+
+    protected static ?string $modelLabel = "General aviation page content";
+
+    protected static ?string $pluralModelLabel = "General aviation";
+
+    protected static ?string $breadcrumb = '';
+
+
     public static function form(Form $form): Form
     {
         return $form->schema([

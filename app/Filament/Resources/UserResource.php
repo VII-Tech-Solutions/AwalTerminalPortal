@@ -76,7 +76,7 @@ class UserResource extends Resource
                         AdminUserType::GA => 'General Aviation',
                         AdminUserType::ELITE_ONLY => 'Elite Services',
                         AdminUserType::SUPER_ADMIN => 'Hala Admin',
-                        AdminUserType::MODERATOR => 'Moderator',
+                        AdminUserType::MODERATOR => 'Content Moderator',
                     ])
             ])
             ->filters([
