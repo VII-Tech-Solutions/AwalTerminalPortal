@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
             if (!is_null($user)) {
                 if ($user->canAccess(AdminUserType::MODERATOR)) {
                     Filament::registerNavigationItems([
-                        NavigationItem::make('homepage')->label('Homepage')
+                        NavigationItem::make()->label('Homepage')
                             ->url("$appUrl/admin/homepage-contents/$homePageContentId/edit")
                             ->icon('heroicon-o-collection')
                             ->group("Website Content"),

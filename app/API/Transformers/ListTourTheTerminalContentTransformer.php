@@ -26,6 +26,9 @@ class ListTourTheTerminalContentTransformer extends CustomTransformer
         Attributes::PARAGRAPH_2,
         Attributes::PARAGRAPH_3,
         Attributes::IMAGE_1_URL,
+        Attributes::VISIBLE_1,
+        Attributes::HEADING_3,
+        Attributes::VIDEO_1,
     ];
 
     public $defaultIncludes = [

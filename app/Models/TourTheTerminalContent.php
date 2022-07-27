@@ -50,6 +50,8 @@ class TourTheTerminalContent extends CustomModel
         Attributes::PARAGRAPH_2,
         Attributes::PARAGRAPH_3,
         Attributes::IMAGE_1,
+        Attributes::VISIBLE_1,
+        Attributes::VIDEO_1,
     ];
 
     protected $appends = [
