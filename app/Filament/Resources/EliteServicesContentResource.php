@@ -62,9 +62,17 @@ class EliteServicesContentResource extends Resource
                                 TextInput::make(Attributes::HEADING_2)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::HEADING)),
-                                Textarea::make(Attributes::PARAGRAPH_1)
+                                MarkdownEditor::make(Attributes::PARAGRAPH_1)
                                     ->required()
-                                    ->label(Helpers::readableText(Attributes::PARAGRAPH)),
+                                    ->label(Helpers::readableText(Attributes::TEXT))
+                                    ->toolbarButtons([
+                                        'bold',
+                                        'edit',
+                                        'italic',
+                                        'link',
+                                        'preview',
+                                        'strike',
+                                    ])->label(Helpers::readableText(Attributes::PARAGRAPH)),
                             ])->columns(1),
                             Fieldset::make(Helpers::readableText(Attributes::SECTION_2))->schema([
                                 FileUpload::make(Attributes::BACKGROUND_IMAGE_2)
@@ -86,9 +94,17 @@ class EliteServicesContentResource extends Resource
                                 TextInput::make(Attributes::HEADING_4)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::HEADING)),
-                                Textarea::make(Attributes::PARAGRAPH_3)
+                                MarkdownEditor::make(Attributes::PARAGRAPH_3)
                                     ->required()
-                                    ->label(Helpers::readableText(Attributes::PARAGRAPH)),
+                                    ->label(Helpers::readableText(Attributes::TEXT))
+                                    ->toolbarButtons([
+                                        'bold',
+                                        'edit',
+                                        'italic',
+                                        'link',
+                                        'preview',
+                                        'strike',
+                                    ])->label(Helpers::readableText(Attributes::PARAGRAPH)),
                                 TextInput::make(Attributes::BULLET_POINT_1)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::BULLET_POINT_1)),
