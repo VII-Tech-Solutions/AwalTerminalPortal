@@ -9,6 +9,7 @@ use App\Helpers;
 use App\Models\GeneralAviationContent;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
@@ -82,9 +83,17 @@ class GeneralAviationContentResource extends Resource
                                 TextInput::make(Attributes::HEADING_3)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::HEADING)),
-                                Textarea::make(Attributes::PARAGRAPH_2)
+                                MarkdownEditor::make(Attributes::PARAGRAPH_2)
                                     ->required()
-                                    ->label(Helpers::readableText(Attributes::PARAGRAPH)),
+                                    ->label(Helpers::readableText(Attributes::PARAGRAPH))
+                                    ->toolbarButtons([
+                                        'bold',
+                                        'edit',
+                                        'italic',
+                                        'link',
+                                        'preview',
+                                        'strike',
+                                    ]),
                                 TextInput::make(Attributes::BULLET_POINT_1)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::BULLET_POINT_1)),
@@ -103,9 +112,17 @@ class GeneralAviationContentResource extends Resource
                                 TextInput::make(Attributes::BULLET_POINT_6)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::BULLET_POINT_6)),
-                                TextInput::make(Attributes::TEXT_1)
+                                MarkdownEditor::make(Attributes::TEXT_1)
                                     ->required()
-                                    ->label(Helpers::readableText(Attributes::TEXT)),
+                                    ->label(Helpers::readableText(Attributes::TEXT))
+                                    ->toolbarButtons([
+                                        'bold',
+                                        'edit',
+                                        'italic',
+                                        'link',
+                                        'preview',
+                                        'strike',
+                                    ]),
                             ])->columns(1),
                             Fieldset::make(Helpers::readableText(Attributes::SECTION_3))->schema([
                                 FileUpload::make(Attributes::SECTION_IMAGE_1)
@@ -117,9 +134,17 @@ class GeneralAviationContentResource extends Resource
                                 TextInput::make(Attributes::HEADING_4)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::HEADING)),
-                                Textarea::make(Attributes::PARAGRAPH_3)
+                                MarkdownEditor::make(Attributes::PARAGRAPH_3)
                                     ->required()
-                                    ->label(Helpers::readableText(Attributes::PARAGRAPH)),
+                                    ->label(Helpers::readableText(Attributes::PARAGRAPH))
+                                    ->toolbarButtons([
+                                        'bold',
+                                        'edit',
+                                        'italic',
+                                        'link',
+                                        'preview',
+                                        'strike',
+                                    ]),
                             ])->columns(1),
                             Fieldset::make(Helpers::readableText(Attributes::SECTION_5))->schema([
                                 FileUpload::make(Attributes::IMAGE_1)
