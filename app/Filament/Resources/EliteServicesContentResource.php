@@ -9,6 +9,7 @@ use App\Helpers;
 use App\Models\EliteServicesContent;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
@@ -109,9 +110,17 @@ class EliteServicesContentResource extends Resource
                                 TextInput::make(Attributes::BULLET_POINT_7)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::BULLET_POINT_7)),
-                                TextInput::make(Attributes::TEXT_1)
+                                MarkdownEditor::make(Attributes::TEXT_1)
                                     ->required()
-                                    ->label(Helpers::readableText(Attributes::TEXT)),
+                                    ->label(Helpers::readableText(Attributes::TEXT))
+                                    ->toolbarButtons([
+                                        'bold',
+                                        'edit',
+                                        'italic',
+                                        'link',
+                                        'preview',
+                                        'strike',
+                                    ]),
                             ])->columns(1),
                             Fieldset::make(Helpers::readableText(Attributes::SECTION_4))->schema([
                                 FileUpload::make(Attributes::SQUARE_IMAGE_2)
