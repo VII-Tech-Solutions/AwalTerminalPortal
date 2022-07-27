@@ -50,7 +50,7 @@ class HomepageContentResource extends Resource
                             TextInput::make(Attributes::HEADING_1)
                                 ->required()
                                 ->label(Helpers::readableText(Attributes::HEADING)),
-                            TextInput::make(Attributes::SUBHEADING_1)
+                            Textarea::make(Attributes::SUBHEADING_1)
                                 ->required()
                                 ->label(Helpers::readableText(Attributes::SUBHEADING)),
                         ])->columns(1),
@@ -173,7 +173,6 @@ class HomepageContentResource extends Resource
 
     }
 
-
     public static function getRelations(): array
     {
         return [
@@ -183,6 +182,9 @@ class HomepageContentResource extends Resource
 
     public static function getPages(): array
     {
+//        $homeContent = HomepageContent::all()->first();
+//        $record = $homeContent->id;
+
         return [
             'index' => Pages\ListHomepageContents::route('/'),
             'edit' => Pages\EditHomepageContent::route('/{record}/edit'),
