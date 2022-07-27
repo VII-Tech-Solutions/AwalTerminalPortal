@@ -21,7 +21,7 @@ class GeneralAviationContentResource extends Resource
 {
     protected static ?string $model = GeneralAviationContent::class;
 
-    protected static ?string $navigationLabel = 'General Aviation';
+    protected static ?string $navigationLabel = '';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -31,7 +31,7 @@ class GeneralAviationContentResource extends Resource
 
     protected static ?string $modelLabel = "General aviation page content";
 
-    protected static ?string $pluralModelLabel = "General aviation";
+    protected static ?string $pluralModelLabel = "";
 
     protected static ?string $breadcrumb = '';
 

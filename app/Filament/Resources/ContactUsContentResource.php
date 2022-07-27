@@ -21,7 +21,7 @@ class ContactUsContentResource extends Resource
 {
     protected static ?string $model = ContactUsContent::class;
 
-    protected static ?string $navigationLabel = 'Contact Us';
+    protected static ?string $navigationLabel = '';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -31,7 +31,7 @@ class ContactUsContentResource extends Resource
 
     protected static ?string $modelLabel = "Contact us page content";
 
-    protected static ?string $pluralModelLabel = "Contact us";
+    protected static ?string $pluralModelLabel = "";
 
     protected static ?string $breadcrumb = '';
 

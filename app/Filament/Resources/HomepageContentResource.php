@@ -24,7 +24,7 @@ class HomepageContentResource extends Resource
 {
     protected static ?string $model = HomepageContent::class;
 
-    protected static ?string $navigationLabel = 'Homepage';
+    protected static ?string $navigationLabel = '';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -34,7 +34,7 @@ class HomepageContentResource extends Resource
 
     protected static ?string $modelLabel = "Homepage content";
 
-    protected static ?string $pluralModelLabel = "Homepage";
+    protected static ?string $pluralModelLabel = "";
 
     protected static ?string $breadcrumb = '';
 

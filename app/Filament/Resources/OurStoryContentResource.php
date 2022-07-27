@@ -21,7 +21,7 @@ class OurStoryContentResource extends Resource
 {
     protected static ?string $model = OurStoryContent::class;
 
-    protected static ?string $navigationLabel = 'Our Story';
+    protected static ?string $navigationLabel = '';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -31,7 +31,7 @@ class OurStoryContentResource extends Resource
 
     protected static ?string $modelLabel = "Our story page content";
 
-    protected static ?string $pluralModelLabel = "Our story";
+    protected static ?string $pluralModelLabel = "";
 
     protected static ?string $breadcrumb = '';
 

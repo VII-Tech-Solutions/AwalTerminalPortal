@@ -21,7 +21,7 @@ class EliteServicesContentResource extends Resource
 {
     protected static ?string $model = EliteServicesContent::class;
 
-    protected static ?string $navigationLabel = 'Elite Services';
+    protected static ?string $navigationLabel = '';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -31,7 +31,7 @@ class EliteServicesContentResource extends Resource
 
     protected static ?string $modelLabel = "Elite services page content";
 
-    protected static ?string $pluralModelLabel = "Elite services";
+    protected static ?string $pluralModelLabel = "";
 
     protected static ?string $breadcrumb = '';
 

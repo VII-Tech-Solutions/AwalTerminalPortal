@@ -21,7 +21,7 @@ class ServicesContentResource extends Resource
 {
     protected static ?string $model = ServicesContent::class;
 
-    protected static ?string $navigationLabel = 'Services';
+    protected static ?string $navigationLabel = '';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -31,7 +31,7 @@ class ServicesContentResource extends Resource
 
     protected static ?string $modelLabel = "Services page content";
 
-    protected static ?string $pluralModelLabel = "Services";
+    protected static ?string $pluralModelLabel = "";
 
     protected static ?string $breadcrumb = '';
 
