@@ -9,7 +9,7 @@ use App\Helpers;
 use App\Models\GeneralAviationContent;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
@@ -83,7 +83,7 @@ class GeneralAviationContentResource extends Resource
                                 TextInput::make(Attributes::HEADING_3)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::HEADING)),
-                                MarkdownEditor::make(Attributes::PARAGRAPH_2)
+                                RichEditor::make(Attributes::PARAGRAPH_2)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::PARAGRAPH))
                                     ->toolbarButtons([
@@ -112,7 +112,7 @@ class GeneralAviationContentResource extends Resource
                                 TextInput::make(Attributes::BULLET_POINT_6)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::BULLET_POINT_6)),
-                                MarkdownEditor::make(Attributes::TEXT_1)
+                                RichEditor::make(Attributes::TEXT_1)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::TEXT))
                                     ->toolbarButtons([
@@ -134,7 +134,7 @@ class GeneralAviationContentResource extends Resource
                                 TextInput::make(Attributes::HEADING_4)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::HEADING)),
-                                MarkdownEditor::make(Attributes::PARAGRAPH_3)
+                                RichEditor::make(Attributes::PARAGRAPH_3)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::PARAGRAPH))
                                     ->toolbarButtons([

@@ -12,7 +12,7 @@ use App\Models\HomepageContent;
 use App\Models\User;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
@@ -80,7 +80,7 @@ class HomepageContentResource extends Resource
                                 TextInput::make(Attributes::HEADING_2)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::HEADING)),
-                                MarkdownEditor::make(Attributes::PARAGRAPH_1)
+                                RichEditor::make(Attributes::PARAGRAPH_1)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::TEXT))
                                     ->toolbarButtons([

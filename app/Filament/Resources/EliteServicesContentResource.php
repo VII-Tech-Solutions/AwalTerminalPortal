@@ -9,7 +9,7 @@ use App\Helpers;
 use App\Models\EliteServicesContent;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
@@ -62,15 +62,13 @@ class EliteServicesContentResource extends Resource
                                 TextInput::make(Attributes::HEADING_2)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::HEADING)),
-                                MarkdownEditor::make(Attributes::PARAGRAPH_1)
+                                RichEditor::make(Attributes::PARAGRAPH_1)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::TEXT))
                                     ->toolbarButtons([
                                         'bold',
-                                        'edit',
                                         'italic',
                                         'link',
-                                        'preview',
                                         'strike',
                                     ])->label(Helpers::readableText(Attributes::PARAGRAPH)),
                             ])->columns(1),
@@ -94,7 +92,7 @@ class EliteServicesContentResource extends Resource
                                 TextInput::make(Attributes::HEADING_4)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::HEADING)),
-                                MarkdownEditor::make(Attributes::PARAGRAPH_3)
+                                RichEditor::make(Attributes::PARAGRAPH_3)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::TEXT))
                                     ->toolbarButtons([
@@ -126,7 +124,7 @@ class EliteServicesContentResource extends Resource
                                 TextInput::make(Attributes::BULLET_POINT_7)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::BULLET_POINT_7)),
-                                MarkdownEditor::make(Attributes::TEXT_1)
+                                RichEditor::make(Attributes::TEXT_1)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::TEXT))
                                     ->toolbarButtons([
