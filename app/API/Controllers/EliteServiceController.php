@@ -151,7 +151,7 @@ class EliteServiceController extends CustomController
                 $subtotal += ($extra_adult_passengers * 20);
 
             } else {
-                $subtotal += (4 * $price_per_adult);
+                $subtotal += ($adult_priced_passengers * $price_per_adult);
             }
         } else if ($service_id == 2) {
             if ($adult_priced_passengers > 4) {
@@ -282,7 +282,7 @@ class EliteServiceController extends CustomController
                 $subtotal += ($extra_adult_passengers * 25);
 
             } else {
-                $subtotal += (4 * $price_per_adult);
+                $subtotal += ($adult_priced_passengers * $price_per_adult);
             }
         }
 
