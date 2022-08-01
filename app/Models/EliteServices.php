@@ -166,7 +166,7 @@ class EliteServices extends CustomModel
 
         // generate url
         return URL::temporarySignedRoute(
-            'elite-service-payment', $expires_at, [
+            'elite-service', $expires_at, [
                 Attributes::UUID => $uuid
             ]
         );
