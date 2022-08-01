@@ -24,6 +24,8 @@ class EliteServiceTransformer extends CustomTransformer
         Attributes::NUMBER_OF_CHILDREN,
         Attributes::NUMBER_OF_INFANTS,
         Attributes::PAYMENT_LINK,
+        Attributes::SUBTOTAL,
+        Attributes::VAT_AMOUNT,
         Attributes::TOTAL,
     ];
 }
