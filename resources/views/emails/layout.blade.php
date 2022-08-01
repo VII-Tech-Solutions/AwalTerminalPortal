@@ -686,7 +686,7 @@
                                                 <br>
                                                 T: +973 39471116
                                                 <br>
-                                                E: cip@halabahrain.bh
+                                                E: elite@halabahrain.bh
                                                 <br>
                                                 <br>
                                                 Please do not reply to this email as this address cannot receive any replies.

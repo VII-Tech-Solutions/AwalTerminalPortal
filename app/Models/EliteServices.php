@@ -233,7 +233,7 @@ class EliteServices extends CustomModel
     function markAsPaid(){
 
         // change status
-        $this->submission_status_id = ESStatus::REJECTED;
+        $this->submission_status_id = ESStatus::PAID;
         $this->save();
 
         // send email

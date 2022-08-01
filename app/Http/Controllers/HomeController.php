@@ -152,7 +152,7 @@ class HomeController extends CustomController
             ]);
 
             // go to payment page
-            dd(env("CREDIMAX_URL") . "/checkout?$query");
+//            dd(env("CREDIMAX_URL") . "/checkout?$query");
             return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
 
         }
