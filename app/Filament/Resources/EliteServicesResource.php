@@ -61,6 +61,7 @@ class EliteServicesResource extends Resource
     {
         $user = auth()->user();
         $rejected_id = SubmissionStatus::where(Attributes::NAME, 'Rejected')->first()->id;
+        dd($rejected_id);
         return $form
             ->schema([
                 //
