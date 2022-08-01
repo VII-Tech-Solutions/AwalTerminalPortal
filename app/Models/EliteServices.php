@@ -166,7 +166,7 @@ class EliteServices extends CustomModel
 
         // generate url
         return URL::temporarySignedRoute(
-            'elite-service', $expires_at, [
+            'elite-service-payment', $expires_at, [
                 Attributes::UUID => $uuid
             ]
         );
@@ -207,8 +207,9 @@ class EliteServices extends CustomModel
 
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                 $link = $elite_service->generatePaymentLink($elite_service->uuid);
+                $redirectUrl =  env('WEBSITE_URL')."/elite-service?uuid=$elite_service->uuid";
                 $amount = $elite_service->total;
-                Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link, $amount]), $user->email);
+                Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$redirectUrl, $amount]), $user->email);
                 break;
             case ESStatus::PAID:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();

@@ -20,7 +20,8 @@
     <br>
         <div>
             <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #4e89e8">
-                {{$data[0]}} </p>
+                <a href="{{$data[0]}}">Click here</a>
+            </p>
         </div>
     <br>
         <div style="display: flex">
