@@ -11,6 +11,7 @@ use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;
 use App\Models\Airport;
 use App\Models\Bookers;
+use App\Models\Country;
 use App\Models\EliteServices;
 use App\Models\EliteServiceTypes;
 use App\Models\Passengers;
@@ -233,6 +234,12 @@ class EliteServiceController extends CustomController
 
             $from_airport_id = Airport::where(Attributes::ID, $airport_id)->first();
 //            Country::where(Attributes::ID, $value['nationality_id'])->first();
+
+            foreach ($passengers as $value){
+                $nationality=  Country::where(Attributes::ID, $value['nationality_id'])->first();
+                $value['nationality_id']= $nationality;
+                $passengers = $value;
+            }
             // send email to customer
             Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker_email);
 
