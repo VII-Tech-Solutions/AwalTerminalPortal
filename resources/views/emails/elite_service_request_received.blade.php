@@ -50,27 +50,27 @@
     <div style="padding-bottom: 20px">
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Infants: {{$data[7]}}</p>
     </div>
-@foreach( $data[8] as $passengers)
+@foreach( $data[8] as $key=>$value)
     <div>
-        Passenger
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger {{$key}}</p>
     </div>
     <div>
-        Title: {{$passengers[0]}}
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Title: </p>
     </div>
     <div>
-        First Name:
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">First Name:</p>
     </div>
     <div>
-        Last Name:
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Last Name:</p>
     </div>
     <div>
-        Date of Birth:
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date of Birth:</p>
     </div>
     <div>
-        Nationality:
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nationality:</p>
     </div>
     <div style="padding-bottom: 20px">
-        Class:
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Class:</p>
     </div>
 @endforeach
 
