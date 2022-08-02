@@ -17,35 +17,40 @@
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Here is an overview of all the details you submitted:</p>
     </div>
+    @if($data[1])
     <div>
-        Flight Status: Arrival
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Status: Arrival</p>
     </div>
+    @endif
 
+    </div>
+    @if(!$data[1])
+        <div>
+            <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Status: Departure </p>
+        </div>
+    @endif
     <div>
-        Arriving From: Dubai International Airport
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arriving From: {{$data[8]}}</p>
     </div>
     <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date{{$data[1]}}</p>
-
-{{--        <p> Date:--}}
-{{--        {{$data[1]}}</p>--}}
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date: {{$data[2]}}</p>
     </div>
     <div>
-        Time:
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Time: {{$data[3]}}</p>
     </div>
     <div style="padding-bottom: 20px">
-        Flight Number:
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Number: {{$data[4]}}</p>
     </div>
 
 
     <div>
-        Adults:
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Adults: {{$data[5]}}</p>
     </div>
     <div>
-        Children:
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Children: {{$data[6]}}</p>
     </div>
     <div style="padding-bottom: 20px">
-        Infants:
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Infants: {{$data[7]}}</p>
     </div>
 
     <div>
