@@ -16,6 +16,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use VIITech\Helpers\Constants\DebuggerLevels;
 use VIITech\Helpers\GlobalHelpers;
 
 /**
@@ -200,7 +201,8 @@ class HomeController extends CustomController
     {
 
         try {
-
+            $success_url = url("success");
+            $error_url = url("fail");
             // and will call the benefit middle ware on this case to generate a payment page url
             $benefit_request_data = [
                 Attributes::AMOUNT => $amount,
@@ -217,17 +219,17 @@ class HomeController extends CustomController
 
             $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
 
-            $url = env('PAYMENT_URL') . '/benefit/checkout';
-
-            $client = new Client(['auth' => ['Test@123', 'password']]);
-
-            $response = $client->request('POST', $url, [
+            $client   = new Client(['auth' => ['awal', 'password']]);
+            $response = $client->request( 'POST', env('BENEFIT_PAYMENT_URL').'/generate_payment_link', [
                 'multipart' => $benefit_request_data
-            ]);
+            ] );
 
-            $response_body = json_decode($response->getBody()->getContents());
+            $response_body = json_decode( $response->getBody()->getContents() );
 
-            return $response_body->data->payment_page ?? null;
+            GlobalHelpers::debugger(json_encode($response_body), DebuggerLevels::INFO);
+            $payment_url = $response_body->data->payment_page ?? null;
+
+            return $payment_url;
 
         } catch (Exception|GuzzleException $e) {
             Helpers::captureException($e);
