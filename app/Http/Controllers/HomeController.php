@@ -166,7 +166,6 @@ class HomeController extends CustomController
             ]);
 
             // go to payment page
-//            dd(env("CREDIMAX_URL") . "/checkout?$query");
             return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
 
         }
@@ -175,7 +174,7 @@ class HomeController extends CustomController
             // TODO implement benefit
 
             // go to payment page
-            return redirect()->to(env("BENEFIT_URL") . "/checkout");
+            return redirect()->to(env("PAYMENT_URL") . "/checkout");
         }
 
 
