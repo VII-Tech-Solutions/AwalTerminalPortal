@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Constants\ActivityPaymentMethods;
 use App\Constants\Attributes;
+use App\Constants\BookingType;
 use App\Constants\CastingTypes;
 use App\Constants\ESStatus;
 use App\Constants\FlightType;
@@ -18,6 +20,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use VerumConsilium\Browsershot\Facades\PDF;
+use VIITech\Helpers\Constants\Platforms;
+use VIITech\Helpers\GlobalHelpers;
 
 /**
  * Elite Services
@@ -178,7 +182,70 @@ class EliteServices extends CustomModel
      */
     function getPaymentLinkAttribute(){
         $uuid = $this->uuid;
-        return url("/elite-service/$uuid/pay/process");
+//        return url("/elite-service/$uuid/pay/process");
+
+
+        $secret = Values::SECRET;
+        $payment_url = null;
+
+        // will create a temporary order to generate a unique track id (uid)
+        $new_temp_order = new TempOrder();
+        $new_temp_order->type = $type;
+        $new_temp_order->booking_id = $booking->id;
+        $new_temp_order->payment_method = $payment_method;
+
+        if($new_temp_order->save()){
+
+            if($type == BookingType::ACTIVITY){
+                $customer_name = $booking->getUserName();
+                $customer_phone_number = $booking->getUserPhoneNumber();
+                $amount = $booking->total_price;
+            }else{
+                $customer_name = $booking->personal_info['client_name'];
+                $customer_phone_number = $booking->personal_info['client_tel'];
+                $amount = $booking->discounted_total_price;
+            }
+            $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
+$amount = $elite_service->total;
+            // set to 0.001 for testing purposes
+            if(GlobalHelpers::isDevelopmentEnv() || GlobalHelpers::isStagingEnv()){
+                $amount = Values::TEST_AMOUNT;
+            }
+
+            if($type == BookingType::ACTIVITY && $platform == Platforms::MOBILE){
+                $success_url = url("/api/payments/verify-benefit?booking=$booking->uuid&secret=$secret");
+                $error_url = url("/api/payments/verify-benefit?booking=$booking->uuid&secret=$secret");
+            }else if($type == BookingType::ACTIVITY && $platform == Platforms::WEB){
+                $success_url = url("/api/payments/verify-benefit?booking=$booking->uuid&secret=$secret&platform=web");
+                $error_url = url("/api/payments/verify-benefit?booking=$booking->uuid&secret=$secret&platform=web");
+            }else{
+                $success_url = env('WEBSITE_URL') . "/confirmation/$booking->uuid";
+                $error_url = env('WEBSITE_URL') . "/ads?booking=$booking->uuid&error=true";
+            }
+
+            if($payment_method == ActivityPaymentMethods::CREDIT_CARD){
+
+                $query = http_build_query([
+                    Attributes::SUCCESS_URL => $success_url,
+                    Attributes::ERROR_URL => $error_url,
+                    Attributes::AMOUNT => $amount,
+                    Attributes::ORDER_ID => $new_temp_order->uid,
+                    Attributes::DESCRIPTION => $booking->activity->name ?? null,
+                ]);
+
+                $payment_url = env("PAYMENT_URL") . "/checkout?$query";
+
+            }else{
+
+                $payment_url = self::generateBenefitPaymentLink($amount, $new_temp_order->uid, $customer_name, $customer_phone_number, $success_url, $error_url);
+            }
+
+        }
+
+        return [
+            Attributes::PAYMENT_URL => $payment_url,
+            Attributes::TEMP_ORDER => $new_temp_order,
+        ];
     }
 
     /**
