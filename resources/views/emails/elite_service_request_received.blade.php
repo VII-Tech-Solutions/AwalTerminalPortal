@@ -56,7 +56,7 @@
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Title:
-            {{$value['$title']}}</p>
+         </p>
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">First Name:</p>
