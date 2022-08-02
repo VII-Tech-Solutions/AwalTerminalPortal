@@ -31,7 +31,7 @@
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arriving From: Dubai International Airport</p>
     </div>
     <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date: {{ Carbon\Carbon::createFromFormat('d-mm-Y',$data[2]) }}</p>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date: {{ Carbon\Carbon::createFromFormat('d-m-Y',$data[2]) }}</p>
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Time: {{$data[3]}}</p>
