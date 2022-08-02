@@ -215,7 +215,7 @@ class GeneralAviationFormController extends CustomController
             }
 
             // send email to customer
-            Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
+            Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullname, $aircraft_type]), $operator_email);
 
             // return success response
             return Helpers::formattedJSONResponse("Submitted successfully", [
