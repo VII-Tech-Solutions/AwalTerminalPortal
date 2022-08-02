@@ -21,3 +21,9 @@ mix.js('resources/js/app.js', 'public/js')
     ]);
 
 mix.copy('resources/assets', 'public/assets');
+
+mix.webpackConfig({
+    stats: {
+        children: true,
+    },
+});
