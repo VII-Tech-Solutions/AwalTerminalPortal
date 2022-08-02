@@ -45,13 +45,13 @@ class BenefitPaymentHelper
             'benefit_middleware_token' => 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ',
             'success_url'              => $success_url,
             'error_url'                => $error_url,
-            'merchant_id'              => 'TESTE12818950'
+            'merchant_id'              => '12818950'
         ];
 
         $benefit_request_data  = Helpers::array_to_multipart_array( $benefit_request_data );
 
         $client   = new Client(['auth' => ['awal', 'password']]);
-        $response = $client->request( 'POST', env('BENEFIT_PAYMENT_URL').'/generate_payment_link', [
+        $response = $client->request( 'POST', env('PAYMENT_URL').'/benefit/checkout', [
             'multipart' => $benefit_request_data
         ] );
 
