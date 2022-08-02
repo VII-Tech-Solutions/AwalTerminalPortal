@@ -219,7 +219,7 @@ class HomeController extends CustomController
 
             $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
 
-            $url = env('PAYMENT_URL') . '/benefit/checkout';
+            $url = env('PAYMENT_URL') . '/checkout';
 
             $client = new Client(['auth' => ['awal', 'password']]);
             $response = $client->request('POST', $url, [
