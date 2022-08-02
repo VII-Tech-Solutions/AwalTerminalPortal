@@ -136,12 +136,23 @@ class HomeController extends CustomController
         }
 
         // get transaction
-//        /** @var Transaction $transaction */
-//        $transaction = Transaction::where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
-//        if (is_null($transaction)) {
-//            dd("empty transaction");
-//            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
-//        }
+        /** @var Transaction $transaction */
+        $transaction = Transaction::where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
+        if (is_null($transaction)) {
+            // create transaction
+            Transaction::createOrUpdate([
+                Attributes::ELITE_SERVICE_ID => $elite_service->id,
+                Attributes::AMOUNT => $elite_service->total,
+                Attributes::ORDER_ID => Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID),
+                Attributes::PAYMENT_PROVIDER => PaymentProvider::CREDIMAX,
+                Attributes::UUID => $elite_service->uuid,
+                Attributes::STATUS => TransactionStatus::PENDING
+            ], [
+                Attributes::ELITE_SERVICE_ID,
+                Attributes::UUID,
+                Attributes::AMOUNT,
+            ]);
+        }
 
         // redirect to payment gateway
         if($payment_method == PaymentProvider::CREDIMAX){
