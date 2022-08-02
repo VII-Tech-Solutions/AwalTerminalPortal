@@ -26,7 +26,7 @@ class EditGeneralAviationServices extends EditRecord
             $id = $this->data['id'];
             $general_aviation = GeneralAviationServices::query()->where(Attributes::ID, $id)->first();
             $operator_full_name = $general_aviation->operator_full_name;
-            $agent_fullname = $general_aviation->agent_fullname;
+            $agent_fullName = $general_aviation->agent_fullname;
             $operator_email = $general_aviation->operator_email;
             $rejectionReason = $general_aviation->rejection_reason;
             $aircraft_type = $general_aviation->aircraft_type;
@@ -53,22 +53,20 @@ class EditGeneralAviationServices extends EditRecord
             $is_using_agent = $general_aviation->is_using_agent;
             $agent_country = $general_aviation->agent_country;
             $agent_email = $general_aviation->agent_email;
-            $agent_phonenumber = $general_aviation->agent_phonenumber;
+            $agent_phoneNumber = $general_aviation->agent_phonenumber;
             $agent_address = $general_aviation->agent_address;
             $agent_billing_address = $general_aviation->agent_billing_address;
             $services = $general_aviation->services;
 
             switch ($value) {
                 case 1:
-                    Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullname, $aircraft_type, $registration_number, $mtow, $lead_passenger_name, $landing_purpose, $arrival_call_sign, $arriving_from_airport, $eta,
-                        $arrival_date, $arrival_flight_nature, $arrival_passenger_count, $departure_call_sign, $departure_to_airport, $etd, $departure_date, $departure_flight_nature, $departure_passenger_count, $operator_country, $operator_tel_number, $operator_address,
-                        $operator_billing_address, $is_using_agent, $agent_country, $agent_email, $agent_phonenumber, $agent_address, $agent_billing_address, $services]), $operator_email);
+                    Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullName, $general_aviation]), $operator_email);
                     break;
                 case 2:
-                    Helpers::sendMailable(new GAServiceBookingRejectMail($operator_email, $operator_full_name, $rejectionReason, [$agent_fullname]), $operator_email);
+                    Helpers::sendMailable(new GAServiceBookingRejectMail($operator_email, $operator_full_name, $rejectionReason, [$agent_fullName]), $operator_email);
                     break;
                 case 3:
-                    Helpers::sendMailable(new GAServiceBookingAprrovedMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
+                    Helpers::sendMailable(new GAServiceBookingAprrovedMail($operator_email, $operator_full_name, [$agent_fullName]), $operator_email);
                 case 4:
             }
 
