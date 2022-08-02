@@ -1,16 +1,15 @@
 @extends('emails.layout')
 @section('content')
-    <p style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif;color: #011e41">General
-        Aviation Request</p>
-
     <div style="display: flex">
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Hi
             &nbsp;</p>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #4e89e8">{{$to_name}}
+        @if($data[0])
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">&nbsp;
             or &nbsp;</p>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #4e89e8">{{$data[0]}}</p>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">,</p>
+        @endif
     </div>
 
     <div>
@@ -117,7 +116,7 @@
             {{$to_name}}</p>
     </div>    <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:
-            {{$data[18]}}</p>
+            {{$data[18]['name']}}</p>
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:
@@ -125,55 +124,55 @@
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:
-            {{$data[20]}}</p>
+            {{$to_email}}</p>
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:
-            {{$data[21]}}</p>
+            {{$data[20]}}</p>
     </div>
     <div style="padding-bottom: 20px">
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:
-            {{$data[22]}}</p>
+            {{$data[21]}}</p>
     </div>
 
 
 
 
-{{--@if( $data[23])--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Agent:</u></p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:--}}
-{{--            {{$data[0]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:--}}
-{{--            {{$data[24]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:--}}
-{{--            {{$data[26]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:--}}
-{{--            {{$data[25]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:--}}
-{{--            {{$data[27]}}</p>--}}
-{{--    </div>--}}
-{{--    <div style="padding-bottom: 20px">--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:--}}
-{{--            {{$data[28]}}</p>--}}
-{{--    </div>--}}
+@if( $data[22])
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Agent:</u></p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:
+            {{$data[0]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:
+            {{$data[23]['name']}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:
+            {{$data[25]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:
+            {{$data[24]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:
+            {{$data[26]}}</p>
+    </div>
+    <div style="padding-bottom: 20px">
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:
+            {{$data[27]}}</p>
+    </div>
 
-{{--@endif--}}
+@endif
 
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">List of Services:--}}
-{{--            {{$services}}</p>--}}
-{{--    </div>--}}
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">List of Services:
+            {{$data[28]}}</p>
+    </div>
 
     <br>
 
