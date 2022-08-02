@@ -136,12 +136,12 @@ class HomeController extends CustomController
         }
 
         // get transaction
-        /** @var Transaction $transaction */
-        $transaction = Transaction::where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
-        if (is_null($transaction)) {
-            dd("empty transaction");
-            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
-        }
+//        /** @var Transaction $transaction */
+//        $transaction = Transaction::where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
+//        if (is_null($transaction)) {
+//            dd("empty transaction");
+//            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
+//        }
 
         // redirect to payment gateway
         if($payment_method == PaymentProvider::CREDIMAX){
