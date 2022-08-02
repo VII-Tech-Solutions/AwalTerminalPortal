@@ -25,7 +25,7 @@
         Arriving From: Dubai International Airport
     </div>
     <div>
-        Date: {{$date}}
+        Date:
     </div>
     <div>
         Time:
