@@ -17,56 +17,58 @@
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Here is an overview of all the details you submitted:</p>
     </div>
+    @if($data[4])
     <div>
         Flight Status: Arrival
     </div>
+    @endif
     <div>
         Arriving From: Dubai International Airport
     </div>
     <div>
-        Date: 24 April, 2022
+        Date: {{$data[1]}}
     </div>
     <div>
-        Time: 4E89E8
+        Time: {{$data[2]}}
     </div>
     <div style="padding-bottom: 20px">
-        Flight Number: BA2490A
+        Flight Number: {{$data[3]}}
     </div>
 
 
     <div>
-        Adults: 2
+        Adults: {{$data[5]}}
     </div>
     <div>
-        Children: 1
+        Children: {{$data[6]}}
     </div>
     <div style="padding-bottom: 20px">
-        Infants: 0
+        Infants: {{$data[7]}}
     </div>
 
-
+@foreach($data[8] as $key=>$value)
     <div>
-        Passenger 1
+        Passenger {{$key++}}
     </div>
     <div>
-        Title: Mr.
+        Title: {{$value[$title]}}.
     </div>
     <div>
-        First Name: Ahmad
+        First Name: {{$value[$first_name]}}
     </div>
     <div>
-        Last Name: Yusuf
+        Last Name: {{$value[$last_name]}}
     </div>
     <div>
-        Date of Birth: 27 October, 1991
+        Date of Birth: {{$value[$birth_date]}}
     </div>
     <div>
-        Nationality: Bahraini
+        Nationality: {{$value[$nationality_id]}}
     </div>
     <div style="padding-bottom: 20px">
-        Class: Economy
+        Class: {{$value[$flight_class]}}
     </div>
-
+@endforeach
 
 
     <div>
