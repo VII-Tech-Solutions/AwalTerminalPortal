@@ -50,7 +50,7 @@
     <div style="padding-bottom: 20px">
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Infants: {{$data[7]}}</p>
     </div>
-@foreach( $data[8] as $key=>$value)
+@foreach( $data[8] as $key => $value)
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger {{$key+1}}</p>
     </div>
