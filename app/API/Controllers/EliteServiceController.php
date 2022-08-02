@@ -237,8 +237,7 @@ class EliteServiceController extends CustomController
 
             foreach ($passengers as $value){
                 $nationality=  Country::where(Attributes::ID, $value['nationality_id'])->first();
-                $value['nationality_id']= $nationality;
-                $passengers = $value;
+                $passengers['nationality_id']= $nationality;
             }
             // send email to customer
             Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker_email);
