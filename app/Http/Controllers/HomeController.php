@@ -182,7 +182,7 @@ class HomeController extends CustomController
 
             // go to payment page
             $payment_url = self::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $name, $phoneNumber, $success_url, $error_url);
-            return redirect()->to(env("PAYMENT_URL").$payment_url);
+            return redirect()->to(env("PAYMENT_URL") . $payment_url);
         }
 
 
@@ -220,10 +220,12 @@ class HomeController extends CustomController
             $url = env('PAYMENT_URL') . '/benefit/checkout';
 
             $client = new Client(['auth' => ['awal', 'password']]);
+            dd($url);
+
             $response = $client->request('POST', $url, [
                 'multipart' => $benefit_request_data
             ]);
-
+            dd($response);
             $response_body = json_decode($response->getBody()->getContents());
 
             return $response_body->data->payment_page ?? null;
