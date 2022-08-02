@@ -26,6 +26,7 @@
     </div>
     <div>
         Date:
+        {{$data[1]}}
     </div>
     <div>
         Time:
