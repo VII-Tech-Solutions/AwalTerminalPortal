@@ -175,9 +175,14 @@ class HomeController extends CustomController
             // TODO implement benefit
             $success_url = "/payment-received";
             $error_url = "/payment-failed";
+            $booker = $elite_service->booker()->first();
+
+            $name = $booker->first_name . $booker->last_name;
+            $phoneNumber = $booker->phone_number;
 
             // go to payment page
-            $payment_url = self::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $success_url, $error_url);
+            $payment_url = self::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $name, $phoneNumber, $success_url, $error_url);
+
         }
 
 
@@ -191,7 +196,7 @@ class HomeController extends CustomController
      * Generate Benefit Payment Link
      * @return string
      */
-    static function generateBenefitPaymentLink($amount, $uid, $success_url, $error_url)
+    static function generateBenefitPaymentLink($amount, $uid, $customer_name, $customer_phone_number, $success_url, $error_url)
     {
 
         try {
@@ -201,8 +206,8 @@ class HomeController extends CustomController
                 Attributes::AMOUNT => $amount,
                 Attributes::ORDER_ID => $uid,
                 Attributes::TRACKID => $uid,
-//                Attributes::CUSTOMER_NAME => $customer_name,
-//                Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
+                Attributes::CUSTOMER_NAME => $customer_name,
+                Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
                 Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
                 Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
                 Attributes::SUCCESS_URL => $success_url,
