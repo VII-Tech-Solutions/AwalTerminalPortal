@@ -87,7 +87,6 @@ class TourTheTerminalContentResource extends Resource
                                 Textarea::make(Attributes::PARAGRAPH_2)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::PARAGRAPH)),
-
                                 Textarea::make(Attributes::VIDEO_1)
                             ])->columns(1),
                             Fieldset::make(Helpers::readableText(Attributes::SECTION_4))->schema([

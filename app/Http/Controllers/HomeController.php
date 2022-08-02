@@ -123,6 +123,7 @@ class HomeController extends CustomController
 
         // get uuid
         if (empty($uuid)) {
+            dd("empty uuid");
             return redirect()->to(env("WEBSITE_URL") . "/link-expired");
         }
 
@@ -130,15 +131,17 @@ class HomeController extends CustomController
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
         if (is_null($elite_service)) {
+            dd("empty elite service");
             return redirect()->to(env("WEBSITE_URL") . "/link-expired");
         }
 
         // get transaction
-        /** @var Transaction $transaction */
-        $transaction = Transaction::where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
-        if (is_null($transaction)) {
-            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
-        }
+//        /** @var Transaction $transaction */
+//        $transaction = Transaction::where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
+//        if (is_null($transaction)) {
+//            dd("empty transaction");
+//            return redirect()->to(env("WEBSITE_URL") . "/link-expired");
+//        }
 
         // redirect to payment gateway
         if($payment_method == PaymentProvider::CREDIMAX){
