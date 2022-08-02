@@ -227,6 +227,7 @@ class HomeController extends CustomController
             $response_body = json_decode( $response->getBody()->getContents() );
 
             GlobalHelpers::debugger(json_encode($response_body), DebuggerLevels::INFO);
+            dd($response_body->data);
             $payment_url = $response_body->data->payment_page ?? null;
 
             return $payment_url;
