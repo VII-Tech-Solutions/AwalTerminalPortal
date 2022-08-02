@@ -220,7 +220,7 @@ class HomeController extends CustomController
             $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
 
             $client = new Client(['auth' => ['awal', 'password']]);
-            $response = $client->request('POST', env('BENEFIT_PAYMENT_URL') . '/benefit/checkout', [
+            $response = $client->request('POST', env('BENEFIT_PAYMENT_URL') . 'elite-service-payment', [
                 'multipart' => $benefit_request_data
             ]);
 
