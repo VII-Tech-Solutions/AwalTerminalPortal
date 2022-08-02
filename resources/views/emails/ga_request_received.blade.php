@@ -66,7 +66,7 @@
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arrival Date:
-            {{$data[9]}}</p>
+            {{ Carbon\Carbon::createFromFormat('Y-m-d',$data[9])->format('d F, Y') }}</p>
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nature of Flight:
@@ -78,33 +78,33 @@
     </div>
 
 
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Departure:</u></p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Call Sign:--}}
-{{--            {{$data[12]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">To Airport:--}}
-{{--            {{$data[13]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">ETD (UTC Time):--}}
-{{--            {{$data[14]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Departure Date:--}}
-{{--            {{$data[15]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nature of Flight:--}}
-{{--            {{$data[16]}}</p>--}}
-{{--    </div>--}}
-{{--    <div style="padding-bottom: 20px">--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger Count:--}}
-{{--            {{$data[17]}}</p>--}}
-{{--    </div>--}}
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Departure:</u></p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Call Sign:
+            {{$data[12]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">To Airport:
+            {{$data[13]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">ETD (UTC Time):
+            {{$data[14]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Departure Date:
+            {{ Carbon\Carbon::createFromFormat('Y-m-d',$data[15])->format('d F, Y') }}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nature of Flight:
+            {{$data[16]}}</p>
+    </div>
+    <div style="padding-bottom: 20px">
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger Count:
+            {{$data[17]}}</p>
+    </div>
 
 
 
