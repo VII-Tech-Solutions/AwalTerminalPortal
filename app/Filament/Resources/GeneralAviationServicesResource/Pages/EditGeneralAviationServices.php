@@ -60,7 +60,7 @@ class EditGeneralAviationServices extends EditRecord
 
             switch ($value) {
                 case 1:
-                    Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullName, $general_aviation]), $operator_email);
+                    Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullName]), $operator_email);
                     break;
                 case 2:
                     Helpers::sendMailable(new GAServiceBookingRejectMail($operator_email, $operator_full_name, $rejectionReason, [$agent_fullName]), $operator_email);
