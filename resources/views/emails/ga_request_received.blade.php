@@ -1,8 +1,5 @@
 @extends('emails.layout')
 @section('content')
-    <p style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif;color: #011e41">General
-        Aviation Request</p>
-
     <div style="display: flex">
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Hi
             &nbsp;</p>
