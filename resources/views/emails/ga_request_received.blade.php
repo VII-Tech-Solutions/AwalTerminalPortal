@@ -25,13 +25,157 @@
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Here is an overview of all the details you submitted:</p>
     </div>
 
-    [Booking details]
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Aircraft Type:
+            {{$data[1]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Registration:
+            {{$data[2]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">MTOW (KG):
+            {{$data[3]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Lead Passenger Name:
+            {{$data[4]}}</p>
+    </div>
+    <div style="padding-bottom: 20px">
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Purpose of Landing:
+            {{$data[5]}}</p>
+    </div>
+
+
+
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arrival:</p>
+    </div>
+
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Call Sign:
+            {{$data[6]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">From Airport:
+            {{$data[7]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">ETA (UTC Time):
+            {{$data[8]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arrival Date:
+            {{$data[9]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nature of Flight:
+            {{$data[10]}}</p>
+    </div>
+    <div style="padding-bottom: 20px">
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger Count:
+            {{$data[11]}}</p>
+    </div>
+
+
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Departure:</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Call Sign:
+            {{$data[12]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">To Airport:
+            {{$data[13]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">ETD (UTC Time):
+            {{$data[14]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Departure Date:
+            {{$data[15]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nature of Flight:
+            {{$data[16]}}</p>
+    </div>
+    <div style="padding-bottom: 20px">
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger Count:
+            {{$data[17]}}</p>
+    </div>
+
+
+
+
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Operator:</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:
+            {{$to_name}}</p>
+    </div>    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:
+            {{$data[18]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:
+            {{$data[19]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:
+            {{$data[20]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:
+            {{$data[21]}}</p>
+    </div>
+    <div style="padding-bottom: 20px">
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:
+            {{$data[22]}}</p>
+    </div>
+
+
+
+
+@if( $data[23])
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Agent:</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:
+            {{$data[0]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:
+            {{$data[24]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:
+            {{$data[26]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:
+            {{$data[25]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:
+            {{$data[27]}}</p>
+    </div>
+    <div style="padding-bottom: 20px">
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:
+            {{$data[28]}}</p>
+    </div>
+
+@endif
+
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">List of Services:
+            {{$services}}</p>
+    </div>
 
     <br>
-    {{--    <div>--}}
-    {{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"> Here is an overview all the details you submitted:</p>--}}
-    {{--    </div>--}}
-    {{--    [Booking details]--}}
 
     <br>
 
