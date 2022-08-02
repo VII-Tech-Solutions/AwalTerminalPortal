@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Constants\ActivityPaymentMethods;
 use App\Constants\Attributes;
-use App\Constants\BookingType;
 use App\Constants\CastingTypes;
 use App\Constants\ESStatus;
 use App\Constants\FlightType;

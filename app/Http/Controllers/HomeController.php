@@ -7,10 +7,10 @@ use App\Constants\Attributes;
 use App\Constants\CastingTypes;
 use App\Constants\PaymentProvider;
 use App\Constants\TransactionStatus;
-use App\Constants\Values;
 use App\Helpers;
 use App\Models\EliteServices;
 use App\Models\Transaction;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\RedirectResponse;
@@ -113,7 +113,7 @@ class HomeController extends CustomController
 
         // get payment method
         $payment_method = $request->get(Attributes::PAYMENT_METHOD);
-        switch ($payment_method){
+        switch ($payment_method) {
             case PaymentProvider::CREDIMAX:
             default:
                 $payment_method = PaymentProvider::CREDIMAX;
@@ -157,7 +157,7 @@ class HomeController extends CustomController
         }
 
         // redirect to payment gateway
-        if($payment_method == PaymentProvider::CREDIMAX){
+        if ($payment_method == PaymentProvider::CREDIMAX) {
 
             // build url query
             $query = http_build_query([
@@ -170,13 +170,14 @@ class HomeController extends CustomController
             // go to payment page
             return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
 
-        }
-        else if($payment_method == PaymentProvider::BENEFIT){
+        } else if ($payment_method == PaymentProvider::BENEFIT) {
 
             // TODO implement benefit
+            $success_url = "/payment-received";
+            $error_url = "/payment-failed";
 
             // go to payment page
-            return redirect()->to(env("BENEFIT") . "/checkout");
+            $payment_url = self::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $success_url, $error_url);
         }
 
 
@@ -185,11 +186,13 @@ class HomeController extends CustomController
 
     }
 
+
     /**
      * Generate Benefit Payment Link
      * @return string
      */
-    static function generateBenefitPaymentLink($amount, $uid, $customer_name, $customer_phone_number, $success_url, $error_url){
+    static function generateBenefitPaymentLink($amount, $uid, $success_url, $error_url)
+    {
 
         try {
 
@@ -198,20 +201,20 @@ class HomeController extends CustomController
                 Attributes::AMOUNT => $amount,
                 Attributes::ORDER_ID => $uid,
                 Attributes::TRACKID => $uid,
-                Attributes::CUSTOMER_NAME => $customer_name,
-                Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
+//                Attributes::CUSTOMER_NAME => $customer_name,
+//                Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
                 Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
                 Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
                 Attributes::SUCCESS_URL => $success_url,
                 Attributes::ERROR_URL => $error_url,
-                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "711150801")
+                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "12818950")
             ];
 
-            $benefit_request_data = \App\Models\Helpers::array_to_multipart_array($benefit_request_data);
+            $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
 
             $url = env('PAYMENT_URL') . '/benefit/checkout';
 
-            $client = new Client(['auth' => ['b4bh', 'password']]);
+            $client = new Client(['auth' => ['awal', 'password']]);
             $response = $client->request('POST', $url, [
                 'multipart' => $benefit_request_data
             ]);
@@ -225,7 +228,6 @@ class HomeController extends CustomController
         }
 
         return null;
-
     }
 
 
