@@ -219,15 +219,17 @@ class HomeController extends CustomController
 
             $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
 
+            $url = env('PAYMENT_URL') . '/benefit/checkout';
+
             $client = new Client(['auth' => ['awal', 'password']]);
-            $response = $client->request('POST', env('PAYMENT_URL') . '/benefit/checkout', [
+            $response = $client->request('POST', $url, [
                 'multipart' => $benefit_request_data
             ]);
 
-            $response_body = json_decode( $response->getBody()->getContents() );
+            $response_body = json_decode($response->getBody()->getContents());
 
             GlobalHelpers::debugger(json_encode($response_body), DebuggerLevels::INFO);
-            dd($response_body->data);
+
             $payment_url = $response_body->data->payment_page ?? null;
 
             return $payment_url;
