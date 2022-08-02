@@ -230,10 +230,10 @@ class EliteServiceController extends CustomController
                 Helpers::sendMailable(new ESNewBookingMail([]), $admin_user->email);
             }
 
-            $from_airport_id = AirportSeeder::where(Attributes::ID, $airport_id)->get();
-            $from_airport= $from_airport_id->name;
+//            $from_airport_id = AirportSeeder::where(Attributes::ID, $airport_id)->get();
+//            $from_airport= $from_airport_id->name;
             // send email to customer
-            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $from_airport]), $booker_email);
+            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants]), $booker_email);
 
             // return success
             return Helpers::formattedJSONResponse("Submitted successfully", [
