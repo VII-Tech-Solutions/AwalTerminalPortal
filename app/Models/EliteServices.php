@@ -20,8 +20,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use VerumConsilium\Browsershot\Facades\PDF;
-use VIITech\Helpers\Constants\Platforms;
-use VIITech\Helpers\GlobalHelpers;
 
 /**
  * Elite Services
@@ -98,7 +96,7 @@ class EliteServices extends CustomModel
      */
     public function service()
     {
-        return $this->belongsTo(EliteServiceTypes::class,Attributes::SERVICE_ID);
+        return $this->belongsTo(EliteServiceTypes::class, Attributes::SERVICE_ID);
     }
 
     /**
@@ -106,7 +104,7 @@ class EliteServices extends CustomModel
      */
     public function passengers()
     {
-        return $this->hasMany(Passengers::class,Attributes::SERVICE_ID);
+        return $this->hasMany(Passengers::class, Attributes::SERVICE_ID);
     }
 
     /**
@@ -122,13 +120,14 @@ class EliteServices extends CustomModel
      */
     public function status()
     {
-        return $this->belongsTo(SubmissionStatus::class,Attributes::SUBMISSION_STATUS_ID);
+        return $this->belongsTo(SubmissionStatus::class, Attributes::SUBMISSION_STATUS_ID);
     }
 
     /**
      * @return hasMany
      */
-    public function transactions() {
+    public function transactions()
+    {
         return $this->hasMany(Transaction::class, Attributes::ELITE_SERVICE_ID, Attributes::ID);
     }
 
@@ -146,20 +145,21 @@ class EliteServices extends CustomModel
      * Generate Payment Link
      * @return string
      */
-    function generatePaymentLink($uuid = null){
+    function generatePaymentLink($uuid = null)
+    {
 
-        if(is_null($uuid)){
+        if (is_null($uuid)) {
             $uuid = $this->uuid;
         }
 
         // generate uuid if doesnt exist
-        if(empty($uuid)){
+        if (empty($uuid)) {
             Helpers::setGeneratedUUID($this);
             $this->save();
             $uuid = $this->uuid;
         }
 
-        if(empty($uuid)){
+        if (empty($uuid)) {
             return null;
         }
 
@@ -180,72 +180,12 @@ class EliteServices extends CustomModel
      * Attribute: payment_link
      * @return string
      */
-    function getPaymentLinkAttribute(){
+    function getPaymentLinkAttribute()
+    {
         $uuid = $this->uuid;
-//        return url("/elite-service/$uuid/pay/process");
+        return url("/elite-service/$uuid/pay/process");
 
 
-        $secret = Values::SECRET;
-        $payment_url = null;
-
-        // will create a temporary order to generate a unique track id (uid)
-        $new_temp_order = new TempOrder();
-        $new_temp_order->type = $type;
-        $new_temp_order->booking_id = $booking->id;
-        $new_temp_order->payment_method = $payment_method;
-
-        if($new_temp_order->save()){
-
-            if($type == BookingType::ACTIVITY){
-                $customer_name = $booking->getUserName();
-                $customer_phone_number = $booking->getUserPhoneNumber();
-                $amount = $booking->total_price;
-            }else{
-                $customer_name = $booking->personal_info['client_name'];
-                $customer_phone_number = $booking->personal_info['client_tel'];
-                $amount = $booking->discounted_total_price;
-            }
-            $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
-$amount = $elite_service->total;
-            // set to 0.001 for testing purposes
-            if(GlobalHelpers::isDevelopmentEnv() || GlobalHelpers::isStagingEnv()){
-                $amount = Values::TEST_AMOUNT;
-            }
-
-            if($type == BookingType::ACTIVITY && $platform == Platforms::MOBILE){
-                $success_url = url("/api/payments/verify-benefit?booking=$booking->uuid&secret=$secret");
-                $error_url = url("/api/payments/verify-benefit?booking=$booking->uuid&secret=$secret");
-            }else if($type == BookingType::ACTIVITY && $platform == Platforms::WEB){
-                $success_url = url("/api/payments/verify-benefit?booking=$booking->uuid&secret=$secret&platform=web");
-                $error_url = url("/api/payments/verify-benefit?booking=$booking->uuid&secret=$secret&platform=web");
-            }else{
-                $success_url = env('WEBSITE_URL') . "/confirmation/$booking->uuid";
-                $error_url = env('WEBSITE_URL') . "/ads?booking=$booking->uuid&error=true";
-            }
-
-            if($payment_method == ActivityPaymentMethods::CREDIT_CARD){
-
-                $query = http_build_query([
-                    Attributes::SUCCESS_URL => $success_url,
-                    Attributes::ERROR_URL => $error_url,
-                    Attributes::AMOUNT => $amount,
-                    Attributes::ORDER_ID => $new_temp_order->uid,
-                    Attributes::DESCRIPTION => $booking->activity->name ?? null,
-                ]);
-
-                $payment_url = env("PAYMENT_URL") . "/checkout?$query";
-
-            }else{
-
-                $payment_url = self::generateBenefitPaymentLink($amount, $new_temp_order->uid, $customer_name, $customer_phone_number, $success_url, $error_url);
-            }
-
-        }
-
-        return [
-            Attributes::PAYMENT_URL => $payment_url,
-            Attributes::TEMP_ORDER => $new_temp_order,
-        ];
     }
 
     /**
@@ -256,7 +196,8 @@ $amount = $elite_service->total;
      * @param $status
      * @param $rejection_reason
      */
-    static function changeStatus($id, $name, $email, $status, $rejection_reason = null){
+    static function changeStatus($id, $name, $email, $status, $rejection_reason = null)
+    {
         switch ($status) {
             case ESStatus::PENDING_APPROVAL:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
@@ -274,7 +215,7 @@ $amount = $elite_service->total;
 
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                 $link = $elite_service->generatePaymentLink($elite_service->uuid);
-                $redirectUrl =  env('WEBSITE_URL')."/elite-service?uuid=$elite_service->uuid";
+                $redirectUrl = env('WEBSITE_URL') . "/elite-service?uuid=$elite_service->uuid";
                 $amount = $elite_service->total;
                 Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$redirectUrl, $amount]), $user->email);
                 break;
@@ -298,7 +239,8 @@ $amount = $elite_service->total;
     /**
      * Mark As Paid
      */
-    function markAsPaid(){
+    function markAsPaid()
+    {
 
         // change status
         $this->submission_status_id = ESStatus::PAID;
@@ -307,7 +249,7 @@ $amount = $elite_service->total;
         // send email
         /** @var Bookers $booker */
         $booker = $this->booker()->first();
-        if(!is_null($booker)){
+        if (!is_null($booker)) {
             EliteServices::changeStatus($this->id, $booker->first_name, $this->email, ESStatus::PAID, null);
         }
     }
