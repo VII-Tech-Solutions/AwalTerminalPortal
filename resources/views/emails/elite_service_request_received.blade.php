@@ -55,7 +55,7 @@
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger {{$key+1}}</p>
     </div>
     <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Title: {{$value->$title}}
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Title: {{ $value->title }}
          </p>
     </div>
     <div>
