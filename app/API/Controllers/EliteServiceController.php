@@ -232,10 +232,9 @@ class EliteServiceController extends CustomController
             }
 
             $from_airport_id = Airport::where(Attributes::COUNTRY_ID, $airport_id)->first();
-            dd($from_airport_id);
-            $from_airport= $from_airport_id->name;
+//            $from_airport= $from_airport_id->name;
             // send email to customer
-            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers]), $booker_email);
+            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker_email);
 
             // return success
             return Helpers::formattedJSONResponse("Submitted successfully", [

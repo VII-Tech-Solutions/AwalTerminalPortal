@@ -28,7 +28,8 @@
         </div>
     @endif
     <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arriving From: Dubai International Airport</p>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arriving From:
+            {{$data[9]}}</p>
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date: {{ Carbon\Carbon::createFromFormat('Y-m-d',$data[2])->format('d F, Y') }}</p>
