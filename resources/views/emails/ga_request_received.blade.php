@@ -58,7 +58,7 @@
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">From Airport:
-            {{$data[7]}}</p>
+            {{$data[7]['name']}}</p>
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">ETA (UTC Time):
@@ -87,7 +87,7 @@
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">To Airport:
-            {{$data[13]}}</p>
+            {{$data[13]['name']}}</p>
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">ETD (UTC Time):
@@ -109,32 +109,32 @@
 
 
 
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Operator:</u></p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:--}}
-{{--            {{$to_name}}</p>--}}
-{{--    </div>    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:--}}
-{{--            {{$data[18]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:--}}
-{{--            {{$data[19]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:--}}
-{{--            {{$data[20]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:--}}
-{{--            {{$data[21]}}</p>--}}
-{{--    </div>--}}
-{{--    <div style="padding-bottom: 20px">--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:--}}
-{{--            {{$data[22]}}</p>--}}
-{{--    </div>--}}
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Operator:</u></p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:
+            {{$to_name}}</p>
+    </div>    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:
+            {{$data[18]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:
+            {{$data[19]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:
+            {{$data[20]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:
+            {{$data[21]}}</p>
+    </div>
+    <div style="padding-bottom: 20px">
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:
+            {{$data[22]}}</p>
+    </div>
 
 
 
