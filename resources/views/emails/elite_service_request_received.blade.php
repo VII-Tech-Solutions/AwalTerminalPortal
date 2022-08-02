@@ -28,10 +28,11 @@
         </div>
     @endif
     <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arriving From: Dubai International Airport</p>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arriving From:
+            {{$data[9]['name']}}</p>
     </div>
     <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date: {{ Carbon\Carbon::createFromFormat('Y-m-d',$data[2])->format('Y-M-d') }}</p>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date: {{ Carbon\Carbon::createFromFormat('Y-m-d',$data[2])->format('d F, Y') }}</p>
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Time: {{$data[3]}}</p>
@@ -65,10 +66,11 @@
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Last Name: {{$value['last_name']}}</p>
     </div>
     <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date of Birth: {{$value['birth_date']}}</p>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date of Birth: {{ Carbon\Carbon::createFromFormat('Y-m-d',$value['birth_date'])->format('d F, Y') }}</p>
     </div>
     <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nationality: </p>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nationality:
+            {{$value['nationality_id']['name']}}</p>
     </div>
     <div style="padding-bottom: 20px">
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Class: {{$value['flight_class']}}</p>
