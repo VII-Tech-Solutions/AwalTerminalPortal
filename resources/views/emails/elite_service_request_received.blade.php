@@ -22,8 +22,6 @@
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Status: Arrival</p>
     </div>
     @endif
-
-    </div>
     @if(!$data[1])
         <div>
             <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Status: Departure </p>
@@ -52,7 +50,7 @@
     <div style="padding-bottom: 20px">
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Infants: {{$data[7]}}</p>
     </div>
-
+@foreach( $data[8] as $passengers)
     <div>
         Passenger
     </div>
@@ -74,7 +72,7 @@
     <div style="padding-bottom: 20px">
         Class:
     </div>
-
+@endforeach
 
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">The total amount you are required to pay is BHD{{$data[0]}}.</p>
