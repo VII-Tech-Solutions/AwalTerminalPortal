@@ -230,7 +230,7 @@ class EliteServiceController extends CustomController
             }
 
             // send email to customer
-            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total, $date, $time, $flight_number, $is_arrival_flight, $number_of_adults, $number_of_children, $number_of_infants, $passengers]), $booker_email);
+            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total]), $booker_email);
 
             // return success
             return Helpers::formattedJSONResponse("Submitted successfully", [
