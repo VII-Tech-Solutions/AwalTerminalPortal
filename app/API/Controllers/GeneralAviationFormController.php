@@ -179,6 +179,7 @@ class GeneralAviationFormController extends CustomController
             Attributes::AGENT_PHONENUMBER => $agent_phoneNumber,
             Attributes::AGENT_ADDRESS => $agent_address,
             Attributes::AGENT_BILLING_ADDRESS => $agent_billing_address,
+            Attributes::SERVICES => $services,
             Attributes::TRANSPORT_HOTEL_NAME => $transport_hotel_name,
             Attributes::TRANSPORT_TIME => $transport_time,
             Attributes::REMARKS => $remarks,
