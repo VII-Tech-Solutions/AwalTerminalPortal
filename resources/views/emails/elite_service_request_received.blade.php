@@ -55,7 +55,7 @@
         Passenger
     </div>
     <div>
-        Title:
+        Title: {{$passengers[0]}}
     </div>
     <div>
         First Name:
