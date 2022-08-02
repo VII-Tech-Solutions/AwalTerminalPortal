@@ -25,8 +25,10 @@
         Arriving From: Dubai International Airport
     </div>
     <div>
-        Date:
-        {{$data[1]}}
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date{{$data[1]}}</p>
+
+{{--        <p> Date:--}}
+{{--        {{$data[1]}}</p>--}}
     </div>
     <div>
         Time:
