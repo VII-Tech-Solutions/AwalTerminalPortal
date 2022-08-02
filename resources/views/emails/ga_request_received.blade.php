@@ -29,22 +29,22 @@
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Aircraft Type:
             {{$data[1]}}</p>
     </div>
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Registration:--}}
-{{--            {{$data[2]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">MTOW (KG):--}}
-{{--            {{$data[3]}}</p>--}}
-{{--    </div>--}}
-{{--    <div>--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Lead Passenger Name:--}}
-{{--            {{$data[4]}}</p>--}}
-{{--    </div>--}}
-{{--    <div style="padding-bottom: 20px">--}}
-{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Purpose of Landing:--}}
-{{--            {{$data[5]}}</p>--}}
-{{--    </div>--}}
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Registration:
+            {{$data[2]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">MTOW (KG):
+            {{$data[3]}}</p>
+    </div>
+    <div>
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Lead Passenger Name:
+            {{$data[4]}}</p>
+    </div>
+    <div style="padding-bottom: 20px">
+        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Purpose of Landing:
+            {{$data[5]}}</p>
+    </div>
 
 
 
