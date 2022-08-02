@@ -11,6 +11,8 @@ use App\Constants\Values;
 use App\Helpers;
 use App\Models\EliteServices;
 use App\Models\Transaction;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -174,7 +176,7 @@ class HomeController extends CustomController
             // TODO implement benefit
 
             // go to payment page
-            return redirect()->to(env("PAYMENT_URL") . "/checkout");
+            return redirect()->to(env("BENEFIT") . "/checkout");
         }
 
 
@@ -182,6 +184,50 @@ class HomeController extends CustomController
         return redirect()->to(env("WEBSITE_URL") . "/link-expired");
 
     }
+
+    /**
+     * Generate Benefit Payment Link
+     * @return string
+     */
+    static function generateBenefitPaymentLink($amount, $uid, $customer_name, $customer_phone_number, $success_url, $error_url){
+
+        try {
+
+            // and will call the benefit middle ware on this case to generate a payment page url
+            $benefit_request_data = [
+                Attributes::AMOUNT => $amount,
+                Attributes::ORDER_ID => $uid,
+                Attributes::TRACKID => $uid,
+                Attributes::CUSTOMER_NAME => $customer_name,
+                Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
+                Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
+                Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
+                Attributes::SUCCESS_URL => $success_url,
+                Attributes::ERROR_URL => $error_url,
+                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "711150801")
+            ];
+
+            $benefit_request_data = \App\Models\Helpers::array_to_multipart_array($benefit_request_data);
+
+            $url = env('PAYMENT_URL') . '/benefit/checkout';
+
+            $client = new Client(['auth' => ['b4bh', 'password']]);
+            $response = $client->request('POST', $url, [
+                'multipart' => $benefit_request_data
+            ]);
+
+            $response_body = json_decode($response->getBody()->getContents());
+
+            return $response_body->data->payment_page ?? null;
+
+        } catch (Exception|GuzzleException $e) {
+            Helpers::captureException($e);
+        }
+
+        return null;
+
+    }
+
 
     /**
      * Complete Payment
