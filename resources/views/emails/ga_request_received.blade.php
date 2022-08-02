@@ -78,102 +78,102 @@
     </div>
 
 
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Departure:</u></p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Call Sign:
-            {{$data[12]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">To Airport:
-            {{$data[13]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">ETD (UTC Time):
-            {{$data[14]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Departure Date:
-            {{$data[15]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nature of Flight:
-            {{$data[16]}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger Count:
-            {{$data[17]}}</p>
-    </div>
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Departure:</u></p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Call Sign:--}}
+{{--            {{$data[12]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">To Airport:--}}
+{{--            {{$data[13]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">ETD (UTC Time):--}}
+{{--            {{$data[14]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Departure Date:--}}
+{{--            {{$data[15]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nature of Flight:--}}
+{{--            {{$data[16]}}</p>--}}
+{{--    </div>--}}
+{{--    <div style="padding-bottom: 20px">--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger Count:--}}
+{{--            {{$data[17]}}</p>--}}
+{{--    </div>--}}
 
 
 
 
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Operator:</u></p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:
-            {{$to_name}}</p>
-    </div>    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:
-            {{$data[18]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:
-            {{$data[19]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:
-            {{$data[20]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:
-            {{$data[21]}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:
-            {{$data[22]}}</p>
-    </div>
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Operator:</u></p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:--}}
+{{--            {{$to_name}}</p>--}}
+{{--    </div>    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:--}}
+{{--            {{$data[18]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:--}}
+{{--            {{$data[19]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:--}}
+{{--            {{$data[20]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:--}}
+{{--            {{$data[21]}}</p>--}}
+{{--    </div>--}}
+{{--    <div style="padding-bottom: 20px">--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:--}}
+{{--            {{$data[22]}}</p>--}}
+{{--    </div>--}}
 
 
 
 
-@if( $data[23])
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Agent:</u></p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:
-            {{$data[0]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:
-            {{$data[24]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:
-            {{$data[26]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:
-            {{$data[25]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:
-            {{$data[27]}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:
-            {{$data[28]}}</p>
-    </div>
+{{--@if( $data[23])--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Agent:</u></p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:--}}
+{{--            {{$data[0]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:--}}
+{{--            {{$data[24]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:--}}
+{{--            {{$data[26]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:--}}
+{{--            {{$data[25]}}</p>--}}
+{{--    </div>--}}
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:--}}
+{{--            {{$data[27]}}</p>--}}
+{{--    </div>--}}
+{{--    <div style="padding-bottom: 20px">--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:--}}
+{{--            {{$data[28]}}</p>--}}
+{{--    </div>--}}
 
-@endif
+{{--@endif--}}
 
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">List of Services:
-            {{$services}}</p>
-    </div>
+{{--    <div>--}}
+{{--        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">List of Services:--}}
+{{--            {{$services}}</p>--}}
+{{--    </div>--}}
 
     <br>
 
