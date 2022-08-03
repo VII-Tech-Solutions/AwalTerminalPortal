@@ -68,20 +68,20 @@ class EditGeneralAviationServices extends EditRecord
             $operator_country_name=  Country::where(Attributes::ID, $operator_country)->first();
             $agent_country_name=  Country::where(Attributes::ID, $agent_country)->first();
 
-            if (!is_null($services) && $general_aviation) {
-                foreach ($services as $key => $service) {
-                    GAServices::createOrUpdate([
-                        Attributes::GENERAL_AVIATION_ID => $general_aviation->$id,
-                        Attributes::SERVICE_ID => $service,
-                    ]);
-                    $service_name=  FormServices::where(Attributes::ID, $service)->first();
-                    $services[$key]=$service_name;
-//                $this->$service_name = [ $key => $service ];
-
-//                $service_name[$key] = FormServices::where(Attributes::ID, $service)->first();
-
-                }
-            }
+//            if (!is_null($services) && $general_aviation) {
+//                foreach ($services as $key => $service) {
+//                    GAServices::createOrUpdate([
+//                        Attributes::GENERAL_AVIATION_ID => $general_aviation->$id,
+//                        Attributes::SERVICE_ID => $service,
+//                    ]);
+//                    $service_name=  FormServices::where(Attributes::ID, $service)->first();
+//                    $services[$key]=$service_name;
+////                $this->$service_name = [ $key => $service ];
+//
+////                $service_name[$key] = FormServices::where(Attributes::ID, $service)->first();
+//
+//                }
+//            }
             switch ($value) {
                 case 1:
                     Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullName]), $operator_email);
