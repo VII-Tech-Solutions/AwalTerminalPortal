@@ -71,7 +71,7 @@ class EditGeneralAviationServices extends EditRecord
             if (!is_null($services) && $general_aviation) {
                 foreach ($services as $key => $service) {
                     GAServices::createOrUpdate([
-                        Attributes::GENERAL_AVIATION_ID => $general_aviation->id,
+                        Attributes::GENERAL_AVIATION_ID => $general_aviation->$id,
                         Attributes::SERVICE_ID => $service,
                     ]);
                     $service_name=  FormServices::where(Attributes::ID, $service)->first();
