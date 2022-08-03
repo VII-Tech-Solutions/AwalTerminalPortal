@@ -194,7 +194,7 @@ class GeneralAviationFormController extends CustomController
                     Attributes::SERVICE_ID => $service,
                 ]);
                 $service_name=  FormServices::where(Attributes::ID, $service)->first();
-                $services[$key]['name']=$service_name;
+                $services[$key]=$service_name;
 //                $this->$service_name = [ $key => $service ];
 
 //                $service_name[$key] = FormServices::where(Attributes::ID, $service)->first();
