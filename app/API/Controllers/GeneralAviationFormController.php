@@ -9,7 +9,10 @@ use App\Constants\Attributes;
 use App\Helpers;
 use App\Mail\GAServiceNewRequestMail;
 use App\Mail\GAServiceRequestReceivedMail;
+use App\Models\Airport;
 use App\Models\Attachment;
+use App\Models\Country;
+use App\Models\FormServices;
 use App\Models\GAServices;
 use App\Models\GeneralAviationServices;
 use App\Models\User;
@@ -177,6 +180,7 @@ class GeneralAviationFormController extends CustomController
             Attributes::AGENT_PHONENUMBER => $agent_phoneNumber,
             Attributes::AGENT_ADDRESS => $agent_address,
             Attributes::AGENT_BILLING_ADDRESS => $agent_billing_address,
+            Attributes::SERVICES => $services,
             Attributes::TRANSPORT_HOTEL_NAME => $transport_hotel_name,
             Attributes::TRANSPORT_TIME => $transport_time,
             Attributes::REMARKS => $remarks,
@@ -184,11 +188,17 @@ class GeneralAviationFormController extends CustomController
         ]);
 
         if (!is_null($services) && $general_service) {
-            foreach ($services as $service) {
+            foreach ($services as $key => $service) {
                 GAServices::createOrUpdate([
                     Attributes::GENERAL_AVIATION_ID => $general_service->id,
                     Attributes::SERVICE_ID => $service,
                 ]);
+                $service_name=  FormServices::where(Attributes::ID, $service)->first();
+                $services[$key]=$service_name;
+//                $this->$service_name = [ $key => $service ];
+
+//                $service_name[$key] = FormServices::where(Attributes::ID, $service)->first();
+
             }
         }
 
@@ -213,9 +223,17 @@ class GeneralAviationFormController extends CustomController
             foreach ($admin_users as $admin_user) {
                 Helpers::sendMailable(new GAServiceNewRequestMail([]), $admin_user->email);
             }
+            $arriving_from_airport_name = Airport::where(Attributes::ID, $arriving_from_airport)->first();
+            $departure_to_airport_name = Airport::where(Attributes::ID, $departure_to_airport)->first();
+
+            $operator_country_name=  Country::where(Attributes::ID, $operator_country)->first();
+            $agent_country_name=  Country::where(Attributes::ID, $agent_country)->first();
+
 
             // send email to customer
-            Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullname]), $operator_email);
+            Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullname,$aircraft_type, $registration_number, $mtow, $lead_passenger_name, $landing_purpose, $arrival_call_sign, $arriving_from_airport_name, $estimated_time_of_arrival,
+                $arrival_date, $arrival_flight_nature, $arrival_passenger_count, $departure_call_sign, $departure_to_airport_name, $estimated_time_of_departure, $departure_date, $departure_flight_nature, $departure_passenger_count, $operator_country_name, $operator_tel_number, $operator_address,
+                $operator_billing_address, $is_using_agent, $agent_country_name, $agent_email, $agent_phoneNumber, $agent_address, $agent_billing_address, $services]), $operator_email);
 
             // return success response
             return Helpers::formattedJSONResponse("Submitted successfully", [

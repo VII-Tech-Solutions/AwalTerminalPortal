@@ -9,12 +9,15 @@ use App\Constants\Values;
 use App\Helpers;
 use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;
+use App\Models\Airport;
 use App\Models\Bookers;
+use App\Models\Country;
 use App\Models\EliteServices;
 use App\Models\EliteServiceTypes;
 use App\Models\Passengers;
 use App\Models\User;
 use Carbon\Carbon;
+use Database\Seeders\AirportSeeder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use VIITech\Helpers\Constants\CastingTypes;
@@ -151,7 +154,7 @@ class EliteServiceController extends CustomController
                 $subtotal += ($extra_adult_passengers * 20);
 
             } else {
-                $subtotal += (4 * $price_per_adult);
+                $subtotal += ($adult_priced_passengers * $price_per_adult);
             }
         } else if ($service_id == 2) {
             if ($adult_priced_passengers > 4) {
@@ -229,8 +232,14 @@ class EliteServiceController extends CustomController
                 Helpers::sendMailable(new ESNewBookingMail([]), $admin_user->email);
             }
 
+            $from_airport_id = Airport::where(Attributes::ID, $airport_id)->first();
+
+            foreach ($passengers as $key => $value){
+                $nationality=  Country::where(Attributes::ID, $value['nationality_id'])->first();
+                $passengers[$key]['nationality_id']= $nationality;
+            }
             // send email to customer
-            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total]), $booker_email);
+            Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker_email);
 
             // return success
             return Helpers::formattedJSONResponse("Submitted successfully", [
@@ -282,7 +291,7 @@ class EliteServiceController extends CustomController
                 $subtotal += ($extra_adult_passengers * 25);
 
             } else {
-                $subtotal += (4 * $price_per_adult);
+                $subtotal += ($adult_priced_passengers * $price_per_adult);
             }
         }
 

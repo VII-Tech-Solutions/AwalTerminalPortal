@@ -383,4 +383,12 @@ class Attributes extends CustomEnum
     const CONTACT_US_CONTENT = "contact_us_content";
     const OUR_PHOTO_GALLERY = "our_photo_gallery";
     const PRIVATE_AND_PERSONAL_GALLERY = "private_and_personal_gallery";
+    const ERROR_URL = "error_url";
+    const MERCHANT_ID = "merchant_id";
+    const SUCCESS_URL = "success_url";
+    const BENEFIT_MIDDLEWARE_TOKEN = "benefit_middleware_token";
+    const PAYMENT_SECRET = "payment_secret";
+    const PAYMENT_URL = "payment_url";
+    const TEMP_ORDER = "temp_order";
+    const TRACKID = "trackid";
 }

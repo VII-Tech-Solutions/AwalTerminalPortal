@@ -16,6 +16,7 @@ class Values extends CustomEnum
     const CARBON_FORMAT_2 = "";
     const STORAGE_DISK = "local";
     const DEFAULT_TIMEZONE = "Asia/Bahrain";
+    const SECRET = "";
 
     // Elite Service Payment
     const PAYMENT_EXPIRES = 48;

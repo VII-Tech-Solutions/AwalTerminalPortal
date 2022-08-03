@@ -94,7 +94,7 @@ class EliteServices extends CustomModel
      */
     public function service()
     {
-        return $this->belongsTo(EliteServiceTypes::class,Attributes::SERVICE_ID);
+        return $this->belongsTo(EliteServiceTypes::class, Attributes::SERVICE_ID);
     }
 
     /**
@@ -102,7 +102,7 @@ class EliteServices extends CustomModel
      */
     public function passengers()
     {
-        return $this->hasMany(Passengers::class,Attributes::SERVICE_ID);
+        return $this->hasMany(Passengers::class, Attributes::SERVICE_ID);
     }
 
     /**
@@ -118,13 +118,14 @@ class EliteServices extends CustomModel
      */
     public function status()
     {
-        return $this->belongsTo(SubmissionStatus::class,Attributes::SUBMISSION_STATUS_ID);
+        return $this->belongsTo(SubmissionStatus::class, Attributes::SUBMISSION_STATUS_ID);
     }
 
     /**
      * @return hasMany
      */
-    public function transactions() {
+    public function transactions()
+    {
         return $this->hasMany(Transaction::class, Attributes::ELITE_SERVICE_ID, Attributes::ID);
     }
 
@@ -142,20 +143,21 @@ class EliteServices extends CustomModel
      * Generate Payment Link
      * @return string
      */
-    function generatePaymentLink($uuid = null){
+    function generatePaymentLink($uuid = null)
+    {
 
-        if(is_null($uuid)){
+        if (is_null($uuid)) {
             $uuid = $this->uuid;
         }
 
         // generate uuid if doesnt exist
-        if(empty($uuid)){
+        if (empty($uuid)) {
             Helpers::setGeneratedUUID($this);
             $this->save();
             $uuid = $this->uuid;
         }
 
-        if(empty($uuid)){
+        if (empty($uuid)) {
             return null;
         }
 
@@ -176,9 +178,12 @@ class EliteServices extends CustomModel
      * Attribute: payment_link
      * @return string
      */
-    function getPaymentLinkAttribute(){
+    function getPaymentLinkAttribute()
+    {
         $uuid = $this->uuid;
         return url("/elite-service/$uuid/pay/process");
+
+
     }
 
     /**
@@ -189,7 +194,8 @@ class EliteServices extends CustomModel
      * @param $status
      * @param $rejection_reason
      */
-    static function changeStatus($id, $name, $email, $status, $rejection_reason = null){
+    static function changeStatus($id, $name, $email, $status, $rejection_reason = null)
+    {
         switch ($status) {
             case ESStatus::PENDING_APPROVAL:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
@@ -207,8 +213,9 @@ class EliteServices extends CustomModel
 
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                 $link = $elite_service->generatePaymentLink($elite_service->uuid);
+                $redirectUrl = env('WEBSITE_URL') . "/elite-service?uuid=$elite_service->uuid";
                 $amount = $elite_service->total;
-                Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$link, $amount]), $user->email);
+                Helpers::sendMailable(new ESBookingApproveMail($user->email, $user->first_name, [$redirectUrl, $amount]), $user->email);
                 break;
             case ESStatus::PAID:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
@@ -230,16 +237,17 @@ class EliteServices extends CustomModel
     /**
      * Mark As Paid
      */
-    function markAsPaid(){
+    function markAsPaid()
+    {
 
         // change status
-        $this->submission_status_id = ESStatus::REJECTED;
+        $this->submission_status_id = ESStatus::PAID;
         $this->save();
 
         // send email
         /** @var Bookers $booker */
         $booker = $this->booker()->first();
-        if(!is_null($booker)){
+        if (!is_null($booker)) {
             EliteServices::changeStatus($this->id, $booker->first_name, $this->email, ESStatus::PAID, null);
         }
     }

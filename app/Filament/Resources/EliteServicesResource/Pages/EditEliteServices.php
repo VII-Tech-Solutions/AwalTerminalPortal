@@ -2,18 +2,14 @@
 
 namespace App\Filament\Resources\EliteServicesResource\Pages;
 
-use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\EliteServicesResource;
-use App\Helpers;
 use App\Models\EliteServices;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Str;
 
-class EditEliteServices extends EditRecord
+class
+EditEliteServices extends EditRecord
 {
     protected static string $resource = EliteServicesResource::class;
 
@@ -35,31 +31,7 @@ class EditEliteServices extends EditRecord
     protected function getActions(): array
     {
         parent::getActions();
-        $user = auth()->user();
         return [
-//            Action::make('Change Status')
-//                ->action(function (array $data): void {
-//                    $this->record->totalPrice()->associate($data[Attributes::TOTAL]);
-//                    $this->record->save();
-//                })
-//                ->requiresConfirmation()
-//                ->color('primary')
-//                ->form([
-//                    TextInput::make(Attributes::TOTAL)
-//                        ->numeric()
-//                        ->suffix('BHD')
-//                        ->label(Helpers::readableText(Attributes::TOTAL))->disabled(!$user->canAccess(AdminUserType::SUPER_ADMIN)),
-//
-//                    Select::make(Attributes::OFFLINE_PAYMENT_METHOD)
-//                        ->label('Offline Payment Method')
-//                        ->options(['Cash' => 'Cash',
-//                            'Card' => 'Card',
-//                            'Cheque' => 'Cheque',
-//                            'Bank transfer' => 'Bank transfer'])->visible(),
-//                ]),
-            Action::make('delete')
-                ->action(fn() => $this->record->delete())
-                ->requiresConfirmation()->color('danger'),
 
         ];
     }

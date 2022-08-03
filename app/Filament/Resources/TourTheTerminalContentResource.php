@@ -80,14 +80,13 @@ class TourTheTerminalContentResource extends Resource
                                     ])->label(Helpers::readableText(Attributes::IMAGE_GALLERY))
                             ])->columns(1),
                             Fieldset::make(Helpers::readableText(Attributes::SECTION_3))->schema([
-                                Forms\Components\Toggle::make(Attributes::VISIBLE_1),
+                                Forms\Components\Toggle::make(Attributes::VISIBLE_1)->label("Visible"),
                                 TextInput::make(Attributes::HEADING_3)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::HEADING)),
                                 Textarea::make(Attributes::PARAGRAPH_2)
                                     ->required()
                                     ->label(Helpers::readableText(Attributes::PARAGRAPH)),
-
                                 Textarea::make(Attributes::VIDEO_1)
                             ])->columns(1),
                             Fieldset::make(Helpers::readableText(Attributes::SECTION_4))->schema([
