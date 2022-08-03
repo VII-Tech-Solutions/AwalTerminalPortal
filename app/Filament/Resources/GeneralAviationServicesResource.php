@@ -11,6 +11,7 @@ use App\Models\Country;
 use App\Models\GeneralAviationServices;
 use App\Models\SubmissionStatus;
 use App\Models\User;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
@@ -108,6 +109,7 @@ class GeneralAviationServicesResource extends Resource
                         Tabs\Tab::make('Passengers')
                             ->schema([
                                 Fieldset::make('Operator Information')->schema([
+                                    Forms\Components\Toggle::make(Attributes::IS_USING_AGENT),
                                     Forms\Components\TextInput::make(Attributes::OPERATOR_FULL_NAME)->required(),
                                     Select::make(Attributes::OPERATOR_COUNTRY)
                                         ->label('Country')
@@ -119,15 +121,15 @@ class GeneralAviationServicesResource extends Resource
                                     Forms\Components\Textarea::make(Attributes::OPERATOR_BILLING_ADDRESS)->required(),
                                 ]),
                                 Fieldset::make('Agent Information')->schema([
-                                    Forms\Components\TextInput::make(Attributes::AGENT_FULLNAME)->required(),
+                                    Forms\Components\TextInput::make(Attributes::AGENT_FULLNAME)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
                                     Select::make(Attributes::AGENT_COUNTRY)
                                         ->label('Country')
                                         ->options(Country::all()->pluck('name', 'id'))
                                         ->searchable(),
-                                    Forms\Components\TextInput::make(Attributes::AGENT_PHONENUMBER)->required(),
-                                    Forms\Components\TextInput::make(Attributes::AGENT_EMAIL)->email(true)->required(),
-                                    Forms\Components\Textarea::make(Attributes::AGENT_ADDRESS)->required(),
-                                    Forms\Components\Textarea::make(Attributes::AGENT_BILLING_ADDRESS)->required(),
+                                    Forms\Components\TextInput::make(Attributes::AGENT_PHONENUMBER)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
+                                    Forms\Components\TextInput::make(Attributes::AGENT_EMAIL)->email(true)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
+                                    Forms\Components\Textarea::make(Attributes::AGENT_ADDRESS)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
+                                    Forms\Components\Textarea::make(Attributes::AGENT_BILLING_ADDRESS)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
 
                                 ]),
                             ]),
