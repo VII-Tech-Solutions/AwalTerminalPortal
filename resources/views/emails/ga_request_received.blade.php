@@ -172,11 +172,12 @@
 @if($data[28])
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">List of Services:
-{{--            {{$data[28]}}--}}
             @foreach($data[28] as $key => $value)
-            {{$value['name']}} ,
+               @if($key != 0)
+                ,
+                @endif
+            {{$value['name']}}
             @endforeach
-
         </p>
     </div>
 @endif
