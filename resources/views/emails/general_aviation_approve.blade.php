@@ -170,7 +170,7 @@
                     @if($key != 0)
                         ,
                     @endif
-                    {{$value}}
+                    {{$value['name']}}
                 @endforeach
             </p>
         </div>
