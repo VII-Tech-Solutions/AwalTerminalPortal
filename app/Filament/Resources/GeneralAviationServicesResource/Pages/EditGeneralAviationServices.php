@@ -127,7 +127,7 @@ class EditGeneralAviationServices extends EditRecord
                 case 3:
                     Helpers::sendMailable(new GAServiceBookingAprrovedMail($operator_email, $operator_full_name, [$agent_fullName, $aircraft_type, $registration_number, $mtow, $lead_passenger_name, $landing_purpose, $arrival_call_sign, $arriving_from_airport_name, $eta,
                         $arrival_date, $arrival_flight_nature, $arrival_passenger_count, $departure_call_sign, $departure_to_airport_name, $etd, $departure_date, $departure_flight_nature, $departure_passenger_count, $operator_country_name, $operator_tel_number, $operator_address,
-                        $operator_billing_address, $is_using_agent, $agent_country_name, $agent_email, $agent_phoneNumber, $agent_address, $agent_billing_address, $services]), $operator_email);
+                        $operator_billing_address, $is_using_agent, $agent_country_name, $agent_email, $agent_phoneNumber, $agent_address, $agent_billing_address, $service]), $operator_email);
                 case 4:
             }
 
