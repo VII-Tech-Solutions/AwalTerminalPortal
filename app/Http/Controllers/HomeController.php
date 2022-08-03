@@ -162,7 +162,7 @@ class HomeController extends CustomController
             $query = http_build_query([
                 Attributes::RETURN_URL => url("elite-service/$uuid/pay/complete"),
                 Attributes::AMOUNT => $transaction->amount,
-                Attributes::ORDER_ID => $transaction->order_id,
+                Attributes::ORDER_ID => $transaction->uuid,
                 Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
             ]);
 
@@ -182,7 +182,7 @@ class HomeController extends CustomController
 
             // go to payment page
             $payment_url = self::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $name, $phoneNumber, $success_url, $error_url);
-//            dd($payment_url);
+            dd($payment_url);
             return redirect()->to($payment_url);
         }
 
