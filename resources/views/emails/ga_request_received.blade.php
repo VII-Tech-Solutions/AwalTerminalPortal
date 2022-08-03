@@ -1,5 +1,5 @@
-@extends('emails.layout')
-@section('content')
+{{--@extends('emails.layout')--}}
+{{--@section('content')--}}
     <div style="display: flex">
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Hi
             &nbsp;</p>
@@ -173,9 +173,9 @@
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">List of Services:
 {{--            {{$data[28]}}--}}
-{{--            @foreach($data[28] as $key => $value)--}}
-{{--            {{$value[$key]['name']}} ,--}}
-{{--            @endforeach--}}
+            @foreach($data[28] as $key => $value)
+            {{$value}} ,
+            @endforeach
 
         </p>
     </div>
