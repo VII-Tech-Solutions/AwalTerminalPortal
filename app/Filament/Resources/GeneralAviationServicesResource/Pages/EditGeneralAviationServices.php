@@ -103,20 +103,20 @@ class EditGeneralAviationServices extends EditRecord
                 Attributes::SERVICES => $services,
                 Attributes::SUBMISSION_STATUS_ID => 1
             ]);
-//            if (!is_null($services) && $general_service) {
-//                foreach ($services as $key => $service) {
-//                    GAServices::createOrUpdate([
-//                        Attributes::GENERAL_AVIATION_ID => $general_service->id,
-//                        Attributes::SERVICE_ID => $service,
-//                    ]);
-////                    $service_name=  FormServices::where(Attributes::ID, $service)->first();
-////                    $services[$key]=$service_name;
-////                $this->$service_name = [ $key => $service ];
-//
-////                $service_name[$key] = FormServices::where(Attributes::ID, $service)->first();
-//
-//                }
-//            }
+            if (!is_null($services)) {
+                foreach ($services as $key => $service) {
+                    GAServices::createOrUpdate([
+                        Attributes::GENERAL_AVIATION_ID => $general_service->id,
+                        Attributes::SERVICE_ID => $service,
+                    ]);
+                    $service_name=  FormServices::where(Attributes::ID, $service)->first();
+                    $services[$key]=$service_name;
+//                $this->$service_name = [ $key => $service ];
+
+//                $service_name[$key] = FormServices::where(Attributes::ID, $service)->first();
+
+                }
+            }
             switch ($value) {
                 case 1:
                     Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullName]), $operator_email);
