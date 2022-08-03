@@ -10,11 +10,13 @@ use App\Helpers;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use VIITech\Helpers\GlobalHelpers;
 
 /**
  * General Aviation Services
  *
  * @property Collection attachments
+ * @property Collection services
  */
 class GeneralAviationServices extends CustomModel
 {
@@ -158,6 +160,7 @@ class GeneralAviationServices extends CustomModel
      * @return string
      */
     function getFlightTypeAttribute($value)
+
     {
         return Helpers::readableText(FlightType::getKey((int)$value));
     }

@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         $generalAviationPageContentId = GeneralAviationContent::all()->first()->id;
         $eliteServicesPageContentId = EliteServicesContent::all()->first()->id;
         $contactUsPageContentId = ContactUsContent::all()->first()->id;
-        //
+
         Filament::serving(function () use ($homePageContentId, $tourPageContentId, $OurStoryPageContentId, $servicesPageContentId, $generalAviationPageContentId, $eliteServicesPageContentId, $contactUsPageContentId) {
             $appUrl = ENV('APP_URL');
             Filament::registerNavigationGroups([

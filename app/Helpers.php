@@ -278,7 +278,7 @@ class Helpers
     static function captureException($exception)
     {
         if (GlobalHelpers::isDevelopmentEnv()) {
-            dd($exception);
+//            dd($exception);
         }
         $level = DebuggerLevels::INFO;
         if (!is_null($exception) && is_a($exception, Throwable::class)) {
