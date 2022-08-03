@@ -69,40 +69,6 @@ class EditGeneralAviationServices extends EditRecord
             $agent_country_name=  Country::where(Attributes::ID, $agent_country)->first();
 
 
-            $general_service = GeneralAviationServices::createOrUpdate([
-                Attributes::AIRCRAFT_TYPE => $aircraft_type,
-                Attributes::REGISTRATION_NUMBER => $registration_number,
-                Attributes::MTOW => $mtow,
-                Attributes::LEAD_PASSENGER_NAME => $lead_passenger_name,
-                Attributes::LANDING_PURPOSE => $landing_purpose,
-                Attributes::ARRIVAL_CALL_SIGN => $arrival_call_sign,
-                Attributes::ARRIVING_FROM_AIRPORT => $arriving_from_airport,
-                Attributes::ESTIMATED_TIME_OF_ARRIVAL => $eta,
-                Attributes::ARRIVAL_DATE => $arrival_date,
-                Attributes::ARRIVAL_FLIGHT_NATURE => $arrival_flight_nature,
-                Attributes::ARRIVAL_PASSENGER_COUNT => $arrival_passenger_count,
-                Attributes::DEPARTURE_CALL_SIGN => $departure_call_sign,
-                Attributes::DEPARTURE_TO_AIRPORT => $departure_to_airport,
-                Attributes::ESTIMATED_TIME_OF_DEPARTURE => $etd,
-                Attributes::DEPARTURE_DATE => $departure_date,
-                Attributes::DEPARTURE_FLIGHT_NATURE => $departure_flight_nature,
-                Attributes::DEPARTURE_PASSENGER_COUNT => $departure_passenger_count,
-                Attributes::OPERATOR_FULL_NAME => $operator_full_name,
-                Attributes::OPERATOR_COUNTRY => $operator_country,
-                Attributes::OPERATOR_TEL_NUMBER => $operator_tel_number,
-                Attributes::OPERATOR_EMAIL => $operator_email,
-                Attributes::OPERATOR_ADDRESS => $operator_address,
-                Attributes::OPERATOR_BILLING_ADDRESS => $operator_billing_address,
-                Attributes::IS_USING_AGENT => $is_using_agent,
-                Attributes::AGENT_FULLNAME => $agent_fullName,
-                Attributes::AGENT_EMAIL => $agent_email,
-                Attributes::AGENT_COUNTRY => $agent_country,
-                Attributes::AGENT_PHONENUMBER => $agent_phoneNumber,
-                Attributes::AGENT_ADDRESS => $agent_address,
-                Attributes::AGENT_BILLING_ADDRESS => $agent_billing_address,
-                Attributes::SERVICES => $services,
-                Attributes::SUBMISSION_STATUS_ID => 1
-            ]);
 //            if (!is_null($services)) {
 //                foreach ($services as $key => $service) {
 //                    GAServices::createOrUpdate([
