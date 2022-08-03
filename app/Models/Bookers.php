@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property string first_name
  * @property string last_name
+ * @property string mobile_number
  * @property string email
  */
 class Bookers extends CustomModel

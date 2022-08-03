@@ -178,12 +178,12 @@ class HomeController extends CustomController
             $error_url = "/payment-failed";
             $booker = $elite_service->booker()->first();
 
-            $name = $booker->first_name . $booker->last_name;
-            $phoneNumber = $booker->phone_number;
+            $name = $booker->first_name ." ". $booker->last_name;
+            $phoneNumber = $booker->mobile_number;
 
             // go to payment page
             $payment_url = self::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $name, $phoneNumber, $success_url, $error_url);
-            dd($payment_url);
+//            dd($payment_url);
             return redirect()->to($payment_url);
         }
 
@@ -202,8 +202,7 @@ class HomeController extends CustomController
     {
 
         try {
-            $success_url = url("success");
-            $error_url = url("fail");
+
             // and will call the benefit middle ware on this case to generate a payment page url
             $benefit_request_data = [
                 Attributes::AMOUNT => $amount,
