@@ -25,7 +25,13 @@
         </div>
     <br>
         <div style="display: flex">
-            <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Please note that this link will expire on &nbsp;</p><p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #4e89e8">{{ now()->addDays(10)->format('Y-m-d') }}</p>
+            <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Please note that this link will expire on &nbsp;</p><p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #4e89e8">{{ now()->addDays(3)->format('Y-m-d') }}</p>
+        </div>
+    <br>
+
+    <div style="display: flex">
+            <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">To get the booking confirmation, the payment must be made within 72 hours of the confirmation. In the case where you have failed to arrive, the amount will be charged in full if the booking was not cancelled 8 hours in advance.
+            </p>
         </div>
     <br>
 @endsection
