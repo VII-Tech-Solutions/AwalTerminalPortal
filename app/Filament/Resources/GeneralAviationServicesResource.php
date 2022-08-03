@@ -109,7 +109,6 @@ class GeneralAviationServicesResource extends Resource
                         Tabs\Tab::make('Passengers')
                             ->schema([
                                 Fieldset::make('Operator Information')->schema([
-                                    Forms\Components\Toggle::make(Attributes::IS_USING_AGENT),
                                     Forms\Components\TextInput::make(Attributes::OPERATOR_FULL_NAME)->required(),
                                     Select::make(Attributes::OPERATOR_COUNTRY)
                                         ->label('Country')
@@ -121,6 +120,7 @@ class GeneralAviationServicesResource extends Resource
                                     Forms\Components\Textarea::make(Attributes::OPERATOR_BILLING_ADDRESS)->required(),
                                 ]),
                                 Fieldset::make('Agent Information')->schema([
+                                    Forms\Components\Toggle::make(Attributes::IS_USING_AGENT),
                                     Forms\Components\TextInput::make(Attributes::AGENT_FULLNAME)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
                                     Select::make(Attributes::AGENT_COUNTRY)
                                         ->label('Country')
@@ -164,7 +164,6 @@ class GeneralAviationServicesResource extends Resource
                             ])
                     ])
             ])->columns(1);
-        dd($form);
     }
 
     public static function table(Table $table): Table
