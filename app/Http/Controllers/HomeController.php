@@ -172,8 +172,9 @@ class HomeController extends CustomController
         } else if ($payment_method == PaymentProvider::BENEFIT) {
 
             $secret = env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ');
-            $success_url = url("/api/payments/verify-benefit?booking=$elite_service->uuid&secret=$secret&platform=web");
-            $error_url = url("/api/payments/verify-benefit?booking=$elite_service->uuid&secret=$secret&platform=web");
+
+            $success_url = env("WEBSITE_URL") . "/payment-received";
+            $error_url = env("WEBSITE_URL") . "/payment-failed";
 
             $booker = $elite_service->booker()->first();
 
@@ -211,8 +212,8 @@ class HomeController extends CustomController
                 Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
                 Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
                 Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
-//                Attributes::SUCCESS_URL => $success_url,
-//                Attributes::ERROR_URL => $error_url,
+                Attributes::SUCCESS_URL => $success_url,
+                Attributes::ERROR_URL => $error_url,
                 Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "12818950")
             ];
 
