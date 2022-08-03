@@ -8,6 +8,10 @@ use App\Helpers;
 use App\Mail\GAServiceBookingAprrovedMail;
 use App\Mail\GAServiceBookingRejectMail;
 use App\Mail\GAServiceRequestReceivedMail;
+use App\Models\Airport;
+use App\Models\Country;
+use App\Models\FormServices;
+use App\Models\GAServices;
 use App\Models\GeneralAviationServices;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
@@ -58,6 +62,61 @@ class EditGeneralAviationServices extends EditRecord
             $agent_billing_address = $general_aviation->agent_billing_address;
             $services = $general_aviation->services;
 
+            $arriving_from_airport_name = Airport::where(Attributes::ID, $arriving_from_airport)->first();
+            $departure_to_airport_name = Airport::where(Attributes::ID, $departure_to_airport)->first();
+
+            $operator_country_name=  Country::where(Attributes::ID, $operator_country)->first();
+            $agent_country_name=  Country::where(Attributes::ID, $agent_country)->first();
+
+
+            $general_service = GeneralAviationServices::createOrUpdate([
+                Attributes::AIRCRAFT_TYPE => $aircraft_type,
+                Attributes::REGISTRATION_NUMBER => $registration_number,
+                Attributes::MTOW => $mtow,
+                Attributes::LEAD_PASSENGER_NAME => $lead_passenger_name,
+                Attributes::LANDING_PURPOSE => $landing_purpose,
+                Attributes::ARRIVAL_CALL_SIGN => $arrival_call_sign,
+                Attributes::ARRIVING_FROM_AIRPORT => $arriving_from_airport,
+                Attributes::ESTIMATED_TIME_OF_ARRIVAL => $eta,
+                Attributes::ARRIVAL_DATE => $arrival_date,
+                Attributes::ARRIVAL_FLIGHT_NATURE => $arrival_flight_nature,
+                Attributes::ARRIVAL_PASSENGER_COUNT => $arrival_passenger_count,
+                Attributes::DEPARTURE_CALL_SIGN => $departure_call_sign,
+                Attributes::DEPARTURE_TO_AIRPORT => $departure_to_airport,
+                Attributes::ESTIMATED_TIME_OF_DEPARTURE => $etd,
+                Attributes::DEPARTURE_DATE => $departure_date,
+                Attributes::DEPARTURE_FLIGHT_NATURE => $departure_flight_nature,
+                Attributes::DEPARTURE_PASSENGER_COUNT => $departure_passenger_count,
+                Attributes::OPERATOR_FULL_NAME => $operator_full_name,
+                Attributes::OPERATOR_COUNTRY => $operator_country,
+                Attributes::OPERATOR_TEL_NUMBER => $operator_tel_number,
+                Attributes::OPERATOR_EMAIL => $operator_email,
+                Attributes::OPERATOR_ADDRESS => $operator_address,
+                Attributes::OPERATOR_BILLING_ADDRESS => $operator_billing_address,
+                Attributes::IS_USING_AGENT => $is_using_agent,
+                Attributes::AGENT_FULLNAME => $agent_fullName,
+                Attributes::AGENT_EMAIL => $agent_email,
+                Attributes::AGENT_COUNTRY => $agent_country,
+                Attributes::AGENT_PHONENUMBER => $agent_phoneNumber,
+                Attributes::AGENT_ADDRESS => $agent_address,
+                Attributes::AGENT_BILLING_ADDRESS => $agent_billing_address,
+                Attributes::SERVICES => $services,
+                Attributes::SUBMISSION_STATUS_ID => 1
+            ]);
+//            if (!is_null($services) && $general_service) {
+//                foreach ($services as $key => $service) {
+//                    GAServices::createOrUpdate([
+//                        Attributes::GENERAL_AVIATION_ID => $general_service->id,
+//                        Attributes::SERVICE_ID => $service,
+//                    ]);
+////                    $service_name=  FormServices::where(Attributes::ID, $service)->first();
+////                    $services[$key]=$service_name;
+////                $this->$service_name = [ $key => $service ];
+//
+////                $service_name[$key] = FormServices::where(Attributes::ID, $service)->first();
+//
+//                }
+//            }
             switch ($value) {
                 case 1:
                     Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullName]), $operator_email);
@@ -66,7 +125,9 @@ class EditGeneralAviationServices extends EditRecord
                     Helpers::sendMailable(new GAServiceBookingRejectMail($operator_email, $operator_full_name, $rejectionReason, [$agent_fullName]), $operator_email);
                     break;
                 case 3:
-                    Helpers::sendMailable(new GAServiceBookingAprrovedMail($operator_email, $operator_full_name, [$agent_fullName]), $operator_email);
+                    Helpers::sendMailable(new GAServiceBookingAprrovedMail($operator_email, $operator_full_name, [$agent_fullName, $aircraft_type, $registration_number, $mtow, $lead_passenger_name, $landing_purpose, $arrival_call_sign, $arriving_from_airport_name, $eta,
+                        $arrival_date, $arrival_flight_nature, $arrival_passenger_count, $departure_call_sign, $departure_to_airport_name, $etd, $departure_date, $departure_flight_nature, $departure_passenger_count, $operator_country_name, $operator_tel_number, $operator_address,
+                        $operator_billing_address, $is_using_agent, $agent_country_name, $agent_email, $agent_phoneNumber, $agent_address, $agent_billing_address, $services]), $operator_email);
                 case 4:
             }
 

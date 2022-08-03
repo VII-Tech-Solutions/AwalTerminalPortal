@@ -8,7 +8,8 @@ use App\Models\EliteServices;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Str;
 
-class EditEliteServices extends EditRecord
+class
+EditEliteServices extends EditRecord
 {
     protected static string $resource = EliteServicesResource::class;
 

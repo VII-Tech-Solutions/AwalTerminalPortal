@@ -233,7 +233,6 @@ class EliteServiceController extends CustomController
             }
 
             $from_airport_id = Airport::where(Attributes::ID, $airport_id)->first();
-//            Country::where(Attributes::ID, $value['nationality_id'])->first();
 
             foreach ($passengers as $key => $value){
                 $nationality=  Country::where(Attributes::ID, $value['nationality_id'])->first();
