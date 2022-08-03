@@ -1,0 +1,104 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\API\Controllers\CustomController;
+use App\Constants\Attributes;
+use App\Constants\Values;
+use App\Helpers;
+use App\Models\EliteServices;
+use App\Models\Transaction;
+use Exception;
+use GuzzleHttp\Client;
+use Illuminate\Http\RedirectResponse;
+use VIITech\Helpers\Constants\CastingTypes;
+use VIITech\Helpers\Constants\Platforms;
+use VIITech\Helpers\GlobalHelpers;
+
+class PaymentController extends CustomController
+{
+
+    /**
+     * Verify Benefit Payment
+     *
+     * @return RedirectResponse
+     *
+     * * @OA\GET(
+     *     path="/api/payments/verify",
+     *     tags={"Payments"},
+     *     description="Payments Verify",
+     *     @OA\Response(response="200", description="Requested successfully ", @OA\JsonContent(ref="#/components/schemas/CustomJsonResponse")),
+     *     @OA\Response(response="500", description="Internal Server Error", @OA\JsonContent(ref="#/components/schemas/CustomJsonResponse")),
+     * )
+     */
+    public function verifyBenefitPayment()
+    {
+
+        $booking_uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BOOKING, null, CastingTypes::STRING);
+        $secret = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SECRET, null, CastingTypes::STRING);
+        $platform = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PLATFORM, Platforms::MOBILE, CastingTypes::STRING);
+
+        $redirect_to = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REDIRECT_TO, null, CastingTypes::STRING);
+        if (is_null($redirect_to)) {
+            $redirect_to = url("/api/payments/redirect?booking=$booking_uuid");
+        }
+
+        if ($secret !== Values::SECRET) {
+            return redirect()->to($redirect_to . "&error=true");
+        }
+
+        /** @var EliteServices $booking */
+        $booking = EliteServices::where(Attributes::UUID, $booking_uuid)->first();
+        if (is_null($booking)) {
+            return redirect()->to($redirect_to . "&error=true");
+        }
+
+        /** @var Transaction $temp_order */
+        $temp_order = Transaction::where(Attributes::UUID, $booking->uuid)->orderByDesc(Attributes::CREATED_AT)->first();
+        if (is_null($temp_order)) {
+            return redirect()->to($redirect_to . "&error=true");
+        }
+
+        $benefit_request_data = [
+            Attributes::UUID => $temp_order->uuid,
+            Attributes::ORDER_ID => $temp_order->uuid,
+            Attributes::TRACKID => $temp_order->uuid,
+            Attributes::PAYMENT_METHOD => $temp_order->payment_method,
+            Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
+            Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
+        ];
+
+        $url = env('PAYMENT_URL') . '/verify';
+
+        try {
+            $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'multipart' => $benefit_request_data,
+                'http_errors' => false
+            ]);
+
+            $response_body = json_decode($response->getBody()->getContents());
+            $captured = $response_body->captured ?? false;
+            $has_error_message = isset($response_body->error_message);
+
+            if ($has_error_message || !$captured) {
+                $error = "true";
+            } else {
+                $error = "false";
+            }
+        } catch (Exception $e) {
+            $error = "true";
+            Helpers::captureException($e);
+        }
+
+        if ($platform == Platforms::WEB) {
+            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$booking->uuid" .
+                "?booking_id=$booking->id" .
+                "&uuid=$booking->uuid";
+        }
+        return redirect()->to($redirect_to . "&error=$error");
+    }
+
+
+}

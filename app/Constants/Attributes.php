@@ -344,6 +344,8 @@ class Attributes extends CustomEnum
     const SECTION_IMAGE_1 = "section_image_1";
     const SECTION_IMAGE_1_URL = "section_image_1_url";
     const IATA = "iata";
+    const ICAO = "icao";
+    const CITY = "city";
     const HEADER = "header";
     const SECTION_1 = "section_1";
     const SECTION_2 = "section_2";
@@ -391,4 +393,9 @@ class Attributes extends CustomEnum
     const PAYMENT_URL = "payment_url";
     const TEMP_ORDER = "temp_order";
     const TRACKID = "trackid";
+    const SECRET = "secret";
+    const REDIRECT_TO = "redirect_to";
+    const BOOKING = "booking";
+    const PLATFORM = "platform";
+
 }

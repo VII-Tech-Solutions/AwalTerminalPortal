@@ -21,6 +21,8 @@ class AirportSeeder extends Seeder
         $this->insert([
             Attributes::ID => 1,
             Attributes::NAME => 'Aalborg Airport',
+            Attributes::IATA => '',
+            Attributes::ICAO => '',
             Attributes::COUNTRY_ID => 61
         ]);
         $this->insert([
