@@ -186,6 +186,7 @@ class GeneralAviationFormController extends CustomController
             Attributes::REMARKS => $remarks,
             Attributes::SUBMISSION_STATUS_ID => 1
         ]);
+        $service_name = (array) null;
 
         if (!is_null($services) && $general_service) {
             foreach ($services as $key => $service) {
@@ -196,7 +197,7 @@ class GeneralAviationFormController extends CustomController
                 $service_name= array($service);
                 $this->$service_name = [ $key => $service ];
 
-//                $service_name[$key] = FormServices::where(Attributes::ID, $service)->first();
+                $service_name[$key] = FormServices::where(Attributes::ID, $service)->first();
             }
         }
 
