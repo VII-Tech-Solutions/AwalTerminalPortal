@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\API\Controllers\CustomController;
+use App\Constants\ActivityPaymentMethods;
 use App\Constants\Attributes;
+use App\Constants\PaymentProvider;
+use App\Constants\PaymentStatus;
+use App\Constants\TransactionStatus;
 use App\Constants\Values;
 use App\Helpers;
 use App\Models\ActivityBooking;
@@ -12,6 +16,7 @@ use App\Models\Transaction;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use VIITech\Helpers\Constants\CastingTypes;
 use VIITech\Helpers\Constants\Platforms;
 use VIITech\Helpers\GlobalHelpers;
@@ -63,19 +68,19 @@ class PaymentController extends CustomController
         $platform = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PLATFORM, Platforms::MOBILE, CastingTypes::STRING);
 
         $redirect_to = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REDIRECT_TO, null, CastingTypes::STRING);
-//        if (is_null($redirect_to)) {
-//            $redirect_to = url("elite-service?uuid=$booking_uuid");
-//        }
-//
-//        if ($secret !== Values::SECRET) {
-//            return redirect()->to($redirect_to . "&error=true");
-//        }
-//
-//        /** @var EliteServices $booking */
-//        $booking = EliteServices::where(Attributes::UUID, $booking_uuid)->first();
-//        if (is_null($booking)) {
-//            return redirect()->to($redirect_to . "&error=true");
-//        }
+        if (is_null($redirect_to)) {
+            $redirect_to = url("/api/payments/redirect?booking=$booking_uuid");
+        }
+
+        if ($secret !== Values::SECRET) {
+            return redirect()->to($redirect_to . "&error=true");
+        }
+
+        /** @var EliteServices $booking */
+        $booking = EliteServices::where(Attributes::UUID, $booking_uuid)->first();
+        if (is_null($booking)) {
+            return redirect()->to($redirect_to . "&error=true");
+        }
 
         /** @var Transaction $temp_order */
         $temp_order = Transaction::where(Attributes::UUID, $booking_uuid)->orderByDesc(Attributes::CREATED_AT)->first();
@@ -122,5 +127,46 @@ class PaymentController extends CustomController
         return redirect()->to($redirect_to . "&error=$error");
     }
 
+
+    /**
+     * Payments Redirect
+     *
+     * @return View
+     *
+     * * @OA\GET(
+     *     path="/api/payments/redirect",
+     *     tags={"Payments"},
+     *     description="Payments Redirect",
+     *     @OA\Response(response="200", description="Requested successfully ", @OA\JsonContent(ref="#/components/schemas/CustomJsonResponse")),
+     *     @OA\Response(response="500", description="Internal Server Error", @OA\JsonContent(ref="#/components/schemas/CustomJsonResponse")),
+     * )
+     */
+    public function paymentRedirect()
+    {
+
+        // change payment status of booking
+        $booking_uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BOOKING, null, CastingTypes::STRING);
+        $error = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ERROR, null, CastingTypes::BOOLEAN);
+        $payment_method = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PAYMENT_METHOD, ActivityPaymentMethods::DEBIT_CARD, CastingTypes::INTEGER);
+        if(!is_null($error)){
+            /** @var Transaction $booking */
+            $booking = Transaction::where(Attributes::UUID, $booking_uuid)->first();
+            if(!is_null($booking)){
+                if(!$error){
+                    $booking->status = TransactionStatus::SUCCESS;
+                }else{
+                    $booking->status = TransactionStatus::FAIL;
+                }
+                if(is_null($booking->payment_provider)){
+                    dd($payment_method);
+                    $booking->payment_provider = $payment_method;
+                }
+
+                $booking->save();
+            }
+        }
+
+        return view('payment');
+    }
 
 }
