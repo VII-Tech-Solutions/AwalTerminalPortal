@@ -173,8 +173,8 @@ class HomeController extends CustomController
 
             $secret = env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ');
 
-            $success_url = env("WEBSITE_URL") . "/payment-received";
-            $error_url = env("WEBSITE_URL") . "/payment-failed";
+            $success_url = url("/api/payments/verify-benefit?booking=$transaction->uuid&secret=$secret&platform=web");
+            $error_url = url("/api/payments/verify-benefit?booking=$transaction->uuid&secret=$secret&platform=web");
 
             $booker = $elite_service->booker()->first();
 
