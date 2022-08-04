@@ -701,619 +701,615 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 106,
-            Attributes::NAME => 'Indonesia',
-        ]);
-        $this->insert([
-            Attributes::ID => 107,
             Attributes::NAME => 'Iraq',
         ]);
         $this->insert([
-            Attributes::ID => 108,
+            Attributes::ID => 107,
             Attributes::NAME => 'Ireland',
         ]);
         $this->insert([
-            Attributes::ID => 109,
+            Attributes::ID => 108,
             Attributes::NAME => 'Isle of Man',
         ]);
         $this->insert([
-            Attributes::ID => 110,
+            Attributes::ID => 109,
             Attributes::NAME => 'Israel',
         ]);
         $this->insert([
-            Attributes::ID => 111,
+            Attributes::ID => 110,
             Attributes::NAME => 'Italy',
         ]);
         $this->insert([
-            Attributes::ID => 112,
+            Attributes::ID => 111,
             Attributes::NAME => 'Jamaica',
         ]);
         $this->insert([
-            Attributes::ID => 113,
+            Attributes::ID => 112,
             Attributes::NAME => 'Japan',
         ]);
         $this->insert([
-            Attributes::ID => 114,
+            Attributes::ID => 113,
             Attributes::NAME => 'Jersey',
         ]);
         $this->insert([
-            Attributes::ID => 115,
+            Attributes::ID => 114,
             Attributes::NAME => 'Jordan',
         ]);
         $this->insert([
-            Attributes::ID => 116,
+            Attributes::ID => 115,
             Attributes::NAME => 'Kazakhstan',
         ]);
         $this->insert([
-            Attributes::ID => 117,
+            Attributes::ID => 116,
             Attributes::NAME => 'Kenya',
         ]);
         $this->insert([
-            Attributes::ID => 118,
+            Attributes::ID => 117,
             Attributes::NAME => 'Kiribati',
         ]);
         $this->insert([
-            Attributes::ID => 119,
+            Attributes::ID => 118,
             Attributes::NAME => "Democratic People's Republic of Korea",
         ]);
         $this->insert([
-            Attributes::ID => 120,
+            Attributes::ID => 119,
             Attributes::NAME => 'Republic of Korea',
         ]);
         $this->insert([
-            Attributes::ID => 121,
+            Attributes::ID => 120,
             Attributes::NAME => 'Kosovo',
         ]);
         $this->insert([
-            Attributes::ID => 122,
+            Attributes::ID => 121,
             Attributes::NAME => 'Kuwait',
         ]);
         $this->insert([
-            Attributes::ID => 123,
+            Attributes::ID => 122,
             Attributes::NAME => 'Kyrgyzstan'
         ]);
         $this->insert([
-            Attributes::ID => 124,
+            Attributes::ID => 123,
             Attributes::NAME => 'Lao Peoples Democratic Republic',
         ]);
         $this->insert([
-            Attributes::ID => 125,
+            Attributes::ID => 124,
             Attributes::NAME => 'Latvia',
         ]);
         $this->insert([
-            Attributes::ID => 126,
+            Attributes::ID => 125,
             Attributes::NAME => 'Lebanon',
         ]);
         $this->insert([
-            Attributes::ID => 127,
+            Attributes::ID => 126,
             Attributes::NAME => 'Lesotho',
         ]);
         $this->insert([
-            Attributes::ID => 128,
+            Attributes::ID => 127,
             Attributes::NAME => 'Liberia',
         ]);
         $this->insert([
-            Attributes::ID => 129,
+            Attributes::ID => 128,
             Attributes::NAME => 'Libya',
         ]);
         $this->insert([
-            Attributes::ID => 130,
+            Attributes::ID => 129,
             Attributes::NAME => 'Liechtenstein'
         ]);
         $this->insert([
-            Attributes::ID => 131,
+            Attributes::ID => 130,
             Attributes::NAME => 'Lithuania',
         ]);
         $this->insert([
-            Attributes::ID => 132,
+            Attributes::ID => 131,
             Attributes::NAME => 'Luxembourg',
         ]);
         $this->insert([
-            Attributes::ID => 133,
+            Attributes::ID => 132,
             Attributes::NAME => 'Macau SAR',
         ]);
         $this->insert([
-            Attributes::ID => 134,
+            Attributes::ID => 133,
             Attributes::NAME => 'Macedonia (FYROM)',
         ]);
         $this->insert([
-            Attributes::ID => 135,
+            Attributes::ID => 134,
             Attributes::NAME => 'Madagascar',
         ]);
         $this->insert([
-            Attributes::ID => 136,
+            Attributes::ID => 135,
             Attributes::NAME => 'Malawi',
         ]);
         $this->insert([
-            Attributes::ID => 137,
+            Attributes::ID => 136,
             Attributes::NAME => 'Malaysia'
         ]);
         $this->insert([
-            Attributes::ID => 138,
+            Attributes::ID => 137,
             Attributes::NAME => 'Maldives',
         ]);
         $this->insert([
-            Attributes::ID => 139,
+            Attributes::ID => 138,
             Attributes::NAME => 'Mali',
         ]);
         $this->insert([
-            Attributes::ID => 140,
+            Attributes::ID => 139,
             Attributes::NAME => 'Malta',
         ]);
         $this->insert([
-            Attributes::ID => 141,
+            Attributes::ID => 140,
             Attributes::NAME => 'Marshall Islands',
         ]);
         $this->insert([
-            Attributes::ID => 142,
+            Attributes::ID => 141,
             Attributes::NAME => 'Martinique',
         ]);
         $this->insert([
-            Attributes::ID => 143,
+            Attributes::ID => 142,
             Attributes::NAME => 'Mauritania',
         ]);
         $this->insert([
-            Attributes::ID => 144,
+            Attributes::ID => 143,
             Attributes::NAME => 'Mauritius',
         ]);
         $this->insert([
-            Attributes::ID => 145,
+            Attributes::ID => 144,
             Attributes::NAME => 'Mayotte',
         ]);
         $this->insert([
-            Attributes::ID => 146,
+            Attributes::ID => 145,
             Attributes::NAME => 'Mexico',
         ]);
         $this->insert([
-            Attributes::ID => 147,
+            Attributes::ID => 146,
             Attributes::NAME => 'Micronesia',
         ]);
         $this->insert([
-            Attributes::ID => 148,
+            Attributes::ID => 147,
             Attributes::NAME => 'Republic of Moldova',
         ]);
         $this->insert([
-            Attributes::ID => 149,
+            Attributes::ID => 148,
             Attributes::NAME => 'Monaco',
         ]);
         $this->insert([
-            Attributes::ID => 150,
+            Attributes::ID => 149,
             Attributes::NAME => 'Mongolia',
         ]);
         $this->insert([
-            Attributes::ID => 151,
+            Attributes::ID => 150,
             Attributes::NAME => 'Montenegro'
         ]);
         $this->insert([
-            Attributes::ID => 152,
+            Attributes::ID => 151,
             Attributes::NAME => 'Montserrat',
         ]);
         $this->insert([
-            Attributes::ID => 153,
+            Attributes::ID => 152,
             Attributes::NAME => 'Morocco',
         ]);
         $this->insert([
-            Attributes::ID => 154,
+            Attributes::ID => 153,
             Attributes::NAME => 'Mozambique',
         ]);
         $this->insert([
-            Attributes::ID => 155,
+            Attributes::ID => 154,
             Attributes::NAME => 'Myanmar',
         ]);
         $this->insert([
-            Attributes::ID => 156,
+            Attributes::ID => 155,
             Attributes::NAME => 'Namibia'
         ]);
         $this->insert([
-            Attributes::ID => 157,
+            Attributes::ID => 156,
             Attributes::NAME => 'Nauru'
         ]);
         $this->insert([
-            Attributes::ID => 158,
+            Attributes::ID => 157,
             Attributes::NAME => 'Nepal',
         ]);
         $this->insert([
-            Attributes::ID => 159,
+            Attributes::ID => 158,
             Attributes::NAME => 'Netherlands',
         ]);
         $this->insert([
-            Attributes::ID => 160,
+            Attributes::ID => 159,
             Attributes::NAME => 'Caribbean Netherlands',
         ]);
         $this->insert([
-            Attributes::ID => 161,
+            Attributes::ID => 160,
             Attributes::NAME => 'New Caledonia',
         ]);
 
         $this->insert([
-            Attributes::ID => 162,
+            Attributes::ID => 161,
             Attributes::NAME => 'New Zealand',
         ]);
 
         $this->insert([
-            Attributes::ID => 163,
+            Attributes::ID => 162,
             Attributes::NAME => 'Nicaragua',
         ]);
 
         $this->insert([
-            Attributes::ID => 164,
+            Attributes::ID => 163,
             Attributes::NAME => 'Niger',
         ]);
 
         $this->insert([
-            Attributes::ID => 165,
+            Attributes::ID => 164,
             Attributes::NAME => 'Nigeria',
         ]);
         $this->insert([
-            Attributes::ID => 166,
+            Attributes::ID => 165,
             Attributes::NAME => 'Niue',
         ]);
         $this->insert([
-            Attributes::ID => 167,
+            Attributes::ID => 166,
             Attributes::NAME => 'Norfolk Island',
         ]);
         $this->insert([
-            Attributes::ID => 168,
+            Attributes::ID => 167,
             Attributes::NAME => 'Northern Mariana Islands',
         ]);
         $this->insert([
-            Attributes::ID => 169,
+            Attributes::ID => 168,
             Attributes::NAME => 'Norway',
         ]);
         $this->insert([
-            Attributes::ID => 170,
+            Attributes::ID => 169,
             Attributes::NAME => 'Oman',
         ]);
         $this->insert([
-            Attributes::ID => 171,
+            Attributes::ID => 170,
             Attributes::NAME => 'Pakistan',
         ]);
         $this->insert([
-            Attributes::ID => 172,
+            Attributes::ID => 171,
             Attributes::NAME => 'Palau',
         ]);
         $this->insert([
-            Attributes::ID => 173,
+            Attributes::ID => 172,
             Attributes::NAME => 'Palestinian Territory, Occupied',
         ]);
         $this->insert([
-            Attributes::ID => 174,
+            Attributes::ID => 173,
             Attributes::NAME => 'Panama',
         ]);
         $this->insert([
-            Attributes::ID => 175,
+            Attributes::ID => 174,
             Attributes::NAME => 'Papua New Guinea',
         ]);
 
         $this->insert([
-            Attributes::ID => 176,
+            Attributes::ID => 175,
             Attributes::NAME => 'Paraguay',
         ]);
 
         $this->insert([
-            Attributes::ID => 177,
+            Attributes::ID => 176,
             Attributes::NAME => 'Peru',
         ]);
 
         $this->insert([
-            Attributes::ID => 178,
+            Attributes::ID => 177,
             Attributes::NAME => 'Philippines',
         ]);
 
         $this->insert([
-            Attributes::ID => 179,
+            Attributes::ID => 178,
             Attributes::NAME => 'Pitcairn',
         ]);
         $this->insert([
-            Attributes::ID => 180,
+            Attributes::ID => 179,
             Attributes::NAME => 'Poland',
         ]);
         $this->insert([
-            Attributes::ID => 181,
+            Attributes::ID => 180,
             Attributes::NAME => 'Portugal',
         ]);
         $this->insert([
-            Attributes::ID => 182,
+            Attributes::ID => 181,
             Attributes::NAME => 'Puerto Rico',
         ]);
         $this->insert([
-            Attributes::ID => 183,
+            Attributes::ID => 182,
             Attributes::NAME => 'Qatar',
         ]);
         $this->insert([
-            Attributes::ID => 184,
+            Attributes::ID => 183,
             Attributes::NAME => 'Reunion',
         ]);
         $this->insert([
-            Attributes::ID => 185,
+            Attributes::ID => 184,
             Attributes::NAME => 'Romania',
         ]);
 
         $this->insert([
-            Attributes::ID => 186,
+            Attributes::ID => 185,
             Attributes::NAME => 'Russian Federation',
         ]);
 
         $this->insert([
-            Attributes::ID => 187,
+            Attributes::ID => 186,
             Attributes::NAME => 'Rwanda',
         ]);
 
         $this->insert([
-            Attributes::ID => 188,
+            Attributes::ID => 187,
             Attributes::NAME => 'Saint Barthelemy',
         ]);
 
         $this->insert([
-            Attributes::ID => 189,
+            Attributes::ID => 188,
             Attributes::NAME => 'St. Helena',
         ]);
 
         $this->insert([
-            Attributes::ID => 190,
+            Attributes::ID => 189,
             Attributes::NAME => 'St. Kitts and Nevis',
         ]);
 
         $this->insert([
-            Attributes::ID => 191,
+            Attributes::ID => 190,
             Attributes::NAME => 'Saint Lucia',
         ]);
 
         $this->insert([
-            Attributes::ID => 192,
+            Attributes::ID => 191,
             Attributes::NAME => 'Saint Martin',
         ]);
 
         $this->insert([
-            Attributes::ID => 193,
+            Attributes::ID => 192,
             Attributes::NAME => 'St. Pierre and Miquelon',
         ]);
         $this->insert([
-            Attributes::ID => 194,
+            Attributes::ID => 193,
             Attributes::NAME => 'Saint Vincent and the Grenadines',
         ]);
         $this->insert([
-            Attributes::ID => 195,
+            Attributes::ID => 194,
             Attributes::NAME => 'Samoa',
         ]);
         $this->insert([
-            Attributes::ID => 196,
+            Attributes::ID => 195,
             Attributes::NAME => 'San Marino',
         ]);
         $this->insert([
-            Attributes::ID => 197,
+            Attributes::ID => 196,
             Attributes::NAME => 'Sao Tome and Principe',
         ]);
         $this->insert([
-            Attributes::ID => 198,
+            Attributes::ID => 197,
             Attributes::NAME => 'Saudi Arabia',
         ]);
         $this->insert([
-            Attributes::ID => 199,
+            Attributes::ID => 198,
             Attributes::NAME => 'Senegal',
         ]);
         $this->insert([
-            Attributes::ID => 200,
+            Attributes::ID => 199,
             Attributes::NAME => 'Republic of Serbia',
         ]);
         $this->insert([
-            Attributes::ID => 201,
+            Attributes::ID => 200,
             Attributes::NAME => 'Serbia and Montenegro',
         ]);
         $this->insert([
-            Attributes::ID => 202,
+            Attributes::ID => 201,
             Attributes::NAME => 'Seychelles',
         ]);
         $this->insert([
-            Attributes::ID => 203,
+            Attributes::ID => 202,
             Attributes::NAME => 'Sierra Leone',
         ]);
         $this->insert([
-            Attributes::ID => 204,
+            Attributes::ID => 203,
             Attributes::NAME => 'Singapore',
         ]);
         $this->insert([
-            Attributes::ID => 205,
+            Attributes::ID => 204,
             Attributes::NAME => 'Sint Maarten',
         ]);
         $this->insert([
-            Attributes::ID => 206,
+            Attributes::ID => 205,
             Attributes::NAME => 'Slovakia'
         ]);
 
         $this->insert([
-            Attributes::ID => 207,
+            Attributes::ID => 206,
             Attributes::NAME => 'Slovenia',
         ]);
 
         $this->insert([
-            Attributes::ID => 208,
+            Attributes::ID => 207,
             Attributes::NAME => 'Solomon Islands',
         ]);
 
         $this->insert([
-            Attributes::ID => 209,
+            Attributes::ID => 208,
             Attributes::NAME => 'Somalia',
         ]);
 
         $this->insert([
-            Attributes::ID => 210,
+            Attributes::ID => 209,
             Attributes::NAME => 'South Africa',
         ]);
 
         $this->insert([
-            Attributes::ID => 211,
+            Attributes::ID => 210,
             Attributes::NAME => 'South Georgia and the South Sandwich Islands',
         ]);
 
         $this->insert([
-            Attributes::ID => 212,
+            Attributes::ID => 211,
             Attributes::NAME => 'South Sudan',
         ]);
 
         $this->insert([
-            Attributes::ID => 213,
+            Attributes::ID => 212,
             Attributes::NAME => 'Spain and Canary Islands',
         ]);
 
         $this->insert([
-            Attributes::ID => 214,
+            Attributes::ID => 213,
             Attributes::NAME => 'Sri Lanka',
         ]);
 
         $this->insert([
-            Attributes::ID => 215,
+            Attributes::ID => 214,
             Attributes::NAME => 'Sudan',
         ]);
         $this->insert([
-            Attributes::ID => 216,
+            Attributes::ID => 215,
             Attributes::NAME => 'Suriname',
         ]);
         $this->insert([
-            Attributes::ID => 217,
+            Attributes::ID => 216,
             Attributes::NAME => 'Svalbard & Jan Mayen Island',
         ]);
         $this->insert([
-            Attributes::ID => 218,
-            Attributes::NAME => 'Swaziland',
+            Attributes::ID => 217,
+            Attributes::NAME => 'Eswatini',
         ]);
         $this->insert([
-            Attributes::ID => 219,
+            Attributes::ID => 218,
             Attributes::NAME => 'Sweden',
         ]);
         $this->insert([
-            Attributes::ID => 220,
+            Attributes::ID => 219,
             Attributes::NAME => 'Switzerland',
         ]);
         $this->insert([
-            Attributes::ID => 221,
+            Attributes::ID => 220,
             Attributes::NAME => 'Syrian Arab Republic',
         ]);
         $this->insert([
-            Attributes::ID => 222,
+            Attributes::ID => 221,
             Attributes::NAME => 'Taiwan',
         ]);
         $this->insert([
-            Attributes::ID => 223,
+            Attributes::ID => 222,
             Attributes::NAME => 'Tajikistan',
         ]);
         $this->insert([
-            Attributes::ID => 224,
+            Attributes::ID => 223,
             Attributes::NAME => 'United Republic of Tanzania',
         ]);
         $this->insert([
-            Attributes::ID => 225,
+            Attributes::ID => 224,
             Attributes::NAME => 'Thailand',
         ]);
         $this->insert([
-            Attributes::ID => 226,
+            Attributes::ID => 225,
             Attributes::NAME => 'East Timor',
         ]);
         $this->insert([
-            Attributes::ID => 227,
+            Attributes::ID => 226,
             Attributes::NAME => 'Togo',
         ]);
         $this->insert([
-            Attributes::ID => 228,
+            Attributes::ID => 227,
             Attributes::NAME => 'Tokelau',
         ]);
         $this->insert([
-            Attributes::ID => 229,
+            Attributes::ID => 228,
             Attributes::NAME => 'Tonga',
         ]);
         $this->insert([
-            Attributes::ID => 230,
+            Attributes::ID => 229,
             Attributes::NAME => 'Trinidad and Tobago',
         ]);
         $this->insert([
-            Attributes::ID => 231,
+            Attributes::ID => 230,
             Attributes::NAME => 'Tunisia',
         ]);
         $this->insert([
-            Attributes::ID => 232,
+            Attributes::ID => 231,
             Attributes::NAME => 'Turkey',
         ]);
         $this->insert([
-            Attributes::ID => 233,
+            Attributes::ID => 232,
             Attributes::NAME => 'Turkmenistan',
         ]);
         $this->insert([
-            Attributes::ID => 234,
+            Attributes::ID => 233,
             Attributes::NAME => 'Turks and Caicos Islands',
         ]);
         $this->insert([
-            Attributes::ID => 235,
+            Attributes::ID => 234,
             Attributes::NAME => 'Tuvalu',
         ]);
         $this->insert([
-            Attributes::ID => 236,
+            Attributes::ID => 235,
             Attributes::NAME => 'Uganda',
         ]);
         $this->insert([
-            Attributes::ID => 237,
+            Attributes::ID => 236,
             Attributes::NAME => 'Ukraine',
         ]);
         $this->insert([
-            Attributes::ID => 238,
+            Attributes::ID => 237,
             Attributes::NAME => 'United Arab Emirates',
         ]);
         $this->insert([
-            Attributes::ID => 239,
+            Attributes::ID => 238,
             Attributes::NAME => 'United Kingdom',
         ]);
         $this->insert([
-            Attributes::ID => 240,
+            Attributes::ID => 239,
             Attributes::NAME => 'United States',
         ]);
         $this->insert([
-            Attributes::ID => 241,
+            Attributes::ID => 240,
             Attributes::NAME => 'US Minor Outlying Islands',
         ]);
         $this->insert([
-            Attributes::ID => 242,
+            Attributes::ID => 241,
             Attributes::NAME => 'Uruguay',
         ]);
         $this->insert([
-            Attributes::ID => 243,
+            Attributes::ID => 242,
             Attributes::NAME => 'Uzbekistan',
         ]);
         $this->insert([
-            Attributes::ID => 244,
+            Attributes::ID => 243,
             Attributes::NAME => 'Vanuatu',
         ]);
         $this->insert([
-            Attributes::ID => 245,
+            Attributes::ID => 244,
             Attributes::NAME => 'Venezuela',
         ]);
         $this->insert([
-            Attributes::ID => 246,
+            Attributes::ID => 245,
             Attributes::NAME => 'Viet Nam',
         ]);
         $this->insert([
-            Attributes::ID => 247,
+            Attributes::ID => 246,
             Attributes::NAME => 'British Virgin Islands',
         ]);
         $this->insert([
-            Attributes::ID => 248,
+            Attributes::ID => 247,
             Attributes::NAME => 'U.S. Virgin Islands',
         ]);
         $this->insert([
-            Attributes::ID => 249,
+            Attributes::ID => 248,
             Attributes::NAME => 'Wallis and Futuna',
         ]);
         $this->insert([
-            Attributes::ID => 250,
+            Attributes::ID => 249,
             Attributes::NAME => 'Western Sahara',
         ]);
         $this->insert([
-            Attributes::ID => 251,
+            Attributes::ID => 250,
             Attributes::NAME => 'Republic of Yemen'
         ]);
         $this->insert([
-            Attributes::ID => 252,
+            Attributes::ID => 251,
             Attributes::NAME => 'Zambia'
         ]);
         $this->insert([
-            Attributes::ID => 253,
+            Attributes::ID => 252,
             Attributes::NAME => 'Zimbabwe'
         ]);
 

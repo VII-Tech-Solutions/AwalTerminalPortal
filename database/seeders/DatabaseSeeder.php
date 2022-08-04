@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ServicesContentSeeder::class);
         $this->call(EliteServicesContentSeeder::class);
         $this->call(CountrySeeder::class);
+        $this->call(AirportsSeeder::class);
     }
 }
