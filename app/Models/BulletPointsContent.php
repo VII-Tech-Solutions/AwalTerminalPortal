@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string text
  * @property integer section_content_id
  */
-class BulletPointsContent extends Model
+class BulletPointsContent extends CustomModel
 {
     use HasFactory;
     protected $table = Tables::BULLET_POINTS_CONTENT;
