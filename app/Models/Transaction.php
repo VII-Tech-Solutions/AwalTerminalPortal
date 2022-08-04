@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string amount
  * @property string order_id
  * @property string uuid
+ * @property integer payment_provider
  */
 class Transaction extends CustomModel
 {

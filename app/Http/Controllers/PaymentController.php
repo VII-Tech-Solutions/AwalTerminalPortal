@@ -6,6 +6,7 @@ use App\API\Controllers\CustomController;
 use App\Constants\Attributes;
 use App\Constants\Values;
 use App\Helpers;
+use App\Models\ActivityBooking;
 use App\Models\EliteServices;
 use App\Models\Transaction;
 use Exception;
@@ -17,6 +18,29 @@ use VIITech\Helpers\GlobalHelpers;
 
 class PaymentController extends CustomController
 {
+
+
+    /**
+     * Redirect To
+     * @param $platform
+     * @param Transaction $booking
+     * @param $error
+     * @return RedirectResponse
+     */
+    function redirectTo($platform, $booking, $error)
+    {
+        $error = $error ? "true" : "false";
+        if ($platform == Platforms::WEB && !is_null($booking)) {
+            $redirect_to = env('WEBSITE_URL') . "/payment-failed";
+        } else if (!is_null($booking)) {
+            $redirect_to = url("/api/payments/redirect") . "?booking=$booking->uuid&error=$error";
+        } else {
+            $redirect_to = env('WEBSITE_URL') . "/payment-failed";
+        }
+        return redirect()->to($redirect_to);
+    }
+
+
 
     /**
      * Verify Benefit Payment
@@ -63,7 +87,7 @@ class PaymentController extends CustomController
             Attributes::UUID => $temp_order->uuid,
             Attributes::ORDER_ID => $temp_order->uuid,
             Attributes::TRACKID => $temp_order->uuid,
-            Attributes::PAYMENT_METHOD => $temp_order->payment_method,
+            Attributes::PAYMENT_PROVIDER => $temp_order->payment_provider,
             Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
             Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
         ];
@@ -93,9 +117,7 @@ class PaymentController extends CustomController
         }
 
         if ($platform == Platforms::WEB) {
-            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$booking->uuid" .
-                "?booking_id=$booking->id" .
-                "&uuid=$booking->uuid";
+            $redirect_to = env('WEBSITE_URL') . "/payment-received";
         }
         return redirect()->to($redirect_to . "&error=$error");
     }
