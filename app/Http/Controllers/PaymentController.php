@@ -63,22 +63,22 @@ class PaymentController extends CustomController
         $platform = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PLATFORM, Platforms::MOBILE, CastingTypes::STRING);
 
         $redirect_to = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REDIRECT_TO, null, CastingTypes::STRING);
-        if (is_null($redirect_to)) {
-            $redirect_to = url("/api/payments/redirect?booking=$booking_uuid");
-        }
-
-        if ($secret !== Values::SECRET) {
-            return redirect()->to($redirect_to . "&error=true");
-        }
-
-        /** @var EliteServices $booking */
-        $booking = EliteServices::where(Attributes::UUID, $booking_uuid)->first();
-        if (is_null($booking)) {
-            return redirect()->to($redirect_to . "&error=true");
-        }
+//        if (is_null($redirect_to)) {
+//            $redirect_to = url("elite-service?uuid=$booking_uuid");
+//        }
+//
+//        if ($secret !== Values::SECRET) {
+//            return redirect()->to($redirect_to . "&error=true");
+//        }
+//
+//        /** @var EliteServices $booking */
+//        $booking = EliteServices::where(Attributes::UUID, $booking_uuid)->first();
+//        if (is_null($booking)) {
+//            return redirect()->to($redirect_to . "&error=true");
+//        }
 
         /** @var Transaction $temp_order */
-        $temp_order = Transaction::where(Attributes::UUID, $booking->uuid)->orderByDesc(Attributes::CREATED_AT)->first();
+        $temp_order = Transaction::where(Attributes::UUID, $booking_uuid)->orderByDesc(Attributes::CREATED_AT)->first();
         if (is_null($temp_order)) {
             return redirect()->to($redirect_to . "&error=true");
         }
