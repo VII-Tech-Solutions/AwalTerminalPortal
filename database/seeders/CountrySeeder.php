@@ -62,7 +62,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 12,
-            Attributes::NAME => "Armenia"
+            Attributes::NAME => 'Armenia'
         ]);
         $this->insert([
             Attributes::ID => 13,
@@ -102,11 +102,11 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 22,
-            Attributes::NAME => "Belgium"
+            Attributes::NAME => 'Belgium'
         ]);
         $this->insert([
             Attributes::ID => 23,
-            Attributes::NAME => "Belize"
+            Attributes::NAME => 'Belize'
         ]);
 
         $this->insert([
@@ -123,7 +123,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 27,
-            Attributes::NAME => "Bolivia"
+            Attributes::NAME => 'Bolivia'
         ]);
         $this->insert([
             Attributes::ID => 28,
@@ -135,11 +135,11 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 30,
-            Attributes::NAME => "Botswana"
+            Attributes::NAME => 'Botswana'
         ]);
         $this->insert([
             Attributes::ID => 31,
-            Attributes::NAME => "Bouvet Island"
+            Attributes::NAME => 'Bouvet Island'
         ]);
         $this->insert([
             Attributes::ID => 32,
@@ -183,11 +183,11 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 42,
-            Attributes::NAME => "Cayman Islands"
+            Attributes::NAME => 'Cayman Islands'
         ]);
         $this->insert([
             Attributes::ID => 43,
-            Attributes::NAME => "Central African Republic"
+            Attributes::NAME => 'Central African Republic'
         ]);
         $this->insert([
             Attributes::ID => 44,
@@ -219,19 +219,19 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 51,
-            Attributes::NAME => "Congo"
+            Attributes::NAME => 'Congo'
         ]);
         $this->insert([
             Attributes::ID => 52,
-            Attributes::NAME => "Congo, Democratic Republic of the Congo"
+            Attributes::NAME => 'The Democratic Republic of The Congo'
         ]);
         $this->insert([
             Attributes::ID => 53,
-            Attributes::NAME => "Cook Islands"
+            Attributes::NAME => 'Cook Islands'
         ]);
         $this->insert([
             Attributes::ID => 54,
-            Attributes::NAME => "Costa Rica"
+            Attributes::NAME => 'Costa Rica'
         ]);
         $this->insert([
             Attributes::ID => 55,
@@ -243,11 +243,11 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 57,
-            Attributes::NAME => "Cuba"
+            Attributes::NAME => 'Cuba'
         ]);
         $this->insert([
             Attributes::ID => 58,
-            Attributes::NAME => "Curacao"
+            Attributes::NAME => 'Curaçao'
         ]);
         $this->insert([
             Attributes::ID => 59,
@@ -425,7 +425,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 100,
-            Attributes::NAME => 'Hong Kong',
+            Attributes::NAME => 'Hong Kong SAR',
         ]);
         $this->insert([
             Attributes::ID => 101,
@@ -497,11 +497,11 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 118,
-            Attributes::NAME => 'Korea, Democratic Peoples Republic of',
+            Attributes::NAME => "Democratic People's Republic of Korea",
         ]);
         $this->insert([
             Attributes::ID => 119,
-            Attributes::NAME => 'Korea Republic of',
+            Attributes::NAME => 'Republic of Korea',
         ]);
         $this->insert([
             Attributes::ID => 120,
@@ -537,7 +537,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 128,
-            Attributes::NAME => 'Libyan Arab Jamahiriya',
+            Attributes::NAME => 'Libya',
         ]);
         $this->insert([
             Attributes::ID => 129,
@@ -557,7 +557,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 133,
-            Attributes::NAME => 'Macedonia, the Former Yugoslav Republic of',
+            Attributes::NAME => 'Macedonia (FYROM)',
         ]);
         $this->insert([
             Attributes::ID => 134,
@@ -609,11 +609,11 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 146,
-            Attributes::NAME => 'Micronesia, Federated States of',
+            Attributes::NAME => 'Micronesia',
         ]);
         $this->insert([
             Attributes::ID => 147,
-            Attributes::NAME => 'Moldova, Republic of',
+            Attributes::NAME => 'Republic of Moldova',
         ]);
         $this->insert([
             Attributes::ID => 148,
@@ -661,7 +661,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 159,
-            Attributes::NAME => 'Netherlands Antilles',
+            Attributes::NAME => 'Caribbean Netherlands',
         ]);
         $this->insert([
             Attributes::ID => 160,
@@ -789,12 +789,12 @@ class CountrySeeder extends Seeder
 
         $this->insert([
             Attributes::ID => 188,
-            Attributes::NAME => 'Saint Helena',
+            Attributes::NAME => 'St. Helena',
         ]);
 
         $this->insert([
             Attributes::ID => 189,
-            Attributes::NAME => 'Saint Kitts and Nevis',
+            Attributes::NAME => 'St. Kitts and Nevis',
         ]);
 
         $this->insert([
@@ -809,7 +809,7 @@ class CountrySeeder extends Seeder
 
         $this->insert([
             Attributes::ID => 192,
-            Attributes::NAME => 'Saint Pierre and Miquelon',
+            Attributes::NAME => 'St. Pierre and Miquelon',
         ]);
         $this->insert([
             Attributes::ID => 193,
@@ -837,7 +837,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 199,
-            Attributes::NAME => 'Serbia',
+            Attributes::NAME => 'Republic of Serbia',
         ]);
         $this->insert([
             Attributes::ID => 200,
@@ -896,7 +896,7 @@ class CountrySeeder extends Seeder
 
         $this->insert([
             Attributes::ID => 212,
-            Attributes::NAME => 'Spain',
+            Attributes::NAME => 'Spain and Canary Islands',
         ]);
 
         $this->insert([
@@ -914,7 +914,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 216,
-            Attributes::NAME => 'Svalbard and Jan Mayen',
+            Attributes::NAME => 'Svalbard & Jan Mayen Island',
         ]);
         $this->insert([
             Attributes::ID => 217,
@@ -934,7 +934,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 221,
-            Attributes::NAME => 'Taiwan, Province of China',
+            Attributes::NAME => 'Taiwan',
         ]);
         $this->insert([
             Attributes::ID => 222,
@@ -942,7 +942,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 223,
-            Attributes::NAME => 'Tanzania, United Republic of',
+            Attributes::NAME => 'United Republic of Tanzania',
         ]);
         $this->insert([
             Attributes::ID => 224,
@@ -1010,7 +1010,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 240,
-            Attributes::NAME => 'United States Minor Outlying Islands',
+            Attributes::NAME => 'US Minor Outlying Islands',
         ]);
         $this->insert([
             Attributes::ID => 241,
@@ -1034,11 +1034,11 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 246,
-            Attributes::NAME => 'Virgin Islands, British',
+            Attributes::NAME => 'British Virgin Islands',
         ]);
         $this->insert([
             Attributes::ID => 247,
-            Attributes::NAME => 'Virgin Islands, U.s.',
+            Attributes::NAME => 'U.S. Virgin Islands',
         ]);
         $this->insert([
             Attributes::ID => 248,
@@ -1050,7 +1050,7 @@ class CountrySeeder extends Seeder
         ]);
         $this->insert([
             Attributes::ID => 250,
-            Attributes::NAME => 'Yemen'
+            Attributes::NAME => 'Republic of Yemen'
         ]);
         $this->insert([
             Attributes::ID => 251,
