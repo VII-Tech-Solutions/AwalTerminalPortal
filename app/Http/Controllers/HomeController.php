@@ -145,7 +145,7 @@ class HomeController extends CustomController
                 Attributes::ELITE_SERVICE_ID => $elite_service->id,
                 Attributes::AMOUNT => $elite_service->total,
                 Attributes::ORDER_ID => Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID),
-                Attributes::PAYMENT_PROVIDER => PaymentProvider::CREDIMAX,
+                Attributes::PAYMENT_PROVIDER => $payment_method,
                 Attributes::UUID => $elite_service->uuid,
                 Attributes::STATUS => TransactionStatus::PENDING
             ], [
@@ -163,6 +163,7 @@ class HomeController extends CustomController
                 Attributes::RETURN_URL => url("elite-service/$uuid/pay/complete"),
                 Attributes::AMOUNT => $transaction->amount,
                 Attributes::ORDER_ID => $transaction->order_id,
+                Attributes::UUID => $transaction->uuid,
                 Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
             ]);
 
@@ -182,7 +183,7 @@ class HomeController extends CustomController
             $phoneNumber = $booker->mobile_number;
 
             // go to payment page
-            $payment_url = self::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $name, $phoneNumber, $success_url, $error_url);
+            $payment_url = self::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $transaction->order_id, $name, $phoneNumber, $success_url, $error_url);
 //            dd($payment_url);
             return redirect()->to($payment_url);
         }
@@ -198,7 +199,7 @@ class HomeController extends CustomController
      * Generate Benefit Payment Link
      * @return string
      */
-    static function generateBenefitPaymentLink($amount, $uid, $customer_name, $customer_phone_number, $success_url, $error_url)
+    static function generateBenefitPaymentLink($amount, $uid, $order_id, $customer_name, $customer_phone_number, $success_url, $error_url)
     {
 
         try {
@@ -206,7 +207,7 @@ class HomeController extends CustomController
             // and will call the benefit middle ware on this case to generate a payment page url
             $benefit_request_data = [
                 Attributes::AMOUNT => $amount,
-                Attributes::ORDER_ID => $uid,
+                Attributes::ORDER_ID => $order_id,
                 Attributes::TRACKID => $uid,
                 Attributes::CUSTOMER_NAME => $customer_name,
                 Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
