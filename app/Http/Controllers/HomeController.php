@@ -265,12 +265,11 @@ class HomeController extends CustomController
 
         // get values
         $success = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::SUCCESS, false, CastingTypes::BOOLEAN);
-        $uuid = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::ORDER_ID, false, CastingTypes::STRING);
+        $uuid = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::UUID, false, CastingTypes::STRING);
 
         // get transaction
         $transaction = Transaction::where(Attributes::UUID, $uuid)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
         if (is_null($transaction)) {
-            dd($request);
             dd("couldnt find transaction uuid $uuid and elite service id $elite_service->id");
             return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
         }
