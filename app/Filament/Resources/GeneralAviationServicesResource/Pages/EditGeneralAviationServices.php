@@ -84,7 +84,7 @@ class EditGeneralAviationServices extends EditRecord
 //
 //                }
 //            }
-//            GlobalHelpers::debugger(json_encode($services),"info");
+            GlobalHelpers::debugger(json_encode($general_aviation),"info");
 
             switch ($value) {
                 case 1:
