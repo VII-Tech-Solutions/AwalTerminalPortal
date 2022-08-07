@@ -153,11 +153,16 @@ class HomeController extends CustomController
                 Attributes::UUID,
                 Attributes::AMOUNT,
             ]);
+        } else {
+            if (is_null($transaction->order_id)) {
+                $transaction->order_id = Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID);
+                $transaction->save();
+            }
         }
+
 
         // redirect to payment gateway
         if ($payment_method == PaymentProvider::CREDIMAX) {
-            dd("order id" . $transaction->order_id);
             // build url query
             $query = http_build_query([
                 Attributes::RETURN_URL => url("elite-service/$uuid/pay/complete"),
@@ -251,12 +256,10 @@ class HomeController extends CustomController
      */
     function completePayment(Request $request, $uuid)
     {
-        dd($request);
         // get elite service
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
         if (is_null($elite_service)) {
-            dd('couldnt find elite services');
             return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
         }
 
