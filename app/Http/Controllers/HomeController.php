@@ -274,7 +274,7 @@ class HomeController extends CustomController
         }
 
         // update transaction status
-        $transaction->status = $success;
+        $transaction->status = true;
         $transaction->save();
 
         // update elite service

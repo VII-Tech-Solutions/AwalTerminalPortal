@@ -220,9 +220,9 @@ class EliteServices extends CustomModel
             case ESStatus::PAID:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
-
                 $elite_service->link_expires_at = null;
                 $elite_service->save();
+                dd('SENDING EMAIL');
 
                 // generate pdf
                 PDF::loadView('invoice')->save('invoice.pdf');
