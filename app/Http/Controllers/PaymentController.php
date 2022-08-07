@@ -158,7 +158,6 @@ class PaymentController extends CustomController
                     $booking->status = TransactionStatus::FAIL;
                 }
                 if(is_null($booking->payment_provider)){
-                    dd($payment_method);
                     $booking->payment_provider = $payment_method;
                 }
 
