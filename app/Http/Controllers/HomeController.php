@@ -251,7 +251,7 @@ class HomeController extends CustomController
      */
     function completePayment(Request $request, $uuid)
     {
-
+        dd($request);
         // get elite service
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
