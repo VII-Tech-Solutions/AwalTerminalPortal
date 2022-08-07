@@ -256,6 +256,7 @@ class HomeController extends CustomController
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
         if (is_null($elite_service)) {
+            dd('couldnt find elite services');
             return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
         }
 
@@ -266,6 +267,7 @@ class HomeController extends CustomController
         // get transaction
         $transaction = Transaction::where(Attributes::ORDER_ID, $order_id)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
         if (is_null($transaction)) {
+            dd("couldnt find transaction");
             return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
         }
 
