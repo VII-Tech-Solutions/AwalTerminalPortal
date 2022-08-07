@@ -157,7 +157,7 @@ class HomeController extends CustomController
 
         // redirect to payment gateway
         if ($payment_method == PaymentProvider::CREDIMAX) {
-
+            dd("order id" . $transaction->order_id);
             // build url query
             $query = http_build_query([
                 Attributes::RETURN_URL => url("elite-service/$uuid/pay/complete"),
