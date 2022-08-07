@@ -162,7 +162,7 @@ class HomeController extends CustomController
             $query = http_build_query([
                 Attributes::RETURN_URL => url("elite-service/$uuid/pay/complete"),
                 Attributes::AMOUNT => $transaction->amount,
-                Attributes::ORDER_ID => $transaction->order_id,
+                Attributes::ORDER_ID => $transaction->uuid,
                 Attributes::UUID => $transaction->uuid,
                 Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
             ]);
