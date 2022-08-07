@@ -270,6 +270,7 @@ class HomeController extends CustomController
         // get transaction
         $transaction = Transaction::where(Attributes::UUID, $uuid)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
         if (is_null($transaction)) {
+            dd($request);
             dd("couldnt find transaction uuid $uuid and elite service id $elite_service->id");
             return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
         }
