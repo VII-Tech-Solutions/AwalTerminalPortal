@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\API\Controllers\CustomController;
-use App\Constants\ActivityPaymentMethods;
 use App\Constants\Attributes;
 use App\Constants\PaymentProvider;
-use App\Constants\PaymentStatus;
 use App\Constants\TransactionStatus;
 use App\Constants\Values;
 use App\Helpers;
-use App\Models\ActivityBooking;
 use App\Models\EliteServices;
 use App\Models\Transaction;
 use Exception;
@@ -36,15 +33,18 @@ class PaymentController extends CustomController
     {
         $error = $error ? "true" : "false";
         if ($platform == Platforms::WEB && !is_null($booking)) {
-            $redirect_to = env('WEBSITE_URL') . "/payment-failed";
+            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$booking->uuid" .
+                "?booking_id=$booking->id&payment_method=$booking->payment_provider" .
+                "&uuid=$booking->uuid&error=$error";
+        } else if (!is_null($booking)) {
+            $redirect_to = url("/api/payments/redirect") . "?booking=$booking->uuid&error=$error";
         } else if (!is_null($booking)) {
             $redirect_to = url("/api/payments/redirect") . "?booking=$booking->uuid&error=$error";
         } else {
-            $redirect_to = env('WEBSITE_URL') . "/payment-failed";
+            $redirect_to = url("/api/payments/redirect") . "?error=$error";
         }
         return redirect()->to($redirect_to);
     }
-
 
 
     /**
@@ -147,17 +147,17 @@ class PaymentController extends CustomController
         // change payment status of booking
         $booking_uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BOOKING, null, CastingTypes::STRING);
         $error = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ERROR, null, CastingTypes::BOOLEAN);
-        $payment_method = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PAYMENT_METHOD, ActivityPaymentMethods::DEBIT_CARD, CastingTypes::INTEGER);
-        if(!is_null($error)){
+        $payment_method = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PAYMENT_METHOD, PaymentProvider::BENEFIT, CastingTypes::INTEGER);
+        if (!is_null($error)) {
             /** @var Transaction $booking */
             $booking = Transaction::where(Attributes::UUID, $booking_uuid)->first();
-            if(!is_null($booking)){
-                if(!$error){
+            if (!is_null($booking)) {
+                if (!$error) {
                     $booking->status = TransactionStatus::SUCCESS;
-                }else{
+                } else {
                     $booking->status = TransactionStatus::FAIL;
                 }
-                if(is_null($booking->payment_provider)){
+                if (is_null($booking->payment_provider)) {
                     $booking->payment_provider = $payment_method;
                 }
 
