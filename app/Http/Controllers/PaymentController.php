@@ -38,8 +38,6 @@ class PaymentController extends CustomController
                 "&uuid=$booking->uuid&error=$error";
         } else if (!is_null($booking)) {
             $redirect_to = url("/api/payments/redirect") . "?booking=$booking->uuid&error=$error";
-        } else if (!is_null($booking)) {
-            $redirect_to = url("/api/payments/redirect") . "?booking=$booking->uuid&error=$error";
         } else {
             $redirect_to = url("/api/payments/redirect") . "?error=$error";
         }
