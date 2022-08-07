@@ -265,7 +265,7 @@ class HomeController extends CustomController
 
         // get values
         $success = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::SUCCESS, false, CastingTypes::BOOLEAN);
-        $uuid = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::UUID, false, CastingTypes::STRING);
+//        $uuid = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::UUID, false, CastingTypes::STRING);
 
         // get transaction
         $transaction = Transaction::where(Attributes::UUID, $uuid)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
