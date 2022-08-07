@@ -3,23 +3,31 @@
 namespace App\API\Controllers;
 
 use App\API\Transformers\EliteServiceTransformer;
+use App\Constants\ActivityPaymentMethods;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
+use App\Constants\PaymentProvider;
 use App\Constants\Values;
 use App\Helpers;
 use App\Mail\ESNewBookingMail;
 use App\Mail\ESRequestReceivedMail;
+use App\Models\Activity;
+use App\Models\ActivityBooking;
 use App\Models\Airport;
+use App\Models\Availability;
 use App\Models\Bookers;
 use App\Models\Country;
 use App\Models\EliteServices;
 use App\Models\EliteServiceTypes;
 use App\Models\Passengers;
+use App\Models\Transaction;
 use App\Models\User;
+use App\Models\VendorActivity;
 use Carbon\Carbon;
 use Database\Seeders\AirportSeeder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 use VIITech\Helpers\Constants\CastingTypes;
 use VIITech\Helpers\Constants\EnvVariables;
 use VIITech\Helpers\GlobalHelpers;
@@ -234,9 +242,9 @@ class EliteServiceController extends CustomController
 
             $from_airport_id = Airport::where(Attributes::ID, $airport_id)->first();
 
-            foreach ($passengers as $key => $value){
-                $nationality=  Country::where(Attributes::ID, $value['nationality_id'])->first();
-                $passengers[$key]['nationality_id']= $nationality;
+            foreach ($passengers as $key => $value) {
+                $nationality = Country::where(Attributes::ID, $value['nationality_id'])->first();
+                $passengers[$key]['nationality_id'] = $nationality;
             }
             // send email to customer
             Helpers::sendMailable(new ESRequestReceivedMail($booker_email, "$booker_firstname $booker_lastname", [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker_email);
@@ -325,4 +333,21 @@ class EliteServiceController extends CustomController
             Attributes::VAT_PERCENTAGE => $vat_percentage,
         ];
     }
+
+    /**
+     * Generate Receipt
+     * @param $transaction_id
+     * @return View|null
+     */
+    function generateReceipt($transaction_id)
+    {
+        $transaction = Transaction::find($transaction_id);
+        if (is_null($transaction)) {
+            return null;
+        }
+        $data = $transaction->generateReceiptData();
+        return view('receipt', $data);
+    }
+
+
 }

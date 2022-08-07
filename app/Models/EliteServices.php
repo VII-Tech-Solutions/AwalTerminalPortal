@@ -6,7 +6,9 @@ use App\Constants\Attributes;
 use App\Constants\CastingTypes;
 use App\Constants\ESStatus;
 use App\Constants\FlightType;
+use App\Constants\PaymentProvider;
 use App\Constants\Tables;
+use App\Constants\TransactionStatus;
 use App\Constants\Values;
 use App\Helpers;
 use App\Mail\ESBookingApproveMail;
@@ -25,6 +27,8 @@ use VIITech\Helpers\GlobalHelpers;
  *
  * @property string uuid
  * @property string flight_type
+ * @property string vat_amount
+ * @property string subtotal
  * @property Collection bookers
  * @property int submission_status_id
  * @property mixed total
@@ -223,16 +227,12 @@ class EliteServices extends CustomModel
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                 $elite_service->link_expires_at = null;
                 $elite_service->save();
-//                dd('SENDING EMAIL');
-
-                // generate pdf
-                PDF::loadView('invoice')->save('invoice.pdf');
-
+                $transaction = Transaction::query()->where(Attributes::UUID, $elite_service->uuid)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->first();
                 // send email
-                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'invoice.pdf'), $user->email);
+                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'receipt.pdf', $transaction->id, $transaction), $user->email);
                 unlink('invoice.pdf');
 
-                GlobalHelpers::debugger(json_encode($elite_service),"info");
+//                GlobalHelpers::debugger(json_encode($elite_service),"info");
 
                 break;
         }

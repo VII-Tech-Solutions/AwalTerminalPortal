@@ -493,6 +493,7 @@ class Helpers
         return Attachment::where(Attributes::URL, $image)->first();
     }
 
+
     /**
      * Readable Boolean
      * @param boolean $boolean
