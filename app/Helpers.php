@@ -97,7 +97,7 @@ class Helpers
             $order_id = 100000 + $model->getKey();
 
             if (is_null($model)) {
-                return $order_id;
+                return $order_id+1;
             } else {
                 if (is_null($model::where($attribute, $order_id)->first())) {
                     return $order_id;
