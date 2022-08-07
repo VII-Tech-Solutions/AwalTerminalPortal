@@ -25,19 +25,19 @@ class PaymentController extends CustomController
     /**
      * Redirect To
      * @param $platform
-     * @param Transaction $booking
+     * @param Transaction $transaction
      * @param $error
      * @return RedirectResponse
      */
-    function redirectTo($platform, $booking, $error)
+    function redirectTo($platform, $transaction, $error)
     {
         $error = $error ? "true" : "false";
-        if ($platform == Platforms::WEB && !is_null($booking)) {
-            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$booking->uuid" .
-                "?booking_id=$booking->id&payment_method=$booking->payment_provider" .
-                "&uuid=$booking->uuid&error=$error";
-        } else if (!is_null($booking)) {
-            $redirect_to = url("/api/payments/redirect") . "?booking=$booking->uuid&error=$error";
+        if ($platform == Platforms::WEB && !is_null($transaction)) {
+            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$transaction->uuid" .
+                "?transaction_id=$transaction->id&payment_method=$transaction->payment_provider" .
+                "&uuid=$transaction->uuid&error=$error";
+        } else if (!is_null($transaction)) {
+            $redirect_to = url("/api/payments/redirect") . "?uuid=$transaction->uuid?&payment_method=$transaction->payment_provider&error=$error";
         } else {
             $redirect_to = url("/api/payments/redirect") . "?error=$error";
         }
@@ -145,23 +145,24 @@ class PaymentController extends CustomController
     {
 
         // change payment status of booking
-        $booking_uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BOOKING, null, CastingTypes::STRING);
+        $uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::UUID, null, CastingTypes::STRING);
         $error = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ERROR, null, CastingTypes::BOOLEAN);
         $payment_method = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PAYMENT_METHOD, PaymentProvider::BENEFIT, CastingTypes::INTEGER);
+
         if (!is_null($error)) {
-            /** @var Transaction $booking */
-            $booking = Transaction::where(Attributes::UUID, $booking_uuid)->first();
-            if (!is_null($booking)) {
+            /** @var Transaction $transaction */
+            $transaction = Transaction::where(Attributes::UUID,$uuid)->first();
+            if (!is_null($transaction)) {
                 if (!$error) {
-                    $booking->status = TransactionStatus::SUCCESS;
+                    $transaction->status = TransactionStatus::SUCCESS;
                 } else {
-                    $booking->status = TransactionStatus::FAIL;
+                    $transaction->status = TransactionStatus::FAIL;
                 }
-                if (is_null($booking->payment_provider)) {
-                    $booking->payment_provider = $payment_method;
+                if (is_null($transaction->payment_provider)) {
+                    $transaction->payment_provider = $payment_method;
                 }
 
-                $booking->save();
+                $transaction->save();
             }
         }
 
