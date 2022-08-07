@@ -14,6 +14,7 @@ class Attributes extends CustomEnum
     const PHONE = "phone";
     const EMAIL = "email";
     const TRANSACTION_UUID = "transaction_uuid";
+    const TRANSACTION_ORDER_ID = "transaction_order_id";
     const CUSTOMER_PHONE_NUMBER = "customer_phone_number";
     const DOMAIN = "domain";
     const CUSTOMER_NAME = "customer_name";

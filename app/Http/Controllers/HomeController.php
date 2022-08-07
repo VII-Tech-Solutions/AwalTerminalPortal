@@ -163,7 +163,7 @@ class HomeController extends CustomController
                 Attributes::RETURN_URL => url("elite-service/$uuid/pay/complete"),
                 Attributes::AMOUNT => $transaction->amount,
                 Attributes::ORDER_ID => $transaction->uuid,
-                Attributes::UUID => $transaction->uuid,
+                Attributes::TRANSACTION_ORDER_ID => $transaction->order_id,
                 Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
             ]);
 
@@ -261,7 +261,7 @@ class HomeController extends CustomController
 
         // get values
         $success = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::SUCCESS, false, CastingTypes::BOOLEAN);
-        $order_id = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::ORDER_ID, false, CastingTypes::STRING);
+        $order_id = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::TRANSACTION_ORDER_ID, false, CastingTypes::STRING);
 
         // get transaction
         $transaction = Transaction::where(Attributes::ORDER_ID, $order_id)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
