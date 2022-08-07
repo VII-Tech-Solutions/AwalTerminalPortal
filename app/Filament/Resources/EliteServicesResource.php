@@ -164,6 +164,7 @@ class EliteServicesResource extends Resource
             ->columns([
                 //
                 Tables\Columns\TextColumn::make(Attributes::ID)->label("ID"),
+                Tables\Columns\TextColumn::make('booker.booker_fullname')->label('Booker name'),
                 Tables\Columns\TextColumn::make(Attributes::CREATED_AT)->label('Submitted at')->sortable(),
                 Tables\Columns\TextColumn::make(Attributes::TIME)->label('Flight time'),
                 Tables\Columns\TextColumn::make(Attributes::DATE)->label('Flight date'),

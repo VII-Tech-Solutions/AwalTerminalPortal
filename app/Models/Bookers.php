@@ -28,6 +28,10 @@ class Bookers extends CustomModel
         Attributes::SERVICE_ID,
     ];
 
+    protected $appends = [
+        Attributes::BOOKER_FULLNAME,
+    ];
+
     /**
      * Relationship: service
      * @return BelongsTo
@@ -37,4 +41,13 @@ class Bookers extends CustomModel
         return $this->belongsTo(EliteServices::class,Attributes::SERVICE_ID);
     }
 
+    /**
+     * Get Attribute: booker_fullname
+     * @param $value
+     * @return string
+     */
+    function getBookerFullnameAttribute($value)
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
 }
