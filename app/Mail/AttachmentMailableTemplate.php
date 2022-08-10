@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class AttachmentMailableTemplate extends Mailable
 {
@@ -55,7 +56,7 @@ class AttachmentMailableTemplate extends Mailable
             ->view($this->view, $this->data);
 
         if (!empty($this->receipt)) {
-            $this->receipt = Helpers::getCDNLink($this->receipt);
+            $this->receipt = Storage::disk("public")->url($this->receipt);
             $result->attach($this->receipt, [
                 'as' => 'receipt.pdf',
                 'mime' => 'application/pdf',
