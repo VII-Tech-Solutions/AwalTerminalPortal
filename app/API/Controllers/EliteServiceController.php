@@ -346,7 +346,7 @@ class EliteServiceController extends CustomController
             return null;
         }
         $data = $transaction->generateReceiptData();
-        return view('receipt', $data);
+        return view('invoice', $data);
     }
 
 

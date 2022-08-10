@@ -77,9 +77,14 @@ class Transaction extends CustomModel
             $payment_method = "-";
         }
 
+        $months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+            "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+        ];
+        $days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+
 
         $data = [
-            Attributes::ORDER_DATE => $order_date,
+            Attributes::ORDER_DATE => [$order_date->format("d"), $months[$order_date->month - 1], $order_date->format("Y")],
             Attributes::TRANSACTION_ORDER_ID => $transaction->id,
             Attributes::PAYMENT_METHOD => $payment_method,
             Attributes::SUBTOTAL => $eliteService->subtotal ?? '436',
