@@ -50,11 +50,11 @@ class Transaction extends CustomModel
             ->header('Authorization', 'Basic ' . base64_encode('awal:password'));
 
         // upload file
-        $path = Helpers::uploadFile(null, $pdf, null, null, "uploads/files", true, false,  true,  false, null,  null,  1, true);
+        $path = Helpers::uploadFile(null, $pdf, null, "uploads/files", true, false);
 
         // add to db
-        $this->receipt = $path;
-        $this->save();
+//        $this->receipt = $path;
+//        $this->save();
 
         return $path;
     }
