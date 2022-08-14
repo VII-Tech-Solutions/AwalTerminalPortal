@@ -260,7 +260,6 @@ class HomeController extends CustomController
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
         if (is_null($elite_service)) {
-            dd(redirect()->to(env("WEBSITE_URL") . "/payment-failed"));
             return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
         }
 
@@ -271,7 +270,6 @@ class HomeController extends CustomController
         // get transaction
         $transaction = Transaction::where(Attributes::UUID, $uuid)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
         if (is_null($transaction)) {
-            dd(redirect()->to(env("WEBSITE_URL") . "/payment-failed"));
             return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
         }
 
@@ -283,7 +281,6 @@ class HomeController extends CustomController
         $elite_service->markAsPaid();
 
         // return response
-        dd(redirect()->to(env("WEBSITE_URL") . "/payment-received"));
         return redirect()->to(env("WEBSITE_URL") . "/payment-received");
 
     }
