@@ -33,9 +33,11 @@ class PaymentController extends CustomController
     {
         $error = $error ? "true" : "false";
         if ($platform == Platforms::WEB && !is_null($transaction)) {
-            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$transaction->uuid" .
-                "?transaction_id=$transaction->id&payment_method=$transaction->payment_provider" .
-                "&uuid=$transaction->uuid&error=$error";
+//            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$transaction->uuid" .
+//                "?transaction_id=$transaction->id&payment_method=$transaction->payment_provider" .
+//                "&uuid=$transaction->uuid&error=$error";
+            $redirect_to = env('WEBSITE_URL') . '/payment-received';
+
         } else if (!is_null($transaction)) {
             $redirect_to = url("/api/payments/redirect") . "?uuid=$transaction->uuid?&payment_method=$transaction->payment_provider&error=$error";
         } else {
@@ -51,7 +53,7 @@ class PaymentController extends CustomController
      * @return RedirectResponse
      *
      * * @OA\GET(
-     *     path="/api/payments/verify",
+     *     path="/api/payments/verify-benefit",
      *     tags={"Payments"},
      *     description="Payments Verify",
      *     @OA\Response(response="200", description="Requested successfully ", @OA\JsonContent(ref="#/components/schemas/CustomJsonResponse")),
@@ -120,9 +122,10 @@ class PaymentController extends CustomController
         }
 
         if ($platform == Platforms::WEB) {
-            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$booking->uuid" .
-                "?booking_id=$booking->id&payment_method=$temp_order->payment_provider&payment_status=$temp_order->status" .
-                "&uuid=$booking->uuid";
+//            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$booking->uuid" .
+//                "?booking_id=$booking->id&payment_method=$temp_order->payment_provider&payment_status=$temp_order->status" .
+//                "&uuid=$booking->uuid";
+            $redirect_to = env('WEBSITE_URL') . '/payment-received';
         }
         return redirect()->to($redirect_to . "&error=$error");
     }
@@ -151,7 +154,7 @@ class PaymentController extends CustomController
 
         if (!is_null($error)) {
             /** @var Transaction $transaction */
-            $transaction = Transaction::where(Attributes::UUID,$uuid)->first();
+            $transaction = Transaction::where(Attributes::UUID, $uuid)->first();
             if (!is_null($transaction)) {
                 if (!$error) {
                     $transaction->status = TransactionStatus::SUCCESS;
