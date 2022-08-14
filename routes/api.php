@@ -39,6 +39,7 @@ $api->version('v1', function ($api) {
         $api->get('/payments/redirect','\App\Http\Controllers\PaymentController@paymentRedirect')->middleware('allowed_user:true'); // Payments Redirect
         $api->get('/payments/verify-benefit','\App\Http\Controllers\PaymentController@verifyBenefitPayment')->middleware('allowed_user:true'); // Verify Benefit Payment
         $api->get('/payments/verify-credimax','\App\Http\Controllers\PaymentController@verifyCredimaxPayment')->middleware('allowed_user:true'); // Verify Credimax Payment
+        $api->get('/receipt/{transaction_id}', 'EliteServiceController@generateReceipt');
 
     });
 });

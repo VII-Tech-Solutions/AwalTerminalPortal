@@ -429,7 +429,7 @@ class Helpers
         $disk = "public";
 
         // if a base64 was sent, store it in the db
-        if (Str::startsWith($image, 'data:image') || is_a($image, UploadedFile::class) || is_a($image, Image::class)) {
+        if (Str::startsWith($image, 'data:image') || is_a($image, UploadedFile::class) || is_a($image, Image::class) || is_a($image, \Illuminate\Http\Response::class)) {
 
             $allowed_types = ["jpg", "jpeg", "png", "pdf"];
 
@@ -440,6 +440,8 @@ class Helpers
                 $extension = $image->extension;
             } else if (Str::contains($image, "data:image/png;base64")) {
                 $extension = "png";
+            } else if (is_a($image, \Illuminate\Http\Response::class)) {
+                $extension = "pdf";
             }
             if (!in_array($extension, $allowed_types)) {
                 return null;
@@ -447,20 +449,28 @@ class Helpers
 
             // 0. Make the image
             // 1. Generate a filename.
-            if (!is_a($image, Image::class) && $generate_name) {
+            if ($extension != "pdf"  && !is_a($image, Image::class) && $generate_name) {
                 $image = Image::make($image)->encode($extension, 90);
                 $filename = $image->filename;
                 if (empty($filename)) {
                     $filename = Str::random();
                 }
                 $filename = $filename . ".$extension";
-            } else {
+            } else if ($extension != "pdf") {
                 $filename = $image->getClientOriginalName();
                 $image = Image::make($image)->encode($extension, 90);
             }
 
+            if (!isset($filename)) {
+                $image_file_name = Helpers::generateCleanUUID(true);
+                $filename = $image_file_name . ".$extension";
+            }
+
             // 2. Store the image on disk.
-            $stored = Storage::disk($disk)->put($destination_path . '/' . $filename, $image->stream(), 'public');
+            if (!is_a($image, \Illuminate\Http\UploadedFile::class) && !is_a($image, \Illuminate\Http\Response::class)) {
+                $image = $image->stream();
+            }
+            $stored = Storage::disk($disk)->put($destination_path . '/' . $filename, $image, 'public');
 
             // 3. Delete the previous image, if there was one.
             if (!is_null($static) && !is_null($attribute_name)) {
@@ -492,6 +502,7 @@ class Helpers
 
         return Attachment::where(Attributes::URL, $image)->first();
     }
+
 
     /**
      * Readable Boolean

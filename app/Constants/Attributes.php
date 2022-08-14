@@ -398,5 +398,7 @@ class Attributes extends CustomEnum
     const REDIRECT_TO = "redirect_to";
     const BOOKING = "booking";
     const PLATFORM = "platform";
+    const FILE_URL = "file_url";
+    const ORDER_DATE = "order_date";
 
 }
