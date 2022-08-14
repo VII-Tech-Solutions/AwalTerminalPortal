@@ -43,22 +43,22 @@ class HomeController extends CustomController
         return redirect()->to("/");
     }
 
-    /**
-     * Process
-     * @return RedirectResponse
-     */
-    function process()
-    {
-
-        /** @var EliteServices $elite_service */
-        $elite_service = EliteServices::query()->orderByDesc(Attributes::CREATED_AT)->first();
-        // generate payment link
-        $link = $elite_service->generatePaymentLink();
-
-        // redirect to
-        return redirect()->to($link);
-
-    }
+//    /**
+//     * Process
+//     * @return RedirectResponse
+//     */
+//    function process()
+//    {
+//
+//        /** @var EliteServices $elite_service */
+//        $elite_service = EliteServices::query()->orderByDesc(Attributes::CREATED_AT)->first();
+//        // generate payment link
+//        $link = $elite_service->generatePaymentLink();
+//
+//        // redirect to
+//        return redirect()->to($link);
+//
+//    }
 
     /**
      * Pay
@@ -212,7 +212,7 @@ class HomeController extends CustomController
             // and will call the benefit middle ware on this case to generate a payment page url
             $benefit_request_data = [
                 Attributes::AMOUNT => $amount,
-                Attributes::ORDER_ID => $order_id,
+                Attributes::ORDER_ID => $uid,
                 Attributes::TRACKID => $uid,
                 Attributes::CUSTOMER_NAME => $customer_name,
                 Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
@@ -260,6 +260,7 @@ class HomeController extends CustomController
         /** @var EliteServices $elite_service */
         $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
         if (is_null($elite_service)) {
+            dd(redirect()->to(env("WEBSITE_URL") . "/payment-failed"));
             return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
         }
 
@@ -270,6 +271,7 @@ class HomeController extends CustomController
         // get transaction
         $transaction = Transaction::where(Attributes::UUID, $uuid)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
         if (is_null($transaction)) {
+            dd(redirect()->to(env("WEBSITE_URL") . "/payment-failed"));
             return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
         }
 
@@ -281,6 +283,7 @@ class HomeController extends CustomController
         $elite_service->markAsPaid();
 
         // return response
+        dd(redirect()->to(env("WEBSITE_URL") . "/payment-received"));
         return redirect()->to(env("WEBSITE_URL") . "/payment-received");
 
     }
