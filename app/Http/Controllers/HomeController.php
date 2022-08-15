@@ -7,6 +7,7 @@ use App\Constants\Attributes;
 use App\Constants\CastingTypes;
 use App\Constants\PaymentProvider;
 use App\Constants\TransactionStatus;
+use App\Constants\Values;
 use App\Helpers;
 use App\Models\EliteServices;
 use App\Models\Transaction;
@@ -188,7 +189,7 @@ class HomeController extends CustomController
             $phoneNumber = $booker->mobile_number;
 
             // go to payment page
-            $payment_url = self::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $transaction->order_id, $name, $phoneNumber, $success_url, $error_url);
+            $payment_url = PaymentController::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $name, $phoneNumber, $success_url, $error_url);
 //            dd($payment_url);
             return redirect()->to($payment_url);
         }
@@ -200,88 +201,85 @@ class HomeController extends CustomController
     }
 
 
-    /**
-     * Generate Benefit Payment Link
-     * @return string
-     */
-    static function generateBenefitPaymentLink($amount, $uid, $order_id, $customer_name, $customer_phone_number, $success_url, $error_url)
-    {
 
-        try {
 
-            // and will call the benefit middle ware on this case to generate a payment page url
-            $benefit_request_data = [
-                Attributes::AMOUNT => $amount,
-                Attributes::ORDER_ID => $uid,
-                Attributes::TRACKID => $uid,
-                Attributes::CUSTOMER_NAME => $customer_name,
-                Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
-                Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
-                Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
-                Attributes::SUCCESS_URL => $success_url,
-                Attributes::ERROR_URL => $error_url,
-                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "12818950")
-            ];
-
-            $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
-
-            $url = env('PAYMENT_URL') . '/benefit/checkout';
-
-            $client = new Client(['auth' => ['awal', 'password']]);
-            $response = $client->request('POST', $url, [
-                'multipart' => $benefit_request_data
-            ]);
-
-            $response_body = json_decode($response->getBody()->getContents());
-
-            GlobalHelpers::debugger(json_encode($response_body), DebuggerLevels::INFO);
-
-            $payment_url = $response_body->data->payment_page ?? null;
-
-            return $payment_url;
-
-        } catch (Exception|GuzzleException $e) {
-            Helpers::captureException($e);
-        }
-
-        return null;
-    }
-
+//
+//    /**
+//     * Complete Payment
+//     * @param Request $request
+//     * @param $uuid
+//     * @return RedirectResponse
+//     */
+//    function completePayment(Request $request, $uuid)
+//    {
+//        // get elite service
+//        /** @var EliteServices $elite_service */
+//        $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
+//        if (is_null($elite_service)) {
+//            return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
+//        }
+//
+//        // get values
+//        $success = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::SUCCESS, false, CastingTypes::BOOLEAN);
+////        $uuid = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::UUID, false, CastingTypes::STRING);
+//
+//        // get transaction
+//        $transaction = Transaction::where(Attributes::UUID, $uuid)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
+//        if (is_null($transaction)) {
+//            return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
+//        }
+//
+//        // update transaction status
+//        $transaction->status = true;
+//        $transaction->save();
+//
+//        // update elite service
+//        $elite_service->markAsPaid();
+//
+//        // return response
+//        return redirect()->to(env("WEBSITE_URL") . "/payment-received");
+//
+//    }
 
     /**
-     * Complete Payment
-     * @param Request $request
-     * @param $uuid
-     * @return RedirectResponse
+     * Payments Redirect
+     *
+     * @return View
+     *
+     * * @OA\GET(
+     *     path="/api/payments/redirect",
+     *     tags={"Payments"},
+     *     description="Payments Redirect",
+     *     @OA\Response(response="200", description="Requested successfully ", @OA\JsonContent(ref="#/components/schemas/CustomJsonResponse")),
+     *     @OA\Response(response="500", description="Internal Server Error", @OA\JsonContent(ref="#/components/schemas/CustomJsonResponse")),
+     * )
      */
-    function completePayment(Request $request, $uuid)
+    public function paymentRedirect()
     {
-        // get elite service
-        /** @var EliteServices $elite_service */
-        $elite_service = EliteServices::where(Attributes::UUID, $uuid)->first();
-        if (is_null($elite_service)) {
-            return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
+
+        // change payment status of booking
+        $uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BOOKING, null, CastingTypes::STRING);
+        $error = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ERROR, null, CastingTypes::BOOLEAN);
+        $payment_method = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PAYMENT_METHOD, PaymentProvider::BENEFIT, CastingTypes::INTEGER);
+
+        if (!is_null($error)) {
+            /** @var Transaction $transaction */
+            $transaction = Transaction::where(Attributes::UUID, $uuid)->first();
+            if (!is_null($transaction)) {
+                if (!$error) {
+                    $transaction->status = TransactionStatus::SUCCESS;
+                } else {
+                    $transaction->status = TransactionStatus::FAIL;
+                }
+                if (is_null($transaction->payment_provider)) {
+                    $transaction->payment_provider = $payment_method;
+                }
+
+                $transaction->save();
+            }
         }
 
-        // get values
-        $success = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::SUCCESS, false, CastingTypes::BOOLEAN);
-//        $uuid = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::UUID, false, CastingTypes::STRING);
-
-        // get transaction
-        $transaction = Transaction::where(Attributes::UUID, $uuid)->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
-        if (is_null($transaction)) {
-            return redirect()->to(env("WEBSITE_URL") . "/payment-failed");
-        }
-
-        // update transaction status
-        $transaction->status = true;
-        $transaction->save();
-
-        // update elite service
-        $elite_service->markAsPaid();
-
-        // return response
-        return redirect()->to(env("WEBSITE_URL") . "/payment-received");
-
+        return view('payment');
     }
+
 }

@@ -12,9 +12,11 @@ use App\Models\EliteServices;
 use App\Models\Transaction;
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use VIITech\Helpers\Constants\CastingTypes;
+use VIITech\Helpers\Constants\DebuggerLevels;
 use VIITech\Helpers\Constants\Platforms;
 use VIITech\Helpers\GlobalHelpers;
 
@@ -92,7 +94,7 @@ class PaymentController extends CustomController
             Attributes::UUID => $temp_order->uuid,
             Attributes::ORDER_ID => $temp_order->uuid,
             Attributes::TRACKID => $temp_order->uuid,
-            Attributes::PAYMENT_PROVIDER => $temp_order->payment_provider,
+            Attributes::PAYMENT_METHOD => $temp_order->payment_provider,
             Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
             Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
         ];
@@ -172,4 +174,51 @@ class PaymentController extends CustomController
         return view('payment');
     }
 
+
+    /**
+     * Generate Benefit Payment Link
+     * @return string
+     */
+    static function generateBenefitPaymentLink($amount, $uid, $customer_name, $customer_phone_number, $success_url, $error_url)
+    {
+
+        try {
+
+            // and will call the benefit middle ware on this case to generate a payment page url
+            $benefit_request_data = [
+                Attributes::AMOUNT => $amount,
+                Attributes::ORDER_ID => $uid,
+                Attributes::TRACKID => $uid,
+                Attributes::CUSTOMER_NAME => $customer_name,
+                Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
+                Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
+                Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
+                Attributes::SUCCESS_URL => $success_url,
+                Attributes::ERROR_URL => $error_url,
+                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "12818950")
+            ];
+
+            $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
+
+            $url = env('PAYMENT_URL') . '/benefit/checkout';
+
+            $client = new Client(['auth' => ['awal', 'password']]);
+            $response = $client->request('POST', $url, [
+                'multipart' => $benefit_request_data
+            ]);
+
+            $response_body = json_decode($response->getBody()->getContents());
+
+            GlobalHelpers::debugger(json_encode($response_body), DebuggerLevels::INFO);
+
+            $payment_url = $response_body->data->payment_page ?? null;
+
+            return $payment_url;
+
+        } catch (Exception|GuzzleException $e) {
+            Helpers::captureException($e);
+        }
+
+        return null;
+    }
 }

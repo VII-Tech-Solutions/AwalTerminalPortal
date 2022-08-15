@@ -188,7 +188,6 @@ class EliteServices extends CustomModel
         $uuid = $this->uuid;
         return url("/elite-service/$uuid/pay/process");
 
-
     }
 
     /**
