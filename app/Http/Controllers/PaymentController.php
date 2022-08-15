@@ -204,8 +204,7 @@ class PaymentController extends CustomController
 
             $url = env('PAYMENT_URL') . '/benefit/checkout';
 
-//            $client = new Client(['auth' => ['awal', 'password']]);
-            $client   = new Client();
+            $client = new Client(['auth' => ['forge', 'password']]);
 
             $response = $client->request('POST', $url, [
                 'multipart' => $benefit_request_data
