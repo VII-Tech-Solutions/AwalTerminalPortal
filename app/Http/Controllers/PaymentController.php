@@ -218,7 +218,6 @@ class PaymentController extends CustomController
             return $payment_url;
 
         } catch (Exception|GuzzleException $e) {
-            dd($e);
             Helpers::captureException($e);
         }
 
