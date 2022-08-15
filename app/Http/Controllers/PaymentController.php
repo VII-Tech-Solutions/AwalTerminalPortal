@@ -195,7 +195,8 @@ class PaymentController extends CustomController
                 Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
                 Attributes::SUCCESS_URL => $success_url,
                 Attributes::ERROR_URL => $error_url,
-                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "12818950")
+                Attributes::MERCHANT_ID =>711150801
+//                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "12818950")
             ];
 
             $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
