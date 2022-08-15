@@ -190,7 +190,7 @@ class HomeController extends CustomController
 
             // go to payment page
             $payment_url = PaymentController::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $name, $phoneNumber, $success_url, $error_url);
-//            dd($payment_url);
+            dd($payment_url);
             return redirect()->to($payment_url);
         }
 
