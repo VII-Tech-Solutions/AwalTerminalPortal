@@ -211,11 +211,7 @@ class PaymentController extends CustomController
 
             $response_body = json_decode($response->getBody()->getContents());
 
-            GlobalHelpers::debugger(json_encode($response_body), DebuggerLevels::INFO);
-
-            $payment_url = $response_body->data->payment_page ?? null;
-
-            return $payment_url;
+            return $response_body->data->payment_page ?? null;;
 
         } catch (Exception|GuzzleException $e) {
             Helpers::captureException($e);
