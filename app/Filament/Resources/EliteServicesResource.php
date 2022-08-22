@@ -107,7 +107,7 @@ class EliteServicesResource extends Resource
                                     ])->label('Flight type:'),
                                     Select::make(Attributes::AIRPORT_ID)
                                         ->label('Airport:')
-                                        ->options(Airport::all()->pluck('name', 'id'))
+                                        ->options(Airport::all()->pluck('name', 'id')->sortBy(Attributes::NAME))
                                         ->searchable(),
                                     Forms\Components\DatePicker::make(Attributes::DATE),
                                     Forms\Components\TimePicker::make(Attributes::TIME),

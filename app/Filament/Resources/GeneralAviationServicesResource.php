@@ -98,7 +98,7 @@ class GeneralAviationServicesResource extends Resource
                                     Forms\Components\TextInput::make(Attributes::DEPARTURE_CALL_SIGN)->required(),
                                     Select::make(Attributes::DEPARTURE_TO_AIRPORT)
                                         ->label('To Airport')
-                                        ->options(Airport::all()->pluck('name', 'id'))
+                                        ->options(Airport::all()->pluck('name', 'id')->sortBy(Attributes::NAME))
                                         ->searchable(),
                                     Forms\Components\TimePicker::make(Attributes::ESTIMATED_TIME_OF_DEPARTURE)->required(),
                                     Forms\Components\DatePicker::make(Attributes::DEPARTURE_DATE)->required(),
