@@ -32,7 +32,7 @@ class MetadataController extends CustomController
 
         // get metadata
         $countries = Country::all();
-        $airports = Airport::all();
+        $airports = Airport::all()->sortBy(Attributes::NAME);
         $elite_service_types = EliteServiceTypes::all();
         $elite_service_features = EliteServiceFeatures::all();
         $form_services = FormServices::all();
