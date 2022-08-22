@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html>
+<html meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <head>
     <title>Awal Terminal</title>
 
