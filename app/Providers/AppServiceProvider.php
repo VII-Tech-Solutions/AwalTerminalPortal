@@ -14,7 +14,7 @@ use App\Models\User;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationItem;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\URL;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -34,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        if($this->app->environment('production')){
+            URL::forceScheme('https');
+        };
+
         $homePageContentId = HomepageContent::all()->first()->id;
         $tourPageContentId = TourTheTerminalContent::all()->first()->id;
         $OurStoryPageContentId = OurStoryContent::all()->first()->id;
