@@ -20,7 +20,7 @@ class SendEmailCommand extends Command
         if(empty($email)){
             dd("Invalid Email");
         }
-        $result = Helpers::sendMailable(new ContactUsMail($email, "Test", [
+        $result = Helpers::sendMailable(new ContactUsMail(  [
             Attributes::LINK => url("")
         ]), $email);
         $this->info("Email sent: " . GlobalHelpers::readableBoolean($result));
