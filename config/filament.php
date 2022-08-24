@@ -211,7 +211,7 @@ return [
                 'type' => Action::class,
             ],
         ],
-        'max_content_width' => 'half',
+        'max_content_width' => '7xl',
     ],
 
     /*
