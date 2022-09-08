@@ -23,6 +23,7 @@ class SendEmailCommand extends Command
         $result = Helpers::sendMailable(new ContactUsMail(  [
             Attributes::LINK => url("")
         ]), $email);
+        GlobalHelpers::debugger($result,'info');
         $this->info("Email sent: " . GlobalHelpers::readableBoolean($result));
     }
 }

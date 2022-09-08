@@ -313,6 +313,8 @@ class Helpers
                 return false;
             }
         } catch (Exception $e) {
+            GlobalHelpers::debugger($e,'info');
+            dd($e);
             Helpers::captureException($e);
             return false;
         }
