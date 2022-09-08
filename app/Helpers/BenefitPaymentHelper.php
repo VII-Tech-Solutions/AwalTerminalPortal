@@ -45,7 +45,7 @@ class BenefitPaymentHelper
             'benefit_middleware_token' => 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ',
             'success_url'              => $success_url,
             'error_url'                => $error_url,
-            'merchant_id'              => '12818950'
+            'merchant_id'              => env("BENEFIT_MERCHANT_ID", "711150801")
         ];
 
         $benefit_request_data  = Helpers::array_to_multipart_array( $benefit_request_data );
