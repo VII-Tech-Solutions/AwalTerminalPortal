@@ -144,10 +144,6 @@ class HomeController extends CustomController
                 Attributes::PAYMENT_PROVIDER => $payment_method,
                 Attributes::UUID => $elite_service->uuid,
                 Attributes::STATUS => TransactionStatus::PENDING
-            ], [
-                Attributes::ELITE_SERVICE_ID,
-                Attributes::UUID,
-                Attributes::AMOUNT,
             ]);
         } else {
             if (is_null($transaction->order_id)) {

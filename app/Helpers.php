@@ -104,6 +104,7 @@ class Helpers
 
             // shuffle the result
             $order_id = str_shuffle($pin);
+            dd($order_id);
             $current_order = $model::where($attribute, $order_id)->get()->first();
             dd($current_order);
             if (is_null($current_order)) {
