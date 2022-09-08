@@ -120,6 +120,7 @@ class PaymentController extends CustomController
             }
         } catch (Exception $e) {
             $error = "true";
+            dd($e);
             Helpers::captureException($e);
         }
 
