@@ -132,24 +132,22 @@ class HomeController extends CustomController
             return redirect()->to(env("WEBSITE_URL") . "/link-expired");
         }
 
-        // get transaction
-        /** @var Transaction $transaction */
-        $transaction = Transaction::where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->first();
-        if (is_null($transaction)) {
-            // create transaction
-            Transaction::createOrUpdate([
-                Attributes::ELITE_SERVICE_ID => $elite_service->id,
-                Attributes::AMOUNT => $elite_service->total,
-                Attributes::ORDER_ID => Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID),
-                Attributes::PAYMENT_PROVIDER => $payment_method,
-                Attributes::UUID => $elite_service->uuid,
-                Attributes::STATUS => TransactionStatus::PENDING
-            ]);
-        } else {
-            if (is_null($transaction->order_id)) {
-                $transaction->order_id = Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID);
-                $transaction->save();
-            }
+        // create transaction
+        $transaction = Transaction::createOrUpdate([
+            Attributes::ELITE_SERVICE_ID => $elite_service->id,
+            Attributes::AMOUNT => $elite_service->total,
+            Attributes::ORDER_ID => Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID),
+            Attributes::PAYMENT_PROVIDER => $payment_method,
+            Attributes::UUID => $elite_service->uuid,
+            Attributes::STATUS => TransactionStatus::PENDING
+        ], [
+            Attributes::UUID,
+            Attributes::AMOUNT
+        ]);
+
+        if (is_null($transaction->order_id)) {
+            $transaction->order_id = Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID);
+            $transaction->save();
         }
 
 
