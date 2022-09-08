@@ -57,11 +57,12 @@ class Helpers
 
     //convert a key-val array to a multipart array (an array of arrays of "name" & "contents")
     //to be used in guzzle POST requests
-    public static function array_to_multipart_array( $array ) {
+    public static function array_to_multipart_array($array)
+    {
         $multipart_array = [];
-        foreach ( $array as $key => $val ) {
+        foreach ($array as $key => $val) {
             $multipart_array[] = [
-                'name'     => $key,
+                'name' => $key,
                 'contents' => $val
             ];
         }
@@ -94,16 +95,19 @@ class Helpers
         /* @var $model CustomModel */
 
         try {
-            $order_id = 100000 + $model->getKey();
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-            if (is_null($model)) {
-                return $order_id+1;
+            // generate a pin based on 2 * 7 digits + a random character
+            $pin = mt_rand(1000000, 9999999)
+                . mt_rand(1000000, 9999999)
+                . $characters[rand(0, strlen($characters) - 1)];
+
+            // shuffle the result
+            $order_id = str_shuffle($pin);
+            if (is_null($model::where($attribute, $order_id)->get()->first())) {
+                return $order_id;
             } else {
-                if (is_null($model::where($attribute, $order_id)->first())) {
-                    return $order_id;
-                } else {
-                    return self::generateOrderID($model);
-                }
+                return self::generateOrderID($model);
             }
         } catch (Exception $e) {
             return null;
@@ -313,7 +317,7 @@ class Helpers
                 return false;
             }
         } catch (Exception $e) {
-            GlobalHelpers::debugger($e,'info');
+            GlobalHelpers::debugger($e, 'info');
             dd($e);
             Helpers::captureException($e);
             return false;
@@ -451,7 +455,7 @@ class Helpers
 
             // 0. Make the image
             // 1. Generate a filename.
-            if ($extension != "pdf"  && !is_a($image, Image::class) && $generate_name) {
+            if ($extension != "pdf" && !is_a($image, Image::class) && $generate_name) {
                 $image = Image::make($image)->encode($extension, 90);
                 $filename = $image->filename;
                 if (empty($filename)) {
@@ -602,7 +606,7 @@ class Helpers
         if (is_null($filename)) {
             $image_file_name = str_replace("-", "", Uuid::generate(1));
             $filename = $image_file_name . ".$extension";
-        } else if(!Str::endsWith($filename,$extension)) {
+        } else if (!Str::endsWith($filename, $extension)) {
             $filename = $filename . ".$extension";
         }
 

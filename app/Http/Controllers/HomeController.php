@@ -7,17 +7,12 @@ use App\Constants\Attributes;
 use App\Constants\CastingTypes;
 use App\Constants\PaymentProvider;
 use App\Constants\TransactionStatus;
-use App\Constants\Values;
 use App\Helpers;
 use App\Models\EliteServices;
 use App\Models\Transaction;
-use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use VIITech\Helpers\Constants\DebuggerLevels;
 use VIITech\Helpers\GlobalHelpers;
 
 /**
@@ -189,7 +184,7 @@ class HomeController extends CustomController
             $phoneNumber = $booker->mobile_number;
 
             // go to payment page
-            $payment_url = PaymentController::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $name, $phoneNumber, $success_url, $error_url);
+            $payment_url = PaymentController::generateBenefitPaymentLink($transaction->amount, $elite_service->uuid, $name, $phoneNumber, $success_url, $error_url, $transaction->order_id);
             return redirect()->to($payment_url);
         }
 

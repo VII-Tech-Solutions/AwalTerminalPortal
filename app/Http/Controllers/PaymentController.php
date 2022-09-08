@@ -179,7 +179,7 @@ class PaymentController extends CustomController
      * Generate Benefit Payment Link
      * @return string
      */
-    static function generateBenefitPaymentLink($amount, $uid, $customer_name, $customer_phone_number, $success_url, $error_url)
+    static function generateBenefitPaymentLink($amount, $uid, $customer_name, $customer_phone_number, $success_url, $error_url, $order_id)
     {
 
         try {
@@ -187,7 +187,7 @@ class PaymentController extends CustomController
             // and will call the benefit middle ware on this case to generate a payment page url
             $benefit_request_data = [
                 Attributes::AMOUNT => $amount,
-                Attributes::ORDER_ID => $uid,
+                Attributes::ORDER_ID => $order_id,
                 Attributes::TRACKID => $uid,
                 Attributes::CUSTOMER_NAME => $customer_name,
                 Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
@@ -215,7 +215,6 @@ class PaymentController extends CustomController
             return $response_body->data->payment_page ?? null;
 
         } catch (Exception|GuzzleException $e) {
-            dd($e);
             Helpers::captureException($e);
         }
 
