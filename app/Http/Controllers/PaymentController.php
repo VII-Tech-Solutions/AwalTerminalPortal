@@ -120,7 +120,6 @@ class PaymentController extends CustomController
             }
         } catch (Exception $e) {
             $error = "true";
-            dd($e);
             Helpers::captureException($e);
         }
 
@@ -216,6 +215,7 @@ class PaymentController extends CustomController
             return $response_body->data->payment_page ?? null;
 
         } catch (Exception|GuzzleException $e) {
+            dd($e);
             Helpers::captureException($e);
         }
 
