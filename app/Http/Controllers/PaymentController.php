@@ -120,16 +120,15 @@ class PaymentController extends CustomController
             }
         } catch (Exception $e) {
             $error = "true";
-            dd($e);
             Helpers::captureException($e);
+            $redirect_to = env('WEBSITE_URL') . '/payment-failed';
+            dd($e);
         }
 
         if ($platform == Platforms::WEB) {
-//            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$booking->uuid" .
-//                "?booking_id=$booking->id&payment_method=$temp_order->payment_provider&payment_status=$temp_order->status" .
-//                "&uuid=$booking->uuid";
             $redirect_to = env('WEBSITE_URL') . '/payment-received';
         }
+
         return redirect()->to($redirect_to . "&error=$error");
     }
 
@@ -196,9 +195,7 @@ class PaymentController extends CustomController
                 Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
                 Attributes::SUCCESS_URL => $success_url,
                 Attributes::ERROR_URL => $error_url,
-//                Attributes::MERCHANT_ID => "711150801"
-                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "711150801")
-//                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "12818950")
+                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "12818950")
             ];
 
             $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
@@ -216,8 +213,8 @@ class PaymentController extends CustomController
             return $response_body->data->payment_page ?? null;
 
         } catch (Exception|GuzzleException $e) {
-            dd($e);
             Helpers::captureException($e);
+            dd($e);
         }
 
         return null;
