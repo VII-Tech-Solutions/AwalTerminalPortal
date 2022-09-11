@@ -16,7 +16,6 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use VIITech\Helpers\Constants\CastingTypes;
-use VIITech\Helpers\Constants\DebuggerLevels;
 use VIITech\Helpers\Constants\Platforms;
 use VIITech\Helpers\GlobalHelpers;
 
@@ -71,7 +70,7 @@ class PaymentController extends CustomController
 
         $redirect_to = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REDIRECT_TO, null, CastingTypes::STRING);
         if (is_null($redirect_to)) {
-            $redirect_to = env('WEBSITE_URL') . '/payment-failed';
+            $redirect_to = env('WEBSITE_URL') . '/elite-service?uuid=' . $booking_uuid;
         }
 
         if ($secret !== Values::SECRET) {
