@@ -71,7 +71,7 @@ class PaymentController extends CustomController
 
         $redirect_to = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REDIRECT_TO, null, CastingTypes::STRING);
         if (is_null($redirect_to)) {
-            $redirect_to = url("/api/payments/redirect?booking=$booking_uuid");
+            $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         }
 
         if ($secret !== Values::SECRET) {
