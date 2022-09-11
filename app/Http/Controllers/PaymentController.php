@@ -208,9 +208,9 @@ class PaymentController extends CustomController
             $response = $client->request('POST', $url, [
                 'multipart' => $benefit_request_data
             ]);
+            dd($response);
 
             $response_body = json_decode($response->getBody()->getContents());
-dd($response_body);
             return $response_body->data->payment_page ?? null;
 
         } catch (Exception|GuzzleException $e) {

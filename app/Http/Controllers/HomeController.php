@@ -39,23 +39,6 @@ class HomeController extends CustomController
         return redirect()->to("/");
     }
 
-//    /**
-//     * Process
-//     * @return RedirectResponse
-//     */
-//    function process()
-//    {
-//
-//        /** @var EliteServices $elite_service */
-//        $elite_service = EliteServices::query()->orderByDesc(Attributes::CREATED_AT)->first();
-//        // generate payment link
-//        $link = $elite_service->generatePaymentLink();
-//
-//        // redirect to
-//        return redirect()->to($link);
-//
-//    }
-
     /**
      * Pay
      * @param Request $request
