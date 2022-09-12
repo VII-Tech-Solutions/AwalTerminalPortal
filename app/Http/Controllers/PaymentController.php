@@ -33,12 +33,8 @@ class PaymentController extends CustomController
     function redirectTo($platform, $transaction, $error)
     {
         $error = $error ? "true" : "false";
-        if ($platform == Platforms::WEB && !is_null($transaction)) {
-//            $redirect_to = env('WEBSITE_URL') . "/booking/confirmation/$transaction->uuid" .
-//                "?transaction_id=$transaction->id&payment_method=$transaction->payment_provider" .
-//                "&uuid=$transaction->uuid&error=$error";
+        if ($platform == Platforms::WEB && !is_null($transaction) && $transaction->status == TransactionStatus::SUCCESS) {
             $redirect_to = env('WEBSITE_URL') . '/payment-received';
-
         } else if (!is_null($transaction)) {
             $redirect_to = url("/api/payments/redirect") . "?uuid=$transaction->uuid?&payment_method=$transaction->payment_provider&error=$error";
         } else {
@@ -120,7 +116,6 @@ class PaymentController extends CustomController
         } catch (Exception $e) {
             Helpers::captureException($e);
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
-            return redirect()->to($redirect_to);
         } catch (GuzzleException $e) {
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         }
@@ -128,7 +123,6 @@ class PaymentController extends CustomController
         if ($platform == Platforms::WEB) {
             $redirect_to = env('WEBSITE_URL') . '/payment-received';
         }
-//        $redirect_to = env('WEBSITE_URL') . '/elite-service?uuid=' . $booking_uuid;
 
         return redirect()->to($redirect_to);
     }
@@ -217,5 +211,37 @@ class PaymentController extends CustomController
         }
 
         return null;
+    }
+
+    public function verifyCredimaxPayment()
+    {
+
+        // get values
+        $secret = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SECRET, null, CastingTypes::STRING);
+        $success = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SUCCESS, false, CastingTypes::BOOLEAN);
+        $booking_uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BOOKING, null, CastingTypes::STRING);
+        $platform = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PLATFORM, Platforms::MOBILE, CastingTypes::STRING);
+
+        if (empty($booking_uuid)) {
+            $booking_uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::UUID, null, CastingTypes::STRING);
+        }
+
+        /** @var EliteServices $booking */
+        $booking = EliteServices::where(Attributes::UUID, $booking_uuid)->first();
+        if (is_null($booking)) {
+            return $this->redirectTo($platform, null, true);
+        }
+
+        /** @var Transaction $temp_order */
+        $temp_order = Transaction::where(Attributes::UUID, $booking_uuid)->orderByDesc(Attributes::CREATED_AT)->first();
+        if (is_null($temp_order)) {
+            return $this->redirectTo($platform, $temp_order, true);
+        }
+
+        if (!$success || $secret !== Values::SECRET) {
+            return $this->redirectTo($platform, $temp_order, true);
+        }
+
+        return $this->redirectTo($platform, $temp_order, false);
     }
 }
