@@ -208,7 +208,6 @@ class PaymentController extends CustomController
             $response = $client->request('POST', $url, [
                 'multipart' => $benefit_request_data
             ]);
-            dd($response);
 
             $response_body = json_decode($response->getBody()->getContents());
             return $response_body->data->payment_page ?? null;
