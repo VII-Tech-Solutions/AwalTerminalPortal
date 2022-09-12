@@ -128,7 +128,7 @@ class PaymentController extends CustomController
         if ($platform == Platforms::WEB) {
             $redirect_to = env('WEBSITE_URL') . '/payment-received';
         }
-        $redirect_to = env('WEBSITE_URL') . '/elite-service?uuid=' . $booking_uuid;
+//        $redirect_to = env('WEBSITE_URL') . '/elite-service?uuid=' . $booking_uuid;
 
         return redirect()->to($redirect_to);
     }
