@@ -35,10 +35,10 @@ class PaymentController extends CustomController
         $error = $error ? "true" : "false";
         if ($platform == Platforms::WEB && !is_null($transaction) && $transaction->status == TransactionStatus::SUCCESS) {
             $redirect_to = env('WEBSITE_URL') . '/payment-received';
-        } else if (!is_null($transaction)) {
-            $redirect_to = url("/api/payments/redirect") . "?uuid=$transaction->uuid?&payment_method=$transaction->payment_provider&error=$error";
+        } else if (!is_null($transaction) && $transaction->status == TransactionStatus::FAIL) {
+            $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         } else {
-            $redirect_to = url("/api/payments/redirect") . "?error=$error";
+            $redirect_to = env('WEBSITE_URL') . '/elite-service?uuid=' . $transaction->uuid;
         }
         return redirect()->to($redirect_to);
     }
