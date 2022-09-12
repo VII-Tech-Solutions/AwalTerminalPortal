@@ -137,11 +137,12 @@ class HomeController extends CustomController
 
         // redirect to payment gateway
         if ($payment_method == PaymentProvider::CREDIMAX) {
-            $success_url = env('WEBSITE_URL') . '/payment-received';
-            $error_url = "/payments/verify-credimax";
+            $success_url = url("/api/payments/verify-credimax?booking=$transaction->uuid&secret=$secret&platform=web");
+            $error_url = url("/api/payments/verify-credimax?booking=$transaction->uuid&secret=$secret&platform=web");
+
             // build url query
             $query = http_build_query([
-                Attributes::RETURN_URL => url("/payments/verify-credimax?booking=$transaction->uuid&secret=$secret&platform=web"),
+//                Attributes::RETURN_URL => url("/payments/verify-credimax?booking=$transaction->uuid&secret=$secret&platform=web"),
                 Attributes::SUCCESS_URL => $success_url,
                 Attributes::ERROR_URL => $error_url,
                 Attributes::AMOUNT => $transaction->amount,
