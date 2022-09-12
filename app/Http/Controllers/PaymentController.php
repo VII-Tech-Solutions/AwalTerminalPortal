@@ -198,7 +198,7 @@ class PaymentController extends CustomController
                 Attributes::ERROR_URL => $error_url,
                 Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "12818950")
             ];
-            dd(env("PAYMENT_SECRET"));
+
             $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
 
             $url = env('PAYMENT_URL') . '/benefit/checkout';
