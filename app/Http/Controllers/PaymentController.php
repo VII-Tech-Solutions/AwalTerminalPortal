@@ -118,19 +118,19 @@ class PaymentController extends CustomController
                 $error = "false";
             }
         } catch (Exception $e) {
-            $error = "true";
-            dd($e);
             Helpers::captureException($e);
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
+            return redirect()->to($redirect_to);
         } catch (GuzzleException $e) {
-            dd($e);
+            $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         }
 
         if ($platform == Platforms::WEB) {
             $redirect_to = env('WEBSITE_URL') . '/payment-received';
         }
+        $redirect_to = env('WEBSITE_URL') . '/elite-service?uuid=' . $booking_uuid;
 
-        return redirect()->to($redirect_to . "&error=$error");
+        return redirect()->to($redirect_to);
     }
 
 
@@ -214,7 +214,6 @@ class PaymentController extends CustomController
 
         } catch (Exception|GuzzleException $e) {
             Helpers::captureException($e);
-            dd($e);
         }
 
         return null;
