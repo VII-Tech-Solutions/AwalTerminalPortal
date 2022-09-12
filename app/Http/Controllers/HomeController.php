@@ -133,13 +133,15 @@ class HomeController extends CustomController
             $transaction->save();
         }
 
+        $secret = env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ');
+
         // redirect to payment gateway
         if ($payment_method == PaymentProvider::CREDIMAX) {
             $success_url = env('WEBSITE_URL') . '/payment-received';
             $error_url = "/payments/verify-credimax";
             // build url query
             $query = http_build_query([
-                Attributes::RETURN_URL => url("elite-service/$uuid/pay/complete"),
+                Attributes::RETURN_URL => url("/payments/verify-credimax?booking=$transaction->uuid&secret=$secret&platform=web"),
                 Attributes::SUCCESS_URL => $success_url,
                 Attributes::ERROR_URL => $error_url,
                 Attributes::AMOUNT => $transaction->amount,
