@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property string first_name
  * @property string last_name
+ * @property string booker_fullname
  * @property string mobile_number
  * @property string email
  */
