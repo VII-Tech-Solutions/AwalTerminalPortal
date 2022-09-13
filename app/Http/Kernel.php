@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:api',
             SubstituteBindings::class,
+            \Fruitcake\Cors\HandleCors::class,
         ],
     ];
 
