@@ -6,6 +6,7 @@ use App\Constants\Attributes;
 use App\Constants\CastingTypes;
 use App\Constants\ESStatus;
 use App\Constants\FlightType;
+use App\Constants\PaymentProvider;
 use App\Constants\Tables;
 use App\Constants\TransactionStatus;
 use App\Constants\Values;
@@ -223,15 +224,23 @@ class EliteServices extends CustomModel
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                 $elite_service->link_expires_at = null;
                 $elite_service->save();
-                $transaction = Transaction::query()->where(Attributes::UUID, $elite_service->uuid)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->get()->first();
+                $transaction = Transaction::query()->where(Attributes::UUID, $elite_service->uuid)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->first();
                 if (is_null($transaction)) {
-
+                    $transaction = Transaction::createOrUpdate([
+                        Attributes::ELITE_SERVICE_ID => $elite_service->id,
+                        Attributes::AMOUNT => $elite_service->total,
+                        Attributes::ORDER_ID => Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID),
+                        Attributes::PAYMENT_PROVIDER => PaymentProvider::OTHER,
+                        Attributes::UUID => $elite_service->uuid,
+                        Attributes::STATUS => TransactionStatus::PENDING
+                    ], [
+                        Attributes::ELITE_SERVICE_ID,
+                        Attributes::UUID,
+                        Attributes::AMOUNT,
+                    ]);
                 }
-                dd($transaction);
                 // send email
                 Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'receipt.pdf', $transaction->id, $transaction), $user->email);
-
-//                GlobalHelpers::debugger(json_encode($elite_service),"info");
 
                 break;
         }

@@ -10,4 +10,5 @@ class PaymentProvider extends CustomEnum
 {
     const CREDIMAX = 1;
     const BENEFIT = 2;
+    const OTHER = 3;
 }
