@@ -239,7 +239,7 @@ class EliteServices extends CustomModel
                 $elite_service->link_expires_at = null;
                 $elite_service->submission_status_id = ESStatus::PAID;
                 $elite_service->save();
-
+dd($elite_service);
                 $transaction = Transaction::query()->where(Attributes::UUID, $elite_service->uuid)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->first();
                 if (is_null($transaction)) {
                     $transaction = Transaction::createOrUpdate([
