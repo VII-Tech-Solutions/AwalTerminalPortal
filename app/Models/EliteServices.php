@@ -14,6 +14,7 @@ use App\Helpers;
 use App\Mail\ESBookingApproveMail;
 use App\Mail\ESBookingRejectUpdateMail;
 use App\Mail\ESRequestReceivedMail;
+use App\Mail\PaymentCompleted;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
@@ -256,7 +257,7 @@ class EliteServices extends CustomModel
                 }
 
                 // send email
-//                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->total], 'receipt.pdf', $transaction->id, $transaction), $user->email);
+                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->total], 'receipt.pdf', $transaction->id, $transaction), $user->email);
 
                 break;
         }
