@@ -44,10 +44,10 @@ class TestReceiptEmail extends Command
     {
 
         /** @var Transaction $transaction */
-        $transaction = Transaction::query()->first();
+        $transaction = Transaction::all()->first();
 
         // send booking receipt to user
-        $email = 'tasneem.ali@viitech.net';
+        $email = 'tasleem.alsharqi@viitech.net';
         $data = $transaction->generateReceiptData();
         $email_data = Helpers::sendMailable(new PaymentCompleted($email, 'Tasneem', [$transaction->amount], null, $transaction->id, $transaction, $data), $email);
         $this->info($email_data);
