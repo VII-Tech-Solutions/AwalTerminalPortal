@@ -435,12 +435,12 @@
 {{--                    <span>&nbsp</span>--}}
 {{--                    <span>{{$date[2]}}</span>--}}
 {{--                </div>--}}
-                <div class="light-text-confirmation bold" style="float: left" >BHD {{$amount}}</div>
+                <div class="light-text-confirmation bold" style="float: left" >{{$amount}} BHD</div>
             </div>
             <hr>
             <div class="confirmation-details-containers third-section details" style="height: 30px" >
                 <span class="ad-type-text" style="float: right">Subtotal</span>
-                <span class="light-text-confirmation bold" style="float: left">BHD {{$amount}}</span>
+                <span class="light-text-confirmation bold" style="float: left">{{$amount}} BHD</span>
                 {{--                    <div class="ad-type-text">الخصم</div>--}}
                 {{--                    <div class="light-text-confirmation">{{$discount}}</div>--}}
                 {{--                    <div class="ad-type-text">ضريبة القيمة المضافة (%0.5)</div>--}}
@@ -450,12 +450,12 @@
 {{--                <span class="ad-type-text" style="float: right">الخصم</span>--}}
 {{--                <span class="light-text-confirmation bold" style="float: left">BHD {{$discount}}</span>--}}
                 <div class="ad-type-text">Tax (0.5%)</div>
-                <div class="light-text-confirmation">BHD {{$vat_amount}}</div>
+                <div class="light-text-confirmation">{{$vat_amount}} BHD</div>
             </div>
             <hr>
             <div class="confirmation-details-containers third-section details" style="height: 58px; ">
                 <div class="ad-type-text bold " style="float: right ">Total</div>
-                <div class="ad-type-text bold price" style="float: left;">ِBHD {{$subtotal}}</div>
+                <div class="ad-type-text bold price" style="float: left;">{{$subtotal}} ِBHD</div>
             </div>
         </div>
         <div class="confirmation-details-containers" >
