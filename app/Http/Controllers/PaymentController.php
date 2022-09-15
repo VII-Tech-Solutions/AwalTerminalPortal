@@ -8,6 +8,8 @@ use App\Constants\PaymentProvider;
 use App\Constants\TransactionStatus;
 use App\Constants\Values;
 use App\Helpers;
+use App\Mail\PaymentCompleted;
+use App\Models\Bookers;
 use App\Models\EliteServices;
 use App\Models\Transaction;
 use Exception;
@@ -37,6 +39,12 @@ class PaymentController extends CustomController
             $redirect_to = env('WEBSITE_URL') . '/payment-received';
             $elite_service = EliteServices::query()->find($transaction->elite_service_id);
             $elite_service->markAsPaid();
+            $user = Bookers::query()->where(Attributes::SERVICE_ID, $elite_service->id)->first();
+
+            $data = $transaction->generateReceiptData();
+            // send email
+            Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name . ' ' . $user->last_name, [$transaction->amount], null, $transaction->id, $data), $user->email);
+
         } else if (!is_null($transaction) && $transaction->status == TransactionStatus::FAIL) {
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         } else {
