@@ -17,6 +17,7 @@ use VerumConsilium\Browsershot\Facades\PDF;
  * @property string order_id
  * @property string uuid
  * @property integer payment_provider
+ * @property integer elite_service_id
  */
 class Transaction extends CustomModel
 {
@@ -86,8 +87,8 @@ class Transaction extends CustomModel
             Attributes::ORDER_DATE => [$order_date->format("d"), $months[$order_date->month - 1], $order_date->format("Y")],
             Attributes::TRANSACTION_ORDER_ID => $transaction->id,
             Attributes::PAYMENT_METHOD => $payment_method,
-            Attributes::SUBTOTAL => $eliteService->subtotal ?? '436',
-            Attributes::VAT_AMOUNT => $eliteService->vat_amount ?? '346',
+            Attributes::SUBTOTAL => $eliteService->subtotal ?? '0',
+            Attributes::VAT_AMOUNT => $eliteService->vat_amount ?? '0',
             Attributes::AMOUNT => $this->amount,
         ];
 
