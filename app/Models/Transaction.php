@@ -46,7 +46,7 @@ class Transaction extends CustomModel
         $transaction_id = $this->id;
 
         // generate pdf
-        $pdf = PDF::loadUrl(url("/api/receipt/$transaction_id"))->waitUntilNetworkIdle()
+        $pdf = PDF::loadUrl(url("/api/receipt/$transaction_id"))
             ->inline('receipt.pdf')
             ->header('Authorization', 'Basic ' . base64_encode('awal:password'));
 
