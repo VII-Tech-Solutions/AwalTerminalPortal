@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\API\Controllers\CustomController;
 use App\Constants\Attributes;
+use App\Constants\ESStatus;
 use App\Constants\PaymentProvider;
 use App\Constants\TransactionStatus;
 use App\Constants\Values;
@@ -35,17 +36,19 @@ class PaymentController extends CustomController
     function redirectTo($platform, $transaction, $error)
     {
         $error = $error ? "true" : "false";
-        if ($platform == Platforms::WEB && !is_null($transaction) && $transaction->status == TransactionStatus::SUCCESS) {
+        if ($platform == Platforms::WEB && !is_null($transaction) && $error == 'false') {
             $redirect_to = env('WEBSITE_URL') . '/payment-received';
+
             $elite_service = EliteServices::query()->find($transaction->elite_service_id);
             $elite_service->markAsPaid();
+            $transaction->status = TransactionStatus::SUCCESS;
+            $transaction->save();
             $user = Bookers::query()->where(Attributes::SERVICE_ID, $elite_service->id)->first();
-
             $data = $transaction->generateReceiptData();
             // send email
             Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name . ' ' . $user->last_name, [$transaction->amount], null, $transaction->id, $data), $user->email);
 
-        } else if (!is_null($transaction) && $transaction->status == TransactionStatus::FAIL) {
+        } else if (!is_null($transaction) && $transaction->status == TransactionStatus::FAIL ||  $error == 'true') {
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         } else {
             $redirect_to = env('WEBSITE_URL') . '/elite-service?uuid=' . $transaction->uuid;
