@@ -383,7 +383,7 @@
         </div>
         <div class="header-details confirmation-no-link">
             <div class="step-title">
-                <div class=""> Your order has been confirmed!</div>
+                <div class=""> Your reservation has been confirmed!</div>
             </div>
         </div>
         <div class="confirmation-container">
