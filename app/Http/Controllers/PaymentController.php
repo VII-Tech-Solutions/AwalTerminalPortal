@@ -194,7 +194,7 @@ class PaymentController extends CustomController
             ];
 
             $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
-
+dd($benefit_request_data);
             $url = env('PAYMENT_URL') . '/benefit/checkout';
 
             $client = new Client(['auth' => ['awal', 'password']]);
