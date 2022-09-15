@@ -18,6 +18,7 @@ EditEliteServices extends EditRecord
         parent::callBeforeAndAfterSyncHooks($name, $value, $callback);
 
         if (Str::contains($name, [Attributes::SUBMISSION_STATUS_ID])) {
+            dd($name);
             $id = $this->data[Attributes::ID];
             $booker = collect($this->data[Attributes::BOOKER])->first();
             $email = $booker[Attributes::EMAIL];
