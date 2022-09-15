@@ -244,7 +244,7 @@ class EliteServices extends CustomModel
                 }
 
                 // send email
-                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->total], 'receipt.pdf', $transaction->id, $transaction), $user->email);
+//                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->total], 'receipt.pdf', $transaction->id, $transaction), $user->email);
 
                 break;
         }
