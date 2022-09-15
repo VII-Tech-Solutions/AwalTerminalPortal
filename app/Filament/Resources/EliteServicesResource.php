@@ -153,9 +153,9 @@ class EliteServicesResource extends Resource
                         Forms\Components\TextInput::make(Attributes::AMOUNT)->disabled(),
                         Select::make(Attributes::PAYMENT_PROVIDER)
                             ->label('Payment Provider')
-                            ->options([1 => 'Credimax',
-                                2 => 'Benefit',
-                                3 => 'Other',
+                            ->options([1 => 'CREDIMAX',
+                                2 => 'BENEFIT',
+                                3 => 'OTHER',
                             ])->disabled(),
                         Select::make(Attributes::STATUS)
                             ->label('Transaction status')

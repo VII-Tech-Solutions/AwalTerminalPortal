@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\URL;
 /**
  * Elite Services
  *
+ * @property integer id
  * @property string uuid
  * @property string flight_type
  * @property string vat_amount
@@ -223,7 +224,9 @@ class EliteServices extends CustomModel
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                 $elite_service->link_expires_at = null;
+                $elite_service->submission_status_id = ESStatus::PAID;
                 $elite_service->save();
+
                 $transaction = Transaction::query()->where(Attributes::UUID, $elite_service->uuid)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->first();
                 if (is_null($transaction)) {
                     $transaction = Transaction::createOrUpdate([
@@ -239,6 +242,7 @@ class EliteServices extends CustomModel
                         Attributes::AMOUNT,
                     ]);
                 }
+
                 // send email
                 Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'receipt.pdf', $transaction->id, $transaction), $user->email);
 
