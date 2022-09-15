@@ -67,7 +67,7 @@ class Transaction extends CustomModel
 
         // get booking
         $transaction = Transaction::where(Attributes::ID, $this->id)->first();
-        $eliteService = EliteServices::where(Attributes::ID, $this->order_id)->first();
+        $eliteService = EliteServices::where(Attributes::ID, $this->elite_service_id)->first();
         $order_date = Carbon::parse($this->created_at);
 
         // get payment method
@@ -80,8 +80,6 @@ class Transaction extends CustomModel
         $months = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
-//        $days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
-
 
         $data = [
             Attributes::ORDER_DATE => [ $order_date->format("Y"), $months[$order_date->month - 1], $order_date->format("d")],
