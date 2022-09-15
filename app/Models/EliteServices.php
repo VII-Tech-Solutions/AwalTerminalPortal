@@ -240,7 +240,7 @@ class EliteServices extends CustomModel
                 $elite_service->submission_status_id = ESStatus::PAID;
                 $elite_service->save();
 
-                $transaction = Transaction::query()->where(Attributes::ELITE_SERVICE_ID, $elite_service->ID)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->first();
+                $transaction = Transaction::query()->where(Attributes::ELITE_SERVICE_ID, $elite_service->id)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->first();
                 if (is_null($transaction)) {
                     $transaction = Transaction::createOrUpdate([
                         Attributes::ELITE_SERVICE_ID => $elite_service->id,
