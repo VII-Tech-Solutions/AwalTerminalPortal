@@ -235,7 +235,7 @@ class EliteServices extends CustomModel
                 break;
             case ESStatus::PAID:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
-                $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
+                $user = Bookers::query()->where(Attributes::SERVICE_ID, $elite_service->id)->first();
                 $elite_service->link_expires_at = null;
                 $elite_service->submission_status_id = ESStatus::PAID;
                 $elite_service->save();
