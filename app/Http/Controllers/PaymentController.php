@@ -35,6 +35,8 @@ class PaymentController extends CustomController
         $error = $error ? "true" : "false";
         if ($platform == Platforms::WEB && !is_null($transaction) && $transaction->status == TransactionStatus::SUCCESS) {
             $redirect_to = env('WEBSITE_URL') . '/payment-received';
+            $elite_service = EliteServices::query()->find($transaction->elite_service_id);
+            $elite_service->markAsPaid();
         } else if (!is_null($transaction) && $transaction->status == TransactionStatus::FAIL) {
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         } else {

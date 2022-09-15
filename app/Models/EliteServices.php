@@ -217,7 +217,7 @@ class EliteServices extends CustomModel
                 $from_airport_id = Airport::query()::where(Attributes::ID, $elite_service->airport_id)->first();
                 $passengers = $elite_service->passengers();
 
-                Helpers::sendMailable(new ESRequestReceivedMail($booker->email, $booker->first_name.' '. $booker->last_name, [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker->email);
+                Helpers::sendMailable(new ESRequestReceivedMail($booker->email, $booker->first_name . ' ' . $booker->last_name, [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker->email);
                 break;
             case ESStatus::REJECTED:
                 Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $name, $rejection_reason, []), $email);
@@ -235,7 +235,7 @@ class EliteServices extends CustomModel
                 break;
             case ESStatus::PAID:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
-                $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
+                $user = Bookers::query()->where(Attributes::SERVICE_ID, $elite_service->id)->first();
                 $elite_service->link_expires_at = null;
                 $elite_service->submission_status_id = ESStatus::PAID;
                 $elite_service->save();
@@ -256,9 +256,9 @@ class EliteServices extends CustomModel
                     ]);
                 }
 
+                $data = $transaction->generateReceiptData();
                 // send email
-                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->total], 'receipt.pdf', $transaction->id, $transaction), $user->email);
-
+                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name . ' ' . $user->last_name, [$transaction->amount], null, $transaction->id, $transaction, $data), $user->email);
                 break;
         }
     }
