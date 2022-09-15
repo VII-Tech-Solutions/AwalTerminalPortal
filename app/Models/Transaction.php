@@ -55,7 +55,7 @@ class Transaction extends CustomModel
         // add to db
 //        $this->receipt = $path;
 //        $this->save();
-
+dd($path);
         return $path;
     }
 
