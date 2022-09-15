@@ -223,8 +223,11 @@ class EliteServices extends CustomModel
                 $user = Bookers::query()->where(Attributes::ID, $elite_service->id)->first();
                 $elite_service->link_expires_at = null;
                 $elite_service->save();
-                $transaction = Transaction::query()->where(Attributes::UUID, $elite_service->uuid)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->first();
-               dd($transaction);
+                $transaction = Transaction::query()->where(Attributes::UUID, $elite_service->uuid)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->get()->first();
+                if (is_null($transaction)) {
+
+                }
+                dd($transaction);
                 // send email
                 Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'receipt.pdf', $transaction->id, $transaction), $user->email);
 
