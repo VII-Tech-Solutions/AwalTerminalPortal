@@ -77,14 +77,14 @@
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
-            flex-direction: row-reverse;
+
             /*margin-top: 40px;*/
         }
 
         .confirmation .page-content .logo {
             margin: 20px;
             display: flex !important;
-            justify-content: end;
+            justify-content: start;
             width: 535px;
             margin-right: unset;
         }
@@ -105,7 +105,7 @@
 
         .confirmation .page-content .confirmation-no-link {
             width: 535px;
-            flex-direction: row-reverse;
+
             margin-left: auto;
             display: flex;
             justify-content: space-between;
@@ -168,7 +168,7 @@
             display: flex;
             /*justify-content: space-between;*/
             /*margin-top: 30px;*/
-            justify-content: end;
+            justify-content: start;
         }
 
         .confirmation .page-content .confirmation-container .confirmation-detail-container {
@@ -183,7 +183,7 @@
 
         .confirmation .page-content .confirmation-container .ad-type-text {
             font-size: 12px;
-            text-align: right;
+            text-align: left;
             height: 36px;
             white-space: nowrap;
             font-weight: bold;
@@ -217,7 +217,7 @@
 
         .details {
             justify-content: space-between !important;
-            flex-direction: row-reverse;
+
         }
         .confirmation .page-content .confirmation-container .light-text-confirmation {
             font-size: 12px;
@@ -228,7 +228,7 @@
             text-align: right;
             color: #808080;
             /*margin-bottom: 4px;*/
-            flex-direction: row-reverse;
+
             display: flex;
             /*margin: 0 0 22px 27px;*/
             font-family: 'Frutiger LT Arabic';
@@ -237,7 +237,7 @@
         }
 
         .right {
-            text-align: right;
+            text-align: left;
         }
 
         .confirmation .page-content .confirmation-container .payment-method-details {
@@ -382,15 +382,15 @@
             </div>
         </div>
         <div class="header-details confirmation-no-link">
-            <div class="step-title right">
-                <div class="">! تم تأكيد طلبك</div>
+            <div class="step-title">
+                <div class=""> Your order has been confirmed!</div>
             </div>
         </div>
         <div class="confirmation-container">
             <div class="confirmation-details-containers first-section">
                 <div class="confirmation-detail-container"  style="clear: right; height: 43px; width: 100%;">
-                    <div class="light-text-confirmation" >تاريخ الطلب</div>
-                    <div class="ad-type-text-date" style="float: right; height: 23px; display: flex; justify-content: end; font-size: 12px;">
+                    <div class="light-text-confirmation" >Order date</div>
+                    <div class="ad-type-text-date" style="float: right; height: 23px; display: flex; justify-content: start; font-size: 12px;">
                         <span>{{$order_date[2]}}</span>
                         <span>&nbsp</span>
                         <span>{{$order_date[1]}} </span>
@@ -401,13 +401,13 @@
             </div>
             <div class="confirmation-details-containers">
                 <div class="confirmation-detail-container">
-                    <div class="light-text-confirmation" style="height: 23px;margin-top: 10.4px">رقم الطلب</div>
+                    <div class="light-text-confirmation" style="height: 23px;margin-top: 10.4px">Order number</div>
                     <div class="ad-type-text" style="height: 33px;">{{$transaction_order_id}}</div>
                 </div>
             </div>
             <div class="confirmation-details-containers">
                 <div class="confirmation-detail-container" style="height: 43px; margin-top: 10.4px">
-                    <div class="light-text-confirmation">طريقة الدفع</div>
+                    <div class="light-text-confirmation">Payment method</div>
                     <div class="ad-type-text">{{$payment_method}}</div>
                 </div>
             </div>
@@ -439,7 +439,7 @@
             </div>
             <hr>
             <div class="confirmation-details-containers third-section details" style="height: 30px" >
-                <span class="ad-type-text" style="float: right">المبلغ الإجمالي</span>
+                <span class="ad-type-text" style="float: right">Subtotal</span>
                 <span class="light-text-confirmation bold" style="float: left">BHD {{$amount}}</span>
                 {{--                    <div class="ad-type-text">الخصم</div>--}}
                 {{--                    <div class="light-text-confirmation">{{$discount}}</div>--}}
@@ -449,12 +449,12 @@
             <div class="confirmation-details-containers third-section details" style="height: 30px" >
 {{--                <span class="ad-type-text" style="float: right">الخصم</span>--}}
 {{--                <span class="light-text-confirmation bold" style="float: left">BHD {{$discount}}</span>--}}
-                <div class="ad-type-text">ضريبة القيمة المضافة (%0.5)</div>
+                <div class="ad-type-text">Tax (0.5%)</div>
                 <div class="light-text-confirmation">BHD {{$vat_amount}}</div>
             </div>
             <hr>
             <div class="confirmation-details-containers third-section details" style="height: 58px; ">
-                <div class="ad-type-text bold " style="float: right ">المجموع</div>
+                <div class="ad-type-text bold " style="float: right ">Total</div>
                 <div class="ad-type-text bold price" style="float: left;">ِBHD {{$subtotal}}</div>
             </div>
         </div>
