@@ -14,10 +14,10 @@ use App\Helpers;
 use App\Mail\ESBookingApproveMail;
 use App\Mail\ESBookingRejectUpdateMail;
 use App\Mail\ESRequestReceivedMail;
-use App\Mail\PaymentCompleted;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\URL;
 
 /**
@@ -256,9 +256,7 @@ class EliteServices extends CustomModel
                     ]);
                 }
 
-                $data = $transaction->generateReceiptData();
-                // send email
-                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name . ' ' . $user->last_name, [$transaction->amount], null, $transaction->id, $data), $user->email);
+                Artisan::call('send:receipt_email', ['transaction_id' => $transaction->id]);
                 break;
         }
     }
