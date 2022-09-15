@@ -217,7 +217,7 @@ class EliteServices extends CustomModel
                 $from_airport_id = Airport::query()::where(Attributes::ID, $elite_service->airport_id)->first();
                 $passengers = $elite_service->passengers();
 
-                Helpers::sendMailable(new ESRequestReceivedMail($booker->email, $booker->first_name.' '. $booker->last_name, [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker->email);
+//                Helpers::sendMailable(new ESRequestReceivedMail($booker->email, $booker->first_name.' '. $booker->last_name, [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker->email);
                 break;
             case ESStatus::REJECTED:
                 Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $name, $rejection_reason, []), $email);
