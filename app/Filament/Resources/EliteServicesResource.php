@@ -98,7 +98,7 @@ class EliteServicesResource extends Resource
                                         ->searchable()
                                         ->reactive(),
                                     Forms\Components\Textarea::make(Attributes::REJECTION_REASON)->columns(1)
-                                    ->visible(fn (Closure $get) => $get(Attributes::SUBMISSION_STATUS_ID) == $rejected_id),
+                                        ->visible(fn(Closure $get) => $get(Attributes::SUBMISSION_STATUS_ID) == $rejected_id),
                                 ])->columns(1),
                                 Fieldset::make('Flight Details')->schema([
                                     Forms\Components\Radio::make(Attributes::IS_ARRIVAL_FLIGHT)->options([
@@ -147,14 +147,25 @@ class EliteServicesResource extends Resource
                             ]),
                     ]),
 
-                    Forms\Components\Repeater::make('transactions')->relationship('transactions')
-                        ->schema([
-                            Forms\Components\TextInput::make(Attributes::ORDER_ID)->disabled(),
-                            Forms\Components\TextInput::make(Attributes::AMOUNT)->disabled(),
-                            Forms\Components\TextInput::make(Attributes::PAYMENT_PROVIDER)->disabled(),
-                        ])
-                        ->columns(3)
-                        ->label('Transaction Details')->disabled(),
+                Forms\Components\Repeater::make('transactions')->relationship('transactions')
+                    ->schema([
+                        Forms\Components\TextInput::make(Attributes::ORDER_ID)->disabled(),
+                        Forms\Components\TextInput::make(Attributes::AMOUNT)->disabled(),
+                        Select::make(Attributes::PAYMENT_PROVIDER)
+                            ->label('Payment Provider')
+                            ->options([1 => 'Credimax',
+                                2 => 'Benefit',
+                                3 => 'Other',
+                            ])->disabled(),
+                        Select::make(Attributes::STATUS)
+                            ->label('Transaction status')
+                            ->options([0 => 'FAILED',
+                                1 => 'SUCCESS',
+                                2 => 'PENDING',
+                            ])->disabled(),
+                    ])
+                    ->columns(3)
+                    ->label('Transaction Details')->disabled(),
             ])->columns(1);
     }
 
