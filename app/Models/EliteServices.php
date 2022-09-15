@@ -239,7 +239,6 @@ class EliteServices extends CustomModel
                 $elite_service->link_expires_at = null;
                 $elite_service->submission_status_id = ESStatus::PAID;
                 $elite_service->save();
-                $booker = $elite_service->booker()->first();
 
                 $transaction = Transaction::query()->where(Attributes::UUID, $elite_service->uuid)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->first();
                 if (is_null($transaction)) {
@@ -256,10 +255,10 @@ class EliteServices extends CustomModel
                         Attributes::AMOUNT,
                     ]);
                 }
-                $data = $transaction->generateReceiptData();
 
+                $data = $transaction->generateReceiptData();
                 // send email
-                Helpers::sendMailable(new PaymentCompleted($email, $booker->first_name . ' ' . $booker->last_name, [$transaction->amount], null, $transaction->id, $transaction, $data), $booker->email);
+                Helpers::sendMailable(new PaymentCompleted($email, $user->first_name . ' ' . $user->last_name, [$transaction->amount], null, $transaction->id, $transaction, $data), $user->email);
                 break;
         }
     }
