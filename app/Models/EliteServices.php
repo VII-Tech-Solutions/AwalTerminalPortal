@@ -224,8 +224,9 @@ class EliteServices extends CustomModel
                 $elite_service->link_expires_at = null;
                 $elite_service->save();
                 $transaction = Transaction::query()->where(Attributes::UUID, $elite_service->uuid)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->first();
+               dd($transaction);
                 // send email
-                dd(Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'receipt.pdf', $transaction->id, $transaction), $user->email));
+                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'receipt.pdf', $transaction->id, $transaction), $user->email);
 
 //                GlobalHelpers::debugger(json_encode($elite_service),"info");
 
