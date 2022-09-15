@@ -164,7 +164,7 @@ class EliteServicesResource extends Resource
                                 2 => 'PENDING',
                             ])->disabled(),
                     ])
-                    ->columns(3)
+                    ->columns(4)
                     ->label('Transaction Details')->disabled(),
             ])->columns(1);
     }
