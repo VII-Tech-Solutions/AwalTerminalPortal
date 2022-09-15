@@ -232,7 +232,7 @@ class EliteServices extends CustomModel
                         Attributes::ORDER_ID => Helpers::generateOrderID(new Transaction(), Attributes::ORDER_ID),
                         Attributes::PAYMENT_PROVIDER => PaymentProvider::OTHER,
                         Attributes::UUID => $elite_service->uuid,
-                        Attributes::STATUS => TransactionStatus::PENDING
+                        Attributes::STATUS => TransactionStatus::SUCCESS
                     ], [
                         Attributes::ELITE_SERVICE_ID,
                         Attributes::UUID,
