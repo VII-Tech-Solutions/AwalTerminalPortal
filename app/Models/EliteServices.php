@@ -14,7 +14,6 @@ use App\Helpers;
 use App\Mail\ESBookingApproveMail;
 use App\Mail\ESBookingRejectUpdateMail;
 use App\Mail\ESRequestReceivedMail;
-use App\Mail\PaymentCompleted;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
@@ -28,8 +27,11 @@ use Illuminate\Support\Facades\URL;
  * @property string flight_type
  * @property string vat_amount
  * @property string subtotal
+ * @property string date
+ * @property string time
  * @property Collection bookers
  * @property int submission_status_id
+ * @property int is_arrival_flight
  * @property mixed total
  */
 class EliteServices extends CustomModel
@@ -202,9 +204,19 @@ class EliteServices extends CustomModel
         switch ($status) {
             case ESStatus::PENDING_APPROVAL:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
+                $booker = $elite_service->booker();
+                $total = $elite_service->total;
+                $is_arrival_flight = $elite_service->is_arrival_flight;
+                $date = $elite_service->date;
+                $time = $elite_service->time;
+                $flight_number = $elite_service->flight_number;
+                $number_of_adults = $elite_service->number_of_adults;
+                $number_of_children = $elite_service->number_of_children;
+                $number_of_infants = $elite_service->number_of_infants;
+                $from_airport_id = $elite_service->airport_id;
+                $passengers = $elite_service->passengers();
 
-                $amount = $elite_service->total;
-                Helpers::sendMailable(new ESRequestReceivedMail($email, $name, [$amount]), $email);
+                Helpers::sendMailable(new ESRequestReceivedMail($booker->email, $booker->first_name.' '. $booker->last_name, [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker->email);
                 break;
             case ESStatus::REJECTED:
                 Helpers::sendMailable(new ESBookingRejectUpdateMail($email, $name, $rejection_reason, []), $email);
