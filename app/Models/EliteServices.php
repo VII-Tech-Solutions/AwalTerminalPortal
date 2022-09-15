@@ -213,7 +213,7 @@ class EliteServices extends CustomModel
                 $number_of_adults = $elite_service->number_of_adults;
                 $number_of_children = $elite_service->number_of_children;
                 $number_of_infants = $elite_service->number_of_infants;
-                $from_airport_id = $elite_service->airport_id;
+                $from_airport_id = Airport::query()::where(Attributes::ID, $elite_service->airport_id)->first();
                 $passengers = $elite_service->passengers();
 
                 Helpers::sendMailable(new ESRequestReceivedMail($booker->email, $booker->first_name.' '. $booker->last_name, [$total, $is_arrival_flight, $date, $time, $flight_number, $number_of_adults, $number_of_children, $number_of_infants, $passengers, $from_airport_id]), $booker->email);
