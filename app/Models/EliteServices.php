@@ -6,7 +6,6 @@ use App\Constants\Attributes;
 use App\Constants\CastingTypes;
 use App\Constants\ESStatus;
 use App\Constants\FlightType;
-use App\Constants\PaymentProvider;
 use App\Constants\Tables;
 use App\Constants\TransactionStatus;
 use App\Constants\Values;
@@ -19,8 +18,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
-use VerumConsilium\Browsershot\Facades\PDF;
-use VIITech\Helpers\GlobalHelpers;
 
 /**
  * Elite Services
@@ -228,8 +225,7 @@ class EliteServices extends CustomModel
                 $elite_service->save();
                 $transaction = Transaction::query()->where(Attributes::UUID, $elite_service->uuid)->where(Attributes::STATUS, TransactionStatus::SUCCESS)->first();
                 // send email
-                Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'receipt.pdf', $transaction->id, $transaction), $user->email);
-                unlink('invoice.pdf');
+                dd(Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name, [$elite_service->amount], 'receipt.pdf', $transaction->id, $transaction), $user->email));
 
 //                GlobalHelpers::debugger(json_encode($elite_service),"info");
 
