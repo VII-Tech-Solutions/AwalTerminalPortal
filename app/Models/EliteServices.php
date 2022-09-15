@@ -204,7 +204,7 @@ class EliteServices extends CustomModel
         switch ($status) {
             case ESStatus::PENDING_APPROVAL:
                 $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
-                $booker = $elite_service->booker();
+                $booker = $elite_service->booker()->first();
                 $total = $elite_service->total;
                 $is_arrival_flight = $elite_service->is_arrival_flight;
                 $date = $elite_service->date;
