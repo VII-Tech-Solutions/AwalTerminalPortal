@@ -400,5 +400,6 @@ class Attributes extends CustomEnum
     const PLATFORM = "platform";
     const FILE_URL = "file_url";
     const ORDER_DATE = "order_date";
-
+    const SERVICE_DATE = "service_date";
+    const RESERVATION_DATE = "reservation_date";
 }

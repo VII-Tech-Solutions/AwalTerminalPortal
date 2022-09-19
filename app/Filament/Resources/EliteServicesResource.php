@@ -15,6 +15,8 @@ use App\Models\SubmissionStatus;
 use App\Models\User;
 use Closure;
 use Filament\Forms;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
@@ -23,6 +25,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\Layout;
 use Filament\Tables\Filters\SelectFilter;
 
@@ -78,7 +81,8 @@ class EliteServicesResource extends Resource
                         ->options(['Cash' => 'Cash',
                             'Card' => 'Card',
                             'Cheque' => 'Cheque',
-                            'Bank transfer' => 'Bank transfer'])->visible(),
+                            'Bank transfer' => 'Bank transfer',
+                            'Corporate' => 'Corporate'])->visible(),
                     Forms\Components\Textarea::make(Attributes::PAYMENT_NOTES)->columns(1),
                 ]),
                 Tabs::make('Heading')
@@ -191,6 +195,29 @@ class EliteServicesResource extends Resource
             ->filters([
                 //
                 SelectFilter::make('status')->relationship('status', 'name'),
+                Filter::make('reservation_date')
+                    ->form([
+                        DatePicker::make('created_at')->label(Helpers::readableText(Attributes::RESERVATION_DATE)),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_at'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '=', $date),
+                            );
+                    }),
+                Filter::make('service_date')
+                    ->form([
+                        DatePicker::make('date')->label(Helpers::readableText(Attributes::SERVICE_DATE)),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['date'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('date', '=', $date),
+                            );
+                    }),
+                SelectFilter::make('service')->relationship('service', 'name')
             ], layout: Layout::AboveContent);
     }
 
