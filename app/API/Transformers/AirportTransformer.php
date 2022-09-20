@@ -13,6 +13,8 @@ class AirportTransformer extends CustomTransformer
     public $fields = [
         Attributes::ID,
         Attributes::NAME,
+        Attributes::FULL_NAME,
         Attributes::COUNTRY_ID,
     ];
+
 }
