@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\API\Controllers\EliteServiceController;
 use App\Constants\Attributes;
 use App\Constants\CastingTypes;
 use App\Constants\ESStatus;
@@ -14,11 +15,13 @@ use App\Helpers;
 use App\Mail\ESBookingApproveMail;
 use App\Mail\ESBookingRejectUpdateMail;
 use App\Mail\ESRequestReceivedMail;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\URL;
+use VIITech\Helpers\GlobalHelpers;
 
 /**
  * Elite Services
@@ -32,7 +35,11 @@ use Illuminate\Support\Facades\URL;
  * @property string time
  * @property Collection bookers
  * @property int submission_status_id
+ * @property int service_id
  * @property int is_arrival_flight
+ * @property int number_of_infants
+ * @property int number_of_children
+ * @property int number_of_adults
  * @property mixed total
  */
 class EliteServices extends CustomModel
@@ -259,6 +266,83 @@ class EliteServices extends CustomModel
                 break;
         }
     }
+
+    /**
+     * Change Price and Passengers
+     * @param $id
+     * @param $passengers
+     *
+     */
+    static function changePriceAndPassengers($id, $passengers, $service_id)
+    {
+        $elite_service = EliteServices::query()->where(Attributes::ID, $id)->first();
+        $number_of_infants = 0;
+        $number_of_children = 0;
+        $number_of_adults = 0;
+        foreach ($passengers as $passenger) {
+            $birth_date = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::BIRTH_DATE, null, \VIITech\Helpers\Constants\CastingTypes::STRING);
+
+            $birth_date = Carbon::parse($birth_date);
+            $current_date = Carbon::now();
+            $age = $current_date->year - $birth_date->year;
+
+            if ($age < 3) {
+                $number_of_infants += 1;
+            } elseif ($age <= 12) {
+                $number_of_children += 1;
+            } else {
+                $number_of_adults += 1;
+            }
+        }
+
+        if (is_null($service_id)) {
+            $service_id = $elite_service->service_id;
+        }
+
+        $subtotal = 0;
+        $adult_priced_passengers = $number_of_children + $number_of_adults;
+        $selected_service = EliteServiceTypes::where(Attributes::ID, $service_id)->get();
+        $price_per_adult = $selected_service->first()->price_per_adult;
+
+        if ($service_id == 1) {
+            if ($adult_priced_passengers > 4) {
+                $subtotal += (4 * $price_per_adult);
+
+                $extra_adult_passengers = $adult_priced_passengers - 4;
+                $subtotal += ($extra_adult_passengers * ($price_per_adult + 20));
+
+            } else {
+                $subtotal += ($adult_priced_passengers * $price_per_adult);
+            }
+        } else if ($service_id == 2) {
+            if ($adult_priced_passengers > 4) {
+                $subtotal += (4 * $price_per_adult);
+
+                $extra_adult_passengers = $adult_priced_passengers - 4;
+                $subtotal += ($extra_adult_passengers * ($price_per_adult + 25));
+
+            } else {
+                $subtotal += ($adult_priced_passengers * $price_per_adult);
+            }
+        }
+
+        $values = EliteServiceController::calculateVAT($subtotal);
+        $vat_amount = $values[Attributes::VAT_AMOUNT];
+        $total = $vat_amount + $subtotal;
+
+
+        $elite_service->number_of_infants = $number_of_infants;
+        $elite_service->number_of_children = $number_of_children;
+        $elite_service->number_of_adults = $number_of_adults;
+        $elite_service->subtotal = $subtotal;
+        $elite_service->total = $total;
+        $elite_service->vat_amount = $vat_amount;
+        $elite_service->service_id = $service_id;
+        $elite_service->save();
+
+        return [$number_of_infants, $number_of_children, $number_of_adults, $subtotal, $total, $vat_amount, $service_id];
+    }
+
 
     /**
      * Mark As Paid

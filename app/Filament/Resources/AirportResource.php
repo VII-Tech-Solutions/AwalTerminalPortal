@@ -52,6 +52,9 @@ class AirportResource extends Resource
             ->schema([
                 //
                 Forms\Components\TextInput::make(Attributes::NAME)->required(),
+                Forms\Components\TextInput::make(Attributes::IATA)->required(),
+                Forms\Components\TextInput::make(Attributes::ICAO)->required(),
+                Forms\Components\TextInput::make(Attributes::CITY)->required(),
                 Select::make(Attributes::COUNTRY_ID)
                     ->label('Country')
                     ->options(Country::all()->pluck('name', 'id'))
@@ -66,6 +69,9 @@ class AirportResource extends Resource
                 //
                 Tables\Columns\TextColumn::make( Attributes::ID)->label("ID"),
                 Tables\Columns\TextColumn::make( Attributes::NAME),
+                Tables\Columns\TextColumn::make( Attributes::IATA)->label('IATA'),
+                Tables\Columns\TextColumn::make( Attributes::CITY),
+                Tables\Columns\TextColumn::make( 'country.name'),
 
             ])
             ->filters([
