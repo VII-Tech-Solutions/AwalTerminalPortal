@@ -6,6 +6,7 @@ use App\Constants\AdminUserType;
 use App\Constants\Attributes;
 use App\Filament\Resources\GeneralAviationServicesResource\Pages;
 use App\Forms\Components\CustomFileUpload;
+use App\Helpers;
 use App\Models\Airport;
 use App\Models\Country;
 use App\Models\GeneralAviationServices;
@@ -13,6 +14,7 @@ use App\Models\SubmissionStatus;
 use App\Models\User;
 use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -21,8 +23,10 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\Layout;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class GeneralAviationServicesResource extends Resource
 {
@@ -121,15 +125,15 @@ class GeneralAviationServicesResource extends Resource
                                 ]),
                                 Fieldset::make('Agent Information')->schema([
                                     Forms\Components\Toggle::make(Attributes::IS_USING_AGENT),
-                                    Forms\Components\TextInput::make(Attributes::AGENT_FULLNAME)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
+                                    Forms\Components\TextInput::make(Attributes::AGENT_FULLNAME)->required(fn(Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
                                     Select::make(Attributes::AGENT_COUNTRY)
                                         ->label('Country')
                                         ->options(Country::all()->pluck('name', 'id'))
                                         ->searchable(),
-                                    Forms\Components\TextInput::make(Attributes::AGENT_PHONENUMBER)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
-                                    Forms\Components\TextInput::make(Attributes::AGENT_EMAIL)->email(true)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
-                                    Forms\Components\Textarea::make(Attributes::AGENT_ADDRESS)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
-                                    Forms\Components\Textarea::make(Attributes::AGENT_BILLING_ADDRESS)->required(fn (Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
+                                    Forms\Components\TextInput::make(Attributes::AGENT_PHONENUMBER)->required(fn(Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
+                                    Forms\Components\TextInput::make(Attributes::AGENT_EMAIL)->email(true)->required(fn(Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
+                                    Forms\Components\Textarea::make(Attributes::AGENT_ADDRESS)->required(fn(Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
+                                    Forms\Components\Textarea::make(Attributes::AGENT_BILLING_ADDRESS)->required(fn(Closure $get) => $get(Attributes::IS_USING_AGENT) == true),
 
                                 ]),
                             ]),
@@ -186,6 +190,17 @@ class GeneralAviationServicesResource extends Resource
             ->filters([
                 //
                 SelectFilter::make('status')->relationship('status', 'name')->options(SubmissionStatus::all()->whereNotIn('id', [2, 4])->pluck('name', 'id')),
+                Filter::make('reservation_date')
+                    ->form([
+                        DatePicker::make('created_at')->label(Helpers::readableText(Attributes::RESERVATION_DATE)),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_at'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '=', $date),
+                            );
+                    }),
             ], layout: Layout::AboveContent);
     }
 
