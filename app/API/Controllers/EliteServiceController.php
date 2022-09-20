@@ -77,9 +77,6 @@ class EliteServiceController extends CustomController
         $is_arrival_flight = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::IS_ARRIVAL_FLIGHT, null, CastingTypes::INTEGER);
         $airport_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::AIRPORT_ID, null, CastingTypes::INTEGER);
         $flight_number = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_NUMBER, null, CastingTypes::STRING);
-        $number_of_adults = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NUMBER_OF_ADULTS, null, CastingTypes::INTEGER);
-        $number_of_children = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NUMBER_OF_CHILDREN, null, CastingTypes::INTEGER);
-        $number_of_infants = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NUMBER_OF_INFANTS, null, CastingTypes::INTEGER);
         $passengers = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PASSENGERS, null, CastingTypes::ARRAY);
         $booker = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BOOKER, null, CastingTypes::STRING);
         $booker_firstname = GlobalHelpers::getValueFromHTTPRequest($booker, Attributes::FIRST_NAME, null, CastingTypes::STRING);
@@ -101,9 +98,6 @@ class EliteServiceController extends CustomController
             'Flight Number' => $flight_number,
             'Airport ID' => $airport_id,
             'Service ID' => $service_id,
-            'number of infants' => $number_of_infants,
-            'number of children' => $number_of_children,
-            'number of adults' => $number_of_adults,
             'Passenger' => $passengers
         ];
 
@@ -122,15 +116,31 @@ class EliteServiceController extends CustomController
             return Helpers::formattedJSONResponse("Time Format is wrong Ex. 23:59", [], [], Response::HTTP_BAD_REQUEST);
         }
 
-        foreach ($passengers as $subkey => $passenger) {
-            $title = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::TITLE, null, CastingTypes::STRING);
-            $first_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FIRST_NAME, null, CastingTypes::STRING);
-            $last_name = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::LAST_NAME, null, CastingTypes::STRING);
-            $birth_date = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BIRTH_DATE, null, CastingTypes::STRING);
-            $nationality_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::NATIONALITY_ID, null, CastingTypes::STRING);
-            $flight_class = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::FLIGHT_CLASS, null, CastingTypes::STRING);
+        $number_of_infants = 0;
+        $number_of_children = 0;
+        $number_of_adults = 0;
 
-            $passenger_array = ['passenger title' => $title, 'First name' => $first_name, 'Last name' => $last_name, 'Birth date' => $birth_date, 'Nationality id' => $nationality_id, 'Flight class' => $flight_class];
+        foreach ($passengers as $subkey => $passenger) {
+            $title = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::TITLE, null, CastingTypes::STRING);
+            $first_name = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::FIRST_NAME, null, CastingTypes::STRING);
+            $last_name = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::LAST_NAME, null, CastingTypes::STRING);
+            $birth_date = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::BIRTH_DATE, null, CastingTypes::STRING);
+            $nationality_id = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::NATIONALITY_ID, null, CastingTypes::STRING);
+            $flight_class = GlobalHelpers::getValueFromHTTPRequest($passenger, Attributes::FLIGHT_CLASS, null, CastingTypes::STRING);
+
+            $birth_date = Carbon::parse($birth_date);
+            $current_date = Carbon::now();
+            $age = $current_date->year - $birth_date->year;
+
+            if ($age < 3) {
+                $number_of_infants += 1;
+            } elseif ($age <= 12) {
+                $number_of_children += 1;
+            } else {
+                $number_of_adults += 1;
+            }
+
+            $passenger_array = ['Passenger title' => $title, 'First name' => $first_name, 'Last name' => $last_name, 'Birth date' => $birth_date, 'Nationality id' => $nationality_id, 'Flight class' => $flight_class];
 
             // validate passenger array
             foreach ($passenger_array as $key => $subkey) {
