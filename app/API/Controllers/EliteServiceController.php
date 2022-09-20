@@ -6,7 +6,6 @@ use App\API\Transformers\EliteServiceTransformer;
 use App\Constants\ActivityPaymentMethods;
 use App\Constants\AdminUserType;
 use App\Constants\Attributes;
-use App\Constants\PaymentProvider;
 use App\Constants\Values;
 use App\Helpers;
 use App\Mail\ESNewBookingMail;
@@ -159,7 +158,7 @@ class EliteServiceController extends CustomController
                 $subtotal += (4 * $price_per_adult);
 
                 $extra_adult_passengers = $adult_priced_passengers - 4;
-                $subtotal += ($extra_adult_passengers * 20);
+                $subtotal += ($extra_adult_passengers * ($price_per_adult + 20));
 
             } else {
                 $subtotal += ($adult_priced_passengers * $price_per_adult);
@@ -169,7 +168,7 @@ class EliteServiceController extends CustomController
                 $subtotal += (4 * $price_per_adult);
 
                 $extra_adult_passengers = $adult_priced_passengers - 4;
-                $subtotal += ($extra_adult_passengers * 25);
+                $subtotal += ($extra_adult_passengers * ($price_per_adult + 25));
 
             } else {
                 $subtotal += ($adult_priced_passengers * $price_per_adult);
@@ -286,7 +285,7 @@ class EliteServiceController extends CustomController
                 $subtotal += (4 * $price_per_adult);
 
                 $extra_adult_passengers = $adult_priced_passengers - 4;
-                $subtotal += ($extra_adult_passengers * 20);
+                $subtotal += ($extra_adult_passengers * ($price_per_adult + 20));
 
             } else {
                 $subtotal += ($adult_priced_passengers * $price_per_adult);
@@ -296,7 +295,7 @@ class EliteServiceController extends CustomController
                 $subtotal += (4 * $price_per_adult);
 
                 $extra_adult_passengers = $adult_priced_passengers - 4;
-                $subtotal += ($extra_adult_passengers * 25);
+                $subtotal += ($extra_adult_passengers * ($price_per_adult + 25));
 
             } else {
                 $subtotal += ($adult_priced_passengers * $price_per_adult);
