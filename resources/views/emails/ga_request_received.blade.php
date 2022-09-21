@@ -113,7 +113,7 @@
     </div>
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:
-            {{$to_name}}</p>
+            {{$data[29]}}</p>
     </div>    <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:
             {{$data[18]['name']}}</p>
