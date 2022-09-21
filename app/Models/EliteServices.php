@@ -33,6 +33,7 @@ use VIITech\Helpers\GlobalHelpers;
  * @property string subtotal
  * @property string date
  * @property string time
+ * @property string flight_number
  * @property Collection bookers
  * @property int submission_status_id
  * @property int service_id

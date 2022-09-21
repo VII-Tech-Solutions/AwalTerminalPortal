@@ -13,6 +13,6 @@
     </div>
 
     <div>
-        <a style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41" href="https://awal.viitech.net/admin/general-aviation-services/">https://awal.viitech.net/admin/general-aviation-services</a>
+        <a style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41" href="{{env('APP_URL')}}/admin/general-aviation-services/">{{env('APP_URL')}}/admin/general-aviation-services</a>
     </div>
 @endsection
