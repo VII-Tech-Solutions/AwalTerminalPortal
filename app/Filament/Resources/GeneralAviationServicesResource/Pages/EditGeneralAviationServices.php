@@ -10,13 +10,10 @@ use App\Mail\GAServiceBookingRejectMail;
 use App\Mail\GAServiceRequestReceivedMail;
 use App\Models\Airport;
 use App\Models\Country;
-use App\Models\FormServices;
-use App\Models\GAServices;
 use App\Models\GeneralAviationServices;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Str;
-use VIITech\Helpers\GlobalHelpers;
 
 class EditGeneralAviationServices extends EditRecord
 {
@@ -66,8 +63,8 @@ class EditGeneralAviationServices extends EditRecord
             $arriving_from_airport_name = Airport::where(Attributes::ID, $arriving_from_airport)->first();
             $departure_to_airport_name = Airport::where(Attributes::ID, $departure_to_airport)->first();
 
-            $operator_country_name=  Country::where(Attributes::ID, $operator_country)->first();
-            $agent_country_name=  Country::where(Attributes::ID, $agent_country)->first();
+            $operator_country_name = Country::where(Attributes::ID, $operator_country)->first();
+            $agent_country_name = Country::where(Attributes::ID, $agent_country)->first();
 
 
 //            if (!is_null($services) ) {
@@ -89,16 +86,25 @@ class EditGeneralAviationServices extends EditRecord
             switch ($value) {
                 case 1:
                     Helpers::sendMailable(new GAServiceRequestReceivedMail($operator_email, $operator_full_name, [$agent_fullName]), $operator_email);
+                    if ($is_using_agent) {
+                        Helpers::sendMailable(new GAServiceRequestReceivedMail($agent_email, $agent_fullName, [$agent_fullName]), $agent_email);
+                    }
                     break;
                 case 2:
                     Helpers::sendMailable(new GAServiceBookingRejectMail($operator_email, $operator_full_name, $rejectionReason, [$agent_fullName]), $operator_email);
+                    if ($is_using_agent) {
+                        Helpers::sendMailable(new GAServiceBookingRejectMail($agent_email, $agent_fullName, $rejectionReason, [$agent_fullName]), $agent_email);
+                    }
                     break;
                 case 3:
-//                    GlobalHelpers::debugger("test","info");
-
                     Helpers::sendMailable(new GAServiceBookingAprrovedMail($operator_email, $operator_full_name, [$agent_fullName, $aircraft_type, $registration_number, $mtow, $lead_passenger_name, $landing_purpose, $arrival_call_sign, $arriving_from_airport_name, $eta,
                         $arrival_date, $arrival_flight_nature, $arrival_passenger_count, $departure_call_sign, $departure_to_airport_name, $etd, $departure_date, $departure_flight_nature, $departure_passenger_count, $operator_country_name, $operator_tel_number, $operator_address,
-                        $operator_billing_address, $is_using_agent, $agent_country_name, $agent_email, $agent_phoneNumber, $agent_address, $agent_billing_address, $services]), $operator_email);
+                        $operator_billing_address, $is_using_agent, $agent_country_name, $agent_email, $agent_phoneNumber, $agent_address, $agent_billing_address, $services, $operator_full_name, $operator_email]), $operator_email);
+                    if ($is_using_agent) {
+                        Helpers::sendMailable(new GAServiceBookingAprrovedMail($agent_email, $agent_fullName, [$agent_fullName, $aircraft_type, $registration_number, $mtow, $lead_passenger_name, $landing_purpose, $arrival_call_sign, $arriving_from_airport_name, $eta,
+                            $arrival_date, $arrival_flight_nature, $arrival_passenger_count, $departure_call_sign, $departure_to_airport_name, $etd, $departure_date, $departure_flight_nature, $departure_passenger_count, $operator_country_name, $operator_tel_number, $operator_address,
+                            $operator_billing_address, $is_using_agent, $agent_country_name, $agent_email, $agent_phoneNumber, $agent_address, $agent_billing_address, $services, $operator_full_name, $operator_email]), $agent_email);
+                    }
                 case 4:
             }
 
