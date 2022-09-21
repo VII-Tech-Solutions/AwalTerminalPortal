@@ -15,6 +15,9 @@ use App\Models\EliteServiceFeatures;
 use App\Models\EliteServiceTypes;
 use App\Models\FormServices;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use VIITech\Helpers\Constants\CastingTypes;
+use VIITech\Helpers\GlobalHelpers;
 
 /**
  * Class MetadataController
@@ -46,4 +49,24 @@ class MetadataController extends CustomController
             Attributes::FORM_SERVICES => EliteServiceFeatures::returnTransformedItems($form_services, FormServicesTransformer::class),
         ]);
     }
+
+    /**
+     * Search Users
+     * @return JsonResponse
+     */
+    public function searchAirports(\Illuminate\Http\Request $request)
+    {
+        $search = GlobalHelpers::getValueFromHTTPRequest($request, Attributes::SEARCH, '', CastingTypes::STRING);
+        $airports = Airport::query()->where(Attributes::NAME, 'like', '%' . $search . '%')
+            ->orWhere(Attributes::CITY, 'like', '%' . $search . '%')
+            ->orWhere(Attributes::IATA, 'like', '%' . $search . '%')
+            ->orderBy(Attributes::NAME)
+            ->limit(20)
+            ->get();
+        return Helpers::returnResponse([
+            Attributes::AIRPORTS => Airport::returnTransformedItems($airports, AirportTransformer::class),
+
+        ]);
+    }
+
 }

@@ -22,6 +22,7 @@ class Attributes extends CustomEnum
     const TITLE = "title";
     const VALUE = "value";
     const NAME = 'name';
+    const SEARCH = 'search';
     const FULL_NAME = 'full_name';
     const COUNTRY_NAME = 'country_name';
     const FORM_ID = 'form_id';

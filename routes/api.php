@@ -41,6 +41,7 @@ $api->version('v1', function ($api) {
          *******************************/
         $api->get('/elite-service/all', 'EliteServiceController@all');
         $api->get('/metadata', 'MetadataController@all');
+        $api->get('/search-airports', 'MetadataController@searchAirports');
         $api->get('/homepage-content', 'WebsiteContentController@homepageContent');
         $api->get('/tour-the-terminal-content', 'WebsiteContentController@tourTheTerminalContent');
         $api->get('/our-story-content', 'WebsiteContentController@ourStoryContent');
