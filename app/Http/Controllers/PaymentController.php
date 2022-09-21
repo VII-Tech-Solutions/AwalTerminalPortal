@@ -198,11 +198,11 @@ class PaymentController extends CustomController
                 Attributes::TRACKID => $uid,
                 Attributes::CUSTOMER_NAME => $customer_name,
                 Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
-                Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
-                Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
+                Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET"),
+                Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET"),
                 Attributes::SUCCESS_URL => $success_url,
                 Attributes::ERROR_URL => $error_url,
-                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID", "12818950")
+                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID")
             ];
 
             $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
