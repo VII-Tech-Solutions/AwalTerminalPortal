@@ -64,6 +64,28 @@ class EliteServiceController extends CustomController
     }
 
     /**
+     * Get transaction
+     * @return JsonResponse
+     */
+    public function getTransaction($uuid)
+    {
+        // get elite service
+        $transaction = Transaction::where(Attributes::UUID, $uuid)->first()->get();
+        $elite_services = EliteServices::find($transaction->elite_service_id)->get();
+
+        // get booker
+        $booker = $elite_services->map->booker;
+        $booker = $booker->flatten()->unique(Attributes::ID)->values();
+
+        // return response
+        return Helpers::returnResponse([
+            Attributes::ELITE_SERVICES => EliteServices::returnTransformedItems($elite_services, EliteServiceTransformer::class),
+            Attributes::EMAIL => $elite_services->email,
+            Attributes::BOOKER => $booker
+        ]);
+    }
+
+    /**
      * Submit Form
      * @return JsonResponse
      */
