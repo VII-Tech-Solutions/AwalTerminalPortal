@@ -103,8 +103,8 @@ class PaymentController extends CustomController
             Attributes::ORDER_ID => $temp_order->uuid,
             Attributes::TRACKID => $temp_order->uuid,
             Attributes::PAYMENT_METHOD => $temp_order->payment_provider,
-            Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
-            Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ'),
+            Attributes::PAYMENT_SECRET => env("PAYMENT_SECRET"),
+            Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET"),
         ];
 
         $url = env('PAYMENT_URL') . '/verify';

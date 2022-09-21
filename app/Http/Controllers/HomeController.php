@@ -155,7 +155,7 @@ class HomeController extends CustomController
 
         } else if ($payment_method == PaymentProvider::BENEFIT) {
 
-            $secret = env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ');
+            $secret = env("PAYMENT_SECRET");
 
             $success_url = url("/api/payments/verify-benefit?booking=$transaction->uuid&secret=$secret&platform=web");
             $error_url = url("/api/payments/verify-benefit?booking=$transaction->uuid&secret=$secret&platform=web");

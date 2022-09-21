@@ -306,23 +306,22 @@ class EliteServices extends CustomModel
 
         if ($service_id == 1) {
             if ($adult_priced_passengers > 4) {
-                $subtotal += (4 * $price_per_adult);
+                $subtotal += $price_per_adult;
 
                 $extra_adult_passengers = $adult_priced_passengers - 4;
-                $subtotal += ($extra_adult_passengers * ($price_per_adult + 20));
+                $subtotal += ($extra_adult_passengers * 20);
 
             } else {
-                $subtotal += ($adult_priced_passengers * $price_per_adult);
+                $subtotal += $price_per_adult;
             }
         } else if ($service_id == 2) {
             if ($adult_priced_passengers > 4) {
-                $subtotal += (4 * $price_per_adult);
+                $subtotal += $price_per_adult;
 
                 $extra_adult_passengers = $adult_priced_passengers - 4;
-                $subtotal += ($extra_adult_passengers * ($price_per_adult + 25));
-
+                $subtotal += ($extra_adult_passengers * 25);
             } else {
-                $subtotal += ($adult_priced_passengers * $price_per_adult);
+                $subtotal += $price_per_adult;
             }
         }
 
