@@ -133,7 +133,7 @@ class HomeController extends CustomController
             $transaction->save();
         }
 
-        $secret = env("PAYMENT_SECRET", 'FzpTv!dEiVC_i.Cp7nQgQH-UWW63LE_tdVtUA9v4Xr!uum6tcJ');
+        $secret = env("PAYMENT_SECRET");
 
         // redirect to payment gateway
         if ($payment_method == PaymentProvider::CREDIMAX) {
