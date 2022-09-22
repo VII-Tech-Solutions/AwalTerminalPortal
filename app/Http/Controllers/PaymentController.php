@@ -250,19 +250,16 @@ class PaymentController extends CustomController
         /** @var EliteServices $booking */
         $booking = EliteServices::where(Attributes::UUID, $booking_uuid)->first();
         if (is_null($booking)) {
-            dd('null booking');
             return $this->redirectTo($platform, null, true);
         }
 
         /** @var Transaction $temp_order */
         $temp_order = Transaction::where(Attributes::UUID, $booking_uuid)->orderByDesc(Attributes::CREATED_AT)->first();
         if (is_null($temp_order)) {
-            dd('temp_order');
             return $this->redirectTo($platform, $temp_order, true);
         }
 
         if (!$success || $secret !== Values::SECRET) {
-            dd('secret does not match');
             return $this->redirectTo($platform, $temp_order, true);
         }
 
