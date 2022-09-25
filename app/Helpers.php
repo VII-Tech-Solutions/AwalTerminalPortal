@@ -320,6 +320,7 @@ class Helpers
         } catch (Exception $e) {
             GlobalHelpers::debugger($e, 'info');
             Helpers::captureException($e);
+            echo $e;
             return false;
         }
     }
