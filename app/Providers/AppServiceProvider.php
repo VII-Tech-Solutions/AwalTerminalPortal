@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
         if($this->app->environment('production')){
             URL::forceScheme('https');
         };
-//
+
 //        $homePageContentId = HomepageContent::all()->first()->id;
 //        $tourPageContentId = TourTheTerminalContent::all()->first()->id;
 //        $OurStoryPageContentId = OurStoryContent::all()->first()->id;
