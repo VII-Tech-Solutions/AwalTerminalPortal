@@ -20,15 +20,15 @@ class DatabaseSeeder extends Seeder
         $this->call(EliteServiceTypeSeeder::class);
         $this->call(EliteServiceFeatureSeeder::class);
         $this->call(SubmissionStatusSeeder::class);
-//        $this->call(ContectUsContentSeeder::class);
-//        $this->call(HomepageContentSeeder::class);
-//        $this->call(OurStoryContentSeeder::class);
-//        $this->call(BulletPointsContentSeeder::class);
-//        $this->call(ImageGalleryContentSeeder::class);
-//        $this->call(GeneralAviationContentSeeder::class);
-//        $this->call(TourTheTerminalContentSeeder::class);
-//        $this->call(ServicesContentSeeder::class);
-//        $this->call(EliteServicesContentSeeder::class);
+        $this->call(ContectUsContentSeeder::class);
+        $this->call(HomepageContentSeeder::class);
+        $this->call(OurStoryContentSeeder::class);
+        $this->call(BulletPointsContentSeeder::class);
+        $this->call(ImageGalleryContentSeeder::class);
+        $this->call(GeneralAviationContentSeeder::class);
+        $this->call(TourTheTerminalContentSeeder::class);
+        $this->call(ServicesContentSeeder::class);
+        $this->call(EliteServicesContentSeeder::class);
         $this->call(CountrySeeder::class);
         $this->call(AirportsSeeder::class);
     }
