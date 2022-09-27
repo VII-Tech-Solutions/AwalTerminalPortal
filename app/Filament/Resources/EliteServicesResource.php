@@ -108,15 +108,16 @@ class EliteServicesResource extends Resource
                                     Forms\Components\Radio::make(Attributes::IS_ARRIVAL_FLIGHT)->options([
                                         1 => 'Arrival',
                                         0 => 'Departure',
-                                    ])->label('Flight type:'),
+                                    ])->label('Flight type:')
+                                        ->required(),
                                     Select::make(Attributes::AIRPORT_ID)
                                         ->label('Airport:')
                                         ->options(Airport::all()->pluck('name', 'id')->sortBy(Attributes::NAME))
                                         ->searchable()
                                         ->required(),
-                                    Forms\Components\DatePicker::make(Attributes::DATE),
-                                    Forms\Components\TimePicker::make(Attributes::TIME),
-                                    Forms\Components\TextInput::make(Attributes::FLIGHT_NUMBER),
+                                    Forms\Components\DatePicker::make(Attributes::DATE)->required(),
+                                    Forms\Components\TimePicker::make(Attributes::TIME)->required(),
+                                    Forms\Components\TextInput::make(Attributes::FLIGHT_NUMBER)->required(),
                                     Forms\Components\TextInput::make(Attributes::NUMBER_OF_ADULTS)->numeric(true)->required(),
                                     Forms\Components\TextInput::make(Attributes::NUMBER_OF_CHILDREN)->numeric(true)->required(),
                                     Forms\Components\TextInput::make(Attributes::NUMBER_OF_INFANTS)->numeric(true)->required(),
@@ -130,13 +131,15 @@ class EliteServicesResource extends Resource
                                         ->options(['Mr' => 'Mr',
                                             'Ms' => 'Ms',
                                             'Miss' => 'Miss',
-                                            'Mrs' => 'Mrs']),
+                                            'Mrs' => 'Mrs'])
+                                        ->required(),
                                     Forms\Components\TextInput::make(Attributes::FIRST_NAME)->required(),
                                     Forms\Components\TextInput::make(Attributes::LAST_NAME)->required(),
                                     Select::make(Attributes::NATIONALITY_ID)
                                         ->label('Nationality')
                                         ->options(Country::all()->pluck('name', 'id'))
-                                        ->searchable(),
+                                        ->searchable()
+                                        ->required(),
                                     Select::make(Attributes::FLIGHT_CLASS)
                                         ->options(['First class' => 'First class',
                                             'Business class' => 'Business class',
