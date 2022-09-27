@@ -359,7 +359,7 @@ class EliteServices extends CustomModel
         /** @var Bookers $booker */
         $booker = $this->booker()->first();
         if (!is_null($booker)) {
-            EliteServices::changeStatus($this->id, $booker->first_name, $this->email, ESStatus::PAID, null);
+            EliteServices::changeStatus($this->id, $booker->first_name, $booker->email, ESStatus::PAID, null);
         }
     }
 }

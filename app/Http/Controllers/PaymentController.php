@@ -130,17 +130,11 @@ class PaymentController extends CustomController
         }
 
         if ($platform == Platforms::WEB) {
-            $redirect_to = env('WEBSITE_URL') . '/payment-received?uuid=' . $temp_order->uuid;
-
-            $elite_service = EliteServices::query()->find($temp_order->elite_service_id);
-            $elite_service->markAsPaid();
             $temp_order->status = TransactionStatus::SUCCESS;
             $temp_order->save();
-            $user = Bookers::query()->where(Attributes::SERVICE_ID, $elite_service->id)->first();
-            $data = $temp_order->generateReceiptData();
-            // send email
-            Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name . ' ' . $user->last_name, [$temp_order->amount], null, $temp_order->id, $data), $user->email);
-
+            $elite_service = EliteServices::query()->find($temp_order->elite_service_id);
+            $elite_service->markAsPaid();
+            $redirect_to = env('WEBSITE_URL') . '/payment-received?uuid=' . $temp_order->uuid;
         }
 
         return redirect()->to($redirect_to);
