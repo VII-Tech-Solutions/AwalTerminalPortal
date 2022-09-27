@@ -15,7 +15,6 @@ use App\Models\SubmissionStatus;
 use App\Models\User;
 use Closure;
 use Filament\Forms;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
@@ -28,6 +27,7 @@ use Filament\Tables;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\Layout;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class EliteServicesResource extends Resource
@@ -112,7 +112,8 @@ class EliteServicesResource extends Resource
                                     Select::make(Attributes::AIRPORT_ID)
                                         ->label('Airport:')
                                         ->options(Airport::all()->pluck('name', 'id')->sortBy(Attributes::NAME))
-                                        ->searchable(),
+                                        ->searchable()
+                                        ->required(),
                                     Forms\Components\DatePicker::make(Attributes::DATE),
                                     Forms\Components\TimePicker::make(Attributes::TIME),
                                     Forms\Components\TextInput::make(Attributes::FLIGHT_NUMBER),
@@ -136,7 +137,11 @@ class EliteServicesResource extends Resource
                                         ->label('Nationality')
                                         ->options(Country::all()->pluck('name', 'id'))
                                         ->searchable(),
-                                    Forms\Components\TextInput::make(Attributes::FLIGHT_CLASS)->required(),
+                                    Select::make(Attributes::FLIGHT_CLASS)
+                                        ->options(['First class' => 'First class',
+                                            'Business class' => 'Business class',
+                                            'Economy' => 'Economy',
+                                        ])->required(),
                                     Forms\Components\DatePicker::make(Attributes::BIRTH_DATE)->label('Date of birth')
                                 ])->label('Passengers'),
                             ])->columns(2),
