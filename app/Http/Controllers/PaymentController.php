@@ -36,16 +36,13 @@ class PaymentController extends CustomController
     {
         $error = $error ? "true" : "false";
         if ($platform == Platforms::WEB && !is_null($transaction) && $error == 'false') {
-            $redirect_to = env('WEBSITE_URL') . '/payment-received?uuid=' . $transaction->uuid;
-
             $elite_service = EliteServices::query()->find($transaction->elite_service_id);
-            $elite_service->markAsPaid();
             $transaction->status = TransactionStatus::SUCCESS;
             $transaction->save();
-            $user = Bookers::query()->where(Attributes::SERVICE_ID, $elite_service->id)->first();
-            $data = $transaction->generateReceiptData();
+            $elite_service->markAsPaid();
+
             // send email
-            Helpers::sendMailable(new PaymentCompleted($user->email, $user->first_name . ' ' . $user->last_name, [$transaction->amount], null, $transaction->id, $data), $user->email);
+            $redirect_to = env('WEBSITE_URL') . '/payment-received?uuid=' . $transaction->uuid;
 
         } else if (!is_null($transaction) && $transaction->status == TransactionStatus::FAIL || $error == 'true') {
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
