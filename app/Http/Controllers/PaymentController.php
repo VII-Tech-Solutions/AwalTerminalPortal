@@ -124,8 +124,10 @@ class PaymentController extends CustomController
             }
         } catch (Exception $e) {
             Helpers::captureException($e);
+            dd($e);
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         } catch (GuzzleException $e) {
+            dd($e);
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         }
 
@@ -161,7 +163,7 @@ class PaymentController extends CustomController
         $uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::UUID, null, CastingTypes::STRING);
         $error = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ERROR, null, CastingTypes::BOOLEAN);
         $payment_method = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PAYMENT_METHOD, PaymentProvider::BENEFIT, CastingTypes::INTEGER);
-
+        dd($error);
         if (!is_null($error)) {
             /** @var Transaction $transaction */
             $transaction = Transaction::where(Attributes::UUID, $uuid)->first();
@@ -219,6 +221,7 @@ class PaymentController extends CustomController
             return $response_body->data->payment_page ?? null;
 
         } catch (Exception|GuzzleException $e) {
+            dd($e);
             Helpers::captureException($e);
         }
 
