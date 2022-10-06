@@ -47,7 +47,7 @@ class BenefitController extends CustomController
      */
     static function checkout($benefit_data)
     {
-        require "Benefit/plugin/iPayBenefitPipe.php";
+        require_once("Benefit/plugin/iPayBenefitPipe.php");
 
         $order_uid = Helpers::appendEnvNumber() . time() . Helpers::generateBigRandomNumber();
 
@@ -148,7 +148,7 @@ class BenefitController extends CustomController
      */
     function process()
     {
-        require "Benefit/plugin/iPayBenefitPipe.php";
+        require_once("Benefit/plugin/iPayBenefitPipe.php");
 
         // log request
         if (env("DEBUGGER_LOGS_ENABLED", false)) {
@@ -296,7 +296,7 @@ class BenefitController extends CustomController
     function approved()
     {
 
-        require "Benefit/plugin/iPayBenefitPipe.php";
+        require_once("Benefit/plugin/iPayBenefitPipe.php");
 
         $myObj = $this->getBenefitPipe();
 
@@ -370,7 +370,7 @@ class BenefitController extends CustomController
     function declined()
     {
 
-        require "Benefit/plugin/iPayBenefitPipe.php";
+        require_once("Benefit/plugin/iPayBenefitPipe.php");
 
         $myObj = $this->getBenefitPipe();
 
