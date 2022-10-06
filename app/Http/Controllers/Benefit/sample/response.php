@@ -1,13 +1,13 @@
 <?php
-	require('iPayBenefitPipe.php');
-	
-	$myObj =new iPayBenefitPipe(); 
-	
+	require_once('iPayBenefitPipe.php');
+
+	$myObj =new iPayBenefitPipe();
+
 	// modify the following to reflect your "Alias Name", "resource.cgn" file path, "keystore.pooh" file path.
 	$myObj->setAlias("test");
 	$myObj->setResourcePath("resource/"); //only the path that contains the file; do not write the file name
 	$myObj->setKeystorePath("resource/"); //only the path that contains the file; do not write the file name
-	
+
 	$trandata = "";
 	$paymentID = "";
 	$result = "";
@@ -26,9 +26,9 @@
 	$postDate = "";
 	$errorCode = "";
 	$errorText = "";
-	
+
 	$trandata = isset($_POST["trandata"]) ? $_POST["trandata"] : "";
-	
+
 	if ($trandata != "")
 	{
 		$returnValue = $myObj->parseEncryptedRequest($trandata);
@@ -73,7 +73,7 @@
     {
         $errorText = "Unknown Exception";
     }
-	
+
 
 	// Remove any HTML/CSS/javascrip from the page. Also, you MUST NOT write anything on the page EXCEPT the word "REDIRECT=" (in upper-case only) followed by a URL.
 	// If anything else is written on the page then you will not be able to complete the process.
@@ -157,5 +157,5 @@
 		//Unable to process transaction temporarily. Try again later or try using another card.
 		echo "REDIRECT=https://www.yourWebsite.com/PG/err-response.php";
 	}
-	
+
 ?>

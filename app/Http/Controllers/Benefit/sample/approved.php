@@ -3,7 +3,7 @@
 use App\Http\Controllers\Benefit\Helpers;
 use Benefit\plugin\iPayBenefitPipe;
 
-require('iPayBenefitPipe.php');
+require_once('iPayBenefitPipe.php');
 
 	$myObj =new iPayBenefitPipe();
 

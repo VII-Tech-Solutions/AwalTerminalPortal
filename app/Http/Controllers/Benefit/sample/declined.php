@@ -1,13 +1,13 @@
 <?php
-	require('iPayBenefitPipe.php');
-	
-	$myObj =new iPayBenefitPipe(); 
-	
+	require_once('iPayBenefitPipe.php');
+
+	$myObj =new iPayBenefitPipe();
+
 	// modify the following to reflect your "Alias Name", "resource.cgn" file path, "keystore.pooh" file path.
 	$myObj->setAlias("test");
 	$myObj->setResourcePath("resource/"); //only the path that contains the file; do not write the file name
 	$myObj->setKeystorePath("resource/"); //only the path that contains the file; do not write the file name
-	
+
 	$trandata = "";
 	$paymentID = "";
 	$result = "";
@@ -25,9 +25,9 @@
 	$postDate = "";
 	$errorCode = "";
 	$errorText = "";
-	
+
 	$trandata = isset($_POST["trandata"]) ? $_POST["trandata"] : "";
-	
+
 	if ($trandata != "")
 	{
 		$returnValue = $myObj->parseEncryptedRequest($trandata);
@@ -71,7 +71,7 @@
     {
         $errorText = "Unknown Exception";
     }
-		
+
 	echo $paymentID;
 	echo $result;
 	echo $responseCode;
