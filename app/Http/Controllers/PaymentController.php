@@ -79,6 +79,7 @@ class PaymentController extends CustomController
         $secret = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SECRET, null, CastingTypes::STRING);
         $platform = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PLATFORM, Platforms::MOBILE, CastingTypes::STRING);
         $redirect_to = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REDIRECT_TO, null, CastingTypes::STRING);
+        $error = false;
         if (is_null($redirect_to)) {
             $redirect_to = env('WEBSITE_URL') . '/elite-service?uuid=' . $booking_uuid;
         }
@@ -131,7 +132,6 @@ class PaymentController extends CustomController
             } else {
                 $error = "false";
             }
-            GlobalHelpers::debugger("Error " . $error, DebuggerLevels::INFO);
         } catch (Exception $e) {
             Helpers::captureException($e);
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
@@ -140,11 +140,16 @@ class PaymentController extends CustomController
         }
 
         if ($platform == Platforms::WEB) {
-            $temp_order->status = TransactionStatus::SUCCESS;
-            $temp_order->save();
-            $elite_service = EliteServices::query()->find($temp_order->elite_service_id);
-            $elite_service->markAsPaid();
-            $redirect_to = env('WEBSITE_URL') . '/payment-received?uuid=' . $temp_order->uuid;
+            if ($error) {
+                $redirect_to = env('WEBSITE_URL') . '/payment-failed';
+
+            } else {
+                $temp_order->status = TransactionStatus::SUCCESS;
+                $temp_order->save();
+                $elite_service = EliteServices::query()->find($temp_order->elite_service_id);
+                $elite_service->markAsPaid();
+                $redirect_to = env('WEBSITE_URL') . '/payment-received?uuid=' . $temp_order->uuid;
+            }
         }
 
         return redirect()->to($redirect_to);
