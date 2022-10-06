@@ -18,6 +18,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use VIITech\Helpers\Constants\CastingTypes;
+use VIITech\Helpers\Constants\DebuggerLevels;
 use VIITech\Helpers\Constants\Platforms;
 use VIITech\Helpers\GlobalHelpers;
 
@@ -69,10 +70,14 @@ class PaymentController extends CustomController
     public function verifyBenefitPayment()
     {
 
+        // log request
+        if (env("DEBUGGER_LOGS_ENABLED", false)) {
+            GlobalHelpers::logRequest($this->request, "PaymentController@verifyBenefitPayment");
+        }
+
         $booking_uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BOOKING, null, CastingTypes::STRING);
         $secret = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SECRET, null, CastingTypes::STRING);
         $platform = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PLATFORM, Platforms::MOBILE, CastingTypes::STRING);
-
         $redirect_to = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::REDIRECT_TO, null, CastingTypes::STRING);
         if (is_null($redirect_to)) {
             $redirect_to = env('WEBSITE_URL') . '/elite-service?uuid=' . $booking_uuid;
@@ -84,12 +89,16 @@ class PaymentController extends CustomController
 
         /** @var EliteServices $booking */
         $booking = EliteServices::where(Attributes::UUID, $booking_uuid)->first();
+        GlobalHelpers::debugger("Booking", DebuggerLevels::INFO);
+        GlobalHelpers::debugger($booking, DebuggerLevels::INFO);
         if (is_null($booking)) {
             return redirect()->to($redirect_to . "&error=true");
         }
 
         /** @var Transaction $temp_order */
         $temp_order = Transaction::where(Attributes::UUID, $booking_uuid)->orderByDesc(Attributes::CREATED_AT)->first();
+        GlobalHelpers::debugger("temp order", DebuggerLevels::INFO);
+        GlobalHelpers::debugger($temp_order, DebuggerLevels::INFO);
         if (is_null($temp_order)) {
             return redirect()->to($redirect_to . "&error=true");
         }
