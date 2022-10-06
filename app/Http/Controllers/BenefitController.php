@@ -508,4 +508,59 @@ class BenefitController extends CustomController
     {
         return view('response', ["url" => $url]);
     }
+
+    /**
+     * Verify Payment
+     * @return JsonResponse
+     */
+    function verify() {
+        // log request
+        if (env("DEBUGGER_LOGS_ENABLED", false)) {
+            GlobalHelpers::logRequest($this->request, "BenefitController@verify");
+        }
+
+        // set variables
+        $success = false;
+        $error_message = null;
+
+        // get values
+        $payment_secret = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PAYMENT_SECRET, null, CastingTypes::STRING);
+        $order_id = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::ORDER_ID, null, CastingTypes::STRING);
+        $payment_method = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PAYMENT_METHOD, null, CastingTypes::STRING);
+
+        // validate secret
+        if ($payment_secret != env("PAYMENT_SECRET")) {
+            error_log('payment secret does not match');
+            return response()->json([
+                Attributes::CAPTURED => false,
+                Attributes::ERROR_MESSAGE => $error_message
+            ]);
+        }
+
+        // validate payment method
+        if (empty($payment_method)) {
+            error_log('payment method is empty');
+            return response()->json([
+                Attributes::CAPTURED => false,
+                Attributes::ERROR_MESSAGE => $error_message
+            ]);
+        }
+
+
+        // validate order
+        /** @var Order $order */
+        $order = Order::where(Attributes::ORDER_ID, $order_id)->first();
+        if (!is_null($order)) {
+            if ($order->status == PaymentStatus::SUCCESS) {
+                $success = true;
+            }
+            $error_message = $order->error_message;
+        }
+
+        // return response
+        return response()->json([
+            Attributes::CAPTURED => $success,
+            Attributes::ERROR_MESSAGE => $error_message
+        ]);
+    }
 }

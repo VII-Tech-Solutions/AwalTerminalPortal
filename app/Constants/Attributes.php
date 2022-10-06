@@ -417,5 +417,6 @@ class Attributes extends CustomEnum
     const ERRORTEXT = "ErrorText";
     const UDF3 = "udf3";
     const PAYMENTID = "paymentid";
+    const CAPTURED = "captured";
 
 }

@@ -62,5 +62,6 @@ $api->version('v1', function ($api) {
         $api->post('/benefit/approved', '\App\Http\Controllers\BenefitController@approved');
         $api->post('/benefit/declined', '\App\Http\Controllers\BenefitController@declined');
         $api->get('/benefit/error', '\App\Http\Controllers\BenefitController@error');
+        $api->post('/benefit/verify', '\App\Http\Controllers\BenefitController@verify');
     });
 });

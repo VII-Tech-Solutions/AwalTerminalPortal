@@ -103,7 +103,7 @@ class PaymentController extends CustomController
             Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET"),
         ];
 
-        $url = env('PAYMENT_URL') . '/verify';
+        $url = env('APP_URL') . '/api/benefit/verify';
 
         try {
             $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
