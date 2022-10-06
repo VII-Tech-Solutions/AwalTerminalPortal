@@ -131,6 +131,7 @@ class PaymentController extends CustomController
             } else {
                 $error = "false";
             }
+            GlobalHelpers::debugger("Error " . $error, DebuggerLevels::INFO);
         } catch (Exception $e) {
             Helpers::captureException($e);
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
