@@ -5,7 +5,7 @@ namespace Benefit\plugin;
 use Exception;
 
 require_once("parseResource.php");
-include("Keystore.php");
+require_once("Keystore.php");
 
 class iPayBenefitPipe
 {
