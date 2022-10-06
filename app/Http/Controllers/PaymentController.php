@@ -203,19 +203,12 @@ class PaymentController extends CustomController
                 Attributes::BENEFIT_MIDDLEWARE_TOKEN => env("PAYMENT_SECRET"),
                 Attributes::SUCCESS_URL => $success_url,
                 Attributes::ERROR_URL => $error_url,
-                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID")
+                Attributes::MERCHANT_ID => env("BENEFIT_MERCHANT_ID"),
+                Attributes::DESCRIPTION => "test"
             ];
 
-            $benefit_request_data = Helpers::array_to_multipart_array($benefit_request_data);
-
-            $url = env('PAYMENT_URL') . '/benefit/checkout';
-
-            $client = new Client(['auth' => ['awal', 'password']]);
-
-            $response = $client->request('POST', $url, [
-                'multipart' => $benefit_request_data
-            ]);
-            $response_body = json_decode($response->getBody()->getContents());
+            $url = BenefitController::checkout($benefit_request_data);
+            $response_body = json_decode($url->getContent());
             return $response_body->data->payment_page ?? null;
 
         } catch (Exception|GuzzleException $e) {

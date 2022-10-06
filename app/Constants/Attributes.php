@@ -405,4 +405,17 @@ class Attributes extends CustomEnum
     const ORDER_DATE = "order_date";
     const SERVICE_DATE = "service_date";
     const RESERVATION_DATE = "reservation_date";
+    const PAYMENT_PAGE = "payment_page";
+    const ERROR_MESSAGE = "error_message";
+    const CURRENCY = "currency";
+    const SUCCESS_INDICATOR = "success_indicator";
+    const SESSION_CREATED = "session_created";
+    const SESSION_VERSION = "session_version";
+    const UID = "uid";
+    const GATEWAY = "gateway";
+    const PAYMENT_ID = "payment_id";
+    const ERRORTEXT = "ErrorText";
+    const UDF3 = "udf3";
+    const PAYMENTID = "paymentid";
+
 }
