@@ -228,6 +228,7 @@ class PaymentController extends CustomController
 
         } catch (Exception|GuzzleException $e) {
             Helpers::captureException($e);
+            dd($e);
         }
 
         return null;
