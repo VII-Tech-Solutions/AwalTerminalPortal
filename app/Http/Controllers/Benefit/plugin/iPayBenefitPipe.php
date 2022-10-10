@@ -1,6 +1,6 @@
 <?php
 
-namespace Benefit\plugin;
+namespace App\Http\Controllers\Benefit\plugin;
 
 use Exception;
 
@@ -1243,7 +1243,7 @@ class iPayBenefitPipe
             $resultMap = $this->parseResponse($response);
             return $this->setTransactionData($resultMap);
         } catch (Exception $e) {
-            $this->error = "Internal Error: " + e . getMessage();
+            $this->error = "Internal Error: " . $e->getMessage();
             return -1;
         }
     }
@@ -1603,7 +1603,7 @@ class iPayBenefitPipe
             $resultMap = $this->parseResponse($response);
             return $this->setTransactionData($resultMap);
         } catch (Exception $e) {
-            $this->error = "Error while processing $webaddr! " + $e->getMessage();
+            $this->error = "Error while processing $webaddr! " . $e->getMessage();
             return -1;
         }
     }

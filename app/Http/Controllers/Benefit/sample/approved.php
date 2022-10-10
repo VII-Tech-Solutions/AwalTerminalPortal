@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Benefit\Helpers;
-use Benefit\plugin\iPayBenefitPipe;
+use App\Http\Controllers\Benefit\plugin\iPayBenefitPipe;
 
 require_once('iPayBenefitPipe.php');
 
