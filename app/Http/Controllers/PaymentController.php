@@ -134,15 +134,17 @@ class PaymentController extends CustomController
             }
         } catch (Exception $e) {
             Helpers::captureException($e);
+            dd($e);
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         } catch (GuzzleException $e) {
+            dd($e);
             $redirect_to = env('WEBSITE_URL') . '/payment-failed';
         }
 
         if ($platform == Platforms::WEB) {
             if ($error) {
                 $redirect_to = env('WEBSITE_URL') . '/payment-failed';
-
+                dd($error);
             } else {
                 $temp_order->status = TransactionStatus::SUCCESS;
                 $temp_order->save();
