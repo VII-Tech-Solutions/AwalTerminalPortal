@@ -1,6 +1,6 @@
 <?php
 
-namespace Benefit\plugin;
+namespace App\Http\Controllers\Benefit\plugin;
 
 class KeyStore {
 
