@@ -96,8 +96,8 @@ class BenefitController extends CustomController
         $ipay_benefit_pipe->setType("D");
 
         // modify the following to reflect your pages URLs
-        $ipay_benefit_pipe->setResponseURL(url("/api/benefit/process"));
-        $ipay_benefit_pipe->setErrorURL(url("/api/benefit/process"));
+        $ipay_benefit_pipe->setResponseURL($success_url);
+        $ipay_benefit_pipe->setErrorURL($error_url);
 
         // set a unique track ID for each transaction so you can use it later to match transaction response and identify transactions in your system and “BENEFIT Payment Gateway” portal.
         $ipay_benefit_pipe->setTrackId($order_id);
