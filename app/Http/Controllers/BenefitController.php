@@ -127,7 +127,6 @@ class BenefitController extends CustomController
             Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
         ]);
 
-        GlobalHelpers::debugger("payment page: " . $ipay_benefit_pipe->getwebAddress(), DebuggerLevels::INFO);
         if (trim($ipay_benefit_pipe->performPaymentInitializationHTTP()) != 0) {
             return response()->json([
                 Attributes::DATA => [
@@ -182,8 +181,6 @@ class BenefitController extends CustomController
         $trandata = $this->getData("trandata") ?? "";
         if ($trandata != "") {
             $returnValue = $myObj->parseEncryptedRequest($trandata);
-            GlobalHelpers::debugger("returnValue", DebuggerLevels::INFO);
-            GlobalHelpers::debugger($returnValue, DebuggerLevels::INFO);
             if ($returnValue == 0) {
                 $paymentID = $myObj->getPaymentId();
                 $result = $myObj->getresult();
@@ -204,8 +201,6 @@ class BenefitController extends CustomController
             } else {
                 $errorText = $myObj->getError_text();
             }
-            GlobalHelpers::debugger("myObj", DebuggerLevels::INFO);
-            GlobalHelpers::debugger($myObj->getpaymentId(), DebuggerLevels::INFO);
         } else if ($this->getData("ErrorText") !== null) {
             $paymentID = $this->getData("paymentid");
             $trackID = $this->getData("trackid");
@@ -225,7 +220,6 @@ class BenefitController extends CustomController
         // If anything else is written on the page then you will not be able to complete the process.
 
         if ($myObj->getResult() == "CAPTURED") {
-            GlobalHelpers::debugger("Result Captured", DebuggerLevels::INFO);
             $errorText = "";
             return $this->approved();
         } else if ($myObj->getResult() == "NOT CAPTURED" || $myObj->getResult() == "CANCELED" || $myObj->getResult() == "DENIED BY RISK" || $myObj->getResult() == "HOST TIMEOUT") {
@@ -283,19 +277,15 @@ class BenefitController extends CustomController
                         break;
                 }
             } else if ($myObj->getResult() == "CANCELED") {
-                GlobalHelpers::debugger("Result CANCELED", DebuggerLevels::INFO);
                 $response = "Transaction was canceled by user.";
             } else if ($myObj->getResult() == "DENIED BY RISK") {
-                GlobalHelpers::debugger("Result DENIED BY RISK", DebuggerLevels::INFO);
                 $response = "Maximum number of transactions has exceeded the daily limit.";
             } else if ($myObj->getResult() == "HOST TIMEOUT") {
-                GlobalHelpers::debugger("HOST TIMEOUT", DebuggerLevels::INFO);
                 $response = "Unable to process transaction temporarily. Try again later.";
             }
             $errorText = $response;
             return $this->declined();
         } else {
-            GlobalHelpers::debugger("OTHER ERROR", DebuggerLevels::INFO);
             //Unable to process transaction temporarily. Try again later or try using another card.
             $errorText = "Unable to process transaction temporarily. Try again later or try using another card.";
             return $this->error();
