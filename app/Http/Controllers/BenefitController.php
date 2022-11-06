@@ -74,19 +74,19 @@ class BenefitController extends CustomController
         }
 
         // validate merchant id
-        $merchant_id_from_alias = Helpers::getBenefitAlias();
-        $merchant_id_from_alias = str_replace(env("BENEFIT_ENVIRONMENT", "test"), "", $merchant_id_from_alias);
-        $merchant_id_from_alias = str_replace("test", "", $merchant_id_from_alias);
-        $merchant_id_from_alias = str_replace("prod", "", $merchant_id_from_alias);
-        GlobalHelpers::debugger("Merchant id: " . $merchant_id . ' alias merchant ' . $merchant_id_from_alias, DebuggerLevels::INFO);
-        if ($merchant_id != $merchant_id_from_alias) {
-            return response()->json([
-                Attributes::DATA => [
-                    Attributes::PAYMENT_PAGE => null,
-                    Attributes::ERROR_MESSAGE => "Invalid alias"
-                ]
-            ], 500);
-        }
+//        $merchant_id_from_alias = Helpers::getBenefitAlias();
+//        $merchant_id_from_alias = str_replace(env("BENEFIT_ENVIRONMENT", "test"), "", $merchant_id_from_alias);
+//        $merchant_id_from_alias = str_replace("test", "", $merchant_id_from_alias);
+//        $merchant_id_from_alias = str_replace("prod", "", $merchant_id_from_alias);
+//        GlobalHelpers::debugger("Merchant id: " . $merchant_id . ' alias merchant ' . $merchant_id_from_alias, DebuggerLevels::INFO);
+//        if ($merchant_id != $merchant_id_from_alias) {
+//            return response()->json([
+//                Attributes::DATA => [
+//                    Attributes::PAYMENT_PAGE => null,
+//                    Attributes::ERROR_MESSAGE => "Invalid alias"
+//                ]
+//            ], 500);
+//        }
 
         // gateway accepts 2 decimals only and third one should be zero
         $amount = GlobalHelpers::formatNumber($amount, 2) . 0;
@@ -129,12 +129,14 @@ class BenefitController extends CustomController
         ]);
 
         if (trim($ipay_benefit_pipe->performPaymentInitializationHTTP()) != 0) {
+            GlobalHelpers::debugger("Error", DebuggerLevels::INFO);
             return response()->json([
                 Attributes::DATA => [
                     Attributes::PAYMENT_PAGE => null
                 ]
             ], 500);
         } else {
+            GlobalHelpers::debugger("SUCCESS", DebuggerLevels::INFO);
             return response()->json([
                 Attributes::SUCCESS => true,
                 Attributes::DATA => [
