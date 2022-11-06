@@ -78,6 +78,7 @@ class BenefitController extends CustomController
         $merchant_id_from_alias = str_replace(env("BENEFIT_ENVIRONMENT", "test"), "", $merchant_id_from_alias);
         $merchant_id_from_alias = str_replace("test", "", $merchant_id_from_alias);
         $merchant_id_from_alias = str_replace("prod", "", $merchant_id_from_alias);
+        GlobalHelpers::debugger("Merchant id: " . $merchant_id . ' alias merchant ' . $merchant_id_from_alias, DebuggerLevels::INFO);
         if ($merchant_id != $merchant_id_from_alias) {
             return response()->json([
                 Attributes::DATA => [
