@@ -182,6 +182,8 @@ class BenefitController extends CustomController
         $trandata = $this->getData("trandata") ?? "";
         if ($trandata != "") {
             $returnValue = $myObj->parseEncryptedRequest($trandata);
+            GlobalHelpers::debugger("returnValue", DebuggerLevels::INFO);
+            GlobalHelpers::debugger($returnValue, DebuggerLevels::INFO);
             if ($returnValue == 0) {
                 $paymentID = $myObj->getPaymentId();
                 $result = $myObj->getresult();
@@ -203,7 +205,7 @@ class BenefitController extends CustomController
                 $errorText = $myObj->getError_text();
             }
             GlobalHelpers::debugger("myObj", DebuggerLevels::INFO);
-            GlobalHelpers::debugger(json_encode($myObj), DebuggerLevels::INFO);
+            GlobalHelpers::debugger($myObj->getpaymentId(), DebuggerLevels::INFO);
         } else if ($this->getData("ErrorText") !== null) {
             $paymentID = $this->getData("paymentid");
             $trackID = $this->getData("trackid");
