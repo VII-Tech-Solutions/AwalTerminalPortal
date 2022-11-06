@@ -202,6 +202,7 @@ class BenefitController extends CustomController
             } else {
                 $errorText = $myObj->getError_text();
             }
+            GlobalHelpers::debugger("myObj", DebuggerLevels::INFO);
             GlobalHelpers::debugger(json_encode($myObj), DebuggerLevels::INFO);
         } else if ($this->getData("ErrorText") !== null) {
             $paymentID = $this->getData("paymentid");
