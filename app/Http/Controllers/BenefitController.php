@@ -14,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use VIITech\Helpers\Constants\CastingTypes;
+use VIITech\Helpers\Constants\DebuggerLevels;
 use VIITech\Helpers\GlobalHelpers;
 
 /**
@@ -47,6 +48,7 @@ class BenefitController extends CustomController
      */
     static function checkout($benefit_data)
     {
+        GlobalHelpers::debugger("BenefitController@checkout", DebuggerLevels::INFO);
         require_once("Benefit/plugin/iPayBenefitPipe.php");
 
         $order_uid = Helpers::appendEnvNumber() . time() . Helpers::generateBigRandomNumber();
@@ -96,8 +98,8 @@ class BenefitController extends CustomController
         $ipay_benefit_pipe->setType("D");
 
         // modify the following to reflect your pages URLs
-        $ipay_benefit_pipe->setResponseURL($success_url);
-        $ipay_benefit_pipe->setErrorURL($error_url);
+        $ipay_benefit_pipe->setResponseURL(url("/api/benefit/process"));
+        $ipay_benefit_pipe->setErrorURL(url("/api/benefit/process"));
 
         // set a unique track ID for each transaction so you can use it later to match transaction response and identify transactions in your system and “BENEFIT Payment Gateway” portal.
         $ipay_benefit_pipe->setTrackId($order_id);
@@ -125,6 +127,7 @@ class BenefitController extends CustomController
             Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
         ]);
 
+        GlobalHelpers::debugger("payment page: " . $ipay_benefit_pipe->getwebAddress(), DebuggerLevels::INFO);
         if (trim($ipay_benefit_pipe->performPaymentInitializationHTTP()) != 0) {
             return response()->json([
                 Attributes::DATA => [
