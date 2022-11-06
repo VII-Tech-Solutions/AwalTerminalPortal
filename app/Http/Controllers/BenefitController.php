@@ -129,14 +129,12 @@ class BenefitController extends CustomController
         ]);
 
         if (trim($ipay_benefit_pipe->performPaymentInitializationHTTP()) != 0) {
-            GlobalHelpers::debugger("Error", DebuggerLevels::INFO);
             return response()->json([
                 Attributes::DATA => [
                     Attributes::PAYMENT_PAGE => null
                 ]
             ], 500);
         } else {
-            GlobalHelpers::debugger("SUCCESS", DebuggerLevels::INFO);
             return response()->json([
                 Attributes::SUCCESS => true,
                 Attributes::DATA => [
