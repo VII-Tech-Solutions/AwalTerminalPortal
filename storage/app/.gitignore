@@ -5,8 +5,10 @@
 !benefit/development/alias.txt
 !benefit/development/keystore.pooh
 !benefit/development/resource.cgn
+!benefit/development/keystore.bin
 !benefit/production
 !benefit/production/alias.txt
 !benefit/production/keystore.pooh
 !benefit/production/resource.cgn
+!benefit/production/keystore.bin
 !.gitignore
