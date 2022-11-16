@@ -1,4 +1,12 @@
 *
 !public/
 !benefit/
+!benefit/development
+!benefit/development/alias.txt
+!benefit/development/keystore.pooh
+!benefit/development/resource.cgn
+!benefit/production
+!benefit/production/alias.txt
+!benefit/production/keystore.pooh
+!benefit/production/resource.cgn
 !.gitignore
