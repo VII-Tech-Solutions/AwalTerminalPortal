@@ -23,9 +23,9 @@ th, td {border: 1px solid grey;}
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Here is an overview of all the details you submitted:</p>
     </div>
-    <table>
+    <table style="border-collapse: collapse;">
     <tbody>
-        <tr>
+        <tr style="border: 1px solid grey;">
             <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Status:</td>
             <td>@if($data[1])Arrival @else Departure @endif</td>
         </tr>
@@ -42,7 +42,7 @@ th, td {border: 1px solid grey;}
             <td>{{$data[3]}}</td>
         </tr>
         <tr>
-            <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Number:</td>
+            <td style=" border: 1px solid grey; font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Number:</td>
             <td>{{$data[4]}}</td>
         </tr>
         <tr>
