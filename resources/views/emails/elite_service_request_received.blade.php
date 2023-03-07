@@ -18,73 +18,71 @@
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Here is an overview of all the details you submitted:</p>
     </div>
     <table style="border-collapse: collapse; border: 1px solid gray;">
+    <tbody>
         <tr>
-            <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Flight Status:</td>
-            <td style="padding: 10px;">@if($data[1])Arrival @else Departure @endif</td>
+            <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;">Flight Status:</td>
+            <td style="padding: 2px;">@if($data[1])Arrival @else Departure @endif</td>
         </tr>
         <tr>
-            <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Arriving From:</td>
-            <td style="padding: 10px;">{{$data[9]['name']}}</td>
+            <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Arriving From:</td>
+            <td style="padding: 2px;border-top: 1px solid gray;">{{$data[9]['name']}}</td>
         </tr>
         <tr>
-            <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Date:</td>
-            <td style="padding: 10px;">{{ Carbon\Carbon::createFromFormat('Y-m-d',$data[2])->format('d F, Y') }}</td>
+            <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Date:</td>
+            <td style="padding: 2px;border-top: 1px solid gray;">{{ Carbon\Carbon::createFromFormat('Y-m-d',$data[2])->format('d F, Y') }}</td>
         </tr>
         <tr>
-            <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Time:</td>
-            <td style="padding: 10px;">{{$data[3]}}</td>
+            <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Time:</td>
+            <td style="padding: 2px;border-top: 1px solid gray;">{{$data[3]}}</td>
         </tr>
         <tr>
-            <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Flight Number:</td>
-            <td style="padding: 10px;">{{$data[4]}}</td>
-        </tr>
-    </table>
-    <table style="border-collapse: collapse; border: 1px solid gray;">
-        <tr>
-            <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Adults:</td>
-            <td style="padding: 10px;">{{$data[5]}}</td>
+            <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Flight Number:</td>
+            <td style="padding: 2px;border-top: 1px solid gray;">{{$data[4]}}</td>
         </tr>
         <tr>
-            <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Children:</td>
-            <td style="padding: 10px;">{{$data[6]}}</td>
+            <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Adults:</td>
+            <td style="padding: 2px;border-top: 1px solid gray;">{{$data[5]}}</td>
         </tr>
         <tr>
-            <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Infants:</td>
-            <td style="padding: 10px;">{{$data[7]}}</td>
+            <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Children:</td>
+            <td style="padding: 2px;border-top: 1px solid gray;">{{$data[6]}}</td>
         </tr>
-    </table>
+        <tr>
+            <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Infants:</td>
+            <td style="padding: 2px;border-top: 1px solid gray;">{{$data[7]}}</td>
+        </tr>
         @foreach( $data[8] as $key => $value)
-        <table style="border-collapse: collapse; border: 1px solid gray;">
             <tr>
-                <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Passenger {{$key+1}}:</td>
-                <td style="padding: 10px;"></td>
+                <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Passenger {{$key+1}}:</td>
+                <td style="padding: 2px;border-top: 1px solid gray;"></td>
             </tr>
             <tr>
-                <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Title:</td>
-                <td style="padding: 10px;">{{$value['title']}}</td>
+                <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Title:</td>
+                <td style="padding: 2px;border-top: 1px solid gray;">{{$value['title']}}</td>
             </tr>
             <tr>
-                <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">First Name:</td>
-                <td style="padding: 10px;">{{$value['first_name']}}</td>
+                <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">First Name:</td>
+                <td style="padding: 2px;border-top: 1px solid gray;">{{$value['first_name']}}</td>
             </tr>
             <tr>
-                <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Last Name:</td>
-                <td style="padding: 10px;">{{$value['last_name']}}</td>
+                <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Last Name:</td>
+                <td style="padding: 2px;border-top: 1px solid gray;">{{$value['last_name']}}</td>
             </tr>
             <tr>
-                <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Date of Birth:</td>
-                <td style="padding: 10px;">{{ Carbon\Carbon::createFromFormat('Y-m-d',$value['birth_date'])->format('d F, Y') }}</td>
+                <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Date of Birth:</td>
+                <td style="padding: 2px;border-top: 1px solid gray;">{{ Carbon\Carbon::createFromFormat('Y-m-d',$value['birth_date'])->format('d F, Y') }}</td>
             </tr>
             <tr>
-                <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Nationality:</td>
-                <td style="padding: 10px;">{{$value['nationality_id']['name']}}</td>
+                <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Nationality:</td>
+                <td style="padding: 2px;border-top: 1px solid gray;">{{$value['nationality_id']['name']}}</td>
             </tr>
             <tr>
-                <td style="padding: 10px; font-weight: bold; border-right: 1px solid gray;">Class:</td>
-                <td style="padding: 10px;">{{$value['flight_class']}}</td>
+                <td style="padding: 2px; font-weight: bold; border-right: 1px solid gray;border-top: 1px solid gray;">Class:</td>
+                <td style="padding: 2px;border-top: 1px solid gray;">{{$value['flight_class']}}</td>
             </tr>
-        </table>
         @endforeach
+    </tbody>
+</table>
 
 
     <div>
