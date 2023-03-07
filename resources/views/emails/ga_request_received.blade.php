@@ -24,162 +24,186 @@
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Here is an overview of all the details you submitted:</p>
     </div>
 
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Aircraft Type:
-            {{$data[1]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Registration:
-            {{$data[2]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">MTOW (KG):
-            {{$data[3]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Lead Passenger Name:
-            {{$data[4]}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Purpose of Landing:
-            {{$data[5]}}</p>
-    </div>
-
-
-
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Arrival:</u></p>
+    <div style="margin:2px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Aircraft Type</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[1]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Registration</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[2]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">MTOW (KG)</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[3]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Lead Passenger Name</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[4]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Purpose of Landing</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[5]}}</td>
+            </tr>
+        </table>
     </div>
 
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Call Sign:
-            {{$data[6]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">From Airport:
-            {{$data[7]['name']}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">ETA (UTC Time):
-            {{$data[8]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arrival Date:
-            {{ Carbon\Carbon::createFromFormat('Y-m-d',$data[9])->format('d F, Y') }}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nature of Flight:
-            {{$data[10]}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger Count:
-            {{$data[11]}}</p>
-    </div>
-
-
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Departure:</u></p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Call Sign:
-            {{$data[12]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">To Airport:
-            {{$data[13]['name']}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">ETD (UTC Time):
-            {{$data[14]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Departure Date:
-            {{ Carbon\Carbon::createFromFormat('Y-m-d',$data[15])->format('d F, Y') }}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nature of Flight:
-            {{$data[16]}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger Count:
-            {{$data[17]}}</p>
+    <div style="margin:2px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Arrival:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;"></td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Call Sign:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[6]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">From Airport:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[7]['name']}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">ETA (UTC Time):</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[8]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Arrival Date:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{ Carbon\Carbon::createFromFormat('Y-m-d',$data[9])->format('d F, Y') }}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Nature of Flight:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[10]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Passenger Count:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[11]}}</td>
+            </tr>
+        </table>
     </div>
 
+    <div style="margin:2px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Departure:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;"></td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Call Sign:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[12]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">To Airport:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[13]['name']}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">ETD (UTC Time):</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[14]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Departure Date:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{ Carbon\Carbon::createFromFormat('Y-m-d',$data[15])->format('d F, Y') }}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Nature of Flight:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[16]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Passenger Count:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[17]}}</td>
+            </tr>
+        </table>
+    </div>
 
-
-
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Operator:</u></p>
+    <div style="margin:2px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Operator:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;"></td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Full Name:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[29]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Country:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[18]['name']}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Telephone Number:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[19]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Email Address:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$to_email}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Address:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[20]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Billing Address:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[21]}}</td>
+            </tr>
+        </table>
     </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:
-            {{$data[29]}}</p>
-    </div>    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:
-            {{$data[18]['name']}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:
-            {{$data[19]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:
-            {{$to_email}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:
-            {{$data[20]}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:
-            {{$data[21]}}</p>
-    </div>
-
-
 
 
 @if( $data[22])
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41"><u>Agent:</u></p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Full Name:
-            {{$data[0]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Country:
-            {{$data[23]['name']}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Telephone Number:
-            {{$data[25]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Email Address:
-            {{$data[24]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Address:
-            {{$data[26]}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Billing Address:
-            {{$data[27]}}</p>
+
+    <div style="margin:2px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Agent:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;"></td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Full Name:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[0]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Country:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[23]['name']}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Telephone Number:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[25]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Email Address:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[24]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Address:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[26]}}</td>
+            </tr>
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Billing Address:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[27]}}</td>
+            </tr>
+        </table>
     </div>
 
 @endif
 
 @if($data[28])
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">List of Services:
+
+    <div style="margin:2px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+            <tr>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">List of Services:</td>
+                <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">
             @foreach($data[28] as $key => $value)
                @if($key != 0)
                 ,
                 @endif
             {{$value['name']}}
             @endforeach
-        </p>
+        </td>
+            </tr>
+        </table>
     </div>
+
 @endif
     <br>
 
