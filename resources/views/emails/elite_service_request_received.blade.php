@@ -17,7 +17,8 @@
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Here is an overview of all the details you submitted:</p>
     </div>
-    <table style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+    <div>
+    <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 300px;">
     <tbody>
         <tr>
             <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Flight Status:</td>
@@ -83,6 +84,7 @@
         @endforeach
     </tbody>
 </table>
+</div>
 
 
     <div>
