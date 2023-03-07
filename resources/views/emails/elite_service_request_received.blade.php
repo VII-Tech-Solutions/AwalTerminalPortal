@@ -17,65 +17,73 @@
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Here is an overview of all the details you submitted:</p>
     </div>
-    @if($data[1])
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Status: Arrival</p>
-    </div>
-    @endif
-    @if(!$data[1])
-        <div>
-            <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Status: Departure </p>
-        </div>
-    @endif
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arriving From:
-            {{$data[9]['name']}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date: {{ Carbon\Carbon::createFromFormat('Y-m-d',$data[2])->format('d F, Y') }}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Time: {{$data[3]}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Number: {{$data[4]}}</p>
-    </div>
+    <table>
+    <tbody>
+        <tr>
+            <td>Flight Status:</td>
+            <td>@if($data[1])Arrival @else Departure @endif</td>
+        </tr>
+        <tr>
+            <td>Arriving From:</td>
+            <td>{{$data[9]['name']}}</td>
+        </tr>
+        <tr>
+            <td>Date:</td>
+            <td>{{ Carbon\Carbon::createFromFormat('Y-m-d',$data[2])->format('d F, Y') }}</td>
+        </tr>
+        <tr>
+            <td>Time:</td>
+            <td>{{$data[3]}}</td>
+        </tr>
+        <tr>
+            <td>Flight Number:</td>
+            <td>{{$data[4]}}</td>
+        </tr>
+        <tr>
+            <td>Adults:</td>
+            <td>{{$data[5]}}</td>
+        </tr>
+        <tr>
+            <td>Children:</td>
+            <td>{{$data[6]}}</td>
+        </tr>
+        <tr>
+            <td>Infants:</td>
+            <td>{{$data[7]}}</td>
+        </tr>
+        @foreach( $data[8] as $key => $value)
+            <tr>
+                <td>Passenger {{$key+1}}:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Title:</td>
+                <td>{{$value['title']}}</td>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td>{{$value['first_name']}}</td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>{{$value['last_name']}}</td>
+            </tr>
+            <tr>
+                <td>Date of Birth:</td>
+                <td>{{ Carbon\Carbon::createFromFormat('Y-m-d',$value['birth_date'])->format('d F, Y') }}</td>
+            </tr>
+            <tr>
+                <td>Nationality:</td>
+                <td>{{$value['nationality_id']['name']}}</td>
+            </tr>
+            <tr>
+                <td>Class:</td>
+                <td>{{$value['flight_class']}}</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
 
-
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Adults: {{$data[5]}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Children: {{$data[6]}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Infants: {{$data[7]}}</p>
-    </div>
-@foreach( $data[8] as $key => $value)
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger {{$key+1}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Title: {{$value['title']}}
-         </p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">First Name: {{$value['first_name']}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Last Name: {{$value['last_name']}}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date of Birth: {{ Carbon\Carbon::createFromFormat('Y-m-d',$value['birth_date'])->format('d F, Y') }}</p>
-    </div>
-    <div>
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nationality:
-            {{$value['nationality_id']['name']}}</p>
-    </div>
-    <div style="padding-bottom: 20px">
-        <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Class: {{$value['flight_class']}}</p>
-    </div>
-@endforeach
 
     <div>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">The total amount you are required to pay is BHD{{$data[0]}}.</p>
