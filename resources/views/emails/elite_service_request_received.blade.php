@@ -1,5 +1,11 @@
 @extends('emails.layout')
 @section('content')
+
+<style>
+table {border-collapse: collapse;}
+th, td {border: 1px solid grey;}
+</style>
+
     <div style="display: flex">
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Hi &nbsp;</p>
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #4e89e8">{{$to_name}}</p>
@@ -20,64 +26,64 @@
     <table>
     <tbody>
         <tr>
-            <td>Flight Status:</td>
+            <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Status:</td>
             <td>@if($data[1])Arrival @else Departure @endif</td>
         </tr>
         <tr>
-            <td>Arriving From:</td>
+            <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Arriving From:</td>
             <td>{{$data[9]['name']}}</td>
         </tr>
         <tr>
-            <td>Date:</td>
+            <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date:</td>
             <td>{{ Carbon\Carbon::createFromFormat('Y-m-d',$data[2])->format('d F, Y') }}</td>
         </tr>
         <tr>
-            <td>Time:</td>
+            <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Time:</td>
             <td>{{$data[3]}}</td>
         </tr>
         <tr>
-            <td>Flight Number:</td>
+            <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Flight Number:</td>
             <td>{{$data[4]}}</td>
         </tr>
         <tr>
-            <td>Adults:</td>
+            <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Adults:</td>
             <td>{{$data[5]}}</td>
         </tr>
         <tr>
-            <td>Children:</td>
+            <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Children:</td>
             <td>{{$data[6]}}</td>
         </tr>
         <tr>
-            <td>Infants:</td>
+            <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Infants:</td>
             <td>{{$data[7]}}</td>
         </tr>
         @foreach( $data[8] as $key => $value)
             <tr>
-                <td>Passenger {{$key+1}}:</td>
+                <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Passenger {{$key+1}}:</td>
                 <td></td>
             </tr>
             <tr>
-                <td>Title:</td>
+                <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Title:</td>
                 <td>{{$value['title']}}</td>
             </tr>
             <tr>
-                <td>First Name:</td>
+                <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">First Name:</td>
                 <td>{{$value['first_name']}}</td>
             </tr>
             <tr>
-                <td>Last Name:</td>
+                <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Last Name:</td>
                 <td>{{$value['last_name']}}</td>
             </tr>
             <tr>
-                <td>Date of Birth:</td>
+                <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Date of Birth:</td>
                 <td>{{ Carbon\Carbon::createFromFormat('Y-m-d',$value['birth_date'])->format('d F, Y') }}</td>
             </tr>
             <tr>
-                <td>Nationality:</td>
+                <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Nationality:</td>
                 <td>{{$value['nationality_id']['name']}}</td>
             </tr>
             <tr>
-                <td>Class:</td>
+                <td style="font-size: 15px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Class:</td>
                 <td>{{$value['flight_class']}}</td>
             </tr>
         @endforeach
