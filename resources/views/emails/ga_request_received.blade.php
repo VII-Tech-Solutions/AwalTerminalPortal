@@ -24,8 +24,8 @@
         <p style="font-size: 16px; line-height: 27px;font-family: 'Source Sans Pro', sans-serif; color: #011e41">Here is an overview of all the details you submitted:</p>
     </div>
 
-    <div style="margin:2px;">
-        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 300px;">
+    <div style="margin-top:8px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 350px;">
             <tr>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Aircraft Type</td>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">{{$data[1]}}</td>
@@ -49,8 +49,8 @@
         </table>
     </div>
 
-    <div style="margin:2px;">
-        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 300px;">
+    <div style="margin-top:8px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 350px;">
             <tr>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Arrival:</td>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;"></td>
@@ -82,8 +82,8 @@
         </table>
     </div>
 
-    <div style="margin:2px;">
-        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 300px;">
+    <div style="margin-top:8px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 350px;">
             <tr>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Departure:</td>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;"></td>
@@ -115,8 +115,8 @@
         </table>
     </div>
 
-    <div style="margin:2px;">
-        <table style="border-collapse: collapse; border: 1px solid #d3d3d3; min-width: 300px;">
+    <div style="margin-top:8px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3; min-width: 350px;">
             <tr>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Operator:</td>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;"></td>
@@ -151,8 +151,8 @@
 
 @if( $data[22])
 
-    <div style="margin:2px;">
-        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 300px;">
+    <div style="margin-top:8px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 350px;">
             <tr>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">Agent:</td>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;"></td>
@@ -188,8 +188,8 @@
 
 @if($data[28])
 
-    <div style="margin:2px;">
-        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 300px;">
+    <div style="margin-top:8px;">
+        <table style="border-collapse: collapse; border: 1px solid #d3d3d3;min-width: 350px;">
             <tr>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px; font-weight: bold; border-right: 1px solid #d3d3d3;">List of Services:</td>
                 <td style="font-family: 'Source Sans Pro', sans-serif;padding: 8px;">
