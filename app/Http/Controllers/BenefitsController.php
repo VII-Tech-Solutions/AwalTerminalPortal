@@ -18,10 +18,10 @@ use VIITech\Helpers\Constants\DebuggerLevels;
 use VIITech\Helpers\GlobalHelpers;
 
 /**
- * Class BenefitController
+ * Class BenefitsController
  * @package App\Http\Controllers
  */
-class BenefitController extends CustomController
+class BenefitsController extends CustomController
 {
 
 
@@ -48,7 +48,7 @@ class BenefitController extends CustomController
      */
     static function checkout($benefit_data)
     {
-        GlobalHelpers::debugger("BenefitController@checkout", DebuggerLevels::INFO);
+        GlobalHelpers::debugger("BenefitsController@checkout", DebuggerLevels::INFO);
         require('Benefit/plugin/BenefitAPIPlugin.php');
 
         $order_uid = Helpers::appendEnvNumber() . time() . Helpers::generateBigRandomNumber();
@@ -90,7 +90,7 @@ class BenefitController extends CustomController
 
         // gateway accepts 2 decimals only and third one should be zero
         $amount = GlobalHelpers::formatNumber($amount, 2) . 0;
-        $ipay_benefit_pipe = BenefitController::getBenefitPipe();
+        $ipay_benefit_pipe = BenefitsController::getBenefitPipe();
 
         // Do NOT change the values of the following parameters at all.
         $ipay_benefit_pipe->setAction("1");
@@ -155,7 +155,7 @@ class BenefitController extends CustomController
 
         // log request
         if (env("DEBUGGER_LOGS_ENABLED", false)) {
-            GlobalHelpers::logRequest($this->request, "BenefitController@process");
+            GlobalHelpers::logRequest($this->request, "BenefitsController@process");
         }
 
         $myObj = $this->getBenefitPipe();
@@ -520,7 +520,7 @@ class BenefitController extends CustomController
     function verify() {
         // log request
         if (env("DEBUGGER_LOGS_ENABLED", false)) {
-            GlobalHelpers::logRequest($this->request, "BenefitController@verify");
+            GlobalHelpers::logRequest($this->request, "BenefitsController@verify");
         }
 
         // set variables
