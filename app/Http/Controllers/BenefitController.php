@@ -44,66 +44,6 @@ class BenefitController extends CustomController
 
     /**
      * Checkout
-     * @return JsonResponse|string
-     */
-    static function benefitCheckout($benefit_data)
-    {
-        GlobalHelpers::debugger("BenefitController@checkout", DebuggerLevels::INFO);
-        require('Benefit/plugin/BenefitAPIPlugin.php');
-
-        $order_uid = Helpers::appendEnvNumber() . time() . Helpers::generateBigRandomNumber();
-
-        $success_url = $benefit_data[Attributes::SUCCESS_URL];
-        $error_url = $benefit_data[Attributes::ERROR_URL];
-
-        $amount = $benefit_data[Attributes::AMOUNT];
-        $order_id = $benefit_data[Attributes::ORDER_ID];
-        $description = $benefit_data[Attributes::DESCRIPTION];
-        $customer_phone_number = $benefit_data[Attributes::CUSTOMER_PHONE_NUMBER];
-        $payment_secret = $benefit_data[Attributes::PAYMENT_SECRET];
-        $merchant_id = $benefit_data[Attributes::MERCHANT_ID];
-
-        $pipe = new \Benefit\plugin\iPayBenefitPipe();
-        $pipe->setkey(env('TERMINAL_RESOURCEKEY'));
-        $pipe->setid(env('TRANPORTAL_ID'));
-        $pipe->setpassword(env('TRANPORTAL_PASSWORD'));
-        $pipe->setaction("1");
-        $pipe->setcardType("D");
-        $pipe->setcurrencyCode("048");
-
-        $pipe->setresponseURL(url("/api/benefit/process"));
-        $pipe->seterrorURL(url("/api/benefit/process"));
-        $pipe->setudf2($customer_phone_number);
-        $pipe->setudf3($order_uid);
-
-        $pipe->settrackId((string)$order_id);
-        $pipe->setamt($amount);
-
-        $isSuccess = $pipe->performeTransaction();
-        if ($isSuccess == 1) {
-            // create order
-            $order = Order::createOrder([
-                Attributes::ORDER_ID => $order_id,
-                Attributes::AMOUNT => $amount,
-                Attributes::CURRENCY => Currency::BHD,
-                Attributes::SESSION_CREATED => true,
-                Attributes::SUCCESS_URL => $success_url,
-                Attributes::ERROR_URL => $error_url,
-                Attributes::DESCRIPTION => $description,
-                Attributes::GATEWAY => PaymentGateways::BENEFIT,
-                Attributes::STATUS => PaymentStatus::PENDING,
-                Attributes::UID => $order_uid,
-                Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
-            ]);
-            return $pipe->getresult();
-        } else {
-            return $pipe->geterror() . ' ' . $pipe->geterrorText();
-        }
-    }
-
-
-    /**
-     * Checkout
      * @return JsonResponse
      */
     static function checkout($benefit_data)
