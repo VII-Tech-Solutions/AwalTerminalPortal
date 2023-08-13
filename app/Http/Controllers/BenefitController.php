@@ -21,7 +21,7 @@ use VIITech\Helpers\GlobalHelpers;
  * Class BenefitsController
  * @package App\Http\Controllers
  */
-class BenefitsController extends CustomController
+class BenefitController extends CustomController
 {
 
 
@@ -90,7 +90,7 @@ class BenefitsController extends CustomController
 
         // gateway accepts 2 decimals only and third one should be zero
         $amount = GlobalHelpers::formatNumber($amount, 2) . 0;
-        $ipay_benefit_pipe = BenefitsController::getBenefitPipe();
+        $ipay_benefit_pipe = BenefitController::getBenefitPipe();
 
         // Do NOT change the values of the following parameters at all.
         $ipay_benefit_pipe->setAction("1");

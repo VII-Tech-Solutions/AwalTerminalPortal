@@ -224,7 +224,7 @@ class PaymentController extends CustomController
                 Attributes::DESCRIPTION => "test"
             ];
 
-            return BenefitsController::checkout($benefit_request_data);
+            return BenefitController::checkout($benefit_request_data);
 
         } catch (Exception|GuzzleException $e) {
             Helpers::captureException($e);
