@@ -58,10 +58,10 @@ $api->version('v1', function ($api) {
         $api->get('/payments/verify-credimax','\App\Http\Controllers\PaymentController@verifyCredimaxPayment'); // Verify Credimax Payment
         $api->get('/receipt/{transaction_id}', 'EliteServiceController@generateReceipt');
         $api->get('/benefit/checkout', '\App\Http\Controllers\PaymentController@checkout');
-        $api->post('/benefit/process', '\App\Http\Controllers\BenefitController@process');
-        $api->post('/benefit/approved', '\App\Http\Controllers\BenefitController@approved');
-        $api->post('/benefit/declined', '\App\Http\Controllers\BenefitController@declined');
-        $api->get('/benefit/error', '\App\Http\Controllers\BenefitController@error');
-        $api->post('/benefit/verify', '\App\Http\Controllers\BenefitController@verify');
+        $api->post('/benefit/process', '\App\Http\Controllers\BenefitPaymentController@process');
+        $api->post('/benefit/approved', '\App\Http\Controllers\BenefitPaymentController@approved');
+        $api->post('/benefit/declined', '\App\Http\Controllers\BenefitPaymentController@declined');
+        $api->get('/benefit/error', '\App\Http\Controllers\BenefitPaymentController@error');
+        $api->post('/benefit/verify', '\App\Http\Controllers\BenefitPaymentController@verify');
     });
 });
