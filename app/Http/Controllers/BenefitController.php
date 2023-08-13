@@ -64,14 +64,14 @@ class BenefitController extends CustomController
         $merchant_id = $benefit_data[Attributes::MERCHANT_ID];
 
         // validate secret
-//        if ($payment_secret != env("PAYMENT_SECRET")) {
-//            return response()->json([
-//                Attributes::DATA => [
-//                    Attributes::PAYMENT_PAGE => null,
-//                    Attributes::ERROR_MESSAGE => "Invalid secret"
-//                ]
-//            ], 500);
-//        }
+        if ($payment_secret != env("PAYMENT_SECRET")) {
+            return response()->json([
+                Attributes::DATA => [
+                    Attributes::PAYMENT_PAGE => null,
+                    Attributes::ERROR_MESSAGE => "Invalid secret"
+                ]
+            ], 500);
+        }
 
         // validate merchant id
 //        $merchant_id_from_alias = Helpers::getBenefitAlias();
