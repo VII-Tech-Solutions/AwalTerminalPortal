@@ -629,9 +629,10 @@ class Helpers
      * Append Env Number
      * @return int|null
      */
-    static function appendEnvNumber(){
+    static function appendEnvNumber()
+    {
         $env = env("APP_ENV");
-        switch ($env){
+        switch ($env) {
             case "local":
                 return 1;
             case "beta":
@@ -651,19 +652,21 @@ class Helpers
      *
      * @return string
      */
-    static function generateBigRandomNumber( $len = 9 ) {
-        $rand   = '';
-        while( !( isset( $rand[$len-1] ) ) ) {
-            $rand   .= mt_rand( );
+    static function generateBigRandomNumber($len = 9)
+    {
+        $rand = '';
+        while (!(isset($rand[$len - 1]))) {
+            $rand .= mt_rand();
         }
-        return substr( $rand , 0 , $len );
+        return substr($rand, 0, $len);
     }
 
     /**
      * Get Benefit Alias
      * @return string|null
      */
-    static function getBenefitAlias() {
+    static function getBenefitAlias()
+    {
         $alias_path = Helpers::getBenefitAuthFolderPath() . "alias.txt";
         return trim(file_get_contents($alias_path));
     }
@@ -672,7 +675,69 @@ class Helpers
      * Get Auth Folder Path
      * @return string|null
      */
-    static function getBenefitAuthFolderPath() {
+    static function getBenefitAuthFolderPath()
+    {
         return storage_path("app/benefit/" . env("BENEFIT_ENVIRONMENT", "test") . "/");
+    }
+
+    /**
+     * Parse Query
+     * @param $str
+     * @param $urlEncoding
+     * @return array
+     */
+    static function parseQuery($str, $urlEncoding = true)
+    {
+        $result = [];
+
+        if ($str === '') {
+            return $result;
+        }
+
+        if ($urlEncoding === true) {
+            $decoder = function ($value) {
+                return rawurldecode(str_replace('+', ' ', $value));
+            };
+        } elseif ($urlEncoding === PHP_QUERY_RFC3986) {
+            $decoder = 'rawurldecode';
+        } elseif ($urlEncoding === PHP_QUERY_RFC1738) {
+            $decoder = 'urldecode';
+        } else {
+            $decoder = function ($str) {
+                return $str;
+            };
+        }
+
+        foreach (explode('&', $str) as $kvp) {
+            $parts = explode('=', $kvp, 2);
+            $key = $decoder($parts[0]);
+            $value = isset($parts[1]) ? $decoder($parts[1]) : null;
+            if (!isset($result[$key])) {
+                $result[$key] = $value;
+            } else {
+                if (!is_array($result[$key])) {
+                    $result[$key] = [$result[$key]];
+                }
+                $result[$key][] = $value;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Replace First Instance
+     * @param $value
+     * @param string $find
+     * @param string $replace
+     * @return mixed
+     */
+    static function replaceFirstInstance($value, $find = "?", $replace = "&")
+    {
+        $pos = strpos($value, $find);
+        if ($pos !== false) {
+            $value = substr($value, 0, $pos + 1) . str_replace($find, $replace, substr($value, $pos + 1));
+        }
+        return str_replace("&&", "&", $value);
     }
 }

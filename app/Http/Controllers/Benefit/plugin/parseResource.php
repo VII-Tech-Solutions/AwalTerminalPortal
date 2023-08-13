@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Benefit\plugin;
+namespace Benefit\plugin;
 
 use ZipArchive;
 

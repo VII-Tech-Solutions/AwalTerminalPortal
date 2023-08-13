@@ -31,4 +31,24 @@ return [
         'region' => env('AWS_SES_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'merchant' => [
+        'name' => env('MERCHANT_NAME'),
+        'address_1' => env('MERCHANT_ADDRESS_1'),
+        'address_2' => env('MERCHANT_ADDRESS_2'),
+        'currency' => env('MERCHANT_CURRENCY', 'BHD'),
+    ],
+
+    'credimax' => [
+        'gateway_name' => env('GATEWAY_NAME'),
+        'merchant_id' => env('CREDIMAX_MERCHANT_ID'),
+        'api_password' => env('CREDIMAX_API_PASSWORD'),
+    ],
+
+    'benefit' => [
+        'payment_secret' => env('PAYMENT_SECRET'),
+        'merchant_id' => env('BENEFIT_MERCHANT_ID'),
+    ],
+
+    'website_url' => env('WEBSITE_URL'),
+
 ];

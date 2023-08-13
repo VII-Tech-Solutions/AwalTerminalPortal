@@ -12,6 +12,7 @@ use App\Models\EliteServices;
 use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use VIITech\Helpers\GlobalHelpers;
 
@@ -91,6 +92,8 @@ class HomeController extends CustomController
     function processPayment(Request $request, $uuid)
     {
 
+        Log::info("processPayment@HomeController");
+
         // get payment method
         $payment_method = $request->get(Attributes::PAYMENT_METHOD);
         switch ($payment_method) {
@@ -133,7 +136,7 @@ class HomeController extends CustomController
             $transaction->save();
         }
 
-        $secret = env("PAYMENT_SECRET");
+        $secret = config('services.benefit.payment_secret');
 
         // redirect to payment gateway
         if ($payment_method == PaymentProvider::CREDIMAX) {
@@ -141,26 +144,29 @@ class HomeController extends CustomController
             $error_url = url("/api/payments/verify-credimax?booking=$transaction->uuid&secret=$secret&platform=web");
 
             // build url query
-            $query = http_build_query([
+            $data = [
                 Attributes::SUCCESS_URL => $success_url,
                 Attributes::ERROR_URL => $error_url,
                 Attributes::AMOUNT => $transaction->amount,
                 Attributes::ORDER_ID => $transaction->uuid,
                 Attributes::TRANSACTION_ORDER_ID => $transaction->order_id,
                 Attributes::DESCRIPTION => "Awal Private Terminal Elite Services",
-            ]);
+            ];
 
-            // go to payment page
-            return redirect()->to(env("CREDIMAX_URL") . "/checkout?$query");
+            Log::info('data: ' . json_encode($data));
+
+            // payment url
+            $payment_url = CredimaxController::checkout($data);
+            return $payment_url;
 
         } else if ($payment_method == PaymentProvider::BENEFIT) {
 
-            $secret = env("PAYMENT_SECRET");
+            $secret = config('services.benefit.payment_secret');
 
 //            $success_url = url("/api/payments/verify-benefit?booking=$transaction->uuid&secret=$secret&platform=web");
-            $success_url = env('WEBSITE_URL') . '/payment-received?uuid=' . $transaction->uuid;
+            $success_url = config('services.website_url') . '/payment-received?uuid=' . $transaction->uuid;
 //            $error_url = url("/api/payments/verify-benefit?booking=$transaction->uuid&secret=$secret&platform=web");
-            $error_url = env('WEBSITE_URL') . '/payment-failed';
+            $error_url = config('services.website_url') . '/payment-failed';
 
             $booker = $elite_service->booker()->first();
 
@@ -174,7 +180,7 @@ class HomeController extends CustomController
 
 
         // redirect to link expired
-        return redirect()->to(env("WEBSITE_URL") . "/link-expired");
+        return redirect()->to(config('services.website_url') . "/link-expired");
 
     }
 
