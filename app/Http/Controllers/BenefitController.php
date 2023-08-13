@@ -89,60 +89,60 @@ class BenefitController extends CustomController
 //        }
 
         // gateway accepts 2 decimals only and third one should be zero
-//        $amount = GlobalHelpers::formatNumber($amount, 2) . 0;
-//        $ipay_benefit_pipe = BenefitController::getBenefitPipe();
-//
-//        // Do NOT change the values of the following parameters at all.
-//        $ipay_benefit_pipe->setAction("1");
-//        $ipay_benefit_pipe->setCurrency("048");
-//        $ipay_benefit_pipe->setLanguage("USA");
-//        $ipay_benefit_pipe->setType("D");
-//
-//        // modify the following to reflect your pages URLs
-//        $ipay_benefit_pipe->setResponseURL(url("/api/benefit/process"));
-//        $ipay_benefit_pipe->setErrorURL(url("/api/benefit/process"));
-//
-//        // set a unique track ID for each transaction so you can use it later to match transaction response and identify transactions in your system and “BENEFIT Payment Gateway” portal.
-//        $ipay_benefit_pipe->setTrackId($order_id);
-//
-//        // set transaction amount
-//        $ipay_benefit_pipe->setAmt($amount);
-//
-//        // The following user-defined fields (UDF1, UDF2, UDF3, UDF4, UDF5) are optional fields.
-//        // However, we recommend setting theses optional fields with invoice/product/customer identification information as they will be reflected in “BENEFIT Payment Gateway” portal where you will be able to link transactions to respective customers. This is helpful for dispute cases.
-//        $ipay_benefit_pipe->setUdf2($customer_phone_number);
-//        $ipay_benefit_pipe->setUdf3($order_uid);
-//
-//        // create order
-//        Order::createOrder([
-//            Attributes::ORDER_ID => $order_id,
-//            Attributes::AMOUNT => $amount,
-//            Attributes::CURRENCY => Currency::BHD,
-//            Attributes::SESSION_CREATED => true,
-//            Attributes::SUCCESS_URL => $success_url,
-//            Attributes::ERROR_URL => $error_url,
-//            Attributes::DESCRIPTION => $description,
-//            Attributes::GATEWAY => PaymentGateways::BENEFIT,
-//            Attributes::STATUS => PaymentStatus::PENDING,
-//            Attributes::UID => $order_uid,
-//            Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
-//        ]);
-//
-//        if (trim($ipay_benefit_pipe->performPaymentInitializationHTTP()) != 0) {
-//            return response()->json([
-//                Attributes::DATA => [
-//                    Attributes::PAYMENT_PAGE => null
-//                ]
-//            ], 500);
-//        } else {
-//            return response()->json([
-//                Attributes::SUCCESS => true,
-//                Attributes::DATA => [
-//                    Attributes::PAYMENT_PAGE => $ipay_benefit_pipe->getwebAddress(),
-//                    Attributes::UID => $order_uid,
-//                ]
-//            ]);
-//        }
+        $amount = GlobalHelpers::formatNumber($amount, 2) . 0;
+        $ipay_benefit_pipe = BenefitController::getBenefitPipe();
+
+        // Do NOT change the values of the following parameters at all.
+        $ipay_benefit_pipe->setAction("1");
+        $ipay_benefit_pipe->setCurrency("048");
+        $ipay_benefit_pipe->setLanguage("USA");
+        $ipay_benefit_pipe->setType("D");
+
+        // modify the following to reflect your pages URLs
+        $ipay_benefit_pipe->setResponseURL(url("/api/benefit/process"));
+        $ipay_benefit_pipe->setErrorURL(url("/api/benefit/process"));
+
+        // set a unique track ID for each transaction so you can use it later to match transaction response and identify transactions in your system and “BENEFIT Payment Gateway” portal.
+        $ipay_benefit_pipe->setTrackId($order_id);
+
+        // set transaction amount
+        $ipay_benefit_pipe->setAmt($amount);
+
+        // The following user-defined fields (UDF1, UDF2, UDF3, UDF4, UDF5) are optional fields.
+        // However, we recommend setting theses optional fields with invoice/product/customer identification information as they will be reflected in “BENEFIT Payment Gateway” portal where you will be able to link transactions to respective customers. This is helpful for dispute cases.
+        $ipay_benefit_pipe->setUdf2($customer_phone_number);
+        $ipay_benefit_pipe->setUdf3($order_uid);
+
+        // create order
+        Order::createOrder([
+            Attributes::ORDER_ID => $order_id,
+            Attributes::AMOUNT => $amount,
+            Attributes::CURRENCY => Currency::BHD,
+            Attributes::SESSION_CREATED => true,
+            Attributes::SUCCESS_URL => $success_url,
+            Attributes::ERROR_URL => $error_url,
+            Attributes::DESCRIPTION => $description,
+            Attributes::GATEWAY => PaymentGateways::BENEFIT,
+            Attributes::STATUS => PaymentStatus::PENDING,
+            Attributes::UID => $order_uid,
+            Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
+        ]);
+
+        if (trim($ipay_benefit_pipe->performPaymentInitializationHTTP()) != 0) {
+            return response()->json([
+                Attributes::DATA => [
+                    Attributes::PAYMENT_PAGE => null
+                ]
+            ], 500);
+        } else {
+            return response()->json([
+                Attributes::SUCCESS => true,
+                Attributes::DATA => [
+                    Attributes::PAYMENT_PAGE => $ipay_benefit_pipe->getwebAddress(),
+                    Attributes::UID => $order_uid,
+                ]
+            ]);
+        }
     }
 
     /**
