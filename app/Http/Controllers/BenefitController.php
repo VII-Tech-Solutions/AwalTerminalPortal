@@ -8,8 +8,7 @@ use App\Constants\Currency;
 use App\Constants\PaymentGateways;
 use App\Constants\PaymentStatus;
 use App\Helpers;
-use App\Models\Transaction;
-use Benefit\plugin\iPayBenefitPipe;
+use App\Http\Controllers\Benefit\plugin\iPayBenefitPipe;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -27,13 +26,30 @@ class BenefitController extends CustomController
 
 
     /**
+     * Get iPayBenefitPipe Object
+     * @return iPayBenefitPipe
+     */
+    static function getBenefitPipe()
+    {
+        $ipay_benefit_pipe = new iPayBenefitPipe();
+
+        // modify the following to reflect your "Alias Name", "resource.cgn" file path, "keystore.pooh" file path.
+        $ipay_benefit_pipe->setAlias(Helpers::getBenefitAlias());
+        $ipay_benefit_pipe->setResourcePath(Helpers::getBenefitAuthFolderPath()); //only the path that contains the file; do not write the file name
+        $ipay_benefit_pipe->setKeystorePath(Helpers::getBenefitAuthFolderPath()); //only the path that contains the file; do not write the file name
+
+        return $ipay_benefit_pipe;
+    }
+
+
+    /**
      * Checkout
-     * @return JsonResponse|string
+     * @return JsonResponse
      */
     static function checkout($benefit_data)
     {
         GlobalHelpers::debugger("BenefitController@checkout", DebuggerLevels::INFO);
-        require('Benefit/plugin/BenefitAPIPlugin.php');
+        require_once("Benefit/plugin/iPayBenefitPipe.php");
 
         $order_uid = Helpers::appendEnvNumber() . time() . Helpers::generateBigRandomNumber();
 
@@ -47,172 +63,234 @@ class BenefitController extends CustomController
         $payment_secret = $benefit_data[Attributes::PAYMENT_SECRET];
         $merchant_id = $benefit_data[Attributes::MERCHANT_ID];
 
-        $pipe = new iPayBenefitPipe();
-        $pipe->setkey(env('TERMINAL_RESOURCEKEY'));
-        $pipe->setid(env('TRANPORTAL_ID'));
-        $pipe->setpassword(env('TRANPORTAL_PASSWORD'));
-        $pipe->setaction("1");
-        $pipe->setcardType("D");
-        $pipe->setcurrencyCode("048");
+        // validate secret
+        if ($payment_secret != env("PAYMENT_SECRET")) {
+            return response()->json([
+                Attributes::DATA => [
+                    Attributes::PAYMENT_PAGE => null,
+                    Attributes::ERROR_MESSAGE => "Invalid secret"
+                ]
+            ], 500);
+        }
 
-        $pipe->setresponseURL(url("/api/benefit/process"));
-        $pipe->seterrorURL(url("/api/benefit/process"));
-        $pipe->setudf2($customer_phone_number);
-        $pipe->setudf3($order_uid);
+        // validate merchant id
+//        $merchant_id_from_alias = Helpers::getBenefitAlias();
+//        $merchant_id_from_alias = str_replace(env("BENEFIT_ENVIRONMENT", "test"), "", $merchant_id_from_alias);
+//        $merchant_id_from_alias = str_replace("test", "", $merchant_id_from_alias);
+//        $merchant_id_from_alias = str_replace("prod", "", $merchant_id_from_alias);
+//        GlobalHelpers::debugger("Merchant id: " . $merchant_id . ' alias merchant ' . $merchant_id_from_alias, DebuggerLevels::INFO);
+//        if ($merchant_id != $merchant_id_from_alias) {
+//            return response()->json([
+//                Attributes::DATA => [
+//                    Attributes::PAYMENT_PAGE => null,
+//                    Attributes::ERROR_MESSAGE => "Invalid alias"
+//                ]
+//            ], 500);
+//        }
 
-        $pipe->settrackId((string)$order_id);
-        $pipe->setamt($amount);
+        // gateway accepts 2 decimals only and third one should be zero
+        $amount = GlobalHelpers::formatNumber($amount, 2) . 0;
+        $ipay_benefit_pipe = BenefitController::getBenefitPipe();
 
-        $isSuccess = $pipe->performeTransaction();
-        if ($isSuccess == 1) {
-            // create order
-            $order = Order::createOrder([
-                Attributes::ORDER_ID => $order_id,
-                Attributes::AMOUNT => $amount,
-                Attributes::CURRENCY => Currency::BHD,
-                Attributes::SESSION_CREATED => true,
-                Attributes::SUCCESS_URL => $success_url,
-                Attributes::ERROR_URL => $error_url,
-                Attributes::DESCRIPTION => $description,
-                Attributes::GATEWAY => PaymentGateways::BENEFIT,
-                Attributes::STATUS => PaymentStatus::PENDING,
-                Attributes::UID => $order_uid,
-                Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
-            ]);
-            return $pipe->getresult();
+        // Do NOT change the values of the following parameters at all.
+        $ipay_benefit_pipe->setAction("1");
+        $ipay_benefit_pipe->setCurrency("048");
+        $ipay_benefit_pipe->setLanguage("USA");
+        $ipay_benefit_pipe->setType("D");
+
+        // modify the following to reflect your pages URLs
+        $ipay_benefit_pipe->setResponseURL(url("/api/benefit/process"));
+        $ipay_benefit_pipe->setErrorURL(url("/api/benefit/process"));
+
+        // set a unique track ID for each transaction so you can use it later to match transaction response and identify transactions in your system and “BENEFIT Payment Gateway” portal.
+        $ipay_benefit_pipe->setTrackId($order_id);
+
+        // set transaction amount
+        $ipay_benefit_pipe->setAmt($amount);
+
+        // The following user-defined fields (UDF1, UDF2, UDF3, UDF4, UDF5) are optional fields.
+        // However, we recommend setting theses optional fields with invoice/product/customer identification information as they will be reflected in “BENEFIT Payment Gateway” portal where you will be able to link transactions to respective customers. This is helpful for dispute cases.
+        $ipay_benefit_pipe->setUdf2($customer_phone_number);
+        $ipay_benefit_pipe->setUdf3($order_uid);
+
+        // create order
+        Order::createOrder([
+            Attributes::ORDER_ID => $order_id,
+            Attributes::AMOUNT => $amount,
+            Attributes::CURRENCY => Currency::BHD,
+            Attributes::SESSION_CREATED => true,
+            Attributes::SUCCESS_URL => $success_url,
+            Attributes::ERROR_URL => $error_url,
+            Attributes::DESCRIPTION => $description,
+            Attributes::GATEWAY => PaymentGateways::BENEFIT,
+            Attributes::STATUS => PaymentStatus::PENDING,
+            Attributes::UID => $order_uid,
+            Attributes::CUSTOMER_PHONE_NUMBER => $customer_phone_number,
+        ]);
+
+        if (trim($ipay_benefit_pipe->performPaymentInitializationHTTP()) != 0) {
+            return response()->json([
+                Attributes::DATA => [
+                    Attributes::PAYMENT_PAGE => null
+                ]
+            ], 500);
         } else {
-            return $pipe->geterror() . ' ' . $pipe->geterrorText();
+            return response()->json([
+                Attributes::SUCCESS => true,
+                Attributes::DATA => [
+                    Attributes::PAYMENT_PAGE => $ipay_benefit_pipe->getwebAddress(),
+                    Attributes::UID => $order_uid,
+                ]
+            ]);
         }
     }
 
     /**
      * Process
-     * @return string
+     * @return View
      */
     function process()
     {
-        require_once("Benefit/plugin/BenefitAPIPlugin.php");
+        require_once("Benefit/plugin/iPayBenefitPipe.php");
 
-        $trandata = isset($_POST['trandata']) ? $_POST['trandata'] : "";
-
-        if ($trandata != "") {
-            $pipe = new iPayBenefitPipe();
-
-            // modify the following to reflect your "Terminal Resourcekey"
-            $pipe->setkey(env('TERMINAL_RESOURCEKEY'));
-
-            $pipe->settrandata($trandata);
-
-            $returnValue = $pipe->parseResponseTrandata();
-            if ($returnValue == 1) {
-                $paymentID = $pipe->getpaymentId();
-                $result = $pipe->getresult();
-                $responseCode = $pipe->getauthRespCode();
-                $transactionID = $pipe->gettransId();
-                $referenceID = $pipe->getref();
-                $trackID = $pipe->gettrackId();
-                $amount = $pipe->getamt();
-                $UDF1 = $pipe->getudf1();
-                $UDF2 = $pipe->getudf2();
-                $UDF3 = $pipe->getudf3();
-                $UDF4 = $pipe->getudf4();
-                $UDF5 = $pipe->getudf5();
-                $authCode = $pipe->getauthCode();
-                $postDate = $pipe->gettranDate();
-                $errorCode = $pipe->geterror();
-                $errorText = $pipe->geterrorText();
-
-                // Remove any HTML/CSS/javascrip from the page. Also, you MUST NOT write anything on the page EXCEPT the word "REDIRECT=" (in upper-case only) followed by a URL.
-                // If anything else is written on the page then you will not be able to complete the process.
-                if ($pipe->getresult() == "CAPTURED") {
-                    $errorText = "";
-                    return "REDIRECT=" . url('/api/benefit/approved');
-                } else if ($pipe->getresult() == "NOT CAPTURED" || $pipe->getresult() == "CANCELED" || $pipe->getresult() == "DENIED BY RISK" || $pipe->getresult() == "HOST TIMEOUT") {
-                    if ($pipe->getresult() == "NOT CAPTURED") {
-                        switch ($pipe->getAuthRespCode()) {
-                            case "05":
-                                $response = "Please contact issuer";
-                                break;
-                            case "14":
-                                $response = "Invalid card number";
-                                break;
-                            case "33":
-                                $response = "Expired card";
-                                break;
-                            case "36":
-                                $response = "Restricted card";
-                                break;
-                            case "38":
-                                $response = "Allowable PIN tries exceeded";
-                                break;
-                            case "51":
-                                $response = "Insufficient funds";
-                                break;
-                            case "54":
-                                $response = "Expired card";
-                                break;
-                            case "55":
-                                $response = "Incorrect PIN";
-                                break;
-                            case "61":
-                                $response = "Exceeds withdrawal amount limit";
-                                break;
-                            case "62":
-                                $response = "Restricted Card";
-                                break;
-                            case "65":
-                                $response = "Exceeds withdrawal frequency limit";
-                                break;
-                            case "75":
-                                $response = "Allowable number PIN tries exceeded";
-                                break;
-                            case "76":
-                                $response = "Ineligible account";
-                                break;
-                            case "78":
-                                $response = "Refer to Issuer";
-                                break;
-                            case "91":
-                                $response = "Issuer is inoperative";
-                                break;
-                            default:
-                                // for unlisted values, please generate a proper user-friendly message
-                                $response = "Unable to process transaction temporarily. Try again later or try using another card.";
-                                break;
-                        }
-                    } else if ($pipe->getresult() == "CANCELED") {
-                        $response = "Transaction was canceled by user.";
-                    } else if ($pipe->getresult() == "DENIED BY RISK") {
-                        $response = "Maximum number of transactions has exceeded the daily limit.";
-                    } else if ($pipe->getresult() == "HOST TIMEOUT") {
-                        $response = "Unable to process transaction temporarily. Try again later.";
-                    }
-                    return "REDIRECT=" . url('/api/benefit/declined');
-                } else {
-                    //Unable to process transaction temporarily. Try again later or try using another card.
-                    return "REDIRECT=" . url('/api/benefit/error');
-                }
-            } else {
-                $errorText = $pipe->geterrorText();
-            }
-
-        } else if (isset($_POST['ErrorText'])) {
-            $paymentID = $_POST["paymentid"];
-            $trackID = $_POST["trackid"];
-            $amount = $_POST["amt"];
-            $UDF1 = $_POST["udf1"];
-            $UDF2 = $_POST["udf2"];
-            $UDF3 = $_POST["udf3"];
-            $UDF4 = $_POST["udf4"];
-            $UDF5 = $_POST["udf5"];
-            $errorText = $_POST["ErrorText"];
-            return "REDIRECT=" . url('/api/benefit/declined');
-        } else {
-            $errorText = "Unknown Exception";
-            return "REDIRECT=" . url('/api/benefit/error');
+        // log request
+        if (env("DEBUGGER_LOGS_ENABLED", false)) {
+            GlobalHelpers::logRequest($this->request, "BenefitController@process");
         }
 
-        return "REDIRECT=" . url('/api/benefit/error');
+        $myObj = $this->getBenefitPipe();
+
+        $trandata = "";
+        $paymentID = "";
+        $result = "";
+        $responseCode = "";
+        $response = "";
+        $transactionID = "";
+        $referenceID = "";
+        $trackID = "";
+        $amount = "";
+        $UDF1 = "";
+        $UDF2 = "";
+        $UDF3 = "";
+        $UDF4 = "";
+        $UDF5 = "";
+        $authCode = "";
+        $postDate = "";
+        $errorCode = "";
+        $errorText = "";
+
+        $trandata = $this->getData("trandata") ?? "";
+        if ($trandata != "") {
+            $returnValue = $myObj->parseEncryptedRequest($trandata);
+            if ($returnValue == 0) {
+                $paymentID = $myObj->getPaymentId();
+                $result = $myObj->getresult();
+                $responseCode = $myObj->getAuthRespCode();
+                $transactionID = $myObj->getTransId();
+                $referenceID = $myObj->getRef();
+                $trackID = $myObj->getTrackId();
+                $amount = $myObj->getAmt();
+                $UDF1 = $myObj->getUdf1();
+                $UDF2 = $myObj->getUdf2();
+                $UDF3 = $myObj->getUdf3();
+                $UDF4 = $myObj->getUdf4();
+                $UDF5 = $myObj->getUdf5();
+                $authCode = $myObj->getAuth();
+                $postDate = $myObj->getDate();
+                $errorCode = $myObj->getError();
+                $errorText = $myObj->getError_text();
+            } else {
+                $errorText = $myObj->getError_text();
+            }
+        } else if ($this->getData("ErrorText") !== null) {
+            $paymentID = $this->getData("paymentid");
+            $trackID = $this->getData("trackid");
+            $amount = $this->getData("amt");
+            $UDF1 = $this->getData("udf1");
+            $UDF2 = $this->getData("udf2");
+            $UDF3 = $this->getData("udf3");
+            $UDF4 = $this->getData("udf4");
+            $UDF5 = $this->getData("udf5");
+            $errorText = $this->getData("ErrorText");
+        } else {
+            $errorText = "Unknown Exception";
+        }
+
+
+        // Remove any HTML/CSS/javascript from the page. Also, you MUST NOT write anything on the page EXCEPT the word "REDIRECT=" (in upper-case only) followed by a URL.
+        // If anything else is written on the page then you will not be able to complete the process.
+
+        if ($myObj->getResult() == "CAPTURED") {
+            $errorText = "";
+            return $this->approved();
+        } else if ($myObj->getResult() == "NOT CAPTURED" || $myObj->getResult() == "CANCELED" || $myObj->getResult() == "DENIED BY RISK" || $myObj->getResult() == "HOST TIMEOUT") {
+            if ($myObj->getResult() == "NOT CAPTURED") {
+                GlobalHelpers::debugger("Result Not Captured", DebuggerLevels::INFO);
+                switch ($myObj->getAuthRespCode()) {
+                    case "05":
+                        $response = "Please contact issuer";
+                        break;
+                    case "14":
+                        $response = "Invalid card number";
+                        break;
+                    case "33":
+                        $response = "Expired card";
+                        break;
+                    case "36":
+                        $response = "Restricted card";
+                        break;
+                    case "38":
+                        $response = "Allowable PIN tries exceeded";
+                        break;
+                    case "51":
+                        $response = "Insufficient funds";
+                        break;
+                    case "54":
+                        $response = "Expired card";
+                        break;
+                    case "55":
+                        $response = "Incorrect PIN";
+                        break;
+                    case "61":
+                        $response = "Exceeds withdrawal amount limit";
+                        break;
+                    case "62":
+                        $response = "Restricted Card";
+                        break;
+                    case "65":
+                        $response = "Exceeds withdrawal frequency limit";
+                        break;
+                    case "75":
+                        $response = "Allowable number PIN tries exceeded";
+                        break;
+                    case "76":
+                        $response = "Ineligible account";
+                        break;
+                    case "78":
+                        $response = "Refer to Issuer";
+                        break;
+                    case "91":
+                        $response = "Issuer is inoperative";
+                        break;
+                    default:
+                        // for unlisted values, please generate a proper user-friendly message
+                        $response = "Unable to process transaction temporarily. Try again later or try using another card.";
+                        break;
+                }
+            } else if ($myObj->getResult() == "CANCELED") {
+                $response = "Transaction was canceled by user.";
+            } else if ($myObj->getResult() == "DENIED BY RISK") {
+                $response = "Maximum number of transactions has exceeded the daily limit.";
+            } else if ($myObj->getResult() == "HOST TIMEOUT") {
+                $response = "Unable to process transaction temporarily. Try again later.";
+            }
+            $errorText = $response;
+            return $this->declined();
+        } else {
+            //Unable to process transaction temporarily. Try again later or try using another card.
+            $errorText = "Unable to process transaction temporarily. Try again later or try using another card.";
+            return $this->error();
+        }
     }
 
     /**
@@ -222,17 +300,9 @@ class BenefitController extends CustomController
     function approved()
     {
 
-        require_once("Benefit/plugin/BenefitAPIPlugin.php");
+        require_once("Benefit/plugin/iPayBenefitPipe.php");
 
-        $myObj = new iPayBenefitPipe();
-        $myObj->setkey(env('TERMINAL_RESOURCEKEY'));
-
-        // get parameters
-        $payment_id = $this->getData("paymentid") ?? null;
-        $order_id = explode('-', $this->getData("trackid"))[0] ?? null;
-
-        // get transaction
-        $transaction = Transaction::where(Attributes::ORDER_ID, $order_id)->first();
+        $myObj = $this->getBenefitPipe();
 
         $trandata = "";
         $paymentID = "";
@@ -304,10 +374,9 @@ class BenefitController extends CustomController
     function declined()
     {
 
-        require_once("Benefit/plugin/BenefitAPIPlugin.php");
+        require_once("Benefit/plugin/iPayBenefitPipe.php");
 
-        $myObj = new iPayBenefitPipe();
-        $myObj->setkey(env('TERMINAL_RESOURCEKEY'));
+        $myObj = $this->getBenefitPipe();
 
         $trandata = "";
         $paymentID = "";
