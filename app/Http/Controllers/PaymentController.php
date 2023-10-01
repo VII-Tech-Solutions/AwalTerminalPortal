@@ -16,6 +16,7 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use VIITech\Helpers\Constants\CastingTypes;
 use VIITech\Helpers\Constants\DebuggerLevels;
@@ -242,19 +243,21 @@ class PaymentController extends CustomController
         $success = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::SUCCESS, false, CastingTypes::BOOLEAN);
         $booking_uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::BOOKING, null, CastingTypes::STRING);
         $platform = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::PLATFORM, Platforms::MOBILE, CastingTypes::STRING);
-
+        Log::info("Secret: " . $secret . " - Success: " . $success . " - booking_uuid: " . $booking_uuid . " - Platform: " . $platform);
         if (empty($booking_uuid)) {
             $booking_uuid = GlobalHelpers::getValueFromHTTPRequest($this->request, Attributes::UUID, null, CastingTypes::STRING);
         }
 
         /** @var EliteServices $booking */
         $booking = EliteServices::where(Attributes::UUID, $booking_uuid)->first();
+        Log::info("Booking ID: " . $booking->id);
         if (is_null($booking)) {
             return $this->redirectTo($platform, null, true);
         }
 
         /** @var Transaction $temp_order */
         $temp_order = Transaction::where(Attributes::UUID, $booking_uuid)->orderByDesc(Attributes::CREATED_AT)->first();
+        Log::info("Temp Order Id: " . $temp_order->id);
         if (is_null($temp_order)) {
             return $this->redirectTo($platform, $temp_order, true);
         }
